@@ -3,6 +3,7 @@ title: Seki's note
 # email: your-email@domain.com
 description: > # this means to ignore newlines until "baseurl:"
   <a href="http://goo.gl/cfy0gV">Seki</a>'s personal note.
+  <a href="http://seki.sblo.jp/">Old blog</a>.
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://sekika.github.io" # the base hostname & protocol for your site
 twitter_username: seki
