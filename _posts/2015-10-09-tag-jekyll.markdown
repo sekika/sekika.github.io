@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "GitHub Page の Jekyll でカテゴリ / タグの作成"
-date:   2015-10-09
+date:   2015-10-09 08:00:00
 tag: jekyll
 ---
 Jekyll には様々なプラグインがあり、プラグインを使うとカテゴリやタグを管理できる。
