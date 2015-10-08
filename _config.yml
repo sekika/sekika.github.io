@@ -7,6 +7,8 @@ baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://sekika.github.io" # the base hostname & protocol for your site
 twitter_username: seki
 github_username:  sekika
+linkedin_username:    sekik
+facebook_username:    katsutoshi.seki
 
 # Build settings
 markdown: kramdown
