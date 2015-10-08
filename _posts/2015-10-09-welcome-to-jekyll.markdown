@@ -2,7 +2,7 @@
 layout: post
 title:  "Jekyll によるブログ作成"
 date:   2015-10-09 01:46:09
-categories: jekyll
+tag: jekyll
 ---
 Jekyll でブログを構築。
 ちょっとしたメモに使う予定。
