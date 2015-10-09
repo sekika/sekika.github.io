@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "GitHub Page の Jekyll でカテゴリ / タグの作成"
+title:  "GitHub Pages の Jekyll でカテゴリ / タグの作成"
 date:   2015-10-09 20:00:00
 tag: jekyll
 ---
