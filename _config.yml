@@ -2,7 +2,7 @@
 title: Seki's note
 # email: your-email@domain.com
 description: > # this means to ignore newlines until "baseurl:"
-  Seki</a>'s personal note. 関のメモ帳です。
+  Seki's personal note. 関のメモ帳です。
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://sekika.github.io" # the base hostname & protocol for your site
 twitter_username: seki
@@ -12,3 +12,11 @@ facebook_username:    katsutoshi.seki
 
 # Build settings
 markdown: kramdown
+permalink: pretty
+
+# pagination
+paginate: 5
+pagenate_path: "page:num"
+
+highlighter: "pygments"
+
