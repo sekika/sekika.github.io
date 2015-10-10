@@ -1,8 +1,9 @@
 ---
 layout: post
 title:  "GitHub Pages の Jekyll でカテゴリ / タグの作成"
-date:   2015-10-09 20:00:00
-tag: jekyll
+tags:
+- jekyll
+- github
 ---
 Jekyll には様々なプラグインがあり、プラグインを使うとカテゴリやタグを管理できる。
 しかし、GitHub Pages では、プラグインを使えないので、ローカルで jekyll を動かしてアップする、というちょっと面倒なことをする必要があるとのこと。
