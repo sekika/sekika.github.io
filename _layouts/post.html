@@ -19,13 +19,13 @@ layout: default
 公開日：{{ page.date | date: "%Y年%-m月%-d日" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}<br />
     タグ：
 {% capture tags %}
-  {% for tag in page.tag %}
+  {% for tag in page.tags %}
     {{ tag }}
   {% endfor %}
 {% endcapture %}
-{% assign sortedtags = tags | split:' ' | sort %}
+{% assign eachtag = tags | split:' ' %}
 
-{% for tag in sortedtags %}
+{% for tag in eachtag %}
   <a href="/tags/{{ tag }}/index.html">{{ tag }}</a>
 {% endfor %}
 
