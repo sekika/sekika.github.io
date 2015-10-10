@@ -8,8 +8,7 @@ tags:
 
 [_layouts/post.html](https://github.com/sekika/sekika.github.io/blob/master/_layouts/post.html) に、以下の記述を加えた。
 
-<pre>
-キーワード：
+<pre><code>キーワード：
 &lcub;% capture tags %&rcub;
   &lcub;% for tag in page.tags %&rcub;
     &lcub;&lcub; tag &rcub;&rcub;
@@ -20,6 +19,6 @@ tags:
 &lcub;% for tag in eachtag %&rcub;
   &lt;a href="/tags/&lcub;&lcub; tag }}/index.html">&lcub;&lcub; tag }}&lt;/a>
 &lcub;% endfor %&rcub;
-</pre>
+</code></pre>
 
 これで、キーワードが表示され、そのキーワードの記事一覧へとべるようになった。複数のキーワードにも対応していることを確認した。
