@@ -15,7 +15,20 @@ layout: default
     <div class="page-header">
       <h1>{{ page.title }}</h1>
     </div>
-    <p>{{ page.date | date: "%b %-d, %Y" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}
+    <p class="text-right">著者：<a href="http://www.amazon.co.jp/-/e/B00ADGVC1W">関 勝寿</a><br />
+公開日：{{ page.date | date: "%Y年%-m月%-d日" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}<br />
+    タグ：
+{% capture tags %}
+  {% for tag in page.tag %}
+    {{ tag }}
+  {% endfor %}
+{% endcapture %}
+{% assign sortedtags = tags | split:' ' | sort %}
+
+{% for tag in sortedtags %}
+  <a href="/tags/{{ tag }}/index.html">{{ tag }}</a>
+{% endfor %}
+
     </p>
   </header>
 
