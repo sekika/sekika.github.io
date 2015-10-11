@@ -14,16 +14,9 @@
 
     <div class="collapse navbar-collapse" id="mynavbar-content">
       <ul class="nav navbar-nav">
-        
-        {% for page in site.pages %}
-        {% if page.title %}
-        
-	    <li><a href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a></li>
-	    
-        {% endif %}
-        {% endfor %}
+        {% for page in site.pages %}{% if page.title %}<li><a href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a></li>{% endif %}{% endfor %}
         <li><a href="{{ "/tags/english/index.html" | prepend: site.baseurl }}">English</a></li>
-        <li><a href="{{ "/feed.xml" | prepend: site.baseurl }}">RSS</a></li>        
+        <li><a href="{{ "/feed.xml" | prepend: site.baseurl }}">RSS</a></li>
       </ul>
     </div>
   </div>
