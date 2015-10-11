@@ -24,4 +24,4 @@ If you have comments on this site, post an issue to <a href="https://github.com/
 <li><a href="http://builtwithbootstrap.com/">Bootstrap</a> と <a href="http://bootswatch.com/flatly/">Flatly</a> テーマ</li>
 </ul>
 
-[過去のブログ]({% post_url 2015-10-11-old-blog %})。
+[過去のブログ]({% post_url 2015-10-11-old-blog %})
