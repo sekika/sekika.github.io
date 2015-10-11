@@ -3,7 +3,7 @@ layout: default
 ---
 
 <div class="container">
-<h1>Posts about {{ page.tag | capitalize }}</h1>
+<h1>{{ page.tag | capitalize }} posts</h1>
 
 <ul>
 {% for post in site.tags[page.tag] %}
