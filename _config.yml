@@ -1,14 +1,10 @@
 # Site settings
 title: Seki's note
-# email: your-email@domain.com
-description: > # this means to ignore newlines until "baseurl:"
-  Seki's personal note. 関のメモ帳です。
-baseurl: "" # the subpath of your site, e.g. /blog/
-url: "http://sekika.github.io" # the base hostname & protocol for your site
-twitter_username: seki
-github_username:  sekika
-linkedin_username:    sekik
-facebook_username:    katsutoshi.seki
+description: Katsutoshi Seki's personal note.
+author: <a href="http://www.amazon.co.jp/-/e/B00ADGVC1W">関 勝寿</a>
+author-en: <a href="https://scholar.google.com/citations?user=Gs_ABawAAAAJ">Katsutoshi Seki</a>
+baseurl: "" 
+url: "http://sekika.github.io" 
 
 # Build settings
 markdown: kramdown
