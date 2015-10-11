@@ -2,8 +2,7 @@
   <div class="page-header">
     <h1>{{ page.title }}</h1>
   </div>
-  <p class="text-right">Author: <a href="https://scholar.google.fr/citations?user=Gs_ABawAAAAJ">Katsutoshi Seki</a><br />
-Date: {{ page.date | date: "%b %-d, %Y" }}{% if page.meta %} • {{ page.meta }}{% endif %}<br />
+  <p class="text-right">{{ page.date | date: "%b %-d, %Y" }} by <a href="https://scholar.google.fr/citations?user=Gs_ABawAAAAJ">Katsutoshi Seki</a>{% if page.meta %} • {{ page.meta }}{% endif %}<br />
 Tags:
 {% capture tags %}
 {% for tag in page.tags %}
