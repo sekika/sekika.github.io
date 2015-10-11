@@ -17,7 +17,8 @@ title: Tags
 
 <ul>
 {% for tag in sortedtags %}
-  <li><a href="{{ tag }}/index.html">{{ tag }}</a></li>
+  {% assign posts = site.tags[tag] | size %}
+  <li><a href="{{ tag }}/index.html">{% if posts > 3 %}<strong>{% endif %}{{ tag }}{% if posts > 3 %}</strong>{% endif %}</a></li>
 {% endfor %}
 </ul>
 
