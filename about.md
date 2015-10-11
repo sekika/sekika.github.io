@@ -5,6 +5,7 @@ permalink: /about/
 ---
 
 This site is a personal note of {{ site.author-en }}. Here is a list of <a href="http://sekika.github.io/tags/english/index.html">English posts</a>.
+
 If you have comments on this site, post an issue to <a href="https://github.com/sekika/sekika.github.io">GitHub repository of this site</a> or send an email to <a href="http://www.sciencedirect.com/science/article/pii/S0016706115000622">the author of this paper</a>.
 
 {{ site.author }}がちょっとしたことを書き留めるメモとして使っています。
