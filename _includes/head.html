@@ -5,15 +5,14 @@
   
   <!-- custom meta tags from page -->
   <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
-  <meta name="keywords" content="{% if page.tags %}{{ page.tags }}{% else %}{{ site.keywords }}{% endif %}">
-  
+  <meta name="keywords" content="{% capture tags %}{% for tag in page.tags %}{{ tag | capitalize }}, {% endfor %}{% endcapture %}{{ tags }}">
+ 
   <!-- custom title from page -->
   <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
 
   <!-- Bootstrap CSS file -->
   <link href="{{ "/css/bootstrap.min.css" | prepend: site.baseurl }}" rel="stylesheet">
 
-  <!-- Social sharing CSS file at http://www.himpfen.com/social-sharing-buttons-bootstrap-font-awesome/ -->
   <link href="{{ "/css/social-sharing.css" | prepend: site.baseurl }}" rel="stylesheet">
 
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
