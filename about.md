@@ -10,11 +10,6 @@ If you have comments on this site, post an issue to <a href="https://github.com/
 
 {{ site.author }}がちょっとしたことを書き留めるメモとして使っています。
 
-<ul>
-<li><a href="http://seki.sblo.jp/">古いブログ</a></li>
-<li><a href="http://researchmap.jp/sekik/%E3%83%96%E3%83%AD%E3%82%B0/">別館</a></li>
-</ul>
-
 著者にコメントを送る方法には、いくつかあります。
 
 <ul>
@@ -29,3 +24,4 @@ If you have comments on this site, post an issue to <a href="https://github.com/
 <li><a href="http://builtwithbootstrap.com/">Bootstrap</a> と <a href="http://bootswatch.com/flatly/">Flatly</a> テーマ</li>
 </ul>
 
+[過去のブログ]({% post_url 2015-10-11-old-blog %})。
