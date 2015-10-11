@@ -6,7 +6,7 @@ permalink: /search/
 
 <div class="container">
 
-<p>Google でこのサイト内を検索します。</p>
+Google でこのサイト内を検索します。
 
 <div id='cse' style='width: 100%;'>Loading</div>
 <script src='//www.google.com/jsapi' type='text/javascript'></script>
