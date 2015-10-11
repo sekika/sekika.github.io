@@ -4,7 +4,7 @@ title: About
 permalink: /about/
 ---
 
-This site is a personal note for <a href="https://scholar.google.com/citations?user=Gs_ABawAAAAJ">Seki</a>.
+This site is a personal note for <a href="https://scholar.google.com/citations?user=Gs_ABawAAAAJ">Seki</a>. Here is a list of <a href="http://sekika.github.io/tags/english/index.html">English posts</a>.
 
 <a href="http://www.amazon.co.jp/-/e/B00ADGVC1W">関</a>がちょっとしたことを書き留めるメモとして使っています。
 
