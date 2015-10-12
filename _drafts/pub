@@ -45,12 +45,16 @@ if [ `diff $Filename ../_posts/$DestFile | wc -l` -ne 2 ]; then
   echo "Something wrong. Stop. Check ../_posts/$DestFile"; exit
 fi
 echo "Committing to repository."
-cd ../posts
-git pull
+cd ../_posts
 git add $DestFile
 git commit -m "Published on "$Site_URL
 echo "Push to master repository."
 git push origin master
 echo "Published successfully."
+echo "Removing draft."
+cd ../_drafts
+git rm $Filename
+git commit -m "Remove draft because it was published"
+git push origin master
 echo "Wait for some time and check $Site_URL"
 
