@@ -18,11 +18,9 @@ Date 自動挿入
 http://d.hatena.ne.jp/rx7/touch/20110310/p1
 Commit message に Published on http://sekika.github.io
 
-=== クイックレファレンス（チートシート） ===
-==> エントリにする
-gist はりつけ
-https://gist.github.com/benbalter/5555251#file-gist-md
-{% gist 5555251 %}
+=== サンプル ===
+チートシート
+https://raw.githubusercontent.com/sekika/sekika.github.io/master/_drafts/cheetsheet.md
 
 ヘッダ
 ---
