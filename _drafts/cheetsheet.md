@@ -5,11 +5,24 @@ tag: jekyll
 ---
 マークダウン記法、Kramdown 記法の簡単なまとめです。
 
+# コードブロック
+
+~~~~~~~~
+Here comes some code.
+~~~~~~~~
+
 ## 表
+
+|---
+| デフォルト | 左寄せ | センタリング | 右寄せ
+|-|:-|:-:|-:
+| First body part | Second cell | Third cell | fourth cell
+| Second line |foo | **strong** | baz
+| Third line |quux | baz | bar
 
 ## 数式
 
-[数式に関する記事]({% post_url 2015-10-10-equation-on-jekyll %})
+[Jekyll 上での数式の表示]({% post_url 2015-10-10-equation-on-jekyll %})
 
 ## gist
 
