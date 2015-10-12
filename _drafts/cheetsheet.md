@@ -67,7 +67,13 @@ $$
 
 {% gist 63b5987deb3baca8f546 %}
 
+## 特殊文字
+
+&amp; &lt; &gt; &copy;
+
 # 参考サイト
 
 - [Markdown syntax](http://daringfireball.net/projects/markdown/syntax)
 - [Kramdown syntax](http://kramdown.gettalong.org/syntax.html)
+- [Liquid Documentation](https://github.com/Shopify/liquid/wiki)
+- [HTML Entity List](http://www.freeformatter.com/html-entities.html)
