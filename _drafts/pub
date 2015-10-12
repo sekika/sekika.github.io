@@ -1,0 +1,17 @@
+#!/bin/sh
+#
+# A shell script to publish draft
+#
+# Usage: ./pub Filename
+#
+# (1) Copy Filename to ../_post/YY-MM-DD-Filename
+#     - date: is added
+# (2) The file is commited to git with commit message of:
+#     Published on http://sekika.github.io
+# (3) The draft file is removed from the git repository
+# (4) The chage is pushed to master branch
+#
+
+URL=http://sekika.github.io
+Filename=$1
+ 
