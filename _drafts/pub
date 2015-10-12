@@ -4,14 +4,53 @@
 #
 # Usage: ./pub Filename
 #
-# (1) Copy Filename to ../_post/YY-MM-DD-Filename
-#     - date: is added
+# (1) Copy Filename to ../_posts/YY-MM-DD-Filename
+#     with "date:" field added
 # (2) The file is commited to git with commit message of:
-#     Published on http://sekika.github.io
+#     Published on $Site_URL
 # (3) The draft file is removed from the git repository
 # (4) The chage is pushed to master branch
 #
 
-URL=http://sekika.github.io
+Site_URL=http://sekika.github.io
+
 Filename=$1
- 
+if [ -z $Filename ]; then
+  grep "^#" $0; exit
+fi
+
+if [ -e $Filename ]; then
+  if [ -r $Filname ]; then
+    if [ -d ../_posts ]; then
+      if [ -w ../_posts ]; then
+        DestFile=`date -u +%Y-%m-%d-`$Filename
+      else
+        echo "Directory ../_posts is not writable"; exit
+      fi
+    else
+      echo "Directory ../_posts does not exist"; exit
+    fi
+  else
+    echo "$Filename is not readable"; exit
+  fi
+else
+  echo "$Filename does not exist"; exit
+fi
+
+echo "Copying $Filename to ../_posts/$DestFile"
+date="date: "`date -u +%Y-%m-%d" "%T`" +0000"
+echo "Adding Front matter: $date"
+awk '{print}/^title:/{X=NR}NR==X{print "DATEDATEDATE"}' $Filename | sed -e "s/DATEDATEDATE/$date/" > ../_posts/$DestFile
+if [ `diff $Filename ../_posts/$DestFile | wc -l` -ne 2 ]; then
+  echo "Something wrong. Stop. Check ../_posts/$DestFile"; exit
+fi
+echo "Committing to repository."
+cd ../posts
+git pull
+git add $DestFile
+git commit -m "Published on "$Site_URL
+echo "Push to master repository."
+git push origin master
+echo "Published successfully."
+echo "Wait for some time and check $Site_URL"
+
