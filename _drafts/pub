@@ -46,15 +46,16 @@ if [ `diff $Filename ../_posts/$DestFile | wc -l` -ne 2 ]; then
 fi
 echo "Committing to repository."
 cd ../_posts
-git add $DestFile
-git commit -m "Published on "$Site_URL
-echo "Push to master repository."
-git push origin master
+git add $DestFile || { echo "git add failed. Stop."; exit; }
+git commit -m "Published on "$Site_URL || { echo "Commit failed. Stop."; exit; }
+echo "Pushing to master repository."
+git push origin master || { echo "Push failed. Stop."; exit; }
 echo "Published successfully."
 echo "Removing draft."
 cd ../_drafts
-git rm $Filename
-git commit -m "Remove draft because it was published"
-git push origin master
-echo "Wait for some time and check $Site_URL"
+git rm $Filename || { echo "git rm failed. Stop."; exit; }
+git commit -m "Remove draft because it was published" || { echo "Commit failed. Stop."; exit; }
+git push origin master || { echo "Push failed. Stop."; exit; }
+echo "Draft removed successfully."
+echo "Now wait for some time and check published post at $Site_URL"
 
