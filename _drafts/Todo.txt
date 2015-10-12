@@ -6,6 +6,7 @@ Drafts 管理
 /usr/local/bin/cot
 #!/bin/sh
 open $1 -a /Applications/CotEditor.app
+http://news.mynavi.jp/column/osxhack/109/
 
 === Jekyll 管理 ===
 Drafts 内に、公開ページへのリンク記事作成
