@@ -1,22 +1,43 @@
 ---
-layout: post
+layout: math
 title: マークダウンチートシート
 tag: jekyll
 ---
 マークダウン記法、Kramdown 記法の簡単なまとめです。[ソースコード](https://raw.githubusercontent.com/sekika/sekika.github.io/master/_drafts/cheetsheet.md)参照。
 
-> ## This is a header.
+## 基本
+
+- なべ
+- やかん
+
+（引用）
+
+> ## ヘッダー
 > 
-> 1.   This is the first list item.
-> 2.   This is the second list item.
+> 1.   1個目
+> 2.   2個目
 > 
-> Here's some example code:
+> コードの例
 > 
 >     return shell_exec("echo $input | $markdown_script");
 
 ~~~~~~~~
 Here comes some code.
 ~~~~~~~~
+
+~~~ ruby
+def what?
+  42
+end
+~~~
+
+kramdown
+: A Markdown-superset converter
+
+Maruku
+:     Another Markdown-superset converter
+
+This is some text.[^1]. Other text.[^footnote].
 
 ## 表
 
@@ -31,15 +52,22 @@ Here comes some code.
 
 ## 数式
 
-[Jekyll 上での数式の表示]({% post_url 2015-10-10-equation-on-jekyll %})
+- [Jekyll 上での数式の表示]({% post_url 2015-10-10-equation-on-jekyll %})
 
-## gist
+$$
+\begin{align*}
+\frac{\partial \theta}{\partial t}= \frac{\partial}{\partial z}
+\left[ K(\theta) \left (\frac{\partial \psi}{\partial z} + 1 \right) \right]\
+\end{align*}
+$$
 
-https://gist.github.com/benbalter/5555251#file-gist-md
+## Gist
 
-{% gist c25d956b1c5cc2490406 %}
+- [How to embed a Gist on GitHub Pages using Jekyll](https://gist.github.com/benbalter/5555251)
+
+{% gist 63b5987deb3baca8f546 %}
 
 # 参考サイト
+
 - [Markdown syntax](http://daringfireball.net/projects/markdown/syntax)
 - [Kramdown syntax](http://kramdown.gettalong.org/syntax.html)
-- [How to embed a Gist on GitHub Pages using Jekyll](https://gist.github.com/benbalter/5555251)
