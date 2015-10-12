@@ -3,4 +3,4 @@ all:
 	- git commit -m draft
 	git push origin master
 	open http://localhost:4000/
-	cd ..; jekyll serve --drafts
+	cd ..; jekyll serve --drafts --host localhost
