@@ -1,3 +1,10 @@
+---
+layout: post
+title: To Do リスト
+tag: jekyll
+---
+これから書く記事や、サイト管理に関する ToDo です。永遠に Drafts のままです。
+
 === 記事 ===
 Todo管理 トドうち
 Word 編集履歴
