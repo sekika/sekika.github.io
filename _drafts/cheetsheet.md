@@ -1,9 +1,9 @@
 ---
 layout: math
-title: マークダウンチートシート
+title: マークダウン文法チートシート
 tag: jekyll
 ---
-マークダウン記法、Kramdown 記法の簡単なまとめです。[ソースコード](https://raw.githubusercontent.com/sekika/sekika.github.io/master/_drafts/cheetsheet.md)参照。
+マークダウン記法、Kramdown 記法を、このサイトの著者が自分用に簡潔にまとめたものです。[ソースコード](https://raw.githubusercontent.com/sekika/sekika.github.io/master/_drafts/cheetsheet.md)を参照して使います。適宜、アップデートします。
 
 ## 基本
 
