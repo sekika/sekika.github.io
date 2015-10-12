@@ -4,7 +4,7 @@ title: マークダウン文法チートシート
 date: 2015-10-12 20:29:21 +0000
 tag: jekyll
 ---
-マークダウン記法、Kramdown 記法を、このサイトの著者が自分用に簡潔にまとめたものです。[ソースコード](https://raw.githubusercontent.com/sekika/sekika.github.io/master/_drafts/cheetsheet.md)を参照して使います。適宜、アップデートします。
+マークダウン記法、Kramdown 記法を、このサイトの著者が自分用に簡潔にまとめたものです。[ソースコード](https://raw.githubusercontent.com/sekika/sekika.github.io/master/_posts/2015-10-12-cheetsheet.md)を参照して使います。適宜、アップデートします。
 
 ## 基本
 
