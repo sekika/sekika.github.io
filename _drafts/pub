@@ -8,8 +8,9 @@
 #     with "date:" field added
 # (2) The file is commited to git with commit message of:
 #     Published on $Site_URL
-# (3) The draft file is removed from the git repository
-# (4) The chage is pushed to master branch
+# (3) The change is pushed to master branch
+# (4) The draft file is removed from the git repository
+# (5) Now just wait for jekyll at GitHub Pages to build
 #
 
 Site_URL=http://sekika.github.io
