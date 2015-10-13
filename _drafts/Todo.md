@@ -16,7 +16,7 @@ tag: jekyll
 
 ## Jekyll 管理 ##
 - 関連キーワード
-- タグ一覧ページに description 表示
+- http://sekika.github.io/tags/ に、タグの description をひろうか？ひろえるか？
 
 ### Drafts 公開スクリプト pub ###
 - Date 自動挿入
