@@ -14,7 +14,7 @@ cd git
 ./CreateRepository repository
 ~~~
 
-で簡単にリポジトリが作成できるようになった。
+で簡単にリポジトリを作成して ssh でアクセスできるように設定できるようになった。
 
 これが CreateRepository.sh で、3行目の ```host=hostname.example.com``` をリポジトリを作成するホストのホスト名に変えて使う。
 
