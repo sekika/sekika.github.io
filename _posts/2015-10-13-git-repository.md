@@ -16,6 +16,8 @@ cd git
 
 で簡単にリポジトリが作成できるようになった。
 
+これが CreateRepository.sh で、3行目の ```host=hostname.example.com``` をリポジトリを作成するホストのホスト名に変えて使う。
+
 {% gist 2206f77e1302c6e4f13c %}
 
 ついでに、[.git を見えなくする .htaccess ファイルの書き方](http://stackoverflow.com/questions/6142437/make-git-directory-web-inaccessible) についてメモしておく。
