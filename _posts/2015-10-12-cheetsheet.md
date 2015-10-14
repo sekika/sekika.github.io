@@ -22,16 +22,6 @@ tag: jekyll
 > 
 >     return shell_exec("echo $input | $markdown_script");
 
-~~~~~~~~
-Here comes some code.
-~~~~~~~~
-
-~~~ ruby
-def what?
-  42
-end
-~~~
-
 kramdown
 : A Markdown-superset converter
 
@@ -62,11 +52,46 @@ $$
 \end{align*}
 $$
 
-## Gist
+## コード
+
+~~~~~~~~
+Here comes some code.
+~~~~~~~~
+
+~~~ ruby
+def what?
+  42
+end
+~~~
 
 - [How to embed a Gist on GitHub Pages using Jekyll](https://gist.github.com/benbalter/5555251)
 
 {% gist 63b5987deb3baca8f546 %}
+
+## Front matter
+
+~~~
+---
+layout: post
+title:
+tag:
+---
+~~~
+
+複数タグ
+
+~~~~
+---
+layout: post
+title:
+tags:
+- tag1
+- tag2
+---
+~~~~
+
+- layout: post-en
+- layout: math
 
 ## 特殊文字
 

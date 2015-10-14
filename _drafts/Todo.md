@@ -6,6 +6,7 @@ tag: jekyll
 これから書く記事や、サイト管理に関する To Do リストです。永遠に [_drafts](https://github.com/sekika/sekika.github.io/tree/master/_drafts) の中です。[公開ページ](http://sekika.github.io)
 
 ## 記事 ##
+- [チートシート](https://raw.githubusercontent.com/sekika/sekika.github.io/master/_drafts/cheetsheet.md)
 - Todo管理 トドうち
 - Word 編集履歴
 - Drafts 管理
@@ -22,30 +23,3 @@ tag: jekyll
 - Date 自動挿入
 - http://d.hatena.ne.jp/rx7/touch/20110310/p1
 - Commit message に Published on http://sekika.github.io
-
-### サンプル ###
-- [チートシート](https://raw.githubusercontent.com/sekika/sekika.github.io/master/_drafts/cheetsheet.md)
-
-### ヘッダ ###
-~~~
----
-layout: post
-title:
-tag:
----
-~~~
-
-複数タグ
-
-~~~~
----
-layout: post
-title:
-tags:
-- tag1
-- tag2
----
-~~~~
-
-- layout: post-en
-- layout: math
