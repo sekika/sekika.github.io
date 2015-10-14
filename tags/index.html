@@ -18,7 +18,7 @@ title: キーワード
 <ul>
 {% for tag in sortedtags %}
   {% assign posts = site.tags[tag] | size %}
-  <li><a href="{{ tag }}/index.html">{% if posts > 3 %}<strong>{% endif %}{{ tag }}{% if posts > 3 %}</strong>{% endif %}</a></li>
+  <li><a href="{{ tag }}/index.html">{% if posts > 3 %}<strong>{% endif %}{{ tag }}{% if posts > 3 %}</strong>{% endif %}</a> ({{ posts }})</li>
 {% endfor %}
 </ul>
 
