@@ -11,7 +11,7 @@ tag: git
 
 ~~~
 cd git
-./CreateRepository repository
+./CreateRepository.sh repository
 ~~~
 
 で簡単にリポジトリを作成して ssh でアクセスできるように設定できるようになった。
