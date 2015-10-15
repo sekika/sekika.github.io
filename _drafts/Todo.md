@@ -29,6 +29,4 @@ tag: jekyll
 - http://sekika.github.io/tags/ に、タグの description をひろうか？ひろえるか？
 
 ### Drafts 公開スクリプト pub ###
-- Date 自動挿入
-- http://d.hatena.ne.jp/rx7/touch/20110310/p1
-- Commit message に Published on http://sekika.github.io
+- Commit message を permalink に
