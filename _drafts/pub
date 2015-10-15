@@ -7,17 +7,25 @@
 # (1) Copy Filename to ../_posts/YY-MM-DD-Filename
 #     with "date:" field added
 # (2) The file is commited to git with commit message of:
-#     Published on $Site_URL
+#     Published on [permalink]
 # (3) The change is pushed to master branch
 # (4) The draft file is removed from the git repository
 # (5) Now just wait for jekyll at GitHub Pages to build
 #
 
+# Set URL of the top page
 Site_URL=http://sekika.github.io
 
 Filename=$1
+
+# Permanent link in the pretty format
+# Change here when using other permalink format
+Permalink=$Site_URL`date -u +/%Y/%m/%d/``echo $Filename | sed -e 's/\..*$/\//'`
+
 if [ -z $Filename ]; then
-  grep "^#" $0; exit
+  echo "Usage: $0 Filename"
+  echo "See comment in the source file $0"
+  exit
 fi
 
 if [ -e $Filename ]; then
@@ -48,7 +56,7 @@ fi
 echo "Committing to repository."
 cd ../_posts || { echo "cd ../_posts failed. Stop."; exit; }
 git add $DestFile || { echo "git add $DestFile at ../_posts failed. Stop."; exit; }
-git commit -m "Published on "$Site_URL || { echo "Commit at ../_posts failed. Stop."; exit; }
+git commit -m "Published on "$Permalink || { echo "Commit at ../_posts failed. Stop."; exit; }
 echo "Pushing to master repository."
 git push origin master || { echo "Push ../_posts failed. Stop."; exit; }
 echo "Published successfully."
