@@ -29,6 +29,6 @@ tag: jekyll
 - pub スクリプト
 
 ## サイト管理 ##
-- pub スクリプト: Commit message を permalink に
+- pub スクリプト: Commit message を permalink に: done. 確認
 - 関連キーワード
 - http://sekika.github.io/tags/ に、タグの description をひろうか？ひろえるか？
