@@ -7,11 +7,18 @@ tag: jekyll
 
 ## 記事 ##
 - [チートシート](https://raw.githubusercontent.com/sekika/sekika.github.io/master/_drafts/cheetsheet.md)
-- pdftops -eps filename.pdf http://linuxcommand.org/man_pages/pdftops1.html
-- 土壌の物理性「古典を読む」大村さん
 - Todo管理 トドうち
 - Word 編集履歴
 - Drafts 管理
+
+### EPSファイルの作成
+- pdftops -eps filename.pdf 
+- brew install xpdf
+- http://linuxcommand.org/man_pages/pdftops1.html
+
+### 土壌の物理性「古典を読む」
+- Allison
+- 大村さん
 
 ### open コマンド
 - [FinderとTerminalの連携を考える](http://news.mynavi.jp/column/osxhack/109/)
