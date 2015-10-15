@@ -8,13 +8,14 @@ tag: jekyll
 ## 記事 ##
 - [チートシート](https://raw.githubusercontent.com/sekika/sekika.github.io/master/_drafts/cheetsheet.md)
 - Todo管理 トドうち
-- Word 編集履歴
-- Drafts 管理
 
 ### EPSファイルの作成
 - pdftops -eps filename.pdf 
 - brew install xpdf
 - http://linuxcommand.org/man_pages/pdftops1.html
+
+### Word 編集履歴
+- 作成者を消す
 
 ### 土壌の物理性「古典を読む」
 - Allison
@@ -24,9 +25,10 @@ tag: jekyll
 - [FinderとTerminalの連携を考える](http://news.mynavi.jp/column/osxhack/109/)
 {% gist 63b5987deb3baca8f546 %}
 
-## Jekyll 管理 ##
+### Drafts 管理
+- pub スクリプト
+
+## サイト管理 ##
+- pub スクリプト: Commit message を permalink に
 - 関連キーワード
 - http://sekika.github.io/tags/ に、タグの description をひろうか？ひろえるか？
-
-### Drafts 公開スクリプト pub ###
-- Commit message を permalink に
