@@ -5,7 +5,7 @@ tag: tex
 ---
 Excel や PowerPoint で作成した図を EPS ファイルにする方法。
 
-## pdftops
+## PDF ファイルからの変換
 
 まずは、画像のPDFファイルを作成する。
 
