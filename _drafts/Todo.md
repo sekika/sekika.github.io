@@ -9,11 +9,6 @@ tag: jekyll
 - [チートシート](https://raw.githubusercontent.com/sekika/sekika.github.io/master/_drafts/cheetsheet.md)
 - Todo管理 トドうち
 
-### EPSファイルの作成
-- pdftops -eps filename.pdf 
-- brew install poppler
-- http://linuxcommand.org/man_pages/pdftops1.html
-
 ### Office Open XML の git ファイル管理
 
 [git diff で Office ファイルの差分を見る](http://qiita.com/shuhei/items/6a18d968051378d7ac1a) に書かれている Apache Tika を使う方法で、docx, xmlx, pptx ファイルを差分管理できる。やってみたところ、たしかに ```git log -p``` で差分が表示された。これは便利。
