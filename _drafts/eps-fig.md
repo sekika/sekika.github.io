@@ -13,9 +13,9 @@ Excel や PowerPoint で作成した図を EPS ファイルにする方法。
 
 そして、PDFファイルを pdftops コマンドで EPS ファイルに変換する。[Xpdf](http://www.foolabs.com/xpdf/) または、Xpdf を元に開発されている [poppler](http://poppler.freedesktop.org/) をインストールすると、[pdftops]( http://linuxcommand.org/man_pages/pdftops1.html) を使えるようになる。Mac ならば、```brew install poppler``` でOK。そして、
 
-````
+~~~~
 pdftops -eps filename.pdf 
-```
+~~~~
 
 とすることで、filename.eps が作成される。
 
