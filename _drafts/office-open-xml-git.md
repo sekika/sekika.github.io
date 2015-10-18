@@ -7,7 +7,9 @@ tag: git
 
 Mac の場合の手順について、そこに書かれている通りのことをこちらにもメモ。
 
-> brew install tika
+~~~~
+brew install tika
+~~~~
 
 以下のようなスクリプト `unopnexml` を置く。
 
