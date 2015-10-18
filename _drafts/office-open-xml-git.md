@@ -19,12 +19,14 @@ tika -t "$1
 ~~~~
 
 ```~/.gitconfig``` を編集
+
 ~~~~
 [diff "openxml"]
   textconv = unopenxml # フルパスで書く
 ~~~~
 
 レポジトリに ```.gitattributes``` を追加。
+
 ~~~~
 *.pptx diff=openxml
 *.docx diff=openxml
