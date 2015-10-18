@@ -11,7 +11,7 @@ tag: jekyll
 
 ### EPSファイルの作成
 - pdftops -eps filename.pdf 
-- brew install xpdf
+- brew install poppler
 - http://linuxcommand.org/man_pages/pdftops1.html
 
 ### Office Open XML の git ファイル管理
