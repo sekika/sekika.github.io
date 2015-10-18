@@ -3,7 +3,7 @@ layout: post
 title: To Do リスト
 tag: jekyll
 ---
-これから書く記事や、サイト管理に関する To Do リストです。永遠に [_drafts](https://github.com/sekika/sekika.github.io/tree/master/_drafts) の中です。[公開ページ](http://sekika.github.io)と[チートシート](https://raw.githubusercontent.com/sekika/sekika.github.io/master/_drafts/cheetsheet.md)。
+これから書く記事や、サイト管理に関する To Do リストです。永遠に [_drafts](https://github.com/sekika/sekika.github.io/tree/master/_drafts) の中です。[公開ページ](http://sekika.github.io)と[チートシート](http://sekika.github.io/2015/10/12/cheetsheet/)。
 
 ## 記事 ##
 
