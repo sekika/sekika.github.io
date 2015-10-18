@@ -3,11 +3,9 @@ layout: post
 title: To Do リスト
 tag: jekyll
 ---
-これから書く記事や、サイト管理に関する To Do リストです。永遠に [_drafts](https://github.com/sekika/sekika.github.io/tree/master/_drafts) の中です。[公開ページ](http://sekika.github.io)
+これから書く記事や、サイト管理に関する To Do リストです。永遠に [_drafts](https://github.com/sekika/sekika.github.io/tree/master/_drafts) の中です。[公開ページ](http://sekika.github.io)と[チートシート](https://raw.githubusercontent.com/sekika/sekika.github.io/master/_drafts/cheetsheet.md)。
 
 ## 記事 ##
-- [チートシート](https://raw.githubusercontent.com/sekika/sekika.github.io/master/_drafts/cheetsheet.md)
-- Todo管理 トドうち
 
 ### Word 編集履歴
 - 作成者を消す
@@ -22,6 +20,10 @@ tag: jekyll
 
 ### Drafts 管理
 - pub スクリプト
+
+### Todo管理
+- Toodledo
+- トドうち
 
 ## サイト管理 ##
 - 関連キーワード
