@@ -5,7 +5,7 @@ tag: git
 ---
 [git diff で Office ファイルの差分を見る](http://qiita.com/shuhei/items/6a18d968051378d7ac1a) に書かれている Apache Tika を使う方法で、docx, xmlx, pptx ファイルを差分管理できる。やってみたところ、たしかに ```git log -p``` で差分が表示された。これは便利。
 
-Mac の場合の手順について、そこに書かれている通りのことをこちらにもメモ。
+Mac の場合の手順について、上記サイトに書かれている通りのことをこちらにもメモ。
 
 ~~~~
 brew install tika
