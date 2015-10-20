@@ -27,6 +27,19 @@ google.setOnLoadCallback(function() {
 }, true);
 </script>
 <style type='text/css'>
+
+  /* http://getbootstrap.com/getting-started/#third-box-sizing Box-sizing */
+  /* Option 2A: Reset an entire region via CSS */
+  .reset-box-sizing,
+  .reset-box-sizing *,
+  .reset-box-sizing *:before,
+  .reset-box-sizing *:after {
+    -webkit-box-sizing: content-box;
+       -moz-box-sizing: content-box;
+            box-sizing: content-box;
+  }
+
+
   .gsc-control-cse {
     font-family: Arial, sans-serif;
     border-color: #FFFFFF;
