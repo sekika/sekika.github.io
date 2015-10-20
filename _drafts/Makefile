@@ -1,8 +1,9 @@
-# This Makefile only works with Mac, because it uses open command.
+UNAME = ${shell uname}
 
 all:
 	git add -A
 	- git commit -m draft
 	git push origin master
-	open http://localhost:4000/
+	if [ $(UNAME) = "Darwin" ]; then open http://localhost:4000/; fi
+	if [ $(UNAME) = "Linux" ]; then xdg-open http://localhost:4000/; fi
 	cd ..; jekyll serve --drafts --host localhost
