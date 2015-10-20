@@ -10,6 +10,11 @@ layout: default
 {% elsif page.description %}
   <p>{{page.description}}</p>
 {% endif %}
+{% if page.related %}<p>関連キーワード：
+{% capture related %}{% for related in page.related %}{{ related }}{% endfor %}{% endcapture %}
+{% assign rel = related | split:' ' %}
+{% for tag in rel %} <a href="/tags/{{ tag }}/index.html">{{ tag }}</a>{% endfor %}
+</p>{% endif %}
 
 <ul>
 {% for post in site.tags[page.tag] %}
