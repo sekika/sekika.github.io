@@ -7,16 +7,18 @@ tag: jekyll
 
 ## 記事 ##
 
-### 土壌の物理性「古典を読む」
-- Allison
-- 大村さん
-
 ### open コマンド
 - [FinderとTerminalの連携を考える](http://news.mynavi.jp/column/osxhack/109/)
 {% gist 63b5987deb3baca8f546 %}
+- xdg-open
 
 ### Drafts 管理
+- Makefile
 - pub スクリプト
+
+### 土壌の物理性「古典を読む」
+- Allison
+- 大村さん
 
 ### Todo管理
 - Toodledo
