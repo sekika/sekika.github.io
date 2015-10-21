@@ -12,6 +12,19 @@ tag: jekyll
 {% gist 63b5987deb3baca8f546 %}
 - xdg-open
 
+### VirtualBox 仮装ディスクの拡張
+http://tech.ewdev.info/2014/10/2140/
+http://www.virment.com/extend-virtualbox-disk/
+
+Windows 7 の場合
+システムとセキュリティー
+管理ツール
+コンピューターの管理
+ディスクの管理
+Cドライブを右クリックして「ボリュームの拡張」
+しかし、ブートボリュームは拡張できない
+Linux からいじる
+
 ### Drafts 管理
 - Makefile
 - pub スクリプト
