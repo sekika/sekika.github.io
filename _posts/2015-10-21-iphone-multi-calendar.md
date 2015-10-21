@@ -2,7 +2,9 @@
 layout: post
 title: 複数の Google カレンダーを iPhone に同期
 date: 2015-10-21 14:48:31 +0000
-tag: iphone mac
+tags:
+- iphone
+- mac
 ---
 Google カレンダーで複数のカレンダーを使っている場合には、[Google カレンダーの設定ページ](https://www.google.com/calendar/iphoneselect?pli=1) で表示させたいカレンダーにチェックする。詳しくはこちらのサイト。
 
