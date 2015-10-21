@@ -25,6 +25,9 @@ Cドライブを右クリックして「ボリュームの拡張」
 しかし、ブートボリュームは拡張できない
 Linux からいじる
 
+関連：「Windows 10を入手する」アプリは表示されましたか
+http://www.atmarkit.co.jp/ait/articles/1506/04/news013.html
+
 ### Drafts 管理
 - Makefile
 - pub スクリプト
