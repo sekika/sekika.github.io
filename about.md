@@ -10,6 +10,8 @@ If you have comments on this site, post an issue to <a href="https://github.com/
 
 {{ site.author }}がちょっとしたことを書き留めるメモとして使っています。
 
+<a href="{{ "/tags/" | prepend: site.baseurl }}">キーワード</a>で記事を整理しているので、関心のあるキーワードの記事をご覧ください。
+
 著者にコメントを送る方法には、いくつかあります。
 
 <ul>
