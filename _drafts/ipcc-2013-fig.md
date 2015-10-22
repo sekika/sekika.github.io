@@ -32,7 +32,7 @@ tag: environment
 
 気象庁が翻訳した[SPMの和訳](http://www.climatechange2013.org/images/report/WG1AR5_SPM_brochure_jp.pdf)も公開されている。また、気象庁のサイトには[IPCCに関する情報](http://www.data.jma.go.jp/cpdinfo/ipcc/index.html)として、情報がまとめられている。
 
-このページでは、以上の情報を元に、SPMに掲載されている図表をまとめる。なお、図表によく出てくる <strong>RCP</strong> については、以下の用語集和訳の <strong>代表的濃度経路（Representative Concentration Pathways）</strong>を参照。
+このページでは、SPMに掲載されている図表をまとめる。なお、図表によく出てくる <strong>RCP</strong> については、以下の用語集和訳の <strong>代表的濃度経路（Representative Concentration Pathways）</strong>を参照。
 
 - [IPCC第5次評価報告書　第1作業部会報告書　用語集（抜粋版）　気象庁訳（PDF 392KB）](http://www.data.jma.go.jp/cpdinfo/ipcc/ar5/ipcc_ar5_wg1_glossary_jpn.pdf)
 
