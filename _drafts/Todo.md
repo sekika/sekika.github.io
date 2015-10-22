@@ -13,8 +13,21 @@ tag: jekyll
 - xdg-open
 
 ### VirtualBox 仮装ディスクの拡張
-http://tech.ewdev.info/2014/10/2140/
 http://www.virment.com/extend-virtualbox-disk/
+
+~~~~
+VBoxManage modifyhd 拡張したい仮想マシンの仮想ディスクのパス —-resize 拡張後のディスク容量
+~~~~
+
+Debian SATA ドライブに Windows のディスクを追加
+gparted で Cドライブに相当する /dev/sdb2 を拡大
+Debian からは Windows のディスクを削除
+Windows として起動
+チェックディスクが立ち上がる
+再起動、無事にCドライブが拡張された
+
+http://tech.ewdev.info/2014/10/2140/
+
 
 Windows 7 の場合
 システムとセキュリティー
