@@ -24,7 +24,7 @@ tag: environment
 |2007年 |第4次評価報告書 |AR4
 |2014年 |第5次評価報告書 |AR5
 
-第5次評価報告書 (<strong>AR5</strong>) の中で、第1作業部会が作成した報告書は、2013年に以下の出版物として公表された。
+第5次評価報告書 (<strong>AR5</strong>) の中で、第1作業部会が作成した報告書は、2013年に以下の出版物<strong>「気候変動2013」</strong>として公表された。
 
 - [Climate Change 2013: The Physical Science Basis](http://www.climatechange2013.org/)
 
