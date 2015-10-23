@@ -8,7 +8,7 @@ This site is a personal note of {{ site.author-en }}. Here is a list of <a href=
 
 If you have comments on this site, post an issue to <a href="https://github.com/sekika/sekika.github.io">GitHub repository of this site</a> or send an email to <a href="http://www.sciencedirect.com/science/article/pii/S0016706115000622">the author of this paper</a>.
 
-{{ site.author }}がちょっとしたことを書き留めるメモとして使っています。
+{{ site.author }}のブログのような形式のメモ帳です。主としてIT系のちょっとしたことを自分のために書き留めている記事がほとんどですが、たまに授業で使う資料をここに置きます。
 
 <a href="{{ "/tags/" | prepend: site.baseurl }}">キーワード</a>で記事を整理しているので、関心のあるキーワードの記事をご覧ください。
 
