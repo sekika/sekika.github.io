@@ -42,6 +42,7 @@ Linux からいじる
 http://www.atmarkit.co.jp/ait/articles/1506/04/news013.html
 
 [How to get VirtualBox video driver working in Windows 10 build 10041](http://winaero.com/blog/how-to-get-virtualbox-video-driver-working-in-windows-10-build-10041/)
+http://superuser.com/questions/951818/windows-10-inside-virtualbox-not-scaling-after-upgrade-from-8-1
 
 ### Drafts 管理
 - Makefile
