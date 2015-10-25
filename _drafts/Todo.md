@@ -7,11 +7,6 @@ tag: jekyll
 
 ## 記事 ##
 
-### open コマンド
-- [FinderとTerminalの連携を考える](http://news.mynavi.jp/column/osxhack/109/)
-{% gist 63b5987deb3baca8f546 %}
-- xdg-open
-
 ### VirtualBox 仮装ディスクの拡張
 http://www.virment.com/extend-virtualbox-disk/
 
