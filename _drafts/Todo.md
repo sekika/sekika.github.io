@@ -56,6 +56,11 @@ http://superuser.com/questions/951818/windows-10-inside-virtualbox-not-scaling-a
 - Toodledo
 - トドうち
 
+### HTML Slidy
+- [Slidyでスライド作成](http://d.hatena.ne.jp/haradago/20070919/p1)
+- [プレゼンを作るときに便利なHTML Slidy](http://blueskis.wktk.so/blog/2012/05/html-slidy/#.Vixm_67hDaZ)
+- [HTML Slidy: Slide Shows in HTML and XHTML](http://www.w3.org/Talks/Tools/Slidy2/)
+
 ### 紀要
 マルチスケール法紹介
 
