@@ -47,10 +47,10 @@ cot filename
 
 - [FinderとTerminalの連携を考える](http://news.mynavi.jp/column/osxhack/109/)
 
-また、```open --help``` で次のヘルプが表示される。
+```open --help``` で次のヘルプが表示される。
 
 <pre>
-Usage: open [-e] [-t] [-f] [-W] [-R] [-n] [-g] [-h] [-b <bundle identifier>] [-a <application>] [filenames] [--args arguments]
+Usage: open [-e] [-t] [-f] [-W] [-R] [-n] [-g] [-h] [-b &lt;bundle identifier&gt;] [-a &lt;application&gt;] [filenames] [--args arguments]
 Help: Open opens files from a shell.
       By default, opens each file using the default application for that file.  
       If the file is in the form of a URL, the file will be opened as a URL.
@@ -89,7 +89,7 @@ xdg-open または gnome-open コマンドを使う。
 - [意外に知らないstartコマンドの使い方](http://orangeclover.hatenablog.com/entry/20090814/1250261637)
 - [別ウィンドウでコマンドを実行(START)](http://www.adminweb.jp/command/command/index1.html)
 
-以下は、Winows 7 で ```start /?``` として表示されるヘルプ。
+以下は、Windows 7 で ```start /?``` として表示されるヘルプ。
 
 <pre>
 指定されたプログラムまたはコマンドを実行するためにウィンドウを開きます。
