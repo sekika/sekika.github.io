@@ -72,7 +72,7 @@ Options:
 
 ## Linux の場合
 
-xdg-open または gnome-open コマンドを使う。
+```xdg-open``` または ```gnome-open``` コマンドを使う。
 
 - [LinuxでコマンドラインからURLやファイルを開けるxdg-open/gnome-openのメモ](http://blog.browncat.org/2010/01/linux_xdg-open_gnome-open.html)
 
@@ -86,7 +86,7 @@ xdg-open または gnome-open コマンドを使う。
 
 ## Windows の場合
 
-コマンドプロンプトから start コマンドを使う。
+コマンドプロンプトから ```start``` コマンドを使う。
 
 - [意外に知らないstartコマンドの使い方](http://orangeclover.hatenablog.com/entry/20090814/1250261637)
 - [別ウィンドウでコマンドを実行(START)](http://www.adminweb.jp/command/command/index1.html)
