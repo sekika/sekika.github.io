@@ -26,7 +26,7 @@ open .
 
 とすれば、Finder でカレントディレクトリが開かれる。
 
-関連付けられているアプリケーションとは異なるアプリケーションを使いたいことがある。たとえば、html ファイルをエディタで編集したい時など。そのときには、```open```コマンドの```-a```オプションを使う。```-a アプリケーション```で、起動するアプリケーションを指定できる。
+関連付けられているアプリケーションとは異なるアプリケーションを使いたいことがある。たとえば、html ファイルをエディタで編集したい時など。そのときには、```open```コマンドの```-a```オプションを使う。```-a アプリケーション```で、起動するアプリケーションを指定できる。また、```-t```オプションを使うと、デフォルトのテキストエディタで開くことができる。
 
 CotEditor で指定したファイルを開くコマンド ```cot``` を作るには、
 
@@ -46,6 +46,29 @@ cot filename
 他にも、Finder と Terminal の連携をするための技がこの記事に解説されている。
 
 - [FinderとTerminalの連携を考える](http://news.mynavi.jp/column/osxhack/109/)
+
+また、```open --help``` で次のヘルプが表示される。
+
+<pre>
+Usage: open [-e] [-t] [-f] [-W] [-R] [-n] [-g] [-h] [-b <bundle identifier>] [-a <application>] [filenames] [--args arguments]
+Help: Open opens files from a shell.
+      By default, opens each file using the default application for that file.  
+      If the file is in the form of a URL, the file will be opened as a URL.
+Options: 
+      -a                Opens with the specified application.
+      -b                Opens with the specified application bundle identifier.
+      -e                Opens with TextEdit.
+      -t                Opens with default text editor.
+      -f                Reads input from standard input and opens with TextEdit.
+      -F  --fresh       Launches the app fresh, that is, without restoring windows. Saved persistent state is lost, excluding Untitled documents.
+      -R, --reveal      Selects in the Finder instead of opening.
+      -W, --wait-apps   Blocks until the used applications are closed (even if they were already running).
+          --args        All remaining arguments are passed in argv to the application's main() function instead of opened.
+      -n, --new         Open a new instance of the application even if one is already running.
+      -j, --hide        Launches the app hidden.
+      -g, --background  Does not bring the application to the foreground.
+      -h, --header      Searches header file locations for headers matching the given filenames, and opens them.
+</pre>
 
 ## Linux の場合
 
