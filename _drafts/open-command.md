@@ -82,6 +82,8 @@ xdg-open または gnome-open コマンドを使う。
 >
 > 等としておけばいいかもしれません。
 
+- [xdg-open(1) - Linux man page](http://linux.die.net/man/1/xdg-open)
+
 ## Windows の場合
 
 コマンドプロンプトから start コマンドを使う。
