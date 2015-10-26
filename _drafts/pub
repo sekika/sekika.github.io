@@ -57,11 +57,13 @@ fi
 echo "Committing to repository."
 cd ../_posts || { echo "cd ../_posts failed. Stop."; exit; }
 git add $DestFile || { echo "git add $DestFile at ../_posts failed. Stop."; exit; }
-git commit -m "Published on "$Permalink || { echo "Commit at ../_posts failed. Stop."; exit; }
+git commit -m "Published on "$Permalink || \
+   { echo "Commit at ../_posts failed. Stop."; exit; }
 echo "Removing draft."
 cd ../_drafts  || { echo "cd ../_drafts failed. Stop."; exit; }
 git rm $Filename || { echo "git rm $Filename failed. Stop."; exit; }
-git commit -m "Remove draft because it was published" || { echo "Commit failed. Stop."; exit; }
+git commit -m "Remove draft because it was published" || \
+   { echo "Commit failed. Stop."; exit; }
 echo "Pushing to master repository."
 git push origin master || { echo "Push failed. Stop."; exit; }
 echo "Published successfully."
