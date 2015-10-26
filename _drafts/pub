@@ -49,7 +49,8 @@ fi
 echo "Copying $Filename to ../_posts/$DestFile"
 date="date: "`date -u +%Y-%m-%d" "%T`" +0000"
 echo "Adding Front matter: $date"
-awk '{print}/^title:/{X=NR}NR==X{print "DATEDATEDATE"}' $Filename | sed -e "s/DATEDATEDATE/$date/" > ../_posts/$DestFile
+awk '{print}/^title:/{X=NR}NR==X{print "DATEDATEDATE"}' $Filename \
+   | sed -e "s/DATEDATEDATE/$date/" > ../_posts/$DestFile
 if [ `diff $Filename ../_posts/$DestFile | wc -l` -ne 2 ]; then
   echo "Something wrong. Stop. Check ../_posts/$DestFile"; exit
 fi
