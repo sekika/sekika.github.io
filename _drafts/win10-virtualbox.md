@@ -32,3 +32,4 @@ http://www.atmarkit.co.jp/ait/articles/1506/04/news013.html
 [How to get VirtualBox video driver working in Windows 10 build 10041](http://winaero.com/blog/how-to-get-virtualbox-video-driver-working-in-windows-10-build-10041/)
 http://superuser.com/questions/951818/windows-10-inside-virtualbox-not-scaling-after-upgrade-from-8-1
 
+Microsoft Office Professional 2013 がインストールされ、他にもいくつかのプログラムとデータが入っている状態で、Windows 10 にアップグレードした直後の使用ディスク容量は 33.7 GB。ルートディレクトリの下は、ユーザー 1.55 GB、Program Files 2.79 GB、cygwin 1.33 GB、Windows 9.40 GB、Windows.old 14.5 GB。
