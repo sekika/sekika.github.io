@@ -17,6 +17,6 @@ tag: medical
 
 関連サイト
 
-- [日本臨床歯周病学会：一般の皆様へ](http://www.jacp.net/jacp_web/general/index.html)
 - [歯の詰め物が取れた時の３つの対処法と４つのやってはいけないこと](http://cureplus.jp/filling-came-out-291)
+- [日本臨床歯周病学会：一般の皆様へ](http://www.jacp.net/jacp_web/general/index.html)
 - [日本顎関節学会：一般の方へ](http://kokuhoken.net/jstmj/general/)
