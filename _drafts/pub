@@ -56,7 +56,8 @@ if [ `diff $Filename ../_posts/$DestFile | wc -l` -ne 2 ]; then
 fi
 echo "Committing to repository."
 cd ../_posts || { echo "cd ../_posts failed. Stop."; exit; }
-git add $DestFile || { echo "git add $DestFile at ../_posts failed. Stop."; exit; }
+git add $DestFile || \
+   { echo "git add $DestFile at ../_posts failed. Stop."; exit; }
 git commit -m "Published on "$Permalink || \
    { echo "Commit at ../_posts failed. Stop."; exit; }
 echo "Removing draft."
