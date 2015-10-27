@@ -49,10 +49,6 @@ cot filename
 
 として、使うことができる。
 
-他にも、Finder と Terminal の連携をするための技がこの記事に解説されている。
-
-- [FinderとTerminalの連携を考える](http://news.mynavi.jp/column/osxhack/109/)
-
 ```open --help``` で次のヘルプが表示される。
 
 <pre>
@@ -75,6 +71,10 @@ Options:
       -g, --background  Does not bring the application to the foreground.
       -h, --header      Searches header file locations for headers matching the given filenames, and opens them.
 </pre>
+
+他にも、Finder と Terminal の連携をするための技がこの記事に解説されている。
+
+- [FinderとTerminalの連携を考える](http://news.mynavi.jp/column/osxhack/109/)
 
 ## Linux の場合
 
