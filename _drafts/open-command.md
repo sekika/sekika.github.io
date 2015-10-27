@@ -3,7 +3,7 @@ layout: post
 title: Terminal からファイルを開く
 tag: mac linux windows
 ---
-Terminal からファイルを開く方法について、Mac, Linux, Windows それぞれの方法をメモ。
+<a href="https://ja.wikipedia.org/wiki/%E7%AB%AF%E6%9C%AB%E3%82%A8%E3%83%9F%E3%83%A5%E3%83%AC%E3%83%BC%E3%82%BF">端末エミュレータ</a> (Terminal, コマンドプロンプト等) から指定したファイルを関連付けられているアプリケーション（あるいは指定したアプリケーション）で開く方法について、Mac, Linux, Windows それぞれの方法をメモ。
 
 ## Mac の場合
 Mac では ```open``` コマンドを使う。
