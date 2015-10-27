@@ -7,7 +7,7 @@ VirtualBox 上で、Windows 7 から Windows 10 へアップグレードした�
 
 ## OSバージョンの設定
 
-OS タイプのバージョンを Windows 10 に設定した。
+まずは、OS タイプのバージョンを Windows 10 に設定した。
 
 - [VirtualBox での新規仮想マシンの作成](https://docs.oracle.com/cd/E26217_01/E35194/html/qs-create-vm.html) より
 
@@ -17,7 +17,7 @@ OS タイプのバージョンを Windows 10 に設定した。
 
 ## ディスク容量の拡張
 
-まずは、Windows 7 で確保していたディスク容量が、Windows 10 をインストールするには少なかったので、仮想ディスク容量を拡張した。可変サイズの VDI 形式で仮装ディスクを作成していたので、次の手順で拡張できた。
+Windows 7 で確保していたディスク容量が、Windows 10 をインストールするには少なかったので、仮想ディスク容量を拡張した。可変サイズの VDI 形式で仮装ディスクを作成していたので、次の手順で拡張できた。
 
 - [VirtualBoxにおける仮想マシンの仮想ディスク容量を拡張するための手順](http://www.virment.com/extend-virtualbox-disk/)
 
@@ -39,7 +39,7 @@ VBoxManage modifyhd 拡張したい仮想マシンの仮想ディスクのパス
 
 ## Windows 10 へのアップグレード
 
-次に、「Windows 10 を入手する」アプリからのアップグレードを試みた。
+「Windows 10 を入手する」アプリからのアップグレードを試みた。
 
 - [「Windows 10を入手する」アプリは表示されましたか](http://www.atmarkit.co.jp/ait/articles/1506/04/news013.html)
 
