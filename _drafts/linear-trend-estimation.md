@@ -15,8 +15,12 @@ tags:
 
 [Yahoo! ファイナンス 株式](http://stocks.finance.yahoo.co.jp/stocks/) の株価時系列データを水色のセルに貼り付ければ、75日線形回帰と25日線形回帰が表示される。
 
-[アップルインターナショナルの2015年10月28日までの株価データ](http://info.finance.yahoo.co.jp/history/?code=2788.T&sy=2015&sm=7&sd=28&ey=2015&em=10&ed=28&tm=d&p=1)を使うと、次のようなグラフが作成できる。
+[アップルインターナショナルの2015年10月28日までの株価データ](http://info.finance.yahoo.co.jp/history/?code=2788.T&sy=2015&sm=7&sd=28&ey=2015&em=10&ed=28&tm=d&p=1)を使うと、次のようなグラフが作成できる。なお、Excel ファイルにはあらかじめこのデータが入力されている。
 
 ![線形回帰トレンド](/img/20151029-linear-trend.png)
+
+縦軸の範囲を変えて拡大すると、このようになる。
+
+![アップルの線形回帰トレンド](/img/20151029-apple.png)
 
 
