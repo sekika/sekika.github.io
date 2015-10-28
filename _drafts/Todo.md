@@ -7,6 +7,10 @@ tag: jekyll
 
 ## 記事 ##
 
+### Excel で null を 0 に変換する方法
+
+Access の VBA では nz 関数があり、
+
 ### Drafts 管理
 - Makefile
 - pub スクリプト
