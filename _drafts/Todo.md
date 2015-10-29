@@ -28,6 +28,7 @@ tag: jekyll
 マルチスケール法紹介
 
 ## サイト管理 ##
+- Gemfile http://xxxcaqui.hatenablog.com/entry/2013/02/11/013421
 - 関連キーワード
 - http://sekika.github.io/tags/ に、タグの description をひろうか？ひろえるか？
 
