@@ -1,7 +1,8 @@
 ---
 layout: post
 title: Excel と回帰分析
-tag: excel math
+tags: - excel
+- math
 ---
 Excel で回帰分析をする方法についての参考ページ。
 
