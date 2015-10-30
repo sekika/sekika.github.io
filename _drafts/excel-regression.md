@@ -5,7 +5,7 @@ tags:
 - excel
 - math
 ---
-Excel で回帰分析をする方法についての参考ページ。
+Excel で回帰分析をする方法についての参考ページです。
 
 ## 散布図と近似式
 - [エクセル2013基本講座：散布図に近似曲線を表示する](http://www4.synapse.ne.jp/yone/excel2013/excel2013_graph_kinji.html)
