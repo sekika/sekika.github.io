@@ -28,6 +28,7 @@ tag: jekyll
 マルチスケール法紹介
 
 ## サイト管理 ##
+- [更新履歴](https://github.com/sekika/sekika.github.io/commits/master/_posts/2015-10-27-open-command.md)を表示するオプションの作成。
 - Gemfile http://xxxcaqui.hatenablog.com/entry/2013/02/11/013421
 - 関連キーワード
 - http://sekika.github.io/tags/ に、タグの description をひろうか？ひろえるか？
