@@ -7,10 +7,6 @@ tag: jekyll
 
 ## 記事 ##
 
-### Excel で null を 0 に変換する方法
-
-Access の VBA では nz 関数があり、
-
 ### Drafts 管理
 - Makefile
 - pub スクリプト
@@ -32,6 +28,8 @@ Access の VBA では nz 関数があり、
 マルチスケール法紹介
 
 ## サイト管理 ##
+- [更新履歴](https://github.com/sekika/sekika.github.io/commits/master/_posts/2015-10-27-open-command.md)へのリンクを表示するオプションの作成。
+- Gemfile http://xxxcaqui.hatenablog.com/entry/2013/02/11/013421
 - 関連キーワード
 - http://sekika.github.io/tags/ に、タグの description をひろうか？ひろえるか？
 
