@@ -24,5 +24,5 @@ tag: environment
 2015年6月1日の電源構成割合の経済産業省案に対する参考意見：
 
 - [視点・論点　「電源構成割合の問題点」](http://www.nhk.or.jp/kaisetsu-blog/400/217528.html) (橘川武郎, NHK, 2015/5/22)
-- [2030 年の日本の電源構成見通し：より多くのガスと太陽光発電の導入は可能 (PDF)]http://about.bnef.com/content/uploads/sites/4/2015/06/BNEF_White_Paper_Japan_Outlook_JPN_FINAL.pdf) (Bloomberg Finance, 2015/6/2)
+- [2030 年の日本の電源構成見通し：より多くのガスと太陽光発電の導入は可能 (PDF)](http://about.bnef.com/content/uploads/sites/4/2015/06/BNEF_White_Paper_Japan_Outlook_JPN_FINAL.pdf) (Bloomberg Finance, 2015/6/2)
 
