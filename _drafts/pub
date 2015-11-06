@@ -16,7 +16,8 @@
 Filename=$1
 
 # Read site URL from "url:" line of ../_config.yml
-Site_URL=`grep "^url:" ../_config.yml | sed -e 's/^url://' | sed -e 's/ //g' | sed -e 's/\"//g' | sed -e 's/#.*$//'`
+Site_URL=`grep "^url:" ../_config.yml | sed -e 's/^url://' \
+| sed -e 's/ //g' | sed -e 's/\"//g' | sed -e 's/#.*$//'`
 
 # Permanent link in the pretty format
 # Change here when using other permalink format
