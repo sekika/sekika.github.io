@@ -14,7 +14,7 @@ Jekyll で記事を公開する前に下書きをする方法には、いくつ�
 
 ## 下書きのプレビュー
 
-- [_drafts/Makefile}(https://github.com/sekika/sekika.github.io/blob/master/_drafts/Makefile)
+[_drafts/Makefile](https://github.com/sekika/sekika.github.io/blob/master/_drafts/Makefile) を作成した。
 
 ~~~
 UNAME = ${shell uname}
@@ -28,3 +28,10 @@ all:
 	cd ..; jekyll serve --drafts --host localhost
 ~~~
 
+これで、```_drafts``` フォルダで ```make``` とするだけで、
+
+- git への登録
+- ドラフトのプレビュー (Mac または Linux の場合）
+- ドラフトの作成
+
+を、まとめてできるようになった。プレビューを作成の前にしているので、プレビューが表示された段階では
