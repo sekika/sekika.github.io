@@ -1,7 +1,8 @@
 ---
 layout: post
 title: Word 参考サイト
-tags: - word
+tags:
+- word
 - link
 ---
 Microsoft Word の使い方について解説しているサイトへのリンクです。
