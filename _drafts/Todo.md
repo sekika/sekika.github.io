@@ -7,6 +7,7 @@ tag: jekyll
 
 ## 記事 ##
 
+<<<<<<< HEAD
 ### Windows 10 ###
 Windows 7 と Ubuntu のデュアルブートから、Windows 10 へのアップグレード
 １回目失敗、Windows 7 に戻った
@@ -33,6 +34,8 @@ update-grub
 - Makefile
 - pub スクリプト
 
+=======
+>>>>>>> a4d678e5d3a18b6bcf84f5f3a0e42f0a56cc082d
 ### 土壌の物理性「古典を読む」
 - Allison
 - 大村さん
