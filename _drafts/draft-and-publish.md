@@ -57,4 +57,4 @@ all:
 Permalink=$Site_URL`date -u +/%Y/%m/%d/``echo $Filename | sed -e 's/\..*$/\//'`
 ~~~
 
-また、サイトの URL は ```_condig.yml``` の ```url:``` 行から読んでいる。
+また、サイトの URL は ```_config.yml``` の ```url:``` 行から読んでいる。
