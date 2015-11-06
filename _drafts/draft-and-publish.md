@@ -23,19 +23,27 @@ UNAME = ${shell uname}
 all:
 	git add -A
 	- git commit -m draft
+	make preview
+
+push:
+	git add -A
+	- git commit -m draft
 	git push origin master
+	make preview
+
+preview:
 	if [ $(UNAME) = "Darwin" ]; then open http://localhost:4000/; fi
 	if [ $(UNAME) = "Linux" ]; then xdg-open http://localhost:4000/; fi
 	cd ..; jekyll serve --drafts --host localhost
-~~~
+	~~~
 
 これで、```_drafts``` フォルダで ```make``` とするだけで、
 
-- git への登録
+- git への commit
 - 下書き記事入りでサイトのプレビュー (Mac または Linux の場合）
 - サイト構築と localhost でのサーバー起動
 
-を、まとめてできるようになった。プレビューをサイト構築の前にしているので、最初はプレビューが表示されないが、ブラウザによっては、サイトが構築されると自動的に再読み込みして表示をしてくれる。自動的にしてくれない場合には、自分で更新ボタンを押す。
+を、まとめてできるようになった。git については、push まではしないので、push もいっしょにしたい時には ```make push``` とする。プレビューをサイト構築の前にしているので、最初はプレビューが表示されないが、ブラウザによっては、サイトが構築されると自動的に再読み込みして表示をしてくれる。自動的にしてくれない場合には、自分で更新ボタンを押す。
 
 ## 下書きの公開
 
