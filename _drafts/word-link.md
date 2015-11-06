@@ -10,6 +10,7 @@ Microsoft Word の使い方について解説しているサイトへのリン�
 - [トレーニングビデオ](http://www.microsoft.com/ja-jp/office/2013/business/training/training-video/default.aspx)
 - [ワード2010基本講座](http://www4.synapse.ne.jp/yone/word2010/)
 - [動画マニュアル：Word 2010 使い方](http://www.dougamanual.com/blog/231/)
+- [ワード2007基本講座](http://www.eurus.dti.ne.jp/~yoneyama/Word2007/)
 
 ## Mac 版
 <ul>
