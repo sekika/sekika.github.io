@@ -7,6 +7,28 @@ tag: jekyll
 
 ## 記事 ##
 
+### Windows 10 ###
+Windows 7 と Ubuntu のデュアルブートから、Windows 10 へのアップグレード
+１回目失敗、Windows 7 に戻った
+高速スタートアップの無効化
+BIOSメニュー
+管理者パスワードの設定
+成功
+
+Grub のメニュー
+
+http://ubiqlog.com/archives/5164
+
+/boot/grub/grub.cfg は、編集不可
+/etc/grub.d/30_os-prober を編集すればいい？
+http://askubuntu.com/questions/666317/grub2-shows-windows-7-instead-of-windows-10
+
+/usr/lib/os-probes/mounted/20microsoft の編集
+os-prober
+update-grub
+まだ、メニューは変わらず
+
+
 ### Drafts 管理
 - Makefile
 - pub スクリプト
