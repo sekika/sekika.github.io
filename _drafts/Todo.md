@@ -7,10 +7,6 @@ tag: jekyll
 
 ## 記事 ##
 
-### Drafts 管理
-- Makefile
-- pub スクリプト
-
 ### 土壌の物理性「古典を読む」
 - Allison
 - 大村さん
