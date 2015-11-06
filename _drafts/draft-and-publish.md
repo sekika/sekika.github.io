@@ -3,7 +3,7 @@ layout: post
 title: 記事の下書き
 tag: jekyll
 ---
-Jekyll で記事を公開する前に下書きをする方法には、いくつかの流儀があって、好みで使い分けられているようだ。
+Jekyll で記事を公開する前に下書きを作成して保存する方法には、いくつかの流儀があって、好みで使い分けられているようだ。
 
 1. [_drafts フォルダを使う方法](http://jekyllrb.com/docs/drafts/)
 2. [YAML フロントマター](http://jekyllrb.com/docs/frontmatter/) に ```published: false``` を設定する方法
