@@ -13,10 +13,10 @@
 # (5) Now just wait for jekyll at GitHub Pages to build
 #
 
-# Set URL of the top page
-Site_URL=http://sekika.github.io
-
 Filename=$1
+
+# Read site URL from "url:" line of ../_config.yml
+Site_URL=`grep "^url:" ../_config.yml | sed -e 's/^url://' | sed -e 's/ //g' | sed -e 's/\"//g' | sed -e 's/#.*$//'`
 
 # Permanent link in the pretty format
 # Change here when using other permalink format
