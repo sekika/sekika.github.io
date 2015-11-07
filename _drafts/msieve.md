@@ -24,7 +24,7 @@ add 'NO_ZLIB=1' if you don't have zlib
 
 のようにオプションが表示される。Mac では、特にオプションを指定しないでもコンパイルできた。```make install``` はないので、パスが通っているところに ```msieve``` をコピーしておく。
 
-Homebrew
+[Homebrew の formula](https://github.com/Homebrew/homebrew-science/pull/2990) をチェック
 
 これで、```msieve -q 素因数分解したい数``` で、手軽に素因数分解ができるようになった。
 
