@@ -9,22 +9,13 @@ tag: math
 - [Sourceforge: Msieve](https://sourceforge.net/projects/msieve/)
 - [Msieve の使い方](http://stdkmd.com/nrr/msieve_ja.htm)
 
-ソースをダウンロードして、```make all```でコンパイル。```make``` とすると、
+Homebrew の [science](https://github.com/Homebrew/homebrew-science/blob/master/README.md) tap に [入れておいた](https://github.com/Homebrew/homebrew-science/blob/master/msieve.rb) ので、Mac で Homebrew を使っていれば、
 
-<pre>
-to build:
-make all
-add 'WIN=1 if building on windows
-add 'ECM=1' if GMP-ECM is available (enables ECM)
-add 'CUDA=1' for Nvidia graphics card support
-add 'MPI=1' for parallel processing using MPI
-add 'BOINC=1' to add BOINC wrapper
-add 'NO_ZLIB=1' if you don't have zlib
-</pre>
+~~~
+brew install homebrew/science/msieve
+~~~
 
-のようにオプションが表示される。Mac では、特にオプションを指定しないでもコンパイルできた。```make install``` はないので、パスが通っているところに ```msieve``` をコピーしておく。
-
-[Homebrew の formula](https://github.com/Homebrew/homebrew-science/pull/2990) をチェック
+で、インストールできる。
 
 これで、```msieve -q 素因数分解したい数``` で、手軽に素因数分解ができるようになった。
 
