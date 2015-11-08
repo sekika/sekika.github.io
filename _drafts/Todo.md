@@ -7,6 +7,14 @@ tag: jekyll
 
 ## 記事 ##
 
+### Linuxbrew ###
+
+- [Linuxbrew](https://github.com/Homebrew/linuxbrew)
+
+32 bit では動かない
+
+uname -a でi686, i686, i386と表示された場合は、32bitカーネル、X86_64やamd64と表示された場合は、64bitカーネル。
+
 ### Windows 10 ###
 Windows 7 と Ubuntu のデュアルブートから、Windows 10 へのアップグレード
 １回目失敗、Windows 7 に戻った
