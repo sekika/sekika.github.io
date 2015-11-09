@@ -8,6 +8,6 @@ title: キーワード
 <h1>{{ page.title }}</h1>
 <p>話題ごとに記事をまとめています。</p>
 {% capture tags %}{% for tag in site.tags %} {{ tag[0] }} {% endfor %}{% endcapture %}{% assign sortedtags = tags | split:' ' | sort %}
-{% for tag in sortedtags %} {% assign posts = site.tags[tag] | size %}<a href="{{ tag }}/index.html"  style='font-size: {{ posts | times:'1.5' | plus:'12' }}pt;'>{{ tag }}</a>&nbsp;&nbsp;&nbsp;
+{% for tag in sortedtags %} {% assign posts = site.tags[tag] | size %}<a href="{{ tag }}/index.html"  style='font-size: {% if posts < 5 %}{{ posts | times:'2' | plus:'12' }}{% else %}  {{ posts | times:'0.6' | plus:'18' }}{% endif %}pt;'>{{ tag }}</a>&nbsp;&nbsp;&nbsp;
 {% endfor %}
 </div>
