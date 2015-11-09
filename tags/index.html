@@ -15,12 +15,10 @@ title: キーワード
 {% endcapture %}
 {% assign sortedtags = tags | split:' ' | sort %}
 
-<ul>
 {% for tag in sortedtags %}
   {% assign posts = site.tags[tag] | size %}
-  <li><a href="{{ tag }}/index.html">{% if posts > 4 %}<strong>{% endif %}{{ tag }}{% if posts > 3 %}</strong>{% endif %}</a> ({{ posts }})</li>
+ <a href="{{ tag }}/index.html"  style='font-size: {{ posts | times:'1.5' | plus:'12' }}pt;'>{{ tag }}</a>&nbsp;&nbsp;&nbsp;
 {% endfor %}
-</ul>
 
 </div>
 
