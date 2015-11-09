@@ -35,7 +35,7 @@ push:
 preview:
 	if [ $(UNAME) = "Darwin" ]; then open http://localhost:4000/; fi
 	if [ $(UNAME) = "Linux" ]; then xdg-open http://localhost:4000/; fi
-	cd ..; jekyll serve --drafts --host localhost
+	cd ..; bundle exec jekyll serve --drafts --host localhost
 ~~~
 
 これで、```_drafts``` フォルダで ```make``` とすると、
