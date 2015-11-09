@@ -8,16 +8,10 @@ title: キーワード
 <h1>{{ page.title }}</h1>
 <p>話題ごとに記事をまとめています。</p>
 
-{% capture tags %}
-  {% for tag in site.tags %}
-    {{ tag[0] }}
-  {% endfor %}
-{% endcapture %}
+{% capture tags %}{% for tag in site.tags %}{{ tag[0] }}{% endfor %}{% endcapture %}
 {% assign sortedtags = tags | split:' ' | sort %}
-
 {% for tag in sortedtags %}
-  {% assign posts = site.tags[tag] | size %}
- <a href="{{ tag }}/index.html"  style='font-size: {{ posts | times:'1.5' | plus:'12' }}pt;'>{{ tag }}</a>&nbsp;&nbsp;&nbsp;
+  {% assign posts = site.tags[tag] | size %}<a href="{{ tag }}/index.html"  style='font-size: {{ posts | times:'1.5' | plus:'12' }}pt;'>{{ tag }}</a>&nbsp;&nbsp;&nbsp;
 {% endfor %}
 
 </div>
