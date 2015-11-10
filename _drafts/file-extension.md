@@ -19,7 +19,7 @@ tags:
 - [ファイルを開くアプリケーションソフトを変更したい
 拡張子の関連付けを変更したい](http://soft1.jp/trouble/w/w015.html) (HEARTSNET)
 
-```Mac OS X``` では、UTI (<a href="https://ja.wikipedia.org/wiki/Uniform_Type_Identifier">Uniform Type Identifier</a>) という仕組みでデータの種類を識別する。UTIによって拡張子とファイルタイプが関連付けられるため、拡張子によってファイルタイプを判別することができる。以下の方法で、拡張子とファイルの関連付けを変えることができる。
+```Mac OS X``` では、v10.4 以降、UTI (<a href="https://ja.wikipedia.org/wiki/Uniform_Type_Identifier">Uniform Type Identifier</a>) という仕組みでデータの種類を識別している。UTIによって拡張子とファイルタイプが関連付けられるため、拡張子によってファイルタイプを判別することができる。以下の方法で、拡張子とファイルの関連付けを変えることができる。
 
 - [Mac OS Xでファイルの関連付けをちょっと簡単に変更する方法](https://makopoppo.wordpress.com/2011/08/13/mac-osx%E3%81%A7%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E9%96%A2%E9%80%A3%E4%BB%98%E3%81%91%E3%82%92%E3%81%A1%E3%82%87%E3%81%A3%E3%81%A8%E7%B0%A1%E5%8D%98%E3%81%AB%E5%A4%89%E6%9B%B4%E3%81%99/) (@makopo, 2011/8/13)
 - [Mac ファイルの関連付けを変更する設定方法！](http://applian.jp/mac-change-association/) (アプリアン, 2015/4/26)
@@ -51,60 +51,74 @@ Windows では、アプリケーションの関連付けがされているファ
 
 ## 拡張子の例
 
-Wikipedia の<a href="https://ja.wikipedia.org/wiki/%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%83%95%E3%82%A9%E3%83%BC%E3%83%9E%E3%83%83%E3%83%88%E4%B8%80%E8%A6%A7">ファイルフォーマット一覧</a>には、ファイルフォーマットと拡張子が一覧にされている。ただし、拡張子はファイルのデータ形式に必ずしも対応していないため、参考であるとしている。その中から、いくつかを以下に抜粋する。
+Wikipedia の<a href="https://ja.wikipedia.org/wiki/%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%83%95%E3%82%A9%E3%83%BC%E3%83%9E%E3%83%83%E3%83%88%E4%B8%80%E8%A6%A7">ファイルフォーマット一覧</a>には、ファイルフォーマットと拡張子が一覧にされている。ただし、拡張子はファイルのデータ形式に必ずしも対応していないため、参考であるとしている。また、<a href="https://ja.wikipedia.org/wiki/%E7%94%BB%E5%83%8F%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%83%95%E3%82%A9%E3%83%BC%E3%83%9E%E3%83%83%E3%83%88">画像</a>、<a href="https://ja.wikipedia.org/wiki/%E9%9F%B3%E5%A3%B0%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%83%95%E3%82%A9%E3%83%BC%E3%83%9E%E3%83%83%E3%83%88">音声</a>、動画等の<a href="https://ja.wikipedia.org/wiki/%E3%82%B3%E3%83%B3%E3%83%86%E3%83%8A%E3%83%95%E3%82%A9%E3%83%BC%E3%83%9E%E3%83%83%E3%83%88">コンテナ</a>のファイル形式が、それぞれまとめられている。その中から、いくつかを以下に抜粋する。
 
 |拡張子 |説明 |主な使用ソフトウェア |種類|
 |--------|-----|-------------------------|-----|
+|7z| 7-Zipペッドファイル	|7-Zip |アーカイブ|
 |AAC |Advanced Audio Coding （音楽ファイルの標準の1つ） ||音声|
-ACCDB |データファイル |Microsoft Access Database (Open XML)|
-|AVI |Audio Video Interleaved animation file |Video for Windows、他多数|動画|
-|BAT |バッチファイル|MS-DOS, RT-11||
+ACCDB |データファイル |Microsoft Access Database (Open XML)|データベース|
+|AVI |Audio Video Interleaved 動画ファイル |Video for Windows、他多数|動画|
+|BAT |バッチファイル|MS-DOS, RT-11|スクリプト|
 |BMP|Windows、OS/2のビットマップ画像ファイル |QPeg、CorelDraw、PC Paintbrush、他多数|画像|
-|BZ2 |圧縮ファイル |bzip2||
-|C |C言語ソース |GCCなど||
-|CAB |Windows 95 packed file |Windowsほか |アーカイブ|
-|CGI |Common Gateway Interface script | |
-|CLASS|Java classファイル |Java||
-|COM |コマンドファイル |DOS||
-|CSS |カスケーディング スタイル シート| ||
-|CSV |Comma Separated Values text file format (ASCII) ||
+|BZ2 |圧縮ファイル |bzip2|圧縮|
+|C |C言語ソース |GCCなど|ソース|
+|CGI |Common Gateway Interface スクリプト | |スクリプト|
+|CLASS|Java classファイル |Java|実行|
+|COM |コマンドファイル |DOS|実行|
+|CSS |カスケーディング スタイル シート| |スクリプト|
+|CSV |カンマ区切りテキストファイル (Comma Separated Values) ||
 |DOC |ドキュメントファイル。テキストファイル形式の説明書。| 多数 |文書|
 |DOC|ワープロファイル |Microsoft Word、他 |文書|
-|DOCM |Microsoft Word 2007 Master document |Microsoft Word 2007 |文書|
+|DOCM |Microsoft Word 2007 以降で作成されたマクロ機能有効な文書ファイル |Microsoft Word |文書|
 |DOCX |Office Open XML ドキュメント |Microsoft Word|文書|
-|EPS|Encapsulated PostScript (Graphics format)	|CorelDraw - PhotoStyler - PMView - Adobe Illustrator - Ventua Publisher||
-|EXE |Directly executable program	|DOS||
-|FLV |Flash video file |Flash Video Player|
+|DLL|Dynamic Link Library, 動的リンクライブラリ |Windows |実行|
+|DVI |DeVice Independent document |TeX|文書|
+|EPS|Encapsulated PostScript |CorelDraw - PhotoStyler - PMView - Adobe Illustrator - Ventua Publisher|画像|
+|EXE |実行可能なプログラム |DOS, Windows|実行|
+|FLV |Flash ビデオファイル |Flash Video Player|動画|
 |GIF |Compuserves' Graphics Interchange Format |QPeg - Display - CompuShow |画像|
-|HTM |see HTML ||
-|HTML |Hypertext Markup Language (WWW)	|Netscape - Mosaic - many||
-|INDD |InDesign Document |Adobe InDesign||
-|INI |Initialization file||
-|JAVA |Java ソースコード ||
+|GZ |圧縮ファイル |GNU zip - WinZipNT|圧縮|
+|HTM |HTML 参照||文書 |
+|HTML |Hypertext Markup Language (WWW)	|Netscape - Mosaic - 多数 |文書|
+|INDD |InDesign 文書 |Adobe InDesign|文書 |
+|INI |初期設定ファイル ||
+|JAVA |Java ソースコード ||ソース |
 |JPEG |Joint Photography Experts Groupファイルフォーマット |多数 |画像|
 |JPG |JPEGを参照 |多数 |画像|
 |LZH |アーカイブ |LHA/LHARC|アーカイブ|
 |MDB |Microsoft DataBase |Microsoft Access |データベース|
-|MID |Standard MIDI file	|music synthetizers, Winamp|
-|MIDI |See MID ||
+|MID |標準 MIDI ファイル |music synthetizers, Winamp|音声 |
+|MIDI |MID 参照 ||音声 |
+|MOV |動画形式 (Mac) |QuickTime|動画|
 |MP3 |MPEG オーディ オストリーム, レイヤー3 |AWAVE, CoolEdit(+PlugIn), Winamp |音声|
-|MP4 |multimedia container format, MPEG 4 Part 14 |Winamp |音声|
-|MPEG |multimedia containter format, video, audio |MPEG Player, Winamp |音声/動画|
+|MP4 |マルチメディアコンテナ形式 MPEG 4 Part 14 |Winamp |音声|
+|MPEG |マルチメディアコンテナ形式 |MPEG Player, Winamp |音声/動画|
 |MPG |MPEGを参照	 ||音声/動画|
-|PDF |Adobe's Portable Document Format |Adobe Acrobat Reader||
-|PHP |PHP file||
+|PDF |Adobe's Portable Document Format |Adobe Acrobat Reader|文書|
+|PHP |PHP ファイル ||スクリプト |
 |PNG |Portable Network Graphics, Animated Portable Network Graphics |多数 |画像/動画|
-|PPS |Microsoft PowerPoint Slideshow (stand alone slideshow) |Microsoft PowerPoint||
-|PPT |Microsoft PowerPoint Presentation |Microsoft PowerPoint||
-|PPTM |マクロ付き PowerPoint ファイル |Microsoft PowerPoint||
-|PPTX |Office Open XML Presentation |Microsoft PowerPoint||
+|PPS |Microsoft PowerPoint Slideshow |Microsoft PowerPoint|プレゼンテーション|
+|PPT |Microsoft PowerPoint プレゼンテーション |Microsoft PowerPoint|プレゼンテーション|
+|PPTM |マクロ付き PowerPoint ファイル |Microsoft PowerPoint|プレゼンテーション|
+|PPTX |Office Open XML プレゼンテーション |Microsoft PowerPoint|プレゼンテーション|
+|PS |PostScript 形式の文書 |Adobe|文書|
+|PSD |Photoshop bitmap file |Photoshop document|画像 |
+|PY |Python スクリプトファイル |Python |スクリプト|
+|RB |Ruby スクリプトファイル |Ruby |スクリプト|
+|RTF |Rich Text Format |ワードパッドなど多数 |文書|
+|SVG |Scalable Vector Graphics, 多数 ||画像|
+|TAR |アーカイブ |TAR |アーカイブ|
 |TGZ |アーカイブ |WindowsZipNT - TAR - GNUzip |アーカイブ|
 |TIF |TIFFを参照 ||画像|
 |TIFF |TIFF (tagged image format file) bitmapped file |Alchemy - PhotoStyler -PageMaker - CorelDRAW |画像|
+|TTF |TrueType Font ||フォント|
 |TXT |ASCIIテキストファイルの一般的な名称 |メモ帳、テキストエディタなど多数 |文書|
 |XLS|Microsoft Excelの表計算ファイル |Microsoft Excel |表計算|
 |XLSM |Microsoft Excel 2007 Macro-Enabled Workbook (Spreadsheets) |Microsoft Excel 2007|表計算|
-|XLSX |Office Open XML Workbook (Spreadsheets) |Microsoft Excel 2007 |表計算|
+|XLSX |Office Open XML Workbook (スプレッドシート) |Microsoft Excel 2007 |表計算|
+|XML |eXtensible Markup Language 文書 | |文書|
+|WAV |音声形式 |Media Player |音声|
 |ZIP |ZIPアーカイブ |PKZip, WinZip, Mac OS X、他多数 |アーカイブ|
 
 
