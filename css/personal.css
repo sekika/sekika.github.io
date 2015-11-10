@@ -1,3 +1,18 @@
+p {
+  text-indent: 1em;
+  text-align: justify;
+  text-justify: inter-ideograph;
+}
+
+p.noindent {
+  text-indent: 0;
+}
+
+li {
+  text-align: justify;
+  text-justify: inter-ideograph;
+}
+
 table{
     margin-top: 0.2em;
     margin-bottom: 1em;

@@ -11,8 +11,7 @@ Jekyll で記事を公開する前に下書きを作成して保存する方法�
 3. [未来の時間を設定する方法](http://tqclarkson.com/2012/08/22/jekyll-drafts/)
 4. [下書き用のブランチを作成する方法](http://qrohlf.com/posts/jekyll-drafts-workflow/)
 
-この中で、私は1の方法を採用することにした。現在作業中のファイルが1つのフォルダの下にまとまっているのは分かりやすいと感じるためである。スクリプトを作成して、下書きのプレビューと公開を、それぞれ ```_drafts``` フォルダの下でコマンド一発でできるようにした。このスクリプトを使うと、[コミットログ](https://github.com/sekika/sekika.github.io/commits/master/_posts/2015-10-19-office-open-xml-git.md)がきれいになる。
-
+この中で、私は1の方法を採用することにした。現在作業中のファイルが1つのフォルダの下にまとまっているのは分かりやすいと感じるためである。スクリプトを作成して、下書きのプレビューと公開を、それぞれ ```_drafts``` フォルダの下でコマンド一発でできるようにした。このスクリプトを使うと、[コミットログ](https://github.com/sekika/sekika.github.io/commits/master/_posts/2015-10-19-office-open-xml-git.md)がきれいになる。また、公開時に自動的にファイル名に日付が付与されるので、下書きの時点でファイル名に日付を入れる必要がない。
 
 ## 下書きのプレビュー
 
@@ -35,7 +34,7 @@ push:
 preview:
 	if [ $(UNAME) = "Darwin" ]; then open http://localhost:4000/; fi
 	if [ $(UNAME) = "Linux" ]; then xdg-open http://localhost:4000/; fi
-	cd ..; jekyll serve --drafts --host localhost
+	cd ..; bundle exec jekyll serve --drafts --host localhost
 ~~~
 
 これで、```_drafts``` フォルダで ```make``` とすると、
