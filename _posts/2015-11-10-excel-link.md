@@ -25,6 +25,9 @@ Microsoft Excel の使い方について解説しているサイトへのリン�
 - [Excel(エクセル)関数一覧表](http://www.eurus.dti.ne.jp/~yoneyama/Excel/kansu/itiran.html)  (よねさん)
 - [エクセル関数の技36](http://pc.nikkeibp.co.jp/pc21/tech/excel36/) (日経PC21)
 
+## ワンポイント
+- [相対参照と絶対参照](http://sekika.github.io/2015/10/23/excel-absolute-reference/)
+
 ## 関連ソフト：OpenOffice Calc
 - [OpenOffice.org](http://www.openoffice.org/ja/)
 - [動画マニュアル：Calc の使い方](http://www.dougamanual.com/blog/135/) (Webdemo Inc)
