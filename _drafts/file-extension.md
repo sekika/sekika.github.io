@@ -5,11 +5,11 @@ tags:
 - windows
 - mac
 ---
-ファイルの拡張子とは、ファイルのデータ形式を識別するためにファイル名の最後につけられる文字列である。Windows では、ドット (.) の後に続く文字であり、たとえば、```filename.txt``` という名前のファイルがあるときに、```.txt``` の部分、あるいは ```txt``` の部分が拡張子である。
+ファイルの拡張子とは、ファイルのデータ形式を識別するためにファイル名の最後につけられる文字列である。Windows や Mac では、ドット (.) の後に続く文字であり、たとえば、```filename.txt``` という名前のファイルがあるときに、```.txt``` の部分、あるいは ```txt``` の部分が拡張子である。
 
 ## 拡張子とアプリケーションの関連付け
 
-```Windows``` では、拡張子とアプリケーションが関連付けられているときに、ファイルをダブルクリックすると、関連付けられたプログラムでそのファイルが開きます。たとえば、Microsoft Office をインストールすると、拡張子 ```docx``` は Microsoft Word に関連付けられるため、拡張子 ```docx``` のファイルをダブルクリックすると、Word でそのファイルを開くことができる。この関連付けを変える方法については、Windows のバージョンによって異なり、以下のサイトに解説されている。
+```Windows``` では、拡張子とアプリケーションが関連付けられているときに、ファイルをダブルクリックすると、関連付けられたプログラムでそのファイルが開く。たとえば、Microsoft Office をインストールすると、拡張子 ```docx``` は Microsoft Word に関連付けられるため、拡張子 ```docx``` のファイルをダブルクリックすると、Word でそのファイルを開くことができる。この関連付けを変える方法については、Windows のバージョンによって異なり、以下のサイトに解説されている。
 
 - [Windows 10でファイルとアプリの関連付けを変更する](https://dekiru.net/article/12837/) (できるネット)
 - [Windows 10でアプリケーションと拡張子の関連付けを変更する方法](http://121ware.com/qasearch/1007/app/servlet/qadoc?QID=018054) (NEC Personal Computers)
@@ -96,6 +96,7 @@ ACCDB |データファイル |Microsoft Access Database (Open XML)|
 |PNG |Portable Network Graphics, Animated Portable Network Graphics |多数 |画像/動画|
 |PPS |Microsoft PowerPoint Slideshow (stand alone slideshow) |Microsoft PowerPoint||
 |PPT |Microsoft PowerPoint Presentation |Microsoft PowerPoint||
+|PPTM |マクロ付き PowerPoint ファイル |Microsoft PowerPoint||
 |PPTX |Office Open XML Presentation |Microsoft PowerPoint||
 |TGZ |アーカイブ |WindowsZipNT - TAR - GNUzip |アーカイブ|
 |TIF |TIFFを参照 ||画像|
