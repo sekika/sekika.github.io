@@ -7,3 +7,6 @@ tags:
 ---
 Microsoft PowerPoint の使い方について解説しているサイトへのリンクです。
 
+- [PowerPoint 動画マニュアル](http://www.dougamanual.com/webdemo/ppt2007.html)
+
+
