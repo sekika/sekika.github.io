@@ -55,6 +55,7 @@ update-grub
 
 ## サイト管理 ##
 - [更新履歴](https://github.com/sekika/sekika.github.io/commits/master/_posts/2015-10-27-open-command.md)へのリンクを表示するオプションの作成。
+-- [最終更新日](http://stackoverflow.com/questions/12464656/get-todays-date-in-jekyll-with-liquid-markup)
 - Gemfile http://xxxcaqui.hatenablog.com/entry/2013/02/11/013421
 - 関連キーワード
 - http://sekika.github.io/tags/ に、タグの description をひろうか？ひろえるか？
