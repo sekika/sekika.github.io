@@ -24,6 +24,6 @@ Microsoft Excel の使い方について解説しているサイトへのリン�
 - [Excel(エクセル)関数一覧表](http://www.eurus.dti.ne.jp/~yoneyama/Excel/kansu/itiran.html)  (よねさん)
 - [エクセル関数の技36](http://pc.nikkeibp.co.jp/pc21/tech/excel36/) (日経PC21)
 
-## 関連ソフト：Open Office.org Writer
+## 関連ソフト：Open Office.org Calc
 - [OpenOffice.org](http://www.openoffice.org/ja/)
 - [動画マニュアル：Calc の使い方](http://www.dougamanual.com/blog/135/) (Webdemo Inc)
