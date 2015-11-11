@@ -29,5 +29,4 @@ Microsoft Excel の使い方について解説しているサイトへのリン�
 - [相対参照と絶対参照](http://sekika.github.io/2015/10/23/excel-absolute-reference/)
 
 ## 関連ソフト：OpenOffice Calc
-- [OpenOffice.org](http://www.openoffice.org/ja/)
 - [動画マニュアル：Calc の使い方](http://www.dougamanual.com/blog/135/) (Webdemo Inc)
