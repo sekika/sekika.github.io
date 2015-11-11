@@ -22,19 +22,66 @@ tag: word excel powerpoint
 
 Microsoft Officeには複数のバージョンがあり、作成されるファイル形式も異なる。ファイル形式によって、ファイルの拡張子も異なる。そして、バージョンによって使い勝手が異なる。したがって、あるバージョンの操作に慣れた頃に、新しいバージョンで操作が変わってしまい戸惑う、ということもある。基本的な使い方をマスターしたら、使い方を忘れてしまった機能や分からない機能について、ヘルプやインターネット検索等で、自分で調べて使えるようにできる能力が必要とされる。
 
-|ソフトウェア |Office 2003以前の拡張子 |Office 2007以降 の拡張子|
-|---------------+---------------------------+----------------------------|
-|Word (文書作成) |.doc |.docx (マクロ無効; 標準), .docm (マクロ有効)|
-|Excel (表計算) |.xls |.xlsx (マクロ無効; 標準), .xlsm (マクロ有効)|
-|PowerPoint (プレゼンテーション) |.ppt |.pptx (マクロ無効; 標準), .pptm (マクロ有効)||
-|Access (データベース) |.mdb |.accdb|
+<table>
+  <thead>
+    <tr>
+      <th>ソフトウェア</th>
+      <th>目的</th>
+      <th>Office 2003 以前の拡張子</th>
+      <th>Office 2007 以降の拡張子</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="2">Word</td>
+      <td rowspan="2">文書作成</td>
+      <td rowspan="2">.doc</td>
+      <td>.docx (マクロ無効; 標準)</td>
+    </tr>
+    <tr>
+      <td>.docm (マクロ有効)</td>
+    </tr>
+    <tr>
+      <td rowspan="2">Excel</td>
+      <td rowspan="2">表計算</td>
+      <td rowspan="2">.xls</td>
+      <td>.xlsx (マクロ無効; 標準)</td>
+    </tr>
+    <tr>
+      <td>.xlsm (マクロ有効)</td>
+    </tr>
+    <tr>
+      <td rowspan="2">PowerPoint</td>
+      <td rowspan="2">プレゼンテーション</td>
+      <td rowspan="2">.ppt</td>
+      <td>.pptx (マクロ無効; 標準)</td>
+    </tr>
+    <tr>
+      <td>.pptm (マクロ有効)</td>
+    </tr>
+    <tr>
+      <td>Access</td>
+      <td>データベース</td>
+      <td>.mdb</td>
+      <td>.accdb</td>
+    </tr>
+  </tbody>
+</table>
 
-ここで、Office 2007 以降では、拡張子に「x」と「m」がつけられている。それまでは、バイナリ形式であったファイルの形式を、Office Open XML（OOXML）と呼ばれるXMLベースの標準的な形式へと変更した。標準拡張子の「x」は、このXMLを意味するものと考えられる。また、マクロ感染型ウィルスに感染することを防ぐために、マクロが有効な文書では拡張子を変えている。これらのファイルは、複数のXMLファイルをzipで圧縮することにより、1つのファイルとしている。
+ここで、Office 2007 以降では、拡張子に「x」と「m」がつけられている。それまでは、バイナリ形式であったファイルの形式を、<a href="https://ja.wikipedia.org/wiki/Office_Open_XML">Office Open XML</a>（OOXML）と呼ばれるXMLベースの標準的な形式へと変更した。標準拡張子の「x」は、このXMLを意味するものと考えられる。また、マクロ感染型ウィルスに感染することを防ぐために、マクロが有効な文書では拡張子を変えている。これらのファイルは、複数のXMLファイルをzipで圧縮することにより、1つのファイルとしている。
 
 - [Word 参考サイト](http://sekika.github.io/2015/11/06/word-link/)
 - [Excel 参考サイト](http://sekika.github.io/2015/11/10/excel-link/)
 
-## オフィスソフトの比較
+## Google ドキュメント
+
+- [Google ドキュメント](http://www.google.co.jp/intl/ja/docs/about/)
+- [Google ドキュメント エディタ ヘルプセンター](https://support.google.com/docs/?hl=ja&p=#topic=2811805)
+- [Google ドライブ](https://www.google.com/intl/ja/drive/)
+- [Googleドキュメントの互換性を検証～ どこまでMicrosoft Officeの代わりとして使えるのか？](http://www.atmarkit.co.jp/ait/articles/1405/28/news034.html) (@IT, 2014/5/28)
+
+## Apache 
+
 
 - [Apache OpenOffice.org](http://www.openoffice.org/ja/) 
 - [LibreOffice](http://ja.libreoffice.org/)
