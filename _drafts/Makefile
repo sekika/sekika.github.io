@@ -12,6 +12,6 @@ push:
 	make preview
 
 preview:
-	if [ $(UNAME) = "Darwin" ]; then open http://localhost:4000/; fi
-	if [ $(UNAME) = "Linux" ]; then xdg-open http://localhost:4000/; fi
+	- if [ $(UNAME) = "Darwin" ]; then open http://localhost:4000/; fi
+	- if [ $(UNAME) = "Linux" ]; then xdg-open http://localhost:4000/; fi
 	cd ..; bundle exec jekyll serve --drafts --host localhost

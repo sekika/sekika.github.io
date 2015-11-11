@@ -11,6 +11,7 @@ markdown: kramdown
 permalink: pretty
 
 # pagination
+gems: [jekyll-paginate]
 paginate: 5
 pagenate_path: "page:num"
 
