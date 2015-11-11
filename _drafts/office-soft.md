@@ -10,14 +10,15 @@ tag: word excel powerpoint
 ## 比較
 
 - [無料（フリー）のオフィスソフトは、どれが使える？](http://itwebkatuyou.com/1852) (WEB、IT、パソコン講座, 2015/2/7)
+- [オフィススイートの比較](https://ja.wikipedia.org/wiki/%E3%82%AA%E3%83%95%E3%82%A3%E3%82%B9%E3%82%B9%E3%82%A4%E3%83%BC%E3%83%88%E3%81%AE%E6%AF%94%E8%BC%83) (Wikipedia)
 
-ファイルをやりとりするときには、お互いにどのようなソフトウェアを使っているのか、バージョンの互換性はあるのか、といった配慮も必要となる。
+ファイルをやりとりするときには、お互いにどのようなソフトウェアを使っているのか、ファイルの互換性はあるのか、といった配慮も必要となる。
 
 ## Microsoft Office
 
 - [Microsoft Office 公式サイト](http://www.microsoft.com/ja-jp/office/)
 - [デスクトップ版購入](https://products.office.com/ja-jp/buy/compare-microsoft-office-products)
-- [無料オンラインアプリ Office.com](https://www.office.com/?omkt=ja-JP)
+- [Office.com](https://www.office.com/?omkt=ja-JP) 無料オンラインアプリ, スマートフォン, タブレット, ラップトップ/デスクトップ
 - [無料で使える「新iPad版Office」レビュー　Excelは重要機能がカットされるも、PowerPointはプレゼンに有用](http://trendy.nikkeibp.co.jp/article/pickup/20141126/1061485/) (日経トレンディネット, 2014/11/28)
 
 Microsoft Officeには複数のバージョンがあり、作成されるファイル形式も異なる。ファイル形式によって、ファイルの拡張子も異なる。そして、バージョンによって使い勝手が異なる。したがって、あるバージョンの操作に慣れた頃に、新しいバージョンで操作が変わってしまい戸惑う、ということもある。基本的な使い方をマスターしたら、使い方を忘れてしまった機能や分からない機能について、ヘルプやインターネット検索等で、自分で調べて使えるようにできる能力が必要とされる。
@@ -79,10 +80,25 @@ Microsoft Officeには複数のバージョンがあり、作成されるファ�
 - [Google ドキュメント エディタ ヘルプセンター](https://support.google.com/docs/?hl=ja&p=#topic=2811805)
 - [Google ドライブ](https://www.google.com/intl/ja/drive/)
 - [Googleドキュメントの互換性を検証～ どこまでMicrosoft Officeの代わりとして使えるのか？](http://www.atmarkit.co.jp/ait/articles/1405/28/news034.html) (@IT, 2014/5/28)
+- [Googleドライブを使ったお手軽PDF変換術](http://www.itmedia.co.jp/bizid/articles/1402/03/news039.html) (ITmedia, 2014/2/3)
 
-## Apache 
+## KINGSOFT Office
 
+Microsoft Office と同じ Office Open XML 形式でファイルを読み書きし、操作性も Microsoft Office とよく似ている。
+
+- [KINGSOFT Office](https://www.kingsoft.jp/office/download/)
+- [製品一覧](https://www.kingsoft.jp/office/lineup)
+- [オンラインショップ](https://pay.kingsoft.jp/shopping/products/list.php?category_id=4)
+
+## LibreOffice
+
+[OpenDocument Format](https://ja.wikipedia.org/wiki/OpenDocument) (ODF) でファイルを読み書きする。Office Open XML 形式の読み書きも可能である。
+
+- [LibreOffice](http://ja.libreoffice.org/)
+
+## Apache OpenOffice
+
+[OpenDocument Format](https://ja.wikipedia.org/wiki/OpenDocument) (ODF) でファイルを読み書きする。Office Open XML 形式の読み込みも可能であるが、xlsx 形式の書き込みはできない。
 
 - [Apache OpenOffice.org](http://www.openoffice.org/ja/) 
-- [LibreOffice](http://ja.libreoffice.org/)
 
