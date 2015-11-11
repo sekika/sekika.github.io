@@ -21,6 +21,7 @@ tag: link
 ## Microsoft Office
 
 - [Microsoft Office 公式サイト](http://www.microsoft.com/ja-jp/office/) / [価格](https://products.office.com/ja-jp/buy/compare-microsoft-office-products)
+- [OpenOffice.org](http://www.openoffice.org/ja/)
 - [Word 参考サイト](http://sekika.github.io/2015/11/06/word-link/)
 - [Excel 参考サイト](http://sekika.github.io/2015/11/10/excel-link/)
 
