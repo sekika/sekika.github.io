@@ -39,7 +39,7 @@ BIOSメニュー
 管理者パスワードの設定
 成功
 
-Grub のメニュー
+Grub のメニュー
 
 http://ubiqlog.com/archives/5164
 
