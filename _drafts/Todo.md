@@ -21,13 +21,13 @@ YAML に Update: フィールドがある記事のみ、最終更新日を表示
 
 [Get today's date in Jekyll with Liquid markup](http://stackoverflow.com/questions/12464656/get-todays-date-in-jekyll-with-liquid-markup) の方法だと、レイアウトを更新した時にも日時が変わってしまうか？
 
-[How to show the modification date of a file in Jekyll?](http://stackoverflow.com/questions/14978474/how-to-show-the-modification-date-of-a-file-in-jekyll) に書かれている [pre-commit フック](https://git-scm.com/book/ja/v2/Git-%E3%81%AE%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%9E%E3%82%A4%E3%82%BA-Git-%E3%83%95%E3%83%83%E3%82%AF] を ```.git/hooks/pre-commit``` に置いて、Update フィールドを直接編集してしまう。sed の[address range](http://sed.sourceforge.net/sedfaq3.html) で、フロントマターの範囲を指定して置換する。
+[How to show the modification date of a file in Jekyll?](http://stackoverflow.com/questions/14978474/how-to-show-the-modification-date-of-a-file-in-jekyll) に書かれている [pre-commit フック](https://git-scm.com/book/ja/v2/Git-%E3%81%AE%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%9E%E3%82%A4%E3%82%BA-Git-%E3%83%95%E3%83%83%E3%82%AF) を ```.git/hooks/pre-commit``` に置いて、Update フィールドを直接編集してしまう。sed の[address range](http://sed.sourceforge.net/sedfaq3.html) で、フロントマターの範囲を指定して置換する。
 
 ```git diff --cached --name-status``` で、
 　
-~~~
+~~~~
 M       _posts/2015-11-12-filename.md
-~~~
+~~~~
 
 のように表示されるファイルに対して実行。
 
