@@ -7,6 +7,18 @@ tag: jekyll
 
 ## 記事 ##
 
+### オフィスソフト追記 ###
+
+（Update フィールド埋め込み処理）
+
+純国産ワープロソフトの一太郎は、かつては国内最大のシェアを持っていたが、Microsoft Office の Word にシェアを奪われてしまった。官公庁や警察、企業で、まだ使っているところはある。独自形式のファイルを使うが、Word 形式や ```ODF``` 形式にも対応している。表計算とプレゼンテーションソフトを備えるオフィス製品が、法人向け、官公庁向け、警察機関向けに用意されている。日本の役所が作る書類には罫線が多く、罫線が多い文書の作成は Word よりも一太郎の方が使いやすいとの定評がある。私は罫線が多い書類を作成するのが嫌いである。
+
+- [一太郎Web](http://www.ichitaro.com/)
+- [JUST Office](http://www.justsystems.com/jp/products/justoffice/)
+- [一太郎](http://dic.nicovideo.jp/a/%E4%B8%80%E5%A4%AA%E9%83%8E) (ニコニコ大百科)
+- [一太郎と官公庁](http://openblog.meblog.biz/article/4178623.html) (Open ブログ, 2011/2/18)
+- [官公庁のワープロソフトも一太郎からwordへ](http://saiunlaw.blog40.fc2.com/blog-entry-248.html) (弁護士ZEKE（ジーク）の法律問題etc.ブログ, 2012/2/5)
+
 ### Linuxbrew ###
 
 - [Linuxbrew](https://github.com/Homebrew/linuxbrew)
