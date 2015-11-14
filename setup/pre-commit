@@ -1,0 +1,11 @@
+#!/bin/sh
+# Contents of .git/hooks/pre-commit
+
+# Read YAML front matter in all the modified files for committing,
+# and replace "update:" line to "update: current date and time"
+
+git diff --cached --name-status | grep "^M" | while read a b; do
+  cat $b | sed "/---.*/,/---.*/s/^update:.*$/update: $(date -u "+%Y-%m-%d %T") +0000/" > tmp
+  mv tmp $b
+  git add $b
+done
