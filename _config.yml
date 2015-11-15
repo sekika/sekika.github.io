@@ -5,6 +5,7 @@ author: <a href="http://www.amazon.co.jp/-/e/B00ADGVC1W">関 勝寿</a>
 author-en: <a href="https://scholar.google.com/citations?user=Gs_ABawAAAAJ">Katsutoshi Seki</a>
 baseurl: "" 
 url: "http://sekika.github.io" 
+repository: "https://github.com/sekika/sekika.github.io"
 
 # Build settings
 markdown: kramdown
