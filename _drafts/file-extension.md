@@ -19,7 +19,7 @@ tags:
 - [ファイルを開くアプリケーションソフトを変更したい
 拡張子の関連付けを変更したい](http://soft1.jp/trouble/w/w015.html) (HEARTSNET)
 
-```Mac OS X``` では、v10.4 以降、UTI (<a href="https://ja.wikipedia.org/wiki/Uniform_Type_Identifier">Uniform Type Identifier</a>) という仕組みでデータの種類を識別している。UTIによって拡張子とファイルタイプが関連付けられるため、拡張子によってファイルタイプを判別することができる。以下の方法で、拡張子とファイルの関連付けを変えることができる。
+```Mac OS X``` では、v10.4 以降、UTI (<a href="https://ja.wikipedia.org/wiki/Uniform_Type_Identifier">Uniform Type Identifier</a>) という仕組みでデータの種類を識別している。UTIによって拡張子とファイルタイプが関連付けられるため、拡張子によってファイルタイプを判別することができる。以下の方法で、拡張子とファイルの関連付けを変えることができる。
 
 - [Mac OS Xでファイルの関連付けをちょっと簡単に変更する方法](https://makopoppo.wordpress.com/2011/08/13/mac-osx%E3%81%A7%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E9%96%A2%E9%80%A3%E4%BB%98%E3%81%91%E3%82%92%E3%81%A1%E3%82%87%E3%81%A3%E3%81%A8%E7%B0%A1%E5%8D%98%E3%81%AB%E5%A4%89%E6%9B%B4%E3%81%99/) (@makopo, 2011/8/13)
 - [Mac ファイルの関連付けを変更する設定方法！](http://applian.jp/mac-change-association/) (アプリアン, 2015/4/26)
