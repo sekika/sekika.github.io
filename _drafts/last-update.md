@@ -30,7 +30,7 @@ YAML フロントマターに ```update:``` がなければ、最終更新日は
 update:
 ~~~
 
-と書くことで、コミット時に自動的に更新時刻を挿入するようにした。そのために、[How to show the modification date of a file in Jekyll?](http://stackoverflow.com/questions/14978474/how-to-show-the-modification-date-of-a-file-in-jekyll) に書かれている [pre-commit フック](https://git-scm.com/book/ja/v2/Git-%E3%81%AE%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%9E%E3%82%A4%E3%82%BA-Git-%E3%83%95%E3%83%83%E3%82%AF) を使った。すなわち、```.git/hooks/pre-commit``` に[このスクリプト](https://github.com/sekika/sekika.github.io/blob/master/setup/pre-commit)を置いた。
+と書くことで、コミット時に自動的に更新時刻を挿入するようにした。そのために、[How to show the modification date of a file in Jekyll?](http://stackoverflow.com/questions/14978474/how-to-show-the-modification-date-of-a-file-in-jekyll) に書かれている [pre-commit フック](https://git-scm.com/book/ja/v2/Git-%E3%81%AE%E3%82%AB%E3%82%B9%E3%82%BF%E3%83%9E%E3%82%A4%E3%82%BA-Git-%E3%83%95%E3%83%83%E3%82%AF) を書き直して使った。すなわち、```.git/hooks/pre-commit``` に[このスクリプト](https://github.com/sekika/sekika.github.io/blob/master/setup/pre-commit)を置いた。
 
 ~~~
 #!/bin/sh
