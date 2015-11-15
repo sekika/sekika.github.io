@@ -46,4 +46,4 @@ git diff --cached --name-status | grep "^M" | while read a b; do
 done
 ~~~
 
-このスクリプトは、```git diff --cached --name-status``` で更新のあったファイルを調べて、更新のあったファイルの YAML フロントマターの中で、```update:``` で始まる行に対して、時刻を表示する。
+このスクリプトは、```git diff --cached --name-status``` で更新のあったファイルを調べて、更新のあったファイルの YAML フロントマターの中で、```update:``` で始まる行に対して、現在時刻を追加する。
