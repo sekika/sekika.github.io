@@ -3,7 +3,7 @@
     <h1>{{ page.title }}</h1>
   </div>
   <p class="text-right">著者：{{ site.author }}<br />
-公開日：{{ page.date | date: "%Y年%-m月%-d日" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}<br />
+公開日：{{ page.date | date: "%Y年%-m月%-d日" }}{% if page.author %} • {{ page.author }}{% endif %}{% if page.meta %} • {{ page.meta }}{% endif %}{% if page.update %}- <a href="https://github.com/sekika/sekika.github.io/commits/master/{{ page.path }}">最終更新日</a>：{{ page.update | date: "%Y年%-m月%-d日" }}{% endif %}<br />
 キーワード：
 {% capture tags %}
 {% for tag in page.tags %}
