@@ -19,7 +19,7 @@ update: 2015-11-15 07:04:55 +0000
 そして、[レイアウト](https://github.com/sekika/sekika.github.io/blob/master/_includes/post-header.html)で公開日 ```page.date``` と最終更新日 ```page.update``` を取得して表示している。
 
 <pre>
-公開日：&lcub;&lcub; page.date | date: "%Y年%-m月%-d日" &rcub;&rcub;&lcub;% if page.update %&rcub; - &lt;a href="https://github.com/sekika/sekika.github.io/commits/master/&lcub;&lcub; page.path &rcub;&rcub;"&gt;最終更新日&lt;/a&gt;：&lcub;&lcub; page.update | date: "%Y年%-m月%-d日" &rcub;&rcub;&lcub;% endif %&rcub;&lt;br /&gt;
+公開日：&lcub;&lcub; page.date | date: "%Y年%-m月%-d日" &rcub;&rcub;&lcub;% if page.update %&rcub; - &lt;a href="&lcub;&lcub; % site.repository &rcub;&rcub;/commits/master/&lcub;&lcub; page.path &rcub;&rcub;"&gt;最終更新日&lt;/a&gt;：&lcub;&lcub; page.update | date: "%Y年%-m月%-d日" &rcub;&rcub;&lcub;% endif %&rcub;&lt;br /&gt;
 </pre>
 
 YAML フロントマターに ```update:``` がなければ、最終更新日は表示されない。最終更新日を表示したいときにだけ表示するようにした。
