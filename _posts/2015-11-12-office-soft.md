@@ -2,6 +2,7 @@
 layout: post
 title: オフィスソフトの比較
 date: 2015-11-12 03:01:50 +0000
+update: 2015-11-15 07:04:55 +0000
 tags:
 - word
 - excel
@@ -136,3 +137,12 @@ Microsoft Office と同じ ```OOXML``` 形式でファイルを読み書きし�
 - [製品一覧](https://www.kingsoft.jp/office/lineup)
 - [オンラインショップ](https://pay.kingsoft.jp/shopping/products/list.php?category_id=4)
 
+## 一太郎
+
+純国産ワープロソフトの一太郎は、かつては国内最大のシェアを持っていたが、Microsoft Office の Word にシェアを奪われてしまった。独自形式のファイルを使うが、Word 形式や ```ODF``` 形式にも対応している。表計算とプレゼンテーションソフトを備えるオフィス製品が、法人向け、官公庁向け、警察機関向けに用意されている。日本の役所が作る書類は無駄に罫線が多く、罫線が多い文書の作成は Word よりも一太郎の方が使いやすいとの定評がある。私は罫線が多い書類を作成するのが嫌いである。
+
+- [一太郎Web](http://www.ichitaro.com/)
+- [JUST Office](http://www.justsystems.com/jp/products/justoffice/)
+- [一太郎](http://dic.nicovideo.jp/a/%E4%B8%80%E5%A4%AA%E9%83%8E) (ニコニコ大百科)
+- [一太郎と官公庁](http://openblog.meblog.biz/article/4178623.html) (Open ブログ, 2011/2/18)
+- [官公庁のワープロソフトも一太郎からwordへ](http://saiunlaw.blog40.fc2.com/blog-entry-248.html) (弁護士ZEKE（ジーク）の法律問題etc.ブログ, 2012/2/5)
