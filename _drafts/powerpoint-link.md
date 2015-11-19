@@ -8,8 +8,9 @@ tags:
 Microsoft PowerPoint の使い方について解説しているサイトへのリンクです。
 
 ## Windows 版
-
+- [PowerPoint 2013の使い方まとめ](https://dekiru.net/article/5250/) (できるネット)
 - [Office 2013 トレーニングビデオ](http://www.microsoft.com/ja-jp/office/2013/business/training/training-video/default.aspx) (Microsoft)
+- [パワーポイントの使い方 2010入門基本](http://office-powerpoint.com/)
 - [PowerPoint 動画マニュアル](http://www.dougamanual.com/webdemo/ppt2007.html)
 
 ## Mac 版
