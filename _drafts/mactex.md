@@ -7,7 +7,7 @@ tags:
 ---
 Mac OS X で LaTeX を使えるようにするための手順。Yosemite で検証済み。
 
-- [[MacTeX](http://tug.org/mactex/) のダウンロードとインストール
+- [MacTeX](http://tug.org/mactex/) のダウンロードとインストール
 - [TeXShop](http://darkwing.uoregon.edu/~koch/texshop/texshop.html) のダウンロードとインストール
 - TeXShop を起動。設定の書類タブでエンコードをutf8に。内部設定タブのTeX+dvips+distillerのTexは ```~/Library/TeXShop/bin/ptex2pdf-utf8``` に。Latexは ```~/Library/TeXShop/bin/platex2pdf-utf8``` に。
 
