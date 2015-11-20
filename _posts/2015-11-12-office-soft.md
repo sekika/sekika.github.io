@@ -2,7 +2,7 @@
 layout: post
 title: オフィスソフトの比較
 date: 2015-11-12 03:01:50 +0000
-update: 2015-11-17 06:38:29 +0000
+update: 2015-11-20 02:09:55 +0000
 tags:
 - word
 - excel
@@ -76,6 +76,7 @@ Office 2007 以降では、拡張子に「x」と「m」がつけられている
 
 - [Word 参考サイト](http://sekika.github.io/2015/11/06/word-link/)
 - [Excel 参考サイト](http://sekika.github.io/2015/11/10/excel-link/)
+- [PowerPoint 参考サイト]({% post_url 2015-11-20-powerpoint-link %})
 
 ## Google ドキュメント
 

@@ -30,4 +30,5 @@ Microsoft Excel の使い方について解説しているサイトへのリン�
 
 ## 関連記事
 - [Word 参考サイト]({% post_url 2015-11-06-word-link %})
+- [PowerPoint 参考サイト]({% post_url 2015-11-20-powerpoint-link %})
 - [オフィスソフトの比較]({% post_url 2015-11-12-office-soft %})
