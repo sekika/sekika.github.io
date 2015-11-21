@@ -12,15 +12,20 @@ Mac OS X で LaTeX を使えるようにするための手順。Yosemite で検�
 - TeXShop を起動。設定の書類タブでエンコードをutf8に。内部設定タブのTeX+dvips+distillerのTexは ```~/Library/TeXShop/bin/ptex2pdf-utf8``` に。Latexは ```~/Library/TeXShop/bin/platex2pdf-utf8``` に。
 - [Xpdf](http://www.foolabs.com/xpdf/download.html) から [xpdf-japanese.tar.gz](ftp://ftp.foolabs.com/pub/xpdf/xpdf-japanese.tar.gz) をダウンロードして ```/usr/local/share/xpdf/japanese``` の下に展開
 - [日本語フォントのセットアップ](http://fugenji.org/~thomas/texlive-guide/font_setup.html) で、ヒラギノフォントのセットアップ。最後には
+
 ~~~
 sudo mktexlsr
 ~~~
-- /.xpdfrc に以下を書く
+
+- ```~/.xpdfrc``` に以下を書く
+
 ~~~
-name                                 type              emb sub uni object ID
------------------------------------- ----------------- --- --- --- ---------
-Ryumin-Light-Identity-H              CID Type 0        no  no  no       5  0
-GothicBBB-Medium-Identity-H          CID Type 0        no  no  no       8  0
+cidToUnicode    Adobe-Japan1    /usr/local/share/xpdf/japanese/Adobe-Japan1.cidToUnicode
+unicodeMap      ISO-2022-JP     /usr/local/share/xpdf/japanese/ISO-2022-JP.unicodeMap
+unicodeMap      EUC-JP          /usr/local/share/xpdf/japanese/EUC-JP.unicodeMap
+unicodeMap      Shift-JIS       /usr/local/share/xpdf/japanese/Shift-JIS.unicodeMap
+cMapDir         Adobe-Japan1    /usr/local/share/xpdf/japanese/CMap
+toUnicodeDir                    /usr/local/share/xpdf/japanese/CMap
 ~~~
 
 - ```pdffonts``` を使えるようにするために（要 [Homebrew](http://brew.sh/index_ja.html))
@@ -28,6 +33,7 @@ GothicBBB-Medium-Identity-H          CID Type 0        no  no  no       8  0
 ~~~
 brew install Caskroom/cask/xquartz homebrew/x11/xpdf
 ~~~
+
 - [hiragino-embed.map](https://gist.github.com/nagae/1354092) をダウンロード。
 - サンプル TeX ファイルのコンパイルとフォントのチェック。
 
