@@ -10,14 +10,17 @@ Mac OS X で LaTeX を使えるようにするための手順。Yosemite で検�
 - [MacTeX](http://tug.org/mactex/) のダウンロードとインストール
 - [TeXShop](http://darkwing.uoregon.edu/~koch/texshop/texshop.html) のダウンロードとインストール
 - TeXShop を起動。設定の書類タブでエンコードをutf8に。内部設定タブのTeX+dvips+distillerのTexは ```~/Library/TeXShop/bin/ptex2pdf-utf8``` に。Latexは ```~/Library/TeXShop/bin/platex2pdf-utf8``` に。
-
-```filename.tex``` から dvi と pdf 作成するには（必要に応じて2回繰り返し）
-
+- ```pdffonts``` を使えるようにするために
 ~~~
-~/Library/TeXShop/bin/platex2pdf-utf8 filename.tex
+brew install Caskroom/cask/xquartz homebrew/x11/xpdf
+~~~
+- サンプル TeX ファイルのコンパイルとフォントのチェック
+~~~
+~/Library/TeXShop/bin/platex2pdf-utf8 sample.tex
+pdffonts sample.pdf
 ~~~
 
-サンプル TeX ファイルの作成
+
 
 ## 参考サイト
 - [TeX/Mac OS X](http://mizupc8.bio.mie-u.ac.jp/pukiwiki/index.php?TeX%2FMac%20OS%20X)
