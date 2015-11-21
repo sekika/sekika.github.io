@@ -10,31 +10,28 @@ Mac OS X で LaTeX を使えるようにするための手順。Yosemite で検�
 - [MacTeX](http://tug.org/mactex/) のダウンロードとインストール
 - [TeXShop](http://darkwing.uoregon.edu/~koch/texshop/texshop.html) のダウンロードとインストール
 - TeXShop を起動。設定の書類タブでエンコードをutf8に。内部設定タブのTeX+dvips+distillerのTexは ```~/Library/TeXShop/bin/ptex2pdf-utf8``` に。Latexは ```~/Library/TeXShop/bin/platex2pdf-utf8``` に。
-- [Xpdf](http://www.foolabs.com/xpdf/download.html) から [xpdf-japanese.tar.gz](ftp://ftp.foolabs.com/pub/xpdf/xpdf-japanese.tar.gz) をダウンロードして ```/usr/local/share/xpdf/japanese``` の下に展開
-- [日本語フォントのセットアップ](http://fugenji.org/~thomas/texlive-guide/font_setup.html) で、ヒラギノフォントのセットアップ。最後には
+- [日本語フォントのセットアップ](http://fugenji.org/~thomas/texlive-guide/font_setup.html) のように、ヒラギノフォントのセットアップ。
 
 ~~~
+sudo mkdir -p /usr/local/texlive/texmf-local/fonts/opentype/public/hiragino/
+sudo chown `whoami` /usr/local/texlive/texmf-local/fonts/opentype/public/hiragino
+cd /usr/local/texlive/texmf-local/fonts/opentype/public/hiragino/
+ln -fs "/Library/Fonts/ヒラギノ明朝 Pro W3.otf" ./HiraMinPro-W3.otf 
+ln -fs "/Library/Fonts/ヒラギノ明朝 Pro W6.otf" ./HiraMinPro-W6.otf
+ln -fs "/Library/Fonts/ヒラギノ丸ゴ Pro W4.otf" ./HiraMaruPro-W4.otf
+ln -fs "/Library/Fonts/ヒラギノ角ゴ Pro W3.otf" ./HiraKakuPro-W3.otf
+ln -fs "/Library/Fonts/ヒラギノ角ゴ Pro W6.otf" ./HiraKakuPro-W6.otf
+ln -fs "/Library/Fonts/ヒラギノ角ゴ Std W8.otf" ./HiraKakuStd-W8.otf
 sudo mktexlsr
 ~~~
 
-- ```~/.xpdfrc``` に以下を書く
-
-~~~
-cidToUnicode    Adobe-Japan1    /usr/local/share/xpdf/japanese/Adobe-Japan1.cidToUnicode
-unicodeMap      ISO-2022-JP     /usr/local/share/xpdf/japanese/ISO-2022-JP.unicodeMap
-unicodeMap      EUC-JP          /usr/local/share/xpdf/japanese/EUC-JP.unicodeMap
-unicodeMap      Shift-JIS       /usr/local/share/xpdf/japanese/Shift-JIS.unicodeMap
-cMapDir         Adobe-Japan1    /usr/local/share/xpdf/japanese/CMap
-toUnicodeDir                    /usr/local/share/xpdf/japanese/CMap
-~~~
-
+- [hiragino-embed.map](https://gist.github.com/nagae/1354092) をダウンロード。
 - ```pdffonts``` を使えるようにするために（要 [Homebrew](http://brew.sh/index_ja.html))
 
 ~~~
 brew install Caskroom/cask/xquartz homebrew/x11/xpdf
 ~~~
 
-- [hiragino-embed.map](https://gist.github.com/nagae/1354092) をダウンロード。
 - サンプル TeX ファイルのコンパイルとフォントのチェック。
 
 ~~~
