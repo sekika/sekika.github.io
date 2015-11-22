@@ -8,7 +8,7 @@ tags:
 Mac OS X で TeX / LaTeX を使えるようにするための手順。詳しくは参考サイト参照。
 
 - [TeX Live](http://www.tug.org/texlive/) から [install-tl-unx.tar.gz](http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz) をダウンロード、展開して install-tl-yyyymmdd ディレクトリ内で ```sudo ./install-tl``` を実行。
-- path を通すために、```.bash_profile``` にこの行を追記。インストールする Tex Live の年次によって、2015 のところは変わるはず。
+- path を通すために、```~/.bash_profile``` にこの行を追記。インストールする Tex Live の年次によって、2015 のところは変わるはず。
 
 ~~~
 export PATH=$PATH:/usr/local/texlive/2015/bin/x86_64-darwin
@@ -41,28 +41,14 @@ kanji-config-updmap hiragino
 brew install poppler
 ~~~
 
-- [サンプル TeX ファイル](https://gist.github.com/sekika/34cad1547e92a62a4a1b)のコンパイル、生成されたPDFファイルの確認とフォントのチェック。
+- [サンプル TeX ファイル](https://gist.github.com/sekika/34cad1547e92a62a4a1b)のコンパイル、生成されたPDFファイルの確認とフォントのチェック。[このように](https://gist.github.com/sekika/e36726eed3a9a7c3b27d) ```emb``` の欄がすべて ```yes``` になっていれば、フォント埋め込みOK。
 
 ~~~
-wget https://gist.githubusercontent.com/sekika/34cad1547e92a62a4a1b/raw/b432be679a05c3b4f1157477bc538f5de29a4568/sample.tex
+curl -O https://gist.githubusercontent.com/sekika/34cad1547e92a62a4a1b/raw/b432be679a05c3b4f1157477bc538f5de29a4568/sample.tex
 platex sample.tex
 dvipdfmx sample.dvi
 open sample.pdf &
 pdffonts sample.pdf
-~~~
-
-- このように、```emb``` の欄がすべて ```yes``` になっていれば、フォント埋め込みOK。
-
-~~~
-name                                 type              encoding         emb sub uni object ID
------------------------------------- ----------------- ---------------- --- --- --- ---------
-STBDIB+HiraMinPro-W3-Identity-H      CID Type 0C       Identity-H       yes yes no       5  0
-BQPTJB+CMR12                         Type 1C           Builtin          yes yes no       6  0
-LWYZIH+HiraKakuPro-W3-Identity-H     CID Type 0C       Identity-H       yes yes no       8  0
-ZYPJGI+CMBX10                        Type 1C           Builtin          yes yes no       9  0
-UKCVIO+CMBX12                        Type 1C           Builtin          yes yes no      12  0
-DHTEHS+CMR10                         Type 1C           Builtin          yes yes no      13  0
-BJCHNL+LCIRCLE10                     Type 1C           Builtin          yes yes no      14  0
 ~~~
 
 ## パッケージの更新
