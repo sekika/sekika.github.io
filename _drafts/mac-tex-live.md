@@ -65,6 +65,20 @@ DHTEHS+CMR10                         Type 1C           Builtin          yes yes 
 BJCHNL+LCIRCLE10                     Type 1C           Builtin          yes yes no      14  0
 ~~~
 
+## パッケージの更新
+
+tlmgr のアップデート
+
+~~~
+sudo tlmgr update --self
+~~~
+
+システムの更新
+
+~~~
+sudo tlmgr update --all
+~~~
+
 ## 参考サイト
 - [TeX Live を使おう──Linux ユーザと Mac OS X ユーザのために──](http://fugenji.org/~thomas/texlive-guide/index.html) (Tamotsu Thomas UEDA, 2015)
 - [pdfにフォントが埋め込まれてるか確認するコマンドpdffonts](http://ototorosama.hatenablog.com/entry/2013/02/14/055355) (ととろぐ！臨時増刊号, 2013/2/14)
