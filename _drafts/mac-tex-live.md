@@ -1,13 +1,25 @@
 ---
 layout: post
-title: Mac で Tex Live
+title: Mac で TeX / LaTeX
 tags:
 - mac
 - tex
 ---
-Mac OS X で LaTeX を使えるようにするための手順。
+Mac OS X で TeX / LaTeX を使えるようにするための手順。詳しくは参考サイト参照。
 
-- [TeX Live](http://www.tug.org/texlive/) から [install-tl-unx.tar.gz](http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz) をダウンロード、展開して ``` install-tl``` を実行。
+- [TeX Live](http://www.tug.org/texlive/) から [install-tl-unx.tar.gz](http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz) をダウンロード、展開して install-tl-yyyymmdd ディレクトリ内で ```sudo ./install-tl``` を実行。
+- path を通すために、```.bash_profile``` にこの行を追記。インストールする Tex Live の年次によって、2015 のところは変わるはず。
+
+~~~
+export PATH=$PATH:/usr/local/texlive/2015/bin/x86_64-darwin
+~~~
+
+- tlmgr の設定
+
+~~~
+sudo tlmgr option repository http://mirror.ctan.org/systems/texlive/tlnet
+~~~
+ 
 - ヒラギノフォントのセットアップ
 
 ~~~
@@ -29,10 +41,13 @@ kanji-config-updmap hiragino
 brew install poppler
 ~~~
 
-- サンプル TeX ファイルのコンパイルとフォントのチェック。
+- [サンプル TeX ファイル](https://gist.github.com/sekika/34cad1547e92a62a4a1b)のコンパイル、生成されたPDFファイルの確認とフォントのチェック。
 
 ~~~
-~/Library/TeXShop/bin/platex2pdf-utf8 sample.tex
+wget https://gist.githubusercontent.com/sekika/34cad1547e92a62a4a1b/raw/b432be679a05c3b4f1157477bc538f5de29a4568/sample.tex
+platex sample.tex
+dvipdfmx sample.dvi
+open sample.pdf &
 pdffonts sample.pdf
 ~~~
 
@@ -53,6 +68,5 @@ BJCHNL+LCIRCLE10                     Type 1C           Builtin          yes yes 
 ## 参考サイト
 - [TeX Live を使おう──Linux ユーザと Mac OS X ユーザのために──](http://fugenji.org/~thomas/texlive-guide/index.html) (Tamotsu Thomas UEDA, 2015)
 - [pdfにフォントが埋め込まれてるか確認するコマンドpdffonts](http://ototorosama.hatenablog.com/entry/2013/02/14/055355) (ととろぐ！臨時増刊号, 2013/2/14)
-- [使ってはいけない LaTeX のコマンド・パッケージ・作法](http://ichiro-maruta.blogspot.jp/2013/03/latex.html) (丸田一郎, 2013/3/13)
-- [[改訂第6版] LaTeX2ε美文書作成入門](http://www.amazon.co.jp/dp/4774160458/) (奥村晴彦, 黒木裕介, 2013/10/23)
-
+- [TeX Wiki](http://oku.edu.mie-u.ac.jp/~okumura/texwiki/) (奥村晴彦)
+- [Mac OS Xのヒラギノフォントは商用利用可能です。](http://www.macotakara.jp/blog/support/entry-665.html) (MACお宝鑑定団 blog（羅針盤）, 2008/7/30)
