@@ -59,7 +59,7 @@ sudo kanji-config-updmap-sys hiragino-elcapitan-pron
 [サンプル TeX ファイル](https://gist.github.com/sekika/34cad1547e92a62a4a1b)のコンパイル、生成されたPDFファイルの確認とフォントのチェック。[このように](https://gist.github.com/sekika/e36726eed3a9a7c3b27d) ```emb``` の欄がすべて ```yes``` になっていれば、フォント埋め込みOK。
 
 ~~~
-curl -O https://gist.githubusercontent.com/sekika/34cad1547e92a62a4a1b/raw/b432be679a05c3b4f1157477bc538f5de29a4568/sample.tex
+curl -O https://gist.githubusercontent.com/sekika/34cad1547e92a62a4a1b/raw/sample.tex
 platex sample.tex
 dvipdfmx sample.dvi
 open sample.pdf &
