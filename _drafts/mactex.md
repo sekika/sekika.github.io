@@ -23,9 +23,9 @@ ln -fs "/Library/Fonts/ヒラギノ角ゴ Pro W3.otf" ./HiraKakuPro-W3.otf
 ln -fs "/Library/Fonts/ヒラギノ角ゴ Pro W6.otf" ./HiraKakuPro-W6.otf
 ln -fs "/Library/Fonts/ヒラギノ角ゴ Std W8.otf" ./HiraKakuStd-W8.otf
 sudo mktexlsr
+kanji-config-updmap hiragino
 ~~~
 
-- [hiragino-embed.map](https://gist.github.com/nagae/1354092) をダウンロード。
 - ```pdffonts``` を使えるようにするために（要 [Homebrew](http://brew.sh/index_ja.html))
 
 ~~~
