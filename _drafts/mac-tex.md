@@ -45,7 +45,7 @@ sudo mktexlsr
 sudo kanji-config-updmap-sys hiragino
 ~~~
 
-{ % post_url 2015-11-23-mac-terminal-japanese % }
+[ターミナルで日本語入力ができない時の設定]({% post_url 2015-11-23-mac-terminal-japanese %})
 
 (2) [El Capitan の場合](http://abenori.blogspot.jp/2015/10/el-capitantexplatex-dvipdfmxpdflatexmac.html)には（未検証）
 
@@ -78,6 +78,6 @@ sudo tlmgr update --self --all
 
 ## 参考サイト
 - [TeX Live を使おう──Linux ユーザと Mac OS X ユーザのために──](http://fugenji.org/~thomas/texlive-guide/index.html) (Tamotsu Thomas UEDA, 2015)
-- [TeX Wiki](http://oku.edu.mie-u.ac.jp/~okumura/texwiki/) (奥村晴彦)
+- [TeX Wiki](http://oku.edu.mie-u.ac.jp/~okumura/texwiki/) (奥村晴彦) - [TeX Live/Mac](https://oku.edu.mie-u.ac.jp/~okumura/texwiki/?TeX%20Live%2FMac)
 - [pdfにフォントが埋め込まれてるか確認するコマンドpdffonts](http://ototorosama.hatenablog.com/entry/2013/02/14/055355) (ととろぐ！臨時増刊号, 2013/2/14)
 - [Mac OS Xのヒラギノフォントは商用利用可能です。](http://www.macotakara.jp/blog/support/entry-665.html) (MACお宝鑑定団 blog（羅針盤）, 2008/7/30)
