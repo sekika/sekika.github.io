@@ -45,6 +45,8 @@ sudo mktexlsr
 sudo kanji-config-updmap-sys hiragino
 ~~~
 
+{ % post_url 2015-11-23-mac-terminal-japanese % }
+
 (2) [El Capitan の場合](http://abenori.blogspot.jp/2015/10/el-capitantexplatex-dvipdfmxpdflatexmac.html)には（未検証）
 
 ~~~
