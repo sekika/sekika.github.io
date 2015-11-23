@@ -68,6 +68,8 @@ open sample.pdf &
 pdffonts sample.pdf
 ~~~
 
+確認後、```rm sample.*```  でファイルを消せる。
+
 ## メンテナンス
 
 パッケージの更新
