@@ -78,7 +78,7 @@ pdffonts sample.pdf
 sudo tlmgr update --self --all
 ~~~
 
-TeX Live のバージョン（年次）のメジャーアップグレードについては、[TeX Live のページ](http://www.tug.org/texlive/upgrade.html)ではインストールを最初からやり直すことを進めるとして、簡易な方法も書かれている。しかし、そもそもは[tlmgr のリポジトリを CTAN mirror に設定していれば、勝手にメジャーアップグレードされる](http://qiita.com/munepi/items/f2127a1dca13d775735f)という話もあり、インストールした時の年次のままで使っていれば問題なさそう。
+TeX Live のバージョン（年次）のメジャーアップグレードについては、[TeX Live のページ](http://www.tug.org/texlive/upgrade.html)ではインストールを最初からやり直すことを勧める、としている。しかし、そもそもは[tlmgr のリポジトリを CTAN mirror に設定していれば、勝手にメジャーアップグレードされる](http://qiita.com/munepi/items/f2127a1dca13d775735f)という話もあり、インストールした時の年次のままで tlmgr でパッケージの更新を続けていれば、わざわざインストールをやり直す必要はなさそう。
 
 ## 参考サイト
 - [TeX Live を使おう──Linux ユーザと Mac OS X ユーザのために──](http://fugenji.org/~thomas/texlive-guide/index.html) (Tamotsu Thomas UEDA, 2015)
