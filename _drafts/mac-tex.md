@@ -9,6 +9,7 @@ Mac OS X で TeX / LaTeX を使えるようにするための手順。詳しく�
 
 ## インストール
 
+- El Capitan 以降では、```/usr/local``` ディレクトリを作成しておかないと、TeX Live デフォルトの ```/usr/local/texlive``` へのインストールができない。[Homebrew](http://brew.sh/index_ja.html) を使っている場合には、すでに ```/usr/local``` が設定してあるであろうが、まだ作成されていない場合には、 
 - [TeX Live](http://www.tug.org/texlive/) から [install-tl-unx.tar.gz](http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz) をダウンロード、展開して install-tl-yyyymmdd ディレクトリ内で ```sudo ./install-tl``` を実行。
 - path を通すために、```~/.bash_profile``` にこの行を追記。インストールする Tex Live の年次によって、2015 のところは変わるはず。
 
@@ -22,7 +23,7 @@ export PATH=$PATH:/usr/local/texlive/2015/bin/x86_64-darwin
 sudo tlmgr option repository http://mirror.ctan.org/systems/texlive/tlnet
 ~~~
 
-- ```pdffonts``` を使えるようにするために（要 [Homebrew](http://brew.sh/index_ja.html))
+- ```pdffonts``` を使えるようにするために（要 ```Homebrew```)
 
 ~~~
 brew install poppler
