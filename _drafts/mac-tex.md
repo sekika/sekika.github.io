@@ -80,6 +80,16 @@ sudo tlmgr update --self --all
 
 TeX Live のバージョン（年次）のメジャーアップグレードについては、[TeX Live のページ](http://www.tug.org/texlive/upgrade.html)ではインストールを最初からやり直すことを勧める、としている。しかし、そもそもは[tlmgr のリポジトリを CTAN mirror に設定していれば、勝手にメジャーアップグレードされる](http://qiita.com/munepi/items/f2127a1dca13d775735f)という話もあり、インストールした時の年次のままで tlmgr でパッケージの更新を続けていれば、わざわざインストールをやり直す必要はなさそう。
 
+ちなみに、私の場合は ```update``` というスクリプトを書いて、TeX Live, Homebrew, pip のアップデートをまとめてしている。ここで、```pip-review``` の実行には ```pip install pip-tools``` が必要。
+
+~~~
+#!/bin/sh
+sudo tlmgr update --self --all
+brew update
+brew upgrade
+pip-review --auto
+~~~
+
 ## 参考サイト
 - [TeX Live を使おう──Linux ユーザと Mac OS X ユーザのために──](http://fugenji.org/~thomas/texlive-guide/index.html) (Tamotsu Thomas UEDA, 2015)
 - [TeX Wiki](http://oku.edu.mie-u.ac.jp/~okumura/texwiki/) (奥村晴彦) - [TeX Live/Mac](https://oku.edu.mie-u.ac.jp/~okumura/texwiki/?TeX%20Live%2FMac)
