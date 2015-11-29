@@ -5,7 +5,16 @@ tags:
 - mac
 - tex
 ---
-`Mac OS X` で `TeX` / `LaTeX` を使えるようにするための手順を記す。MacTeX はあえて使わずに、`TeX Live` を直接入れる。詳しくは[参考サイト](#ref)参照。
+`Mac OS X` で `TeX` / `LaTeX` を使えるようにするための手順を記す。MacTeX はあえて使わずに、`TeX Live` を直接入れる。詳しくは参考サイト参照。
+
+* [インストール](#install)
+* [ヒラギノフォントの埋め込み設定](#font)
+* [確認](#check)
+* [メンテナンス](#maintenance)
+* [参考サイト](#ref)
+
+<a id="install"></a>
+<a href="#install"></a> 
 
 ## インストール
 
@@ -28,6 +37,9 @@ sudo tlmgr option repository http://mirror.ctan.org/systems/texlive/tlnet
 ~~~
 brew install poppler
 ~~~
+
+<a id="font"></a>
+<a href="#font"></a> 
 
 ## ヒラギノフォントの埋め込み設定
 
@@ -64,6 +76,9 @@ sudo kanji-config-updmap-sys hiragino-elcapitan-pron
 * [JIS X 0213](https://ja.wikipedia.org/wiki/JIS_X_0213)に対応したヒラギノの [N シリーズ](http://fontnavi.jp/zakkuri/205-N_fonts.aspx)を埋め込んでいる。
 * 未検証。
 
+<a id="check"></a>
+<a href="#check"></a> 
+
 ## 確認
 
 [サンプル TeX ファイル](https://gist.github.com/sekika/34cad1547e92a62a4a1b)のコンパイル、生成されたPDFファイルの確認とフォントのチェック。[このように](https://gist.github.com/sekika/e36726eed3a9a7c3b27d) ```emb``` の欄がすべて ```yes``` になっていれば、フォント埋め込みOK。
@@ -77,6 +92,9 @@ pdffonts sample.pdf
 ~~~
 
 確認後、```rm sample.*```  でファイルを消せる。
+
+<a id="maintenance"></a>
+<a href="#maintenance"></a> 
 
 ## メンテナンス
 
@@ -98,7 +116,10 @@ brew upgrade
 pip-review --auto
 ~~~
 
-## <a name="ref">参考サイト</a>
+<a id="ref"></a>
+<a href="#ref"></a> 
+ 
+## 参考サイト
 - [TeX Live を使おう──Linux ユーザと Mac OS X ユーザのために──](http://fugenji.org/~thomas/texlive-guide/index.html) (Tamotsu Thomas UEDA, 2015)
 - [TeX Wiki](http://oku.edu.mie-u.ac.jp/~okumura/texwiki/) (奥村晴彦) - [TeX Live/Mac](https://oku.edu.mie-u.ac.jp/~okumura/texwiki/?TeX%20Live%2FMac)
 - [TeX界の El Capitan 迎撃戦記](http://doratex.hatenablog.jp/entry/20151008/1444310306) (TeX Alchemist Online, 2015/10/8)
