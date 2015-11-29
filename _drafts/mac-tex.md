@@ -5,25 +5,25 @@ tags:
 - mac
 - tex
 ---
-Mac OS X で TeX / LaTeX を使えるようにするための手順。詳しくは参考サイト参照。
+Mac OS X で TeX / LaTeX を使えるようにするための手順。詳しくは[参考サイト](#ref)参照。
 
 ## インストール
 
 - El Capitan で、`/usr/local` ディレクトリが存在しない場合には、[あらかじめ作成しておく]({% post_url 2015-11-26-el-capitan-homebrew %})必要がある。 
-- [TeX Live](http://www.tug.org/texlive/) から [install-tl-unx.tar.gz](http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz) をダウンロード、展開して install-tl-yyyymmdd ディレクトリ内で ```sudo ./install-tl``` を実行。
-- path を通すために、```~/.bash_profile``` にこの行を追記。インストールする Tex Live の年次によって、2015 のところは変わるはず。
+- [TeX Live](http://www.tug.org/texlive/) から [install-tl-unx.tar.gz](http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz) をダウンロード、展開して `install-tl-yyyymmdd` ディレクトリ内で ```sudo ./install-tl``` を実行。
+- パスを通すために、```~/.bash_profile``` にこの行を追記。インストールする Tex Live の年次によって、2015 のところは変わるはず。
 
 ~~~
 export PATH=$PATH:/usr/local/texlive/2015/bin/x86_64-darwin
 ~~~
 
-- tlmgr の設定
+- [tlmgr](http://www.fugenji.org/~thomas/texlive-guide/tlmgr.html) の設定
 
 ~~~
 sudo tlmgr option repository http://mirror.ctan.org/systems/texlive/tlnet
 ~~~
 
-- ```pdffonts``` を使えるようにするために（要 ```Homebrew```)
+- ```pdffonts``` を使えるようにするために（要 [Homebrew](http://brew.sh/index_ja.html))
 
 ~~~
 brew install poppler
@@ -91,7 +91,7 @@ brew upgrade
 pip-review --auto
 ~~~
 
-## 参考サイト
+## <a name="ref">参考サイト</a>
 - [TeX Live を使おう──Linux ユーザと Mac OS X ユーザのために──](http://fugenji.org/~thomas/texlive-guide/index.html) (Tamotsu Thomas UEDA, 2015)
 - [TeX Wiki](http://oku.edu.mie-u.ac.jp/~okumura/texwiki/) (奥村晴彦) - [TeX Live/Mac](https://oku.edu.mie-u.ac.jp/~okumura/texwiki/?TeX%20Live%2FMac)
 - [pdfにフォントが埋め込まれてるか確認するコマンドpdffonts](http://ototorosama.hatenablog.com/entry/2013/02/14/055355) (ととろぐ！臨時増刊号, 2013/2/14)
