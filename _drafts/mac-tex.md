@@ -81,7 +81,7 @@ sudo kanji-config-updmap-sys hiragino-elcapitan-pron
 
 ## 確認
 
-[サンプル TeX ファイル](https://gist.github.com/sekika/34cad1547e92a62a4a1b)のコンパイル、生成されたPDFファイルの確認とフォントのチェック。[このように](https://gist.github.com/sekika/e36726eed3a9a7c3b27d) ```emb``` の欄がすべて ```yes``` になっていれば、フォント埋め込みOK。
+[サンプル TeX ファイル](https://gist.github.com/sekika/34cad1547e92a62a4a1b)のコンパイル、生成されたPDFファイルの確認とフォントのチェック。
 
 ~~~
 curl -sO https://gist.githubusercontent.com/sekika/34cad1547e92a62a4a1b/raw/sample.tex
@@ -91,7 +91,8 @@ open sample.pdf &
 pdffonts sample.pdf
 ~~~
 
-確認後、```rm sample.*```  でファイルを消せる。
+* [このように](https://gist.github.com/sekika/e36726eed3a9a7c3b27d) ```emb``` の欄がすべて ```yes``` になっていれば、フォント埋め込みOK。
+* 確認後、```rm sample.*```  でファイルを消せる。
 
 <a id="maintenance"></a>
 <a href="#maintenance"></a> 
