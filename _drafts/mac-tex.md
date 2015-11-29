@@ -31,24 +31,24 @@ brew install poppler
 
 ## ヒラギノフォントの設定
 
-(1) Yosemite 以前の場合には
+(1) OS X 10.10 / Yosemite 以前の場合には
 
 ~~~
 sudo mkdir -p /usr/local/texlive/texmf-local/fonts/opentype/public/hiragino/
 cd /usr/local/texlive/texmf-local/fonts/opentype/public/hiragino/
-sudo ln -fs "/Library/Fonts/ヒラギノ明朝 Pro W3.otf" ./HiraMinPro-W3.otf 
-sudo ln -fs "/Library/Fonts/ヒラギノ明朝 Pro W6.otf" ./HiraMinPro-W6.otf
-sudo ln -fs "/Library/Fonts/ヒラギノ丸ゴ Pro W4.otf" ./HiraMaruPro-W4.otf
-sudo ln -fs "/Library/Fonts/ヒラギノ角ゴ Pro W3.otf" ./HiraKakuPro-W3.otf
-sudo ln -fs "/Library/Fonts/ヒラギノ角ゴ Pro W6.otf" ./HiraKakuPro-W6.otf
-sudo ln -fs "/Library/Fonts/ヒラギノ角ゴ Std W8.otf" ./HiraKakuStd-W8.otf
+sudo ln -s "/Library/Fonts/ヒラギノ明朝 Pro W3.otf" ./HiraMinPro-W3.otf
+sudo ln -s "/Library/Fonts/ヒラギノ明朝 Pro W6.otf" ./HiraMinPro-W6.otf
+sudo ln -s "/Library/Fonts/ヒラギノ丸ゴ Pro W4.otf" ./HiraMaruPro-W4.otf
+sudo ln -s "/Library/Fonts/ヒラギノ角ゴ Pro W3.otf" ./HiraKakuPro-W3.otf
+sudo ln -s "/Library/Fonts/ヒラギノ角ゴ Pro W6.otf" ./HiraKakuPro-W6.otf
+sudo ln -s "/Library/Fonts/ヒラギノ角ゴ Std W8.otf" ./HiraKakuStd-W8.otf
 sudo mktexlsr
 sudo kanji-config-updmap-sys hiragino
 ~~~
 
 [ターミナルで日本語入力ができない時の設定]({% post_url 2015-11-23-mac-terminal-japanese %})
 
-(2) [El Capitan の場合](http://abenori.blogspot.jp/2015/10/el-capitantexplatex-dvipdfmxpdflatexmac.html)には（未検証）
+(2) [OS X 10.11 / El Capitan の場合](http://abenori.blogspot.jp/2015/10/el-capitantexplatex-dvipdfmxpdflatexmac.html)には（[JIS X 0213](https://ja.wikipedia.org/wiki/JIS_X_0213)に対応したヒラギノの N シリーズを埋め込む）（未検証）
 
 ~~~
 cd /usr/local/texlive/2015/texmf-dist/scripts/cjk-gs-integrate
