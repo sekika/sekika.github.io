@@ -5,7 +5,7 @@ tags:
 - mac
 - tex
 ---
-`Mac OS X` で `TeX` / `LaTeX` を使えるようにするための手順。MacTeX はあえて使わずに、`TeX Live` を直接入れる。詳しくは[参考サイト](#ref)参照。
+`Mac OS X` で `TeX` / `LaTeX` を使えるようにするための手順を記す。MacTeX はあえて使わずに、`TeX Live` を直接入れる。詳しくは[参考サイト](#ref)参照。
 
 ## インストール
 
@@ -23,7 +23,7 @@ export PATH=$PATH:/usr/local/texlive/2015/bin/x86_64-darwin
 sudo tlmgr option repository http://mirror.ctan.org/systems/texlive/tlnet
 ~~~
 
-- ```pdffonts``` を使えるようにするために（要 [Homebrew](http://brew.sh/index_ja.html))
+- [pdffonts](http://ototorosama.hatenablog.com/entry/2013/02/14/055355) を使えるようにするために（要 [Homebrew](http://brew.sh/index_ja.html))
 
 ~~~
 brew install poppler
@@ -98,6 +98,5 @@ pip-review --auto
 ## <a name="ref">参考サイト</a>
 - [TeX Live を使おう──Linux ユーザと Mac OS X ユーザのために──](http://fugenji.org/~thomas/texlive-guide/index.html) (Tamotsu Thomas UEDA, 2015)
 - [TeX Wiki](http://oku.edu.mie-u.ac.jp/~okumura/texwiki/) (奥村晴彦) - [TeX Live/Mac](https://oku.edu.mie-u.ac.jp/~okumura/texwiki/?TeX%20Live%2FMac)
-- [pdfにフォントが埋め込まれてるか確認するコマンドpdffonts](http://ototorosama.hatenablog.com/entry/2013/02/14/055355) (ととろぐ！臨時増刊号, 2013/2/14)
 - [TeX界の El Capitan 迎撃戦記](http://doratex.hatenablog.jp/entry/20151008/1444310306) (TeX Alchemist Online, 2015/10/8)
 - [Mac OS Xのヒラギノフォントは商用利用可能です。](http://www.macotakara.jp/blog/support/entry-665.html) (MACお宝鑑定団 blog（羅針盤）, 2008/7/30)
