@@ -9,7 +9,7 @@ Mac OS X で TeX / LaTeX を使えるようにするための手順。詳しく�
 
 ## インストール
 
-- El Capitan で、`/usr/local` ディレクトリが存在しない場合には、[あらかじめ作成しておく]({% post_url 2015-11-26-el-capitan-homebre %})必要がある。 
+- El Capitan で、`/usr/local` ディレクトリが存在しない場合には、[あらかじめ作成しておく]({% post_url 2015-11-26-el-capitan-homebrew %})必要がある。 
 - [TeX Live](http://www.tug.org/texlive/) から [install-tl-unx.tar.gz](http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz) をダウンロード、展開して install-tl-yyyymmdd ディレクトリ内で ```sudo ./install-tl``` を実行。
 - path を通すために、```~/.bash_profile``` にこの行を追記。インストールする Tex Live の年次によって、2015 のところは変わるはず。
 
