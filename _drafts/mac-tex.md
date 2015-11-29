@@ -57,6 +57,7 @@ sudo mktexlsr
 sudo kanji-config-updmap-sys hiragino-elcapitan-pron
 ~~~
 
+* `tlmgr` によって、最新のパッケージに更新した状態で実行する。
 * 最初の行の `2015` については、インストールされている Tex Live の年次にあわせて変える。
 * [JIS X 0213](https://ja.wikipedia.org/wiki/JIS_X_0213)に対応したヒラギノの [N シリーズ](http://fontnavi.jp/zakkuri/205-N_fonts.aspx)を埋め込む。
 * 未検証。
