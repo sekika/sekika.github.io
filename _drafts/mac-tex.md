@@ -31,6 +31,8 @@ brew install poppler
 
 ## ヒラギノフォントの埋め込み設定
 
+[Mac OS Xのヒラギノフォントは商用利用可能です。](http://www.macotakara.jp/blog/support/entry-665.html)
+
 (1) OS X 10.10 / Yosemite 以前の場合には
 
 ~~~
@@ -59,7 +61,7 @@ sudo kanji-config-updmap-sys hiragino-elcapitan-pron
 
 * `tlmgr` によって、最新のパッケージに更新した状態で実行する。
 * 最初の行の `2015` については、インストールされている Tex Live の年次にあわせて変える。
-* [JIS X 0213](https://ja.wikipedia.org/wiki/JIS_X_0213)に対応したヒラギノの [N シリーズ](http://fontnavi.jp/zakkuri/205-N_fonts.aspx)を埋め込む。
+* [JIS X 0213](https://ja.wikipedia.org/wiki/JIS_X_0213)に対応したヒラギノの [N シリーズ](http://fontnavi.jp/zakkuri/205-N_fonts.aspx)を埋め込んでいる。
 * 未検証。
 
 ## 確認
@@ -100,4 +102,3 @@ pip-review --auto
 - [TeX Live を使おう──Linux ユーザと Mac OS X ユーザのために──](http://fugenji.org/~thomas/texlive-guide/index.html) (Tamotsu Thomas UEDA, 2015)
 - [TeX Wiki](http://oku.edu.mie-u.ac.jp/~okumura/texwiki/) (奥村晴彦) - [TeX Live/Mac](https://oku.edu.mie-u.ac.jp/~okumura/texwiki/?TeX%20Live%2FMac)
 - [TeX界の El Capitan 迎撃戦記](http://doratex.hatenablog.jp/entry/20151008/1444310306) (TeX Alchemist Online, 2015/10/8)
-- [Mac OS Xのヒラギノフォントは商用利用可能です。](http://www.macotakara.jp/blog/support/entry-665.html) (MACお宝鑑定団 blog（羅針盤）, 2008/7/30)
