@@ -5,50 +5,64 @@ tags:
 - mac
 - tex
 ---
-Mac OS X で TeX / LaTeX を使えるようにするための手順。詳しくは参考サイト参照。
+`Mac OS X` で `TeX` / `LaTeX` を使えるようにするための手順を記す。MacTeX はあえて使わずに、`TeX Live` を直接入れる。独自のディレクトリ構成にならないので便利。詳しくは参考サイト参照。
+
+* [インストール](#install)
+* [ヒラギノフォントの埋め込み設定](#font)
+* [確認](#check)
+* [メンテナンス](#maintenance)
+* [参考サイト](#ref)
+
+<a id="install"></a>
+<a href="#install"></a> 
 
 ## インストール
 
-- El Capitan で `/usr/local` ディレクトリが存在しない場合には、[あらかじめ作成]({% post_url 2015-11-26-el-capitan-homebrew %})しておく必要がある。 
-- [TeX Live](http://www.tug.org/texlive/) から [install-tl-unx.tar.gz](http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz) をダウンロード、展開して install-tl-yyyymmdd ディレクトリ内で ```sudo ./install-tl``` を実行。
-- path を通すために、```~/.bash_profile``` にこの行を追記。インストールする Tex Live の年次によって、2015 のところは変わるはず。
+- `El Capitan` で `/usr/local` ディレクトリが存在しない場合には、[あらかじめ作成しておく]({% post_url 2015-11-26-el-capitan-homebrew %})必要がある。 
+- [TeX Live](http://www.tug.org/texlive/) から [install-tl-unx.tar.gz](http://mirror.ctan.org/systems/texlive/tlnet/install-tl-unx.tar.gz) をダウンロード、展開して `install-tl-yyyymmdd` ディレクトリ内で ```sudo ./install-tl``` を実行。
+- パスを通すために、```~/.bash_profile``` にこの行を追記。インストールする Tex Live の年次によって、2015 のところは変わるはず。
 
 ~~~
 export PATH=$PATH:/usr/local/texlive/2015/bin/x86_64-darwin
 ~~~
 
-- tlmgr の設定
+- [tlmgr](http://www.fugenji.org/~thomas/texlive-guide/tlmgr.html) の設定
 
 ~~~
 sudo tlmgr option repository http://mirror.ctan.org/systems/texlive/tlnet
 ~~~
 
-- ```pdffonts``` を使えるようにするために（要 ```Homebrew```)
+- [pdffonts](http://ototorosama.hatenablog.com/entry/2013/02/14/055355) を使えるようにするために（要 [Homebrew](http://brew.sh/index_ja.html))
 
 ~~~
 brew install poppler
 ~~~
 
-## ヒラギノフォントの設定
+<a id="font"></a>
+<a href="#font"></a> 
 
-(1) Yosemite 以前の場合には
+## ヒラギノフォントの埋め込み設定
+
+[Mac OS Xのヒラギノフォントは商用利用可能です。](http://www.macotakara.jp/blog/support/entry-665.html)
+
+(1) OS X 10.10 / Yosemite 以前の場合には
 
 ~~~
 sudo mkdir -p /usr/local/texlive/texmf-local/fonts/opentype/public/hiragino/
 cd /usr/local/texlive/texmf-local/fonts/opentype/public/hiragino/
-sudo ln -fs "/Library/Fonts/ヒラギノ明朝 Pro W3.otf" ./HiraMinPro-W3.otf 
-sudo ln -fs "/Library/Fonts/ヒラギノ明朝 Pro W6.otf" ./HiraMinPro-W6.otf
-sudo ln -fs "/Library/Fonts/ヒラギノ丸ゴ Pro W4.otf" ./HiraMaruPro-W4.otf
-sudo ln -fs "/Library/Fonts/ヒラギノ角ゴ Pro W3.otf" ./HiraKakuPro-W3.otf
-sudo ln -fs "/Library/Fonts/ヒラギノ角ゴ Pro W6.otf" ./HiraKakuPro-W6.otf
-sudo ln -fs "/Library/Fonts/ヒラギノ角ゴ Std W8.otf" ./HiraKakuStd-W8.otf
+sudo ln -s "/Library/Fonts/ヒラギノ明朝 Pro W3.otf" ./HiraMinPro-W3.otf
+sudo ln -s "/Library/Fonts/ヒラギノ明朝 Pro W6.otf" ./HiraMinPro-W6.otf
+sudo ln -s "/Library/Fonts/ヒラギノ丸ゴ Pro W4.otf" ./HiraMaruPro-W4.otf
+sudo ln -s "/Library/Fonts/ヒラギノ角ゴ Pro W3.otf" ./HiraKakuPro-W3.otf
+sudo ln -s "/Library/Fonts/ヒラギノ角ゴ Pro W6.otf" ./HiraKakuPro-W6.otf
+sudo ln -s "/Library/Fonts/ヒラギノ角ゴ Std W8.otf" ./HiraKakuStd-W8.otf
 sudo mktexlsr
 sudo kanji-config-updmap-sys hiragino
 ~~~
 
-[ターミナルで日本語入力ができない時の設定]({% post_url 2015-11-23-mac-terminal-japanese %})
+* [ターミナルで日本語入力ができない時の設定]({% post_url 2015-11-23-mac-terminal-japanese %})
 
-(2) [El Capitan の場合](http://abenori.blogspot.jp/2015/10/el-capitantexplatex-dvipdfmxpdflatexmac.html)には（未検証）
+(2) OS X 10.11 / El Capitan の場合には
 
 ~~~
 cd /usr/local/texlive/2015/texmf-dist/scripts/cjk-gs-integrate
@@ -57,9 +71,17 @@ sudo mktexlsr
 sudo kanji-config-updmap-sys hiragino-elcapitan-pron
 ~~~
 
+* `tlmgr` によって、最新のパッケージに更新した状態で実行する。
+* 最初の行の `2015` については、インストールされている Tex Live の年次にあわせて変える。
+* [JIS X 0213](https://ja.wikipedia.org/wiki/JIS_X_0213)に対応したヒラギノの [N シリーズ](http://fontnavi.jp/zakkuri/205-N_fonts.aspx)を埋め込んでいる。
+* 未検証。
+
+<a id="check"></a>
+<a href="#check"></a> 
+
 ## 確認
 
-[サンプル TeX ファイル](https://gist.github.com/sekika/34cad1547e92a62a4a1b)のコンパイル、生成されたPDFファイルの確認とフォントのチェック。[このように](https://gist.github.com/sekika/e36726eed3a9a7c3b27d) ```emb``` の欄がすべて ```yes``` になっていれば、フォント埋め込みOK。
+[サンプル TeX ファイル](https://gist.github.com/sekika/34cad1547e92a62a4a1b)のコンパイル、生成されたPDFファイルの確認とフォントのチェック。
 
 ~~~
 curl -sO https://gist.githubusercontent.com/sekika/34cad1547e92a62a4a1b/raw/sample.tex
@@ -69,7 +91,11 @@ open sample.pdf &
 pdffonts sample.pdf
 ~~~
 
-確認後、```rm sample.*```  でファイルを消せる。
+* [このように](https://gist.github.com/sekika/e36726eed3a9a7c3b27d) ```emb``` の欄がすべて ```yes``` になっていれば、フォント埋め込みOK。
+* 確認後、```rm sample.*```  でファイルを消せる。
+
+<a id="maintenance"></a>
+<a href="#maintenance"></a> 
 
 ## メンテナンス
 
@@ -91,8 +117,10 @@ brew upgrade
 pip-review --auto
 ~~~
 
+<a id="ref"></a>
+<a href="#ref"></a> 
+ 
 ## 参考サイト
 - [TeX Live を使おう──Linux ユーザと Mac OS X ユーザのために──](http://fugenji.org/~thomas/texlive-guide/index.html) (Tamotsu Thomas UEDA, 2015)
 - [TeX Wiki](http://oku.edu.mie-u.ac.jp/~okumura/texwiki/) (奥村晴彦) - [TeX Live/Mac](https://oku.edu.mie-u.ac.jp/~okumura/texwiki/?TeX%20Live%2FMac)
-- [pdfにフォントが埋め込まれてるか確認するコマンドpdffonts](http://ototorosama.hatenablog.com/entry/2013/02/14/055355) (ととろぐ！臨時増刊号, 2013/2/14)
-- [Mac OS Xのヒラギノフォントは商用利用可能です。](http://www.macotakara.jp/blog/support/entry-665.html) (MACお宝鑑定団 blog（羅針盤）, 2008/7/30)
+- [TeX界の El Capitan 迎撃戦記](http://doratex.hatenablog.jp/entry/20151008/1444310306) (TeX Alchemist Online, 2015/10/8)
