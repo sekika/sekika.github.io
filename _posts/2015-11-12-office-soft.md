@@ -137,6 +137,7 @@ Microsoft Office と同じ ```OOXML``` 形式でファイルを読み書きし�
 - [KINGSOFT Office](https://www.kingsoft.jp/office/download/)
 - [製品一覧](https://www.kingsoft.jp/office/lineup)
 - [オンラインショップ](https://pay.kingsoft.jp/shopping/products/list.php?category_id=4)
+- [キングソフト オフィスはMS Officeの代わりになる？](http://allabout.co.jp/gm/gc/416389/) (井上健語, All About, 2013/4/30)
 
 ## 一太郎
 
