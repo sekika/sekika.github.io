@@ -15,6 +15,6 @@ Mac OS X の、Yosemitte から El Capitan へのアップグレードのメモ�
 brew update
 brew upgrade
 brew install ruby
-gem install jekyll
+sudo gem install bundle jekyll
 ~~~
 
