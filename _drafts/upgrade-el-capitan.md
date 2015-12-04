@@ -5,7 +5,7 @@ tag: mac
 ---
 [Mac OS X](http://www.apple.com/jp/osx/) の、Yosemite から El Capitan へのアップグレードのメモ。
 
-* App Store から、El Capitan のアップグレードを開始する。
+* App Store のアップデートから、El Capitan へのアップグレードを開始する。
 * ダウンロード、再起動してインストール。待つ。途中、[Command-Lでインストールログを確認できる](http://www.softantenna.com/wp/mac/yosemite-upgrade-tips-for-homebrew/)。
 * App Store で、Xcode 最新版のインストールとソフトウェアのアップデート。
 * Xcode のライセンスに合意。
@@ -14,7 +14,7 @@ tag: mac
 sudo xcodebuild -license
 ~~~
 
-* [/usr/local ディレクトリのオーナー変更]({% post_url 2015-11-26-el-capitan-homebrew %})。
+* [/usr/local ディレクトリの所有者を一般ユーザーに変更]({% post_url 2015-11-26-el-capitan-homebrew %})。
 
 ~~~
 sudo chown -R $(whoami):admin /usr/local
