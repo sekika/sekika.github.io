@@ -21,7 +21,7 @@ gem install bundle
 bundle install
 ~~~
 
-* [TeX のヒラギノフォント埋め込み設定]({% post_url 2015-12-01-mac-tec %})
+* [TeX のヒラギノフォント埋め込み設定]({% post_url 2015-12-01-mac-tex %})
 * 拡張子の関連付け再設定
 * git の pre-commit hook が消えていることもあり
 
