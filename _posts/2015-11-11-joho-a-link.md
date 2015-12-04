@@ -2,7 +2,7 @@
 layout: post
 title: 「情報処理実習A」参考サイト
 date: 2015-11-11 08:35:42 +0000
-update: 2015-11-17 06:27:02 +0000
+update: 2015-12-04 10:37:46 +0000
 tag: link
 ---
 「情報処理実習A」の授業で参考にするサイトへのリンクです。
@@ -25,3 +25,4 @@ tag: link
 - [オフィスソフトの比較]({% post_url 2015-11-12-office-soft %})
 - [Word 参考サイト]({% post_url 2015-11-06-word-link %})
 - [Excel 参考サイト]({% post_url 2015-11-10-excel-link %})
+- [PowerPoint 参考サイト]({% post_url 2015-11-20-powerpoint-link %})
