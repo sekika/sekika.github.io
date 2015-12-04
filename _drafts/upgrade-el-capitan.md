@@ -10,6 +10,11 @@ Mac OS X の、Yosemitte から El Capitan へのアップグレードのメモ�
 * App Store で、Xcode の最新版をインストールとソフトウェアのアップデート。
 * ```sudo xcodebuild -license``` で、Xcode のライセンスに合意。
 * [/usr/local ディレクトリのオーナー変更]({% post_url 2015-11-26-el-capitan-homebrew %})。
-* ```brew update & brew upgrade```
-
+* `Homebrew` 関係
+~~~
+brew update
+brew upgrade
+brew install ruby
+gem install jekyll
+~~~
 
