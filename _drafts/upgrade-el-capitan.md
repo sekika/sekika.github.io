@@ -44,5 +44,8 @@ bundle install
 ~~~
 
 * [TeX のヒラギノフォント埋め込み設定]({% post_url 2015-12-01-mac-tex %})
-* 拡張子の関連付けは再設定。
+
+## メモ
+* 拡張子の関連付けは再設定する。
+* `joinPDF` が動かない。`poppler` の `pdfunite` を使う。
 
