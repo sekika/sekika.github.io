@@ -10,7 +10,7 @@ Flash Player をインストールしておく利益（Flash サイトを閲覧�
 
 * [Ｆｌａｓｈ脆弱性、対策しにくい「ゼロデイ攻撃」とは](http://www.yomiuri.co.jp/science/goshinjyutsu/20151016-OYT8T50148.html) (読売新聞, 2015/10/16)
 * [Adobe Flashの新たなゼロデイ脆弱性を確認、不正広告に利用](http://blog.trendmicro.co.jp/archives/10837) (トレンドマイクロ, 2015/2/2)
-* [閲覧しただけで感染する不正ネット広告が急増、トレンドマイクロが注意喚起](http://pc.nikkeibp.co.jp/atcl/news/15/120401406/) (PC Online, 2015/12/4)
+* [閲覧しただけで感染する不正ネット広告が急増、トレンドマイクロが注意喚起](http://pc.nikkeibp.co.jp/atcl/news/15/120401406/?rt=nocnt) (PC Online, 2015/12/4)
 
 ## Flash Player アンインストールの方法
 
