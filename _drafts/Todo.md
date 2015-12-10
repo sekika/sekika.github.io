@@ -7,6 +7,12 @@ tag: jekyll
 
 ## 記事 ##
 
+### TikZ ###
+
+- [TeX Wiki - TikZ](http://oku.edu.mie-u.ac.jp/~okumura/texwiki/?TikZ)
+- [TikZを使ってみよう！](http://guides.lib.kyushu-u.ac.jp/tikz)
+- [TikZ and PGF examples](http://www.texample.net/tikz/examples/)
+
 ### Linuxbrew ###
 
 - [Linuxbrew](https://github.com/Homebrew/linuxbrew)
