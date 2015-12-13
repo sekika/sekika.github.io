@@ -1,6 +1,7 @@
 UNAME = ${shell uname}
 
 all:
+	./index.py
 	git add -A
 	- git commit -m draft
 	make preview
