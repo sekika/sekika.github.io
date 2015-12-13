@@ -20,6 +20,7 @@ tag: link
 ## アルゴリズム
 - [フローチャートの書き方](http://wwwpat.eng.u-toyama.ac.jp/flowchart/)  (三日市康博, 丸山博)
 - [Wikipedia - ソート](https://ja.wikipedia.org/wiki/%E3%82%BD%E3%83%BC%E3%83%88)
+- [Quick-sort with Hungarian (Küküllőmenti legényes) folk dance](https://youtu.be/ywWBy6J5gz8) (YouTube)
 - [ハノイの塔](http://hanoi.aimary.com/) (JavaScript)
 - [ハノイの塔](http://www.sousakuba.com/flash-games/tower_of_hanoi.html) (Flash)
 - [高精度計算サイト](http://keisan.casio.jp/)
