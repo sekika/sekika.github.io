@@ -6,7 +6,7 @@ permalink: /search/
 <h1>検索</h1>
 
 <ul>
-<li>JavaScriptでBlogの本文から検索します。<a href="http://la.ma.la/search.html">こちらのスクリプト</a>を使わせていただきました。
+<li><a href="http://la.ma.la/search.html">こちらのスクリプト</a>を使わせていただきました。
 <li>ひらがなカタカナはローマ字のまま検索できます。
 </ul>
 <br>
