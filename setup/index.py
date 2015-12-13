@@ -2,6 +2,23 @@
 import os
 import datetime
 import dateutil.parser
+
+from HTMLParser import HTMLParser
+
+class MLStripper(HTMLParser):
+    def __init__(self):
+        self.reset()
+        self.fed = []
+    def handle_data(self, d):
+        self.fed.append(d)
+    def get_data(self):
+        return ''.join(self.fed)
+
+def strip_tags(html):
+    s = MLStripper()
+    s.feed(html)
+    return s.get_data()
+
 f = open('../js/index.js', 'w')
 f.write('var start = new Date().getTime();\n')
 f.write('var data = [')
@@ -24,7 +41,7 @@ for i in os.listdir('../_posts'):
   f.write(i.replace('-','/',3).replace('.md','').replace('.markdown',''))
   f.write('/",title:"'+title+'",body:"'+title+' ')
   for line in data:
-     f.write(line.rstrip("\n").replace('"',' ').replace(':',' '))
+     f.write(strip_tags(line.rstrip("\n").replace('"',' ')))
   data.close()
   f.write('"},\n')
 f.write('];\n')
