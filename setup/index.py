@@ -22,7 +22,7 @@ for i in os.listdir('../_posts'):
     line=data.readline()
   f.write('{file:"/')
   f.write(i.replace('-','/',3).replace('.md','').replace('.markdown',''))
-  f.write('/",title:"'+title+'",body:"')
+  f.write('/",title:"'+title+'",body:"'+title+' ')
   for line in data:
      f.write(line.rstrip("\n").replace('"',' ').replace(':',' '))
   data.close()
