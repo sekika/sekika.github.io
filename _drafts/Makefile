@@ -1,7 +1,7 @@
 UNAME = ${shell uname}
 
 all:
-	../setup/index.py
+	python3 ../setup/index.py
 	git add -A
 	git add ../js/index.js
 	- git commit -m draft
