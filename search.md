@@ -6,7 +6,7 @@ permalink: /search/
 <h1>検索</h1>
 
 <ul>
-<li><a href="http://la.ma.la/search.html">こちらのスクリプト</a>を使わせていただきました。
+<li><a href="http://la.ma.la/search.html">こちらの検索スクリプト</a> (by <a href="http://ma.la/">mala さん</a>) を使わせていただきました。
 <li>ひらがなカタカナはローマ字のまま検索できます。
 </ul>
 <br>
