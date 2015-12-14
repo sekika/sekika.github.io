@@ -31,10 +31,17 @@ def strip_tags(html):
     s.feed(html)
     return s.get_data()
 
+# markdown をインポートできなければ pip でインストールする
+try:
+    import markdown
+except ImportError:
+    import pip
+    pip.main(['install', 'markdown'])
+import markdown
+
 # 処理の開始
 import os
 import time
-import markdown
 f = open(index, 'w')
 f.write('var start = new Date().getTime();\n')
 f.write('var data = [')
