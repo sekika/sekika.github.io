@@ -2,6 +2,8 @@
 import os
 import time
 
+index = '../js/index.js'
+post_dir = '../_posts/'
 format = '%Y-%m-%d %H:%M:%S'
 
 # http://stackoverflow.com/questions/753052/strip-html-from-strings-in-python
@@ -23,15 +25,15 @@ def strip_tags(html):
     s.feed(html)
     return s.get_data()
 
-f = open('../js/index.js', 'w')
+f = open(index, 'w')
 f.write('var start = new Date().getTime();\n')
 f.write('var data = [')
 first=True
-for i in os.listdir('../_posts'):
-    data=open('../_posts/'+i, 'r')
+for i in os.listdir(post_dir):
+    data=open(post_dir+i, 'r')
     line=data.readline()
-    update=0
     date=int(time.mktime(time.strptime(i[:10], '%Y-%m-%d')))
+    update=0
     while ('--' in line):
         line=data.readline()
     while ('--' in line) == False:
@@ -54,7 +56,7 @@ for i in os.listdir('../_posts'):
     f.write(i.replace('-','/',3).replace('.md','').replace('.markdown',''))
     f.write('/",title:"'+title+'",mtime:'+str(update)+',ctime:'+str(date)+',body:"'+title+' ')
     for line in data:
-        f.write(strip_tags(line.rstrip("\n").replace('"',' ')))
+        f.write(strip_tags(line).rstrip("\n").replace('"',' ').replace('`','').replace('#','').replace('~~~',' '))
     data.close()
     f.write('"}')
 f.write('];\n')
