@@ -26,6 +26,7 @@ def strip_tags(html):
 f = open('../js/index.js', 'w')
 f.write('var start = new Date().getTime();\n')
 f.write('var data = [')
+first=True
 for i in os.listdir('../_posts'):
     data=open('../_posts/'+i, 'r')
     line=data.readline()
@@ -45,12 +46,16 @@ for i in os.listdir('../_posts'):
         line=data.readline()
     if update==0:
         update=date
+    if first:
+        first=False
+    else:
+        f.write(',\n')
     f.write('{file:"/')
     f.write(i.replace('-','/',3).replace('.md','').replace('.markdown',''))
     f.write('/",title:"'+title+'",mtime:'+str(update)+',ctime:'+str(date)+',body:"'+title+' ')
     for line in data:
         f.write(strip_tags(line.rstrip("\n").replace('"',' ')))
     data.close()
-    f.write('"},\n')
+    f.write('"}')
 f.write('];\n')
 f.close()
