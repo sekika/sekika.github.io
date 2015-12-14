@@ -42,9 +42,9 @@ for i in os.listdir('../_posts'):
         if 'date' in line:
             line=line.rstrip("\n").replace('date:','').replace('+0000','').strip()
             date=int(time.mktime(time.strptime(line, format)))
-        if update==0:
-            update=date
         line=data.readline()
+    if update==0:
+        update=date
     f.write('{file:"/')
     f.write(i.replace('-','/',3).replace('.md','').replace('.markdown',''))
     f.write('/",title:"'+title+'",mtime:'+str(update)+',ctime:'+str(date)+',body:"'+title+' ')
