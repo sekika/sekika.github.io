@@ -3,11 +3,11 @@ layout: post
 title: 全文検索
 tag: jekyll
 ---
-[JavaScriptにBlogの全文検索をやらせてみるテスト](http://la.ma.la/search.html)というページが、きびきびと動いていいので「検索」メニューに入れてみた。
+[malaさん](http://ma.la/)の[JavaScript による全文検索](http://la.ma.la/search.html)が、きびきびと動いていいので「検索」メニューに入れてみた。
 
 おおまかな手順は
 
-* [トップページのスクリプト](http://la.ma.la/search.html)を[検索ページ](http://sekika.github.io/search/)に入れる。[search.md](https://github.com/sekika/sekika.github.io/blob/master/search.md), [_layouts/search.html](https://github.com/sekika/sekika.github.io/blob/master/_layouts/search.html), [_includes/head-search.htm](https://github.com/sekika/sekika.github.io/blob/master/_includes/head-search.html), [_includes/search.html](https://github.com/sekika/sekika.github.io/blob/master/_includes/search.html), [css/search.css](https://github.com/sekika/sekika.github.io/blob/master/css/search.css) といった感じで分割しておく。
+* [トップページのスクリプト](http://la.ma.la/search.html)を[検索ページ](http://sekika.github.io/search/)に入れる。[search.md](https://github.com/sekika/sekika.github.io/blob/master/search.md), [_layouts/search.html](https://github.com/sekika/sekika.github.io/blob/master/_layouts/search.html), [_includes/head-search.htm](https://github.com/sekika/sekika.github.io/blob/master/_includes/head-search.html) (css と js ファイルの指定), [_includes/search.html](https://github.com/sekika/sekika.github.io/blob/master/_includes/search.html), [css/search.css](https://github.com/sekika/sekika.github.io/blob/master/css/search.css) といった感じで分割しておく。
 * `index.js` を作成する。
 * [roma.js](http://la.ma.la/roma.js) を入れる。
 
