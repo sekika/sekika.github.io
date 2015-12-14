@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# coding: utf-8
 # http://sekika.github.io/search/ の index.js を生成するスクリプト
 # 生成されたファイル: http://sekika.github.io/js/index.js
 
