@@ -2,7 +2,7 @@
 # http://sekika.github.io/search/ の index.js を生成するスクリプト
 # 生成されたファイル: http://sekika.github.io/js/index.js
 
-# pip3 install markdown
+# 準備: pip3 install markdown
 
 # ファイルの場所指定
 post_dir = '../_posts/' # _posts/ ディレクトリ
