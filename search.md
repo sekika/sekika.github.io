@@ -198,6 +198,11 @@ function view(result,offset){
 				,title||"無題","</a>"
 				,"<dd>"
 				,snippet(bodylist[num],idx,len)
+				,"<br><span>"
+				,"作成日:",time2date(ctime)
+				,(time2date(ctime)!=time2date(mtime))?
+					"(更新日"+time2date(mtime)+")":""
+				,"</span><br>"
 			);
 		}
 	}
