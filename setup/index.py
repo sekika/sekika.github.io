@@ -35,7 +35,7 @@ for i in os.listdir('../_posts'):
         line=data.readline()
     while ('--' in line) == False:
         if 'title' in line:
-            title=line.rstrip("\n").replace(': ',':').replace('title:','').replace('"','')
+            title=line.rstrip("\n").replace('title:','').replace('"','').strip()
         if 'update' in line:
             line=line.rstrip("\n").replace('update:','').replace('+0000','').strip()
             update=int(time.mktime(time.strptime(line, format)))
