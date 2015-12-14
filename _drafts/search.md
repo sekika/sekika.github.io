@@ -9,6 +9,7 @@ tag: jekyll
 
 * [トップページのスクリプト](http://la.ma.la/search.html)を[検索ページ](http://sekika.github.io/search/)に入れる。[search.md](https://github.com/sekika/sekika.github.io/blob/master/search.md)では[検索ページ用のレイアウト](https://github.com/sekika/sekika.github.io/blob/master/_layouts/search.html)を指定して、[検索ページ用のヘッダーファイル](https://github.com/sekika/sekika.github.io/blob/master/_includes/head-search.html)で[スタイルシート](https://github.com/sekika/sekika.github.io/blob/master/css/search.css)とJavaScript ([index.js](https://github.com/sekika/sekika.github.io/blob/master/js/index.js), [roma.js](https://github.com/sekika/sekika.github.io/blob/master/js/roma.js)) を指定する。
 * `index.js` を作成する。
+* [roma.js](http://la.ma.la/roma.js) を入れる。
 
 ということになる。`index.js` の作成には、python スクリプト[index.py](https://github.com/sekika/sekika.github.io/blob/master/setup/index.py)を書いた。[最終更新日の表示]({% post_url 2015-11-18-last-update %})によって
 

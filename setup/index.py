@@ -1,14 +1,17 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import os
 import time
 
 format = '%Y-%m-%d %H:%M:%S'
 
-from HTMLParser import HTMLParser
+# http://stackoverflow.com/questions/753052/strip-html-from-strings-in-python
+from html.parser import HTMLParser
 
 class MLStripper(HTMLParser):
     def __init__(self):
         self.reset()
+        self.strict = False
+        self.convert_charrefs= True
         self.fed = []
     def handle_data(self, d):
         self.fed.append(d)
