@@ -57,8 +57,8 @@ if [ `diff $Filename ../_posts/$DestFile | wc -l` -ne 2 ]; then
 fi
 
 # Search index for http://sekika.github.io/search/
-echo "Making search index"
 if [ -e ../setup/index.py ]; then
+  echo "Making search index."
   python3 ../setup/index.py
   git add ../js/index.js
 fi
