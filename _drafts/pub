@@ -55,6 +55,14 @@ awk '{print}/^title:/{X=NR}NR==X{print "DATEDATEDATE"}' $Filename \
 if [ `diff $Filename ../_posts/$DestFile | wc -l` -ne 2 ]; then
   echo "Something wrong. Stop. Check ../_posts/$DestFile"; exit
 fi
+
+# Search index for http://sekika.github.io/search/
+echo "Making search index"
+if [ -e ../setup/index.py ]; then
+  python3 ../setup/index.py
+  git add ../js/index.js
+fi
+
 echo "Committing to repository."
 cd ../_posts || { echo "cd ../_posts failed. Stop."; exit; }
 git add $DestFile || \
