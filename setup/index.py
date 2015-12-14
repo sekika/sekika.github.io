@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 import os
-import datetime
-import dateutil.parser
+import time
+
+format = '%Y-%m-%d %H:%M:%S'
 
 from HTMLParser import HTMLParser
 
@@ -25,21 +26,25 @@ f.write('var data = [')
 for i in os.listdir('../_posts'):
   data=open('../_posts/'+i, 'r')
   line=data.readline()
+  update=0
+  date=int(time.mktime(time.strptime(i[:10], '%Y-%m-%d')))
   while ('--' in line):
     line=data.readline()
   while ('--' in line) == False:
     if 'title' in line:
       title=line.rstrip("\n").replace(': ',':').replace('title:','').replace('"','')
     if 'update' in line:
-      line=line.rstrip("\n").replace('update:','')
-      update=dateutil.parser.parse(line)
+      line=line.rstrip("\n").replace('update:','').replace('+0000','').strip()
+      update=int(time.mktime(time.strptime(line, format)))
     if 'date' in line:
-      dt=line.rstrip("\n").replace('date:','')
-      date=dateutil.parser.parse(dt)
+      line=line.rstrip("\n").replace('date:','').replace('+0000','').strip()
+      date=int(time.mktime(time.strptime(line, format)))
+    if update==0:
+      update=date
     line=data.readline()
   f.write('{file:"/')
   f.write(i.replace('-','/',3).replace('.md','').replace('.markdown',''))
-  f.write('/",title:"'+title+'",body:"'+title+' ')
+  f.write('/",title:"'+title+'",mtime:'+str(update)+',ctime:'+str(date)+',body:"'+title+' ')
   for line in data:
      f.write(strip_tags(line.rstrip("\n").replace('"',' ')))
   data.close()
