@@ -1,9 +1,9 @@
 ---
 layout: post
-title: 全文検索
+title: JavaScript による記事の全文検索
 tag: jekyll
 ---
-[malaさん](http://ma.la/)の[JavaScript による全文検索](http://la.ma.la/search.html)が、きびきびと動いていいので「検索」メニューに入れてみた。
+[malaさん](http://ma.la/)の[JavaScript による全文検索](http://la.ma.la/search.html)を「検索」メニューに入れてみた。速い！
 
 おおまかな手順は
 
