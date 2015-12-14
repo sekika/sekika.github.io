@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
-import os
-import time
+# http://sekika.github.io/search/ の index.js を生成するスクリプト
 
-index = '../js/index.js'
-post_dir = '../_posts/'
+# ファイルの場所指定
+post_dir = '../_posts/' # _posts/ ディレクトリ
+index = '../js/index.js' # index.js
+
+# date フォーマット (+0000 はスクリプト内で削除)
 format = '%Y-%m-%d %H:%M:%S'
 
+# Strip HTML from strings in Python
 # http://stackoverflow.com/questions/753052/strip-html-from-strings-in-python
 from html.parser import HTMLParser
 
@@ -25,6 +28,9 @@ def strip_tags(html):
     s.feed(html)
     return s.get_data()
 
+# 処理の開始
+import os
+import time
 f = open(index, 'w')
 f.write('var start = new Date().getTime();\n')
 f.write('var data = [')
