@@ -11,11 +11,11 @@ tag: jekyll
 * [index.js](https://github.com/sekika/sekika.github.io/blob/master/js/index.js) を作成する。
 * [roma.js](http://la.ma.la/roma.js) を入れる。
 
-ということになる。`index.js` の作成には、python スクリプト[index.py](https://github.com/sekika/sekika.github.io/blob/master/setup/index.py)を書いた。[最終更新日の表示]({% post_url 2015-11-18-last-update %})によって
+ということになる。`index.js` の作成には、python スクリプト[index](https://github.com/sekika/sekika.github.io/blob/master/setup/index)を書いた。[最終更新日の表示]({% post_url 2015-11-18-last-update %})によって
 
 ~~~
 date: 2015-11-12 03:01:50 +0000
 update: 2015-11-17 06:38:29 +0000
 ~~~
 
-のような形で作成日と更新日が記録されている（されていない場合もある）という前提となっている。[下書きの公開スクリプト]({% post_url 2015-11-07-draft-and-publish %})の中で `index.py` を実行させている。
+のような形で作成日と更新日が記録されている（されていない場合もある）という前提となっている。[下書きの公開スクリプト]({% post_url 2015-11-07-draft-and-publish %})の中で `index` を実行させている。
