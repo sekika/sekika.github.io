@@ -11,7 +11,6 @@
 # (3) The change is pushed to master branch
 # (4) The draft file is removed from the git repository
 # (5) Now just wait for jekyll at GitHub Pages to build
-#
 
 Filename=$1
 
