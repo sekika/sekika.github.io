@@ -2,7 +2,9 @@
 layout: post
 title: JavaScript による記事の全文検索
 date: 2015-12-15 15:22:23 +0000
-tag: jekyll
+tags:
+- jekyll
+- python
 ---
 [malaさん](http://ma.la/)の[JavaScript による全文検索](http://la.ma.la/search.html)を「検索」メニューに入れてみた。速い！
 
