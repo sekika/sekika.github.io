@@ -18,6 +18,9 @@ preview:
 
 index:
 	../setup/index
+	git add ../js/index.js
+	git commit -m index
+	git push origin master
 
 linkcheck:
 	# pip install linkchecker
