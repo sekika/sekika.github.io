@@ -61,7 +61,7 @@ if [ -e ../setup/index ]; then
   ../setup/index
   cd ../js
   git add index.js
-  git commit -m "Added index of "$DestFIle || \
+  git commit -m "Added index of "$DestFile || \
    { echo "Commit of index.js failed. Stop."; exit; }
 fi
 
