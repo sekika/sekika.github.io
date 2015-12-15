@@ -57,10 +57,13 @@ if [ `diff $Filename ../_posts/$DestFile | wc -l` -ne 2 ]; then
 fi
 
 # Search index for http://sekika.github.io/search/
-if [ -e ../setup/index.py ]; then
+if [ -e ../setup/index ]; then
   echo "Making search index."
-  python3 ../setup/index.py
-  git add ../js/index.js
+  ../setup/index
+  cd ../js
+  git add index.js
+  git commit -m "Added index of "$DestFIle || \
+   { echo "Commit of index.js failed. Stop."; exit; }
 fi
 
 echo "Committing to repository."
