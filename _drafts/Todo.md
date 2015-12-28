@@ -7,6 +7,11 @@ tag: jekyll
 
 ## 記事 ##
 
+### Sage ###
+
+- [Sage (数式処理システム)](https://ja.wikipedia.org/wiki/Sage_%28%E6%95%B0%E5%BC%8F%E5%87%A6%E7%90%86%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%29)
+- [Sageチュートリアル](http://doc.sagemath.org/html/ja/tutorial/index.html)
+
 ### TikZ ###
 
 - [TeX Wiki - TikZ](http://oku.edu.mie-u.ac.jp/~okumura/texwiki/?TikZ)
