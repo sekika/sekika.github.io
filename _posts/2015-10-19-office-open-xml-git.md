@@ -16,7 +16,7 @@ brew install tika
 
 ~~~~
 #!/bin/sh
-tika -t "$1
+tika -t "$1"
 ~~~~
 
 ```~/.gitconfig``` を編集
