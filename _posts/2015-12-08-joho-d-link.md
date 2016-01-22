@@ -10,6 +10,7 @@ tag: link
 - [情報処理実習D: 講義情報](http://www2.toyo.ac.jp/~seki_k/johoD.html)
 - [受講者専用ページ](http://www2.toyo.ac.jp/~seki_k/johoD/index.html) (東洋大学外からはアクセス不可)
 - [ToyoNet 情報関連ポータル](http://www.toyo.ac.jp/site/toyonet/)
+- [坂村健の目 プログラミング教育急げ (毎日新聞, 2016年1月21日)](http://mainichi.jp/articles/20160121/ddm/016/070/004000c)
 
 ## Java 言語の基礎
 - [Java SE Downloads](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
