@@ -16,5 +16,5 @@ gems: [jekyll-paginate]
 paginate: 5
 pagenate_path: "page:num"
 
-highlighter: "pygments"
+highlighter: "rouge"
 
