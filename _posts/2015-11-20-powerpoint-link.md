@@ -21,3 +21,4 @@ Microsoft PowerPoint の使い方について解説しているサイトへの�
 - [Word 参考サイト]({% post_url 2015-11-06-word-link %})
 - [Excel 参考サイト]({% post_url 2015-11-10-excel-link %})
 - [オフィスソフトの比較]({% post_url 2015-11-12-office-soft %})
+- [見やすいプレゼン資料の作り方 - リニューアル増量版](http://fr.slideshare.net/yutamorishige50/ss-41321443) (森重 湧太)
