@@ -7,11 +7,11 @@ Google アカウントの[2段階認証プロセス](https://www.google.co.jp/in
 
 ## 概要 ##
 
-Google 認証システムで採用されている[RFC 6238](http://tools.ietf.org/html/rfc6238)の[時刻同期型ワンタイムパスワード (TOTP)](https://en.wikipedia.org/wiki/Time-based_One-time_Password_Algorithm)は、サーバーとクライアントで共有する秘密鍵と現在時刻から、確認コードを計算するアルゴリズムである。
+Google 認証システムで採用されている[RFC 6238](http://tools.ietf.org/html/rfc6238)の[時間ベースのワンタイムパスワード (TOTP)](https://en.wikipedia.org/wiki/Time-based_One-time_Password_Algorithm)は、サーバーとクライアントで共有する秘密鍵と現在時刻から、確認コードを計算するアルゴリズムである。
 
 ![Google 認証システム](/img/20160326-google-auth.png)
 
-サーバーがランダムに生成した80ビットの```秘密鍵（シークレットキー）```を```QR コード```あるいは16文字の[Base32](https://en.wikipedia.org/wiki/Base32)文字列（A-Z, 2-7）として表示し、クライアントのモバイルアプリで読み取ることで、サーバーとクライアントに同じ秘密鍵が保存される。```現在時刻```は30秒ごとに値が変わる```カウンター```に変換されてから確認コードが計算されるため、30秒間は同じ確認コードが計算され、クライアントに表示される仕組みとなっている。なお、確認コードの計算アルゴリズムについては最後に記す。
+サーバーがランダムに生成した80ビットの```秘密鍵（シークレットキー）```を```QR コード```あるいは16文字の[Base32](https://en.wikipedia.org/wiki/Base32)文字列（A-Z, 2-7）として表示し、クライアントのモバイルアプリで読み取ることで、サーバーとクライアントに同じ秘密鍵が保存される。```現在時刻```は30秒ごとに値が変わる```カウンター```に変換されてから```確認コード```の6桁の数字が計算されてモバイルアプリに表示されるため、30秒間は同じ確認コードが表示される仕組みとなっている。なお、確認コードの計算アルゴリズムについては最後に記す。
 
 ## 秘密鍵と確認コード ##
 
@@ -40,7 +40,7 @@ Google 認証システムを使ってTOTPの確認コードを生成できるサ
 
 TOTPをサポートするモバイルアプリには、例えば次のようなものがある。
 
-- [Gooogle 認証システム](https://support.google.com/accounts/answer/1066447?hl=ja) (Android, iPhone, BlackBerry)
+- [Gooogle 認証システム](https://support.google.com/accounts/answer/1066447?hl=ja) (Android, iPhone, BlackBerry) - [ソースコード](https://github.com/google/google-authenticator)
 - [Duo Mobile](https://guide.duo.com/third-party-accounts) (Android, iPhone)
 - [Token2](https://token2.com/?content=mobileapp) (Android, iPhone, Windows Phone)
 
@@ -55,7 +55,7 @@ TOTPをサポートするモバイルアプリには、例えば次のような�
 [RFC 6238](http://tools.ietf.org/html/rfc6238) の```TOTP```アルゴリズムは、サーバーとクライアントで共有する```秘密鍵```と、```現在時刻```から計算される```カウンター```から、一意に```トークン``` TOTP すなわち```確認コード```を計算するアルゴリズムであり、[RFC 4226](https://tools.ietf.org/html/rfc4226) の```HOTP```（HMAC ベースのワンタイムパスワード）に基づいている。具体的には次のように計算する。
 
 - ```K```を```秘密鍵```、```TC```を```現在時刻```（[UNIX時間](https://ja.wikipedia.org/wiki/UNIX%E6%99%82%E9%96%93)）、```X```を```時間ステップ```（秒）、```T0```を```カウント開始時刻```（UNIX時間）、```N```を```トークンの長さ```とする。また、ハッシュアルゴリズムを決める。デフォルトでは ```X=30```, ```T0=0```, ```N=6```, ハッシュアルゴリズムは ```SHA-1``` であり、Google 認証システムではこのデフォルトを使って計算をする。なお、HOTPでは秘密鍵は128ビット以上が必要で160ビットを推奨としているが、Google 認証システムでは80ビットである。
-- ```T = floor((TC - T0) / X)``` により、時刻T0からの経過時間に応じた```カウンター``` T を64　ビットの符号なし整数型で得る。ここで、floor は[床関数](https://ja.wikipedia.org/wiki/%E5%BA%8A%E9%96%A2%E6%95%B0%E3%81%A8%E5%A4%A9%E4%BA%95%E9%96%A2%E6%95%B0)であり、Tを整数型としておけば通常は自動的にfloor関数が適用される。
+- ```T = floor((TC - T0) / X)``` により、時刻T0からの経過時間に応じた```カウンター``` T を64ビットの符号なし整数型で得る。ここで、floor は[床関数](https://ja.wikipedia.org/wiki/%E5%BA%8A%E9%96%A2%E6%95%B0%E3%81%A8%E5%A4%A9%E4%BA%95%E9%96%A2%E6%95%B0)であり、Tを整数型としておけば通常は自動的にfloor関数が適用される。
 - ```H = HMAC-SHA-1(K, T)``` により20バイトの```ハッシュ``` H を計算する。すなわち、[HMAC](https://ja.wikipedia.org/wiki/HMAC)-SHA-1 アルゴリズム ([RFC 2104](https://tools.ietf.org/html/rfc2104)) によって秘密鍵KとメッセージTからハッシュHを計算する。
 - 下記の Truncate 関数を使い、```TOTP = Truncate(H)``` として10進数N桁の```トークン``` TOTP を計算する。
 
