@@ -1,7 +1,7 @@
 ---
 layout: post
 title: iPhone で文字認識
-tag: jekyll
+tag: iphone
 ---
 iPhone のカメラで撮影した画像をそのまま文字認識してテキスト化するアプリについて。著者は、日本語は「もじかめ」、英語、フランス語等では「Pixter」を使っている。
 
