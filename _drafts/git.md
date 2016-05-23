@@ -5,7 +5,13 @@ tags:
 - git
 - github
 ---
-GitHub で[1ヶ月7ドルの Personal Plan でプライベートリポジトリ作成無制限](https://github.com/blog/2164-introducing-unlimited-private-repositorie)となったので、いろいろなファイルをバックアップ用にプライベートリポジトリに入れることとした。大きなファイルを GitHub リポジトリに入れるために、いくつかのポイントがあるので手順をメモする。
+GitHub で[1ヶ月7ドルの Personal Plan でプライベートリポジトリ作成無制限](https://github.com/blog/2164-introducing-unlimited-private-repositorie)となったので、いろいろなファイルをバックアップ用にプライベートリポジトリに入れることとした。大きなファイルを GitHub リポジトリに入れるために、いくつかの注意することがあるのでメモする。
+
+## 100MB 以上のファイルと追加料金
+
+GitHub では、100MB 以上のファイルをリポジトリに push しようとするとエラーとなる。[Git Large File Storage (LFS)](https://git-lfs.github.com/)を使うと、100MB 以上のファイルを扱えるようになる。ここで、Personal Plan では LFS を使わなければ容量無制限だが、LFS のデータについては 1GB までとなっていて、オーバーすると LFS が使えなくなる。1月50GBを$4.83で購入可能である。つまり、容量無制限とは言いながら、大きなファイルをどんどん入れるためには追加料金を払う必要がある、というシステムとなっている。
+
+そこで、大きなファイルは git リポジトリに入れない、という場合や、適宜選択して入れる場合などが考えられる。その方法を以下に記す。
 
 ## リポジトリの作成
 [GitHub](https://github.com/)にサインインして```New reposiroty```ボタンからリポジトリを作成する。通常はリポジトリを初期化して ```git clone``` から始めるが、すでに手元にファイルがあるので、```Initialize this repository with a README``` にはチェックを入れずにリポジトリを作成する。リポジトリにアップしようとするディレクトリで（USER と REP は書き変える）
@@ -29,13 +35,9 @@ for A in $(find . | grep " " | sed -e s/" "/SPACE/g) ; do mv "$(echo $A | sed -e
 
 ディレクトリ名にもスペースがある場合には、エラーが出ることがある。その時には、エラーが出なくなるまで何回か同じコマンドを繰り返す。
 
-## 100MB 以上のファイルを LFS で管理する
+## LFS 管理をするファイルの選択
 
-GitHub では、100MB 以上のファイルをリポジトリに push しようとするとエラーとなる。[Git Large File Storage (LFS)](https://git-lfs.github.com/)を使うと、100MB 以上のファイルを扱えるようになる。
-
-なお、Personal Plan では LFS を使わなければ容量無制限だが、LFS のデータについては 1GB までとなっていて、オーバーすると LFS が使えなくなる。1月50GBを$4.83で購入可能。
-
-まずは、LFS をインストールする。Homebrew であれば
+LFS を使わないのであればここはとばす。LFSを使う場合、まずは、LFS をインストールする。Homebrew であれば
 
 ~~~
 brew install git-lfs
@@ -48,13 +50,13 @@ git lfs install
 find . -size +204800 -print | xargs ls -lh
 ~~~
 
-これらのファイルをLFS管理とするように
+この中から、LFS管理とするファイルを
 
 ~~~
 git lfs track "*.psd"
 ~~~
 
-のように、適宜 100MB 以上のファイルを指定する。
+のように、適宜指定する。
 
 ## バッファサイズの設定
 
@@ -71,6 +73,17 @@ git config http.postBuffer 52428800
 
 ~~~
 for i in `find .`; do git add $i; done
+~~~
+
+100MB以下のファイルのみを追加する場合には
+
+~~~
+for i in `find . -size -204800 -print`;  do git add $i; done
+~~~
+
+とする。そして、コミット。
+
+~~~
 git commit -m "First commit"
 git push origin master
 ~~~
