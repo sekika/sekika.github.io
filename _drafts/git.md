@@ -1,17 +1,17 @@
 ---
 layout: post
-title: GitHub リポジトリに大きなファイルを入れる
+title: GitHub リポジトリと大きなファイル
 tags:
 - git
 - github
 ---
-GitHub で[1ヶ月7ドルの Personal Plan でプライベートリポジトリ作成無制限](https://github.com/blog/2164-introducing-unlimited-private-repositorie)となったので、いろいろなファイルをバックアップ用にプライベートリポジトリに入れることとした。大きなファイルを GitHub リポジトリに入れるために、いくつかの注意することがあるのでメモする。
+GitHub で[1ヶ月7ドルの Personal Plan でプライベートリポジトリ作成無制限](https://github.com/blog/2164-introducing-unlimited-private-repositorie)となったので、いろいろなファイルをバックアップ用にプライベートリポジトリに入れることとした。大きなファイルがある時に、色々と注意することがあるので手順をメモする。
 
 ## 100MB 以上のファイルと追加料金
 
-GitHub では、100MB 以上のファイルをリポジトリに push しようとするとエラーとなる。[Git Large File Storage (LFS)](https://git-lfs.github.com/)を使うと、100MB 以上のファイルを扱えるようになる。ここで、Personal Plan では LFS を使わなければ容量無制限だが、LFS のデータについては 1GB までとなっていて、オーバーすると LFS が使えなくなる。1月50GBを$4.83で購入可能である。つまり、容量無制限とは言いながら、大きなファイルをどんどん入れるためには追加料金を払う必要がある、というシステムとなっている。
+GitHub では、100MB 以上のファイルをリポジトリに push しようとするとエラーとなる。[Git Large File Storage (LFS)](https://git-lfs.github.com/)を使うと、100MB 以上のファイルを扱えるようになる。ここで、```Personal Plan では LFS を使わなければ容量無制限だが、100MB以上の LFS データについては 1GB までの容量制限があり、オーバーするとLFSの容量を追加購入しなければ LFS が使えなくなる。```LFSは[容量50GBと帯域 50GB / month を$5/monthで購入可能](https://help.github.com/articles/billing-plans-for-git-large-file-storage/)である。つまり、100MB以下のファイルであれば容量無制限ではあるが、100MB以上のファイルについては容量無制限ではない、というシステムとなっている。
 
-そこで、大きなファイルは git リポジトリに入れない、という場合や、適宜選択して入れる場合などが考えられる。その方法を以下に記す。
+そこで、大きなファイルは git リポジトリに入れない、という場合と、適宜 LFS で入れる場合が考えられる。その方法を以下に記す。
 
 ## リポジトリの作成
 [GitHub](https://github.com/)にサインインして```New reposiroty```ボタンからリポジトリを作成する。通常はリポジトリを初期化して ```git clone``` から始めるが、すでに手元にファイルがあるので、```Initialize this repository with a README``` にはチェックを入れずにリポジトリを作成する。リポジトリにアップしようとするディレクトリで（USER と REP は書き変える）
@@ -27,7 +27,7 @@ git push -u origin master
 
 ## ファイル名からスペースを取り除く
 
-ファイル名にスペースが入っていると色々と面倒なので、このコマンドでアンダースコア「_」に置換する。
+ファイル名にスペースが入っていると色々と面倒なので、このコマンドで、カレントディレクトリ以下のファイル名について、スペースをアンダースコア「_」に一括置換してしまうのが良いと思う。
 
 ~~~
 for A in $(find . | grep " " | sed -e s/" "/SPACE/g) ; do mv "$(echo $A | sed -e s/SPACE/' '/g)" "$(echo $A | sed -e s/SPACE/'_'/g)"; done
@@ -69,19 +69,19 @@ git config http.postBuffer 52428800
 
 ## リポジトリに追加 
 
-ざっくりとカレントディレクトリ以下をまとめてリポジトリに追加する。ファイル名にスペースが入っているとエラーになるので、すでにスペースは取り除いてある。
+すべてのファイルをリポジトリに追加する場合には
 
 ~~~
 for i in `find .`; do git add $i; done
 ~~~
 
-100MB以下のファイルのみを追加する場合には
+とし、100MB以下のファイルのみを追加する場合には
 
 ~~~
-for i in `find . -size -204800 -print`;  do git add $i; done
+for i in `find . -size -204800 -print`; do git add $i; done
 ~~~
 
-とする。そして、コミット。
+として、LFS管理のファイルを個別に git add する。なお、これはファイル名にスペースが入っていないという前提のコマンドである。そして、コミットする。
 
 ~~~
 git commit -m "First commit"
@@ -90,13 +90,18 @@ git push origin master
 
 ## 100MB 以上のファイルがあってエラーとなる場合
 
-```Filename``` というファイルが 100MB 以上で、```File Filename is 230.01 MB; this exceeds GitHub's file size limit of 100.00 MB```というようなエラーが出て ```git push``` できないとき、そのファイルを git 管理から除き、履歴から[完全に削除](https://help.github.com/articles/removing-files-from-a-repository-s-history/)して、LFS管理に入れて commit しなおす、という手順となる。
+```Filename``` というファイルが 100MB 以上で、```File Filename is 230.01 MB; this exceeds GitHub's file size limit of 100.00 MB```というようなエラーが出て ```git push``` できないとき、そのファイルを git 管理から除き、履歴から[完全に削除](https://help.github.com/articles/removing-files-from-a-repository-s-history/)する。
 
 ~~~
 git rm --cached Filename
 git commit --amend -CHEAD
 git filter-branch --index-filter 'git rm --cached --ignore-unmatch Filename' HEAD
 git push origin master
+~~~
+
+必要に応じてLFS管理に入れてコミットし直す。
+
+~~~
 git lfs track Filename
 git add Filename
 git commit -m lfs
