@@ -20,7 +20,7 @@ GitHub では、100MB 以上のファイルをリポジトリに push しよう�
 echo "# test" >> README.md
 git init
 git add README.md
-git commit -m "first commit"
+git commit -m "First commit"
 git remote add origin git@github.com:USER/REP.git
 git push -u origin master
 ~~~
@@ -60,7 +60,7 @@ git lfs track "*.psd"
 
 ## バッファサイズの設定
 
-大きいファイルを ```git push``` すると ```fatal: The remote end hung up unexpectedly
+大きいファイルを ```git push``` すると ```packet_write_wait: Connection to 192.30.252.123: Broken pipe``` ```fatal: The remote end hung up unexpectedly
 ```といったエラーが出やすいので、エラーを出にくくするために[HTTP post バッファサイズを上げる](http://stackoverflow.com/questions/19120120/broken-pipe-when-pushing-to-git-repository)と良い。50MB に上げるには
 
 ~~~
@@ -69,23 +69,16 @@ git config http.postBuffer 52428800
 
 ## リポジトリに追加 
 
-すべてのファイルをリポジトリに追加する場合には
+多くのファイルをまとめてリポジトリに追加しようとすると、バッファイサイズを上げても ```fatal: The remote end hung up unexpectedly``` のエラーが出ることがある。そこで、このワンライナーで、まずは100MB 以下のファイルを100個ずつ ```git add``` してから ```git commit; git push``` する。
 
 ~~~
-for i in `find .`; do git add $i; done
+find . -type f -size -204800 | grep -v "^./.git" | cat -n | while read a b; do git add $b; if [ `echo $a | grep "00$"` ]; then git commit -m "First commit"; git push origin master; fi; done; git commit -m "First commit"; git push origin master
 ~~~
 
-とし、100MB以下のファイルのみを追加する場合には
+次に、100MB 以上のファイルを追加するためには
 
 ~~~
-for i in `find . -size -204800 -print`; do git add $i; done
-~~~
-
-として、LFS管理のファイルを個別に git add する。なお、これはファイル名にスペースが入っていないという前提のコマンドである。そして、コミットする。
-
-~~~
-git commit -m "First commit"
-git push origin master
+for i in `find . -size -204800`; do git add $i; git commit -m "LFS"; git push origin master; done
 ~~~
 
 ## 100MB 以上のファイルがあってエラーとなる場合
