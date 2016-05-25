@@ -30,7 +30,7 @@ git push -u origin master
 ファイル名にスペースが入っていると色々と面倒なので、このコマンドで、カレントディレクトリ以下のファイル名について、スペースをアンダースコア「_」に一括置換してしまうのが良いと思う。
 
 ~~~
-for A in $(find . | grep " " | sed -e s/" "/SPACE/g) ; do mv "$(echo $A | sed -e s/SPACE/' '/g)" "$(echo $A | sed -e s/SPACE/'_'/g)"; done
+for A in $(find . | grep " " | sed -e s/" "/x3Exe/g) ; do mv "$(echo $A | sed -e s/x3Exe/' '/g)" "$(echo $A | sed -e s/x3Exe/'_'/g)"; done
 ~~~
 
 ディレクトリ名にもスペースがある場合には、エラーが出ることがある。その時には、エラーが出なくなるまで何回か同じコマンドを繰り返す。
@@ -81,7 +81,7 @@ git config http.postBuffer 52428800
 
 ## リポジトリに追加 
 
-大量のファイルをまとめてリポジトリに追加しようとすると、バッファイサイズを上げても ```fatal: The remote end hung up unexpectedly``` のエラーが出ることがある。そこで、次の一行コマンドで、100MB以下の全てのファイルを確実にリポジトリに追加することができる。
+大量のファイルをまとめてリポジトリに追加しようとすると、バッファイサイズを上げても ```fatal: The remote end hung up unexpectedly``` のエラーが出ることがある。そこで、次の一行コマンドで、100MB以下の全てのファイルを確実にリポジトリに追加することができる（ファイル名にスペースが入っているものは追加されない）。
 
 ~~~
 find . -type f -size -204800 | grep -v "^./.git" | cat -n | while read a b; do git add $b; if [ `echo $a | grep "00$"` ]; then git commit -m "First commit"; git push origin master; fi; done; git commit -m "First commit"; git push origin master
