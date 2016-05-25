@@ -90,7 +90,7 @@ git config http.postBuffer 52428800
 ```git add -A; git commit; git push``` で追加できれば良いのだけれど、大量のファイルをまとめてリポジトリに追加しようとすると、バッファイサイズを上げても ```fatal: The remote end hung up unexpectedly``` のエラーが出ることがある。そこで、次の一行コマンドで、100MB以下の全てのファイルを確実にリポジトリに追加することができる。
 
 ~~~
-find . -type f -size -204800 | grep -v "^./.git" | cat -n | while read a b; do git add $b; if [ `echo $a | grep "00$"` ]; then git commit -m "First commit"; git push origin master; fi; done; git commit -m "First commit"; git push origin master
+find . -type f -size -204800 | grep -v "^\./\.git\/" | cat -n | while read a b; do git add $b; if [ `echo $a | grep "00$"` ]; then git commit -m "First commit"; git push origin master; fi; done; git commit -m "First commit"; git push origin master
 ~~~
 
 このコマンドは、ファイルを100個 ```git add``` するごとに ```git commit; git push``` することで、一度に大量の ```git push``` を実行しないようにしている。
