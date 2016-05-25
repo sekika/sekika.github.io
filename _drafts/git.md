@@ -61,7 +61,7 @@ find . -size +204800 | xargs du -sh
 git lfs track "*.psd"
 ~~~
 
-のように、適宜指定する。
+のように、適宜指定する。git で管理しないファイルは ```.gitignore``` に記述しておくと良い。
 
 ## バッファサイズの設定
 
