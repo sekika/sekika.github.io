@@ -67,7 +67,9 @@ find . -size +100M | xargs du -sh
 git lfs track "*.psd"
 ~~~
 
-のように、適宜指定する。git で管理しないファイルは ```.gitignore``` に記述しておくと良い。100MB以上のファイルをすべて ```.gitignore``` ファイルに加えるには
+のように、適宜指定する。git で管理しないファイルは ```.gitignore``` に記述しておくと良い。
+
+100MB以上のファイルをすべて ```.gitignore``` ファイルに加えるには
 
 ~~~
 find . -size +100M | sed -e 's/^\.\///' >> .gitignore
