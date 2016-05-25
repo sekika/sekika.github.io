@@ -114,9 +114,3 @@ git add Filename
 git commit -m lfs
 git push origin master
 ~~~
-
-## 自動コミット
-
-場合によっては自動コミットの設定をしておくと良い。
-
-- [Guard で Git コミットを自動で行う](http://qiita.com/a-suenami/items/bd9a669d5779d9910fec)
