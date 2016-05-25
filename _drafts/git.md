@@ -43,7 +43,7 @@ for A in $(find . | grep " " | sed -e s/" "/x3Exe/g) ; do mv "$(echo $A | sed -e
 
 ## LFS 管理をするファイルの選択
 
-LFS を使わないのであればここはとばす。LFSを使う場合、まずは、[LFS](https://git-lfs.github.com/) をインストールする。Homebrew であれば
+LFS を使わないのであればここはとばす（最後の```.gitignore```の設定だけしておいても良い）。LFSを使う場合、まずは、[LFS](https://git-lfs.github.com/) をインストールする。Homebrew であれば
 
 ~~~
 brew install git-lfs
@@ -58,7 +58,7 @@ git lfs install
 次に、100MB 以上のファイルを一覧する。
 
 ~~~
-find . -size +204800 | xargs du -sh
+find . -size +100M | xargs du -sh
 ~~~
 
 この中から、LFS管理とするファイルを
@@ -67,7 +67,11 @@ find . -size +204800 | xargs du -sh
 git lfs track "*.psd"
 ~~~
 
-のように、適宜指定する。git で管理しないファイルは ```.gitignore``` に記述しておくと良い。
+のように、適宜指定する。git で管理しないファイルは ```.gitignore``` に記述しておくと良い。100MB以上のファイルをすべて ```.gitignore``` ファイルに加えるには
+
+~~~
+find . -size +100M | sed -e 's/^\.\///' >> .gitignore
+~~~
 
 ## バッファサイズの設定
 
@@ -90,7 +94,7 @@ git config http.postBuffer 52428800
 ```git add -A; git commit; git push``` で追加できれば良いのだけれど、大量のファイルをまとめてリポジトリに追加しようとすると、バッファイサイズを上げても ```fatal: The remote end hung up unexpectedly``` のエラーが出ることがある。そこで、次の一行コマンドで、100MB以下の全てのファイルを確実にリポジトリに追加することができる（ファイル名にスペースが入っているものは追加されない）。
 
 ~~~
-find . -type f -size -204800 | grep -v "^\./\.git/" | cat -n | while read a b; do git add $b; if [ `echo $a | grep "00$"` ]; then git commit -m "First commit"; git push origin master; fi; done; git commit -m "First commit"; git push origin master
+find . -type f -size -100M | grep -v "^\./\.git/" | cat -n | while read a b; do git add $b; if [ `echo $a | grep "00$"` ]; then git commit -m "First commit"; git push origin master; fi; done; git commit -m "First commit"; git push origin master
 ~~~
 
 このコマンドは、ファイルを100個 ```git add``` するごとに ```git commit; git push``` することで、一度に大量の ```git push``` を実行しないようにしている。
@@ -98,7 +102,7 @@ find . -type f -size -204800 | grep -v "^\./\.git/" | cat -n | while read a b; d
 さらに、LFS管理されている100MB 以上のファイルを全て追加するためには（LFSの容量と帯域制限に注意）
 
 ~~~
-for i in `find . -size +204800`; do git add $i; git commit -m "LFS"; git push origin master; done
+for i in `find . -size +100M`; do git add $i; git commit -m "LFS"; git push origin master; done
 ~~~
 
 ## 100MB 以上のファイルがあってエラーとなる場合
