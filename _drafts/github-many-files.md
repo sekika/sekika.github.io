@@ -11,7 +11,7 @@ GitHub で[1ヶ月7ドルの Personal Plan でプライベートリポジトリ�
 
 GitHub では、100MB 以上のファイルをリポジトリに push しようとするとエラーとなる。[Git Large File Storage (LFS)](https://git-lfs.github.com/)を使うと、100MB 以上のファイルを扱えるようになる。ここで、```Personal Plan では 100MB以下のファイルについては容量無制限だが、100MB以上の LFS 管理のファイルについては 1GB までの容量制限があり、```オーバーするとLFSの容量を追加購入しなければ LFS が使えなくなる。LFSは[容量50GBと帯域 50GB / month を$5/monthで購入可能](https://help.github.com/articles/billing-plans-for-git-large-file-storage/)である。
 
-そこで、100MB以下のファイルだけを git リポジトリに入れる、という使い方と、LFS で全てのファイル（あるいは一部のファイル）を入れる、という使い方が考えられる。ここでは、両方の使い方に対応して記述する。
+そこで、100MB以下のファイルだけを git リポジトリに入れる、という使い方と、LFS で全てのファイル（あるいは一部の大容量ファイル）を入れる、という使い方が考えられる。ここでは、両方の使い方に対応して記述する。
 
 ## リポジトリの作成
 
