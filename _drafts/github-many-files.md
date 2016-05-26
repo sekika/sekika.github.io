@@ -15,19 +15,19 @@ GitHub では、100MB 以上のファイルをリポジトリに push しよう�
 
 ## リポジトリの作成
 
-[GitHub](https://github.com/)にサインインして```New reposiroty```ボタンからリポジトリを作成する。通常はリポジトリを初期化して ```git clone``` から始めるが、ここではすでに手元にリポジトリに登録しようとするファイルがあるという状況の話をしているので、```Initialize this repository with a README``` にはチェックを```入れずに```リポジトリを作成する。リポジトリにアップしようとするディレクトリで次のコマンドを実行する（```USER と REP は書き変える```）。
-
-~~~
-git init
-git remote add origin git@github.com:USER/REP.git
-~~~
-
-以上で準備は完了だが、```README.md``` ファイルを作成してコミットしても良い（しなくても良い）。
+[GitHub](https://github.com/)にサインインして```New reposiroty```ボタンからリポジトリを作成する。通常はリポジトリを初期化して ```git clone``` から始めるが、ここではすでに手元にリポジトリに登録しようとするファイルがあるという状況の話をしているので、```Initialize this repository with a README``` にはチェックを```入れずに```リポジトリを作成する。まず、```REAME.md``` が存在しなければ、仮のファイルを
 
 ~~~
 echo "# test" >> README.md
+~~~
+
+として作成する。続いて、次の一連のコマンドでリポジトリを初期化し、README.md をリポジトリに追加し、初期設定をする（```USER と REP は書き変える```）。
+
+~~~
+git init
 git add README.md
 git commit -m "First commit"
+git remote add origin git@github.com:USER/REP.git
 git push -u origin master
 ~~~
 
@@ -43,7 +43,7 @@ for A in $(find . | grep " " | sed -e s/" "/x3Exe/g) ; do mv "$(echo $A | sed -e
 
 ## LFS 管理をするファイルの選択
 
-LFS を使わないのであればここはとばす（最後の```.gitignore```の設定だけしておいても良い）。LFSを使う場合、まずは、[LFS](https://git-lfs.github.com/) をインストールする。Homebrew であれば
+LFS を使わないのであればここはとばす。LFSを使う場合、まずは、[LFS](https://git-lfs.github.com/) をインストールする。Homebrew であれば
 
 ~~~
 brew install git-lfs
@@ -61,13 +61,15 @@ git lfs install
 find . -size +100M | xargs du -sh
 ~~~
 
-この中から、LFS管理とするファイルを
+この中から、LFS管理とするファイルを適宜指定する。例えば、拡張子 .psd のファイルをまとめて指定するには
 
 ~~~
 git lfs track "*.psd"
 ~~~
 
-のように、適宜指定する。git で管理しないファイルは ```.gitignore``` に記述しておくと良い。
+## git で管理しないファイルの設定
+
+LFSを使わない場合、あるいはLFSを一部のファイルのみにしか使わない場合には、git で管理をしないファイルを ```.gitignore``` に設定する。
 
 100MB以上のファイルをすべて ```.gitignore``` ファイルに加えるには
 
