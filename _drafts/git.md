@@ -126,3 +126,11 @@ git add Filename
 git commit -m lfs
 git push origin master
 ~~~
+
+## 管理
+
+~~~
+git pull; git add -A; git commit -m "commit" && git push
+~~~
+
+とすればアップデートされていくので、お好みで crontab に入れる。
