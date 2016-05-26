@@ -1,9 +1,6 @@
 UNAME = ${shell uname}
 
-all:
-	git add -A
-	- git commit -m draft
-	make preview
+all: push
 
 push:
 	git add -A
