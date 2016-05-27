@@ -120,6 +120,14 @@ git filter-branch --index-filter 'git rm --cached --ignore-unmatch Filename' HEA
 git push origin master
 ~~~
 
+```git filter-branch --index-filter 'git rm --cached --ignore-unmatch Filename' HEAD``` に対して ```A previous backup already exists in refs/original/``` のようなメッセージが出た時には、
+
+~~~
+git update-ref -d refs/original/refs/heads/master
+~~~
+
+で refs/original/ を消す。
+
 必要に応じてLFS管理に入れてコミットし直す。
 
 ~~~
