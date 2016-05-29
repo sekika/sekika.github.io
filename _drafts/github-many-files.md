@@ -99,6 +99,12 @@ git config http.postBuffer 52428800
 
 ```gitadd の gist へのリンク```
 
+First commit というコミットメッセージでリポジトリに追加するには、このスクリプトを gitadd で起動できる状態にして
+
+~~~
+gitadd First commit
+~~~
+
 ## 100MB 以上のファイルがあってエラーとなる場合
 
 ```Filename``` というファイルが 100MB 以上で、```File Filename is 230.01 MB; this exceeds GitHub's file size limit of 100.00 MB```というようなエラーが出て ```git push``` できないとき、そのファイルを git 管理から除き、履歴から[完全に削除](https://help.github.com/articles/removing-files-from-a-repository-s-history/)する。
