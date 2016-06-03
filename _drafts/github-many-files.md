@@ -95,9 +95,11 @@ git config http.postBuffer 52428800
 
 ## リポジトリに追加 
 
-```git add -A; git commit; git push``` で追加できれば良いのだけれど、何ギガバイトもあるような大量のファイルをリポジトリに追加しようとすると、バッファイサイズを上げても ```fatal: The remote end hung up unexpectedly``` のエラーが出ることがある。そこで、段階的にファイルをリポジトリに追加するコマンド ```gitadd``` を作成した。
+```git add -A; git commit; git push``` で追加できれば良いのだけれど、何ギガバイトもあるような大量のファイルをリポジトリに追加しようとすると、バッファイサイズを上げても ```fatal: The remote end hung up unexpectedly``` のエラーが出ることがある。そこで、段階的にファイルをリポジトリに追加するスクリプト ```gitadd``` を作成した。
 
 {% gist 570495bd0627acff6c836de18e78f6fd %}
+
+最初に ```git add -A; git commit; git push``` をやってエラーが出ててしまった時には ```git reset HEAD~``` で commit と index を戻してから、このスクリプト (gitadd) を実行する。
 
 ## 100MB 以上のファイルがあってエラーとなる場合
 
