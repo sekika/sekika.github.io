@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: post-en
 title: Uploading many files to GitHub repository
 date: 2016-06-03 07:16:54 +0000
 tags:
@@ -9,13 +9,13 @@ tags:
 ---
 As [GitHub introduced unlimited private repositories](https://github.com/blog/2164-introducing-unlimited-private-repositorie), I uploaded gigabytes of data for backup. I had some troubles uploading many files to GitHub repository, but finally I manged to do so. Here's how.
 
-## 100MB 以上のファイルと追加料金
+## Storage and Bandwidth limit of Git Large File Storage
 
-GitHub では、100MB 以上のファイルをリポジトリに push しようとするとエラーとなる。[Git Large File Storage (LFS)](https://git-lfs.github.com/)を使うと、100MB 以上のファイルを扱えるようになる。ここで、```Personal Plan では 100MB以下のファイルについては容量無制限だが、100MB以上の LFS 管理のファイルについては 1GB までの容量制限があり、```オーバーするとLFSの容量を追加購入しなければ LFS が使えなくなる。LFSは[容量50GBと帯域 50GB / month を$5/monthで購入可能](https://help.github.com/articles/billing-plans-for-git-large-file-storage/)である。
+[Git Large File Storage (LFS)](https://git-lfs.github.com/) is required to push a file larger than 100 MB to GitHub repository. There is a storage and bandwidth limit for LFS, and you need to buy extra storage and bandwidth according to [Billing plans for Git Large File Storage](https://help.github.com/articles/billing-plans-for-git-large-file-storage/).
 
-そこで、100MB以下のファイルだけを git リポジトリに入れる、という使い方と、LFS で全てのファイル（あるいは一部の大容量ファイル）を入れる、という使い方が考えられる。ここでは、両方の使い方に対応して記述する。
+You may want to use LFS to handle the large files, or you may want to ignore the large files. Both method is written in this article.
 
-## リポジトリの作成
+## Create a repository
 
 [GitHub](https://github.com/)にサインインして```New reposiroty```ボタンからリポジトリを作成する。通常はリポジトリを初期化して ```git clone``` から始めるが、ここではすでに手元にリポジトリに登録しようとするファイルがあるという状況の話をしているので、```Initialize this repository with a README``` にはチェックを```入れずに```リポジトリを作成する。まず、```REAME.md``` が存在しなければ、仮のファイルを
 
