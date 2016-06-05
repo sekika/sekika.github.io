@@ -7,9 +7,9 @@ tags:
 - git
 - github
 ---
-As [GitHub introduced unlimited private repositories](https://github.com/blog/2164-introducing-unlimited-private-repositorie), I uploaded gigabytes of data for backup. I had some troubles uploading many files to GitHub repository, but finally I manged to do so. Here's how.
+As [GitHub introduced unlimited private repositories](https://github.com/blog/2164-introducing-unlimited-private-repositorie), I uploaded gigabytes of data for backup. I had some troubles uploading many files to GitHub repository, but finally I manged to do so, like this way.
 
-## Storage and Bandwidth limit of Git Large File Storage
+## Storage and bandwidth limit of large files
 
 [Git Large File Storage (LFS)](https://git-lfs.github.com/) is required to push a file larger than 100 MB to GitHub repository. There is a storage and bandwidth limit for LFS, and you need to buy extra storage and bandwidth according to [Billing plans for Git Large File Storage](https://help.github.com/articles/billing-plans-for-git-large-file-storage/).
 
@@ -33,31 +33,25 @@ git remote add origin git@github.com:USER/REP.git
 git push -u origin master
 ~~~
 
-## ファイル名からスペースを取り除く
+## Remove space from file name
 
-ファイル名にスペースが入っていると色々と面倒なので、このコマンドで、カレントディレクトリ以下のファイル名について、スペースをアンダースコア「_」に一括置換してしまうのが良いと思う（それによって何らかの問題が生じないのであれば）。
+This command replace space " " to underscore "_" in the filenames under the current directory.
 
 ~~~
 for A in $(find . | grep " " | sed -e s/" "/x3Exe/g) ; do mv "$(echo $A | sed -e s/x3Exe/' '/g)" "$(echo $A | sed -e s/x3Exe/'_'/g)"; done
 ~~~
 
-ディレクトリ名にもスペースがある場合には、エラーが出ることがある。その時には、エラーが出なくなるまで何回か同じコマンドを繰り返す。
+If there are spaces in the name of the directory, error may arise. Just repeat this command until error is not shown.
 
-## LFS 管理をするファイルの選択
+## Manage file with LFS
 
-LFS を使わないのであればここはとばす。LFSを使う場合、まずは、[LFS](https://git-lfs.github.com/) をインストールする。Homebrew であれば
-
-~~~
-brew install git-lfs
-~~~
-
-である。そして、Git に LFS をセットアップする。
+Skip this step when not using LFS. For using LFS, install [LFS](https://git-lfs.github.com/) first. Then setup LFS to Git by
 
 ~~~
 git lfs install
 ~~~
 
-次に、100MB 以上のファイルを一覧する。
+Files larger than 100 MB can be listed with
 
 ~~~
 find . -size +100M | xargs du -sh
