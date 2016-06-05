@@ -1,0 +1,46 @@
+<head>
+  <meta charset="iso-8859-1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- custom meta tags from page -->
+  <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+  <meta name="keywords" content="{% capture tags %}{% for tag in page.tags %}{{ tag | capitalize }}, {% endfor %}{% endcapture %}{{ tags }}">
+ 
+  <!-- custom title from page -->
+  <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
+
+  <!-- Bootstrap CSS file -->
+  <link href="{{ "/css/bootstrap.min.css" | prepend: site.baseurl }}" rel="stylesheet">
+
+  <!-- Personal CSS file -->
+  <link href="{{ "/css/personal.css" | prepend: site.baseurl }}" rel="stylesheet">
+
+  <!-- favicon generated at http://realfavicongenerator.net/ -->
+  {% include favicon.html %}
+  
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script>
+    (function() {
+        if(typeof jQuery=='undefined') {
+            document.write('<sc'
+			   + 'ript src="/js/jquery-1.11.2.min.js"></sc'
+			   + 'ript>');
+        }
+    }).call(this);
+  </script>
+
+  <!-- Bootstrap JS script -->
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <script>
+    (function() {
+	  if (typeof($.fn.modal) === 'undefined') {
+	    document.write('<sc'
+			   + 'ript async src="/js/bootstrap.min.js"></sc'
+			   + 'ript>');
+	  }
+    }).call(this);
+  </script>
+
+</head>

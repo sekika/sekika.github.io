@@ -17,13 +17,13 @@ You may want to use LFS to handle the large files, or you may want to ignore the
 
 ## Create a repository
 
-[GitHub](https://github.com/)にサインインして```New reposiroty```ボタンからリポジトリを作成する。通常はリポジトリを初期化して ```git clone``` から始めるが、ここではすでに手元にリポジトリに登録しようとするファイルがあるという状況の話をしているので、```Initialize this repository with a README``` にはチェックを```入れずに```リポジトリを作成する。まず、```REAME.md``` が存在しなければ、仮のファイルを
+Sign in to [GitHub](https://github.com/) and create a repository by ```New reposiroty``` button. Do  not check ```Initialize this repository with a README```. If there is no ```REAME.md```, create a tentative file with
 
 ~~~
 echo "# test" >> README.md
 ~~~
 
-として作成する。続いて、次の一連のコマンドでリポジトリを初期化し、README.md をリポジトリに追加し、初期設定をする（```USER と REP は書き変える```）。
+and run the following commands to initialize the repository, add README.md (```Rewrite USER and REP```).
 
 ~~~
 git init
