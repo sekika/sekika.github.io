@@ -1,7 +1,6 @@
 ---
 layout: post-en
 title: Uploading many files to GitHub repository
-date: 2016-06-03 07:16:54 +0000
 tags:
 - english
 - git
@@ -35,7 +34,7 @@ git push -u origin master
 
 ## Remove space from file name
 
-This command replace space " " to underscore "_" in the filenames under the current directory.
+This command replace space &quot; &quot; to underscore &quot;_&quot; in the filenames under the current directory.
 
 ~~~
 for A in $(find . | grep " " | sed -e s/" "/x3Exe/g) ; do mv "$(echo $A | sed -e s/x3Exe/' '/g)" "$(echo $A | sed -e s/x3Exe/'_'/g)"; done
@@ -57,25 +56,25 @@ Files larger than 100 MB can be listed with
 find . -size +100M | xargs du -sh
 ~~~
 
-この中から、LFS管理とするファイルを適宜指定する。例えば、拡張子 .psd のファイルをまとめて指定するには
+Designate the file to manage with LFS from this list. For example, to track files of .psd extention:
 
 ~~~
 git lfs track "*.psd"
 ~~~
 
-## git で管理しないファイルの設定
+## Ignore large files
 
-LFSを使わない場合、あるいはLFSを一部のファイルのみにしか使わない場合には、git で管理をしないファイルを ```.gitignore``` に設定する。
+When not using LFS, large files can be ignore with ```.gitignore``` file.
 
-100MB以上のファイルをすべて ```.gitignore``` ファイルに加えるには
+To add all the files larger ahtn 100 MB to ```.gitignore```:
 
 ~~~
 find . -size +100M | sed -e 's/^\.\///' >> .gitignore
 ~~~
 
-## バッファサイズの設定
+## Increase the HTTP post buffer size
 
-大きいファイルを ```git push``` すると
+When pushing large files, error may arise
 
 <blockquote>
 packet_write_wait: Connection to 192.30.252.123: Broken pipe<br>
@@ -83,52 +82,18 @@ fatal: The remote end hung up unexpectedly<br>
 error: failed to push some refs to 'git@github.com:USER/REP.git'
 </blockquote>
 
-といったエラーが出やすいので、エラーを出にくくするために[HTTP post バッファサイズを上げる](http://stackoverflow.com/questions/19120120/broken-pipe-when-pushing-to-git-repository)と良い。50MB に上げるには
+To avoid this, [increasing the HTTP post buffer size](http://stackoverflow.com/questions/19120120/broken-pipe-when-pushing-to-git-repository) is recommended. To increase the buffer size to 50 MB,
 
 ~~~
 git config http.postBuffer 52428800
 ~~~
 
-## リポジトリに追加 
+## Adding files to repository
 
-```git add -A; git commit; git push``` で追加できれば良いのだけれど、何ギガバイトもあるような大量のファイルをリポジトリに追加しようとすると、バッファイサイズを上げても ```fatal: The remote end hung up unexpectedly``` のエラーが出ることがある。そこで、段階的にファイルをリポジトリに追加するスクリプト ```gitadd``` を作成した。
+Standard way to adding all the files to repository is ```git add -A; git commit; git push```, but it does not succeed when trying to add gigabytes of files; ```fatal: The remote end hung up unexpectedly``` error arises even when the HTTP buffer size is increased. Therefore I made the following shell script, ```gitadd```, to add all the files in the current directory step by step.
 
 {% gist 570495bd0627acff6c836de18e78f6fd %}
 
-最初に ```git add -A; git commit; git push``` をやってエラーが出ててしまった時には ```git reset HEAD~``` で commit と index を戻してから、このスクリプト ```gitadd``` を実行する。
+When you get error by ```git add -A; git commit; git push```, you can reset the commit and index by ```git reset HEAD~``` and run ```gitadd``` after that.
 
-## 100MB 以上のファイルがあってエラーとなる場合
-
-```Filename``` というファイルが 100MB 以上で、```File Filename is 230.01 MB; this exceeds GitHub's file size limit of 100.00 MB```というようなエラーが出て ```git push``` できないとき、そのファイルを git 管理から除き、履歴から[完全に削除](https://help.github.com/articles/removing-files-from-a-repository-s-history/)する。
-
-~~~
-git rm --cached Filename
-git commit --amend -CHEAD
-git filter-branch --index-filter 'git rm --cached --ignore-unmatch Filename' HEAD
-git push origin master
-~~~
-
-```git filter-branch --index-filter 'git rm --cached --ignore-unmatch Filename' HEAD``` に対して ```A previous backup already exists in refs/original/``` のようなメッセージが出た時には、
-
-~~~
-git update-ref -d refs/original/refs/heads/master
-~~~
-
-で refs/original/ を消す。
-
-必要に応じてLFS管理に入れてコミットし直す。
-
-~~~
-git lfs track Filename
-git add Filename
-git commit -m lfs
-git push origin master
-~~~
-
-## 管理
-
-~~~
-git pull; git add -A; git commit -m "commit" && git push
-~~~
-
-とすればアップデートされていくので、お好みで crontab に入れる。
+[Japanese post]({% post_url 2016-06-03-github-many-files %})
