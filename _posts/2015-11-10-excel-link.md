@@ -2,7 +2,7 @@
 layout: post
 title: Excel 参考サイト
 date: 2015-11-10 10:27:37 +0000
-update: 2016-02-26 08:39:09 +0000
+update: 2016-06-20 15:12:08 +0000
 tags:
 - excel
 - link
@@ -11,6 +11,8 @@ Microsoft Excel の使い方について解説しているサイトへのリン�
 
 ## Windows 版
 - [Excelでお仕事！](http://www.asahi-net.or.jp/~ef2o-inue/top01.html) (井上 治)
+- [100Excel](http://www.100excel.com/) (Yujiro Sakaki)
+- [なんだ！カンタン！Excel塾](http://kokodane.com/) (ExcelのWeb参考書)
 - [Excel 一般／関数の応用方法](http://www.geocities.jp/chiquilin_site/) (Chiquilin Site)
 - [エクセル2013基本講座](http://www4.synapse.ne.jp/yone/excel2013/) (よねさん)
 - [Office 2013 トレーニングビデオ](http://www.microsoft.com/ja-jp/office/2013/business/training/training-video/default.aspx) (Microsoft)
