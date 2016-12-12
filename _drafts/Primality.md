@@ -2,8 +2,8 @@
 layout: post
 title: 素数判定ゲーム
 tags:
-	math
-	python
+- math
+- python
 ---
 素数判定ゲーム
 
