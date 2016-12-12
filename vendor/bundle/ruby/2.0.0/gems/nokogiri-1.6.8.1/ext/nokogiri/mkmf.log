@@ -1,0 +1,46 @@
+"xcrun clang -o conftest -I/System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/include/ruby-2.0.0/universal-darwin16 -I/System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/include/ruby-2.0.0/ruby/backward -I/System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/include/ruby-2.0.0 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -g -Os -pipe -DHAVE_GCC_SYNC_BUILTINS  conftest.c  -L. -L/System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/lib -L. -L/usr/local/lib   -arch i386 -arch x86_64   -lruby.2.0.0  -lpthread -ldl -lobjc  "
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return 0;
+6: }
+/* end */
+
+"xcrun clang -I/System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/include/ruby-2.0.0/universal-darwin16 -I/System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/include/ruby-2.0.0/ruby/backward -I/System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/include/ruby-2.0.0 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -g -Os -pipe -DHAVE_GCC_SYNC_BUILTINS   -arch i386 -arch x86_64  -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+"xcrun clang -I/System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/include/ruby-2.0.0/universal-darwin16 -I/System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/include/ruby-2.0.0/ruby/backward -I/System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/include/ruby-2.0.0 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -g -Os -pipe -DHAVE_GCC_SYNC_BUILTINS  -Wno-error=unused-command-line-argument-hard-error-in-future  -arch i386 -arch x86_64  -c conftest.c"
+warning: unknown warning option '-Werror=unused-command-line-argument-hard-error-in-future'; did you mean '-Werror=unused-command-line-argument'? [-Wunknown-warning-option]
+1 warning generated.
+warning: unknown warning option '-Werror=unused-command-line-argument-hard-error-in-future'; did you mean '-Werror=unused-command-line-argument'? [-Wunknown-warning-option]
+1 warning generated.
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main() {return 0;}
+/* end */
+
+package configuration for libxml-2.0 is not found
+package configuration for libxslt is not found
+package configuration for libexslt is not found
+"xcrun clang -E -I/System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/include/ruby-2.0.0/universal-darwin16 -I/System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/include/ruby-2.0.0/ruby/backward -I/System/Library/Frameworks/Ruby.framework/Versions/2.0/usr/include/ruby-2.0.0 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT    -g -Os -pipe -DHAVE_GCC_SYNC_BUILTINS   conftest.c -o conftest.i"
+conftest.c:3:10: fatal error: 'libxml/xmlversion.h' file not found
+#include <libxml/xmlversion.h>
+         ^
+1 error generated.
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <libxml/xmlversion.h>
+/* end */
+
