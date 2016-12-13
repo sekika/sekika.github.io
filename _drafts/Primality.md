@@ -13,10 +13,16 @@ tags:
 Python 3 が必要。[こちらからプログラムをダウンロード](https://gist.github.com/sekika/948ad8ea14e301cdcf92c1b9ef093d31)して、
 
 ~~~
+chmod +x primequiz.py
+~~~
+
+で実行可能としてから、
+
+~~~
 ./primequiz.py
 ~~~
 
-と実行する。
+でプログラムを実行する。
 
 ~~~
 10 questions for primality.
