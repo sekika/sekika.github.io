@@ -10,6 +10,8 @@ tags:
 [「パッと見素数」に気をつけろ！](http://motcho.hateblo.jp/entry/2016/12/11/190626)という記事に紹介されている[素数大富豪](http://integers.hatenablog.com/entry/2016/10/10/193619)というゲームでは、素数を素早く判定することが要される。
 そのための練習用プログラムとして考えたものであるが、素数大富豪とは独立した一人遊びゲームとして成立している。
 
+[シルルさん](http://searial.web.fc2.com/)作成の[素数大富豪のCPU対戦ゲーム](http://searial.web.fc2.com/tools/sosu.html)もある。
+
 ## 遊び方
 Python 3 が必要。[こちらからプログラムをダウンロード](https://gist.github.com/sekika/948ad8ea14e301cdcf92c1b9ef093d31)して、
 
