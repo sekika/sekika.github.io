@@ -17,6 +17,10 @@ gems: [jekyll-paginate]
 paginate: 5
 pagenate_path: "page:num"
 
+gems:
+  - jekyll-coffeescript
+  - jekyll-gist
+
 # highlighter: "rouge"
 
 exclude: [vendor]
