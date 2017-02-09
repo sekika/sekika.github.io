@@ -15,7 +15,15 @@ permalink: pretty
 gems:
   - jekyll-coffeescript
   - jekyll-gist
+  - jekyll-mentions
   - jekyll-paginate
+  - jekyll-redirect-from
+whitelist:
+  - jekyll-coffeescript
+  - jekyll-gist
+  - jekyll-mentions
+  - jekyll-paginate
+  - jekyll-redirect-from
 
 # pagination
 gems: [jekyll-paginate]
