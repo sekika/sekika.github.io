@@ -26,7 +26,6 @@ whitelist:
   - jekyll-redirect-from
 
 # pagination
-gems: [jekyll-paginate]
 paginate: 5
 pagenate_path: "page:num"
 
