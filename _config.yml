@@ -12,14 +12,15 @@ repository: "https://github.com/sekika/sekika.github.io"
 markdown: kramdown
 permalink: pretty
 
+gems:
+  - jekyll-coffeescript
+  - jekyll-gist
+  - jekyll-paginate
+
 # pagination
 gems: [jekyll-paginate]
 paginate: 5
 pagenate_path: "page:num"
-
-gems:
-  - jekyll-coffeescript
-  - jekyll-gist
 
 # highlighter: "rouge"
 
