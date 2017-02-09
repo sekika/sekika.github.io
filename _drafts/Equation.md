@@ -4,15 +4,18 @@ title: LaTeX の数式を Word に貼り付ける方法
 tags: 
 - tex
 - word
+- math
 ---
-Word で原稿を提出する必要があり、しかもその数式がそのまま印刷版となってしまうため、Word の数式エディタのクオリティでは不満で数式だけ LaTex で作成したい、ということがままあるようになってきた。そこで、LaTeX の数式を Word に貼り付ける方法についてまとめる。
+Word 標準の数式よりもきれいな LaTeX で作成した数式を Word に貼り付ける方法についてのメモ。
 
-基本は、[TeX の数式を DTP ソフトに](https://texwiki.texjp.org/?TeX%E3%81%AE%E6%95%B0%E5%BC%8F%E3%82%92DTP%E3%82%BD%E3%83%95%E3%83%88%E3%81%AB)に書かれているように、LaTeX で数式を作成して eps ファイルにして、それを開いてクリップボードにコピーして、Word に貼り付ける。そこに紹介されている[TeX2img](http://island.geocities.jp/loveinequality/)を使うと、比較的楽だ。
+[TeX の数式を DTP ソフトに](https://texwiki.texjp.org/?TeX%E3%81%AE%E6%95%B0%E5%BC%8F%E3%82%92DTP%E3%82%BD%E3%83%95%E3%83%88%E3%81%AB)に書かれているように、LaTeX で数式を作成して eps か pdf ファイルにして、そのファイルを開いてクリップボードにコピーして、Word に貼り付ける。適宜、画像をリサイズする。そこに紹介されている[TeX2img](http://island.geocities.jp/loveinequality/)を使うと、比較的楽にできる。
 
-数式の作成時には[リアルタイムプレビュー](http://genkuroki.web.fc2.com/MathJax/LivePreviewMathJax-jquery.html)を使うと便利。
+数式番号をつけるときには、2列1行の表を作り、罫線を消して、左の列に数式を、右の列に列番号を入れる。
 
-なお、Word の MathML を使って直接 Word を使う方法について[書かれている](http://tex.stackexchange.com/a/115065)ので、参考までに記しておく。なお、この方法だと Word によって数式が作成されるため、LaTeX で数式を作成する方が出力はきれいだと思う。
+数式の作成時には[リアルタイムプレビュー](http://genkuroki.web.fc2.com/MathJax/LivePreviewMathJax-jquery.html)で確認しながら作業をすると便利。
 
-# [リアルタイムプレビュー](http://genkuroki.web.fc2.com/MathJax/LivePreviewMathJax-jquery.html)で式を作成して、生成された式を右クリックして、Show MathML as / MathML Code を選択
-# コードをテキストエディタに貼り付けて、そのコードの先頭に <?xml version="1.0"?> という行を追加
-# まるごと Word にコピーペースト
+なお、Word の MathML を使って直接 Word を使う方法について[StackExchange の投稿](http://tex.stackexchange.com/a/115065)に書かれているので、参考までに記しておく。この方法では Word によって数式が作成されるため、Word の数式機能を使って作成するのと同程度のクオリティとなる。
+
+1. [リアルタイムプレビュー](http://genkuroki.web.fc2.com/MathJax/LivePreviewMathJax-jquery.html)で式を作成して、生成された式を右クリックして、Show MathML as / MathML Code を選択
+2. コードをテキストエディタに貼り付けて、そのコードの先頭に <?xml version="1.0"?> という行を追加
+3. まるごと Word にコピーペースト
