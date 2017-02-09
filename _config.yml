@@ -19,3 +19,4 @@ pagenate_path: "page:num"
 
 # highlighter: "rouge"
 
+exclude: [vendor]
