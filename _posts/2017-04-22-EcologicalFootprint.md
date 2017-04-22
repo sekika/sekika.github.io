@@ -1,6 +1,6 @@
 ---
 layout: post
-title: エコロジカルフットプリント
+title: エコロジカル・フットプリント
 date: 2017-04-22 17:54:41 +0000
 tag: environment
 ---
