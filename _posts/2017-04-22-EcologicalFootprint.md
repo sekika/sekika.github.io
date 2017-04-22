@@ -148,3 +148,5 @@ tag: environment
   <td><strong>2.0</strong></td>
 </tr>
 </table>
+
+[作業用Excelファイル](https://github.com/sekika/sekika.github.io/raw/master/file/EcologicalFootprint.xlsx)
