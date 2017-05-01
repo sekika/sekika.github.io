@@ -32,6 +32,6 @@ tag: jekyll
 </tr>
 </table>
 
-== 更新 ==
-- [_config.html](https://github.com/sekika/sekika.github.io/blob/master/_config.yml)を更新する。
-- Bootstrap を更新したときには、[boostrap.min.css](https://github.com/sekika/sekika.github.io/blob/master/css/bootstrap.min.css) を [Flatly テーマ](http://bootswatch.com/flatly/bootstrap.min.css) に変える。
+## 更新 ##
+* [_config.html](https://github.com/sekika/sekika.github.io/blob/master/_config.yml)を更新する。
+* Bootstrap を更新したときには、[boostrap.min.css](https://github.com/sekika/sekika.github.io/blob/master/css/bootstrap.min.css) を [Bootswatch](http://bootswatch.com) の [Flatly テーマの最新バージョン](http://bootswatch.com/flatly/bootstrap.min.css) に変える。
