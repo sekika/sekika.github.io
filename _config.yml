@@ -9,7 +9,8 @@ url: "http://sekika.github.io"
 repository: "https://github.com/sekika/sekika.github.io"
 
 # Versions of JavaScript
-jquery-version: "3.2.1" # jquery https://jquery.com/download/
+bootstrap-version: "3.3.7" # Bootstrap http://getbootstrap.com/getting-started/
+jquery-version: "3.2.1" # jQuery https://jquery.com/download/
 katex-version: "0.7.1" # KaTeX https://github.com/Khan/KaTeX/releases
 
 # Build settings
