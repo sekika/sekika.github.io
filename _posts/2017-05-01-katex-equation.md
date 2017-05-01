@@ -52,3 +52,5 @@ LaTeX 書式の数式が KaTeX でどのように表示されるかをリアル�
     半径 $ r $ の円の面積は $ \pi r^2 $ であり、球の体積は $ \frac{4}{3}\pi r^3 $ である。
 
 と書く。
+
+ついでに[このページの数式](http://seki.webmasters.gr.jp/swrc/model-ja.html)を MathJax から KaTeX に変えたところ、表示が若干軽くなった。
