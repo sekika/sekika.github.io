@@ -25,7 +25,7 @@ katex.render("c = \\pm\\sqrt{a^2 + b^2}", element);
 <script>$(document).ready(function(){renderMathInElement(document.body,{delimiters: [{left: "[[", right: "]]", display: true},{left: "$", right: "$", display: false}]})});</script>
 {% endhighlight %}
 
-を記述すれば良い。[KaTeX 用のヘッダー](https://github.com/sekika/sekika.github.io/blob/master/_includes/head-katex.html)を記述して、それを読み込ませるための[レイアウト katex](https://github.com/sekika/sekika.github.io/blob/master/_layouts/katex.html)を用意した。数式を使う記事には ```layout: katex``` と指定することで、必要な時にだけ KaTeX を読み込ませることができる。また、KaTeX のバージョンは katex-version というパラメータとして[config.yml](https://github.com/sekika/sekika.github.io/blob/master/_config.yml)で指定することとした。これで、GitHub Pages 上で KaTeX で数式を表示することができた。これで、数式を多用する記事を書いても高速に表示されるはずである。
+を記述すれば良い。[KaTeX 用のヘッダー](https://github.com/sekika/sekika.github.io/blob/master/_includes/head-katex.html)を記述して、それを読み込ませるための[レイアウト katex](https://github.com/sekika/sekika.github.io/blob/master/_layouts/katex.html)を用意した。数式を使う記事には ```layout: katex``` と指定することで、必要な時にだけ KaTeX を読み込ませることができる。また、KaTeX のバージョンは katex-version というパラメータとして[config.yml](https://github.com/sekika/sekika.github.io/blob/master/_config.yml)で指定することとした。これで、GitHub Pages 上で KaTeX で数式を表示することができるようになったため、数式を多用する記事を書いても高速に表示されるはずである。
 
 LaTeX 書式の数式が KaTeX でどのように表示されるかをリアルタイムで確認するためには [KaTeX プレビュアー](http://sixthform.info/katex/examples/demo.html) を使うと便利である。
 
