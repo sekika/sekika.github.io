@@ -1,6 +1,7 @@
 ---
 layout: math
 title:  "Jekyll 上での数式の表示"
+update: 2017-05-01 12:55:38 +0000
 tags:
 - math
 - jekyll
@@ -59,3 +60,5 @@ $$
  $$ である。
 
 と書く。
+
+```2017年5月1日更新```：[KaTeX による数式の表示](http://sekika.github.io/2017/05/01/katex-equation/)について記した。
