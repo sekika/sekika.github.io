@@ -8,6 +8,10 @@ baseurl: ""
 url: "http://sekika.github.io" 
 repository: "https://github.com/sekika/sekika.github.io"
 
+# Versions of JavaScript
+jquery-version: "3.2.1" # jquery https://jquery.com/download/
+katex-version: "0.7.1" # KaTeX https://github.com/Khan/KaTeX/releases
+
 # Build settings
 markdown: kramdown
 permalink: pretty

@@ -9,31 +9,35 @@ tags:
 
 生の KaTeX では、数式表示のために
 
- katex.render("c = \\pm\\sqrt{a^2 + b^2}", element);
+~~~
+katex.render("c = \\pm\\sqrt{a^2 + b^2}", element);
+~~~
 
-のような記法が必要となり、少し面倒。そこで、[はてなブログで KaTeX を使う](http://kivantium.hateblo.jp/entry/2016/11/18/142840)を参考に、jQueryを使って ```$$``` で囲まれた部分は display モード（独立した行で中央揃え）、```$```で囲まれた部分は非displayモード（行内の数式）で表示をするように設定することとする。もともと Bootstrap の JavaScript プラグインのために jQuery を読み込んでいる。
+のような記法が必要となり、少し面倒。そこで、[はてなブログで KaTeX を使う](http://kivantium.hateblo.jp/entry/2016/11/18/142840)を参考に、jQueryを使って（もともと Bootstrap の JavaScript プラグインのために jQuery を読み込んでいる）```[[``` と ```]]``` で囲まれた部分は display モード（独立した行で中央揃え）、```$```で囲まれた部分は非displayモード（行内の数式）で表示をするように設定することとする（```$$```だとうまく動かないので変えた）。
 
 やるべきことは、ヘッダ内に
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js"></script>
-  <script>$(document).ready(function(){renderMathInElement(document.body,{delimiters: [{left: "$$", right: "$$", display: true},{left: "$", right: "$", display: false}]})});</script>
+{% highlight html %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/contrib/auto-render.min.js"></script>
+<script>$(document).ready(function(){renderMathInElement(document.body,{delimiters: [{left: "[[", right: "]]", display: true},{left: "$", right: "$", display: false}]})});</script>
+{% endhighlight %}
 
-を記述すれば良い。KaTeX を読み込ませるための[レイアウト katex](https://github.com/sekika/sekika.github.io/blob/master/_layouts/katex.html)を用意して、数式を使う記事には ```layout: katex``` と指定することで、必要な時にだけ KaTeX を読み込ませるようにした。設定はこれだけで、プラグインを使う必要はないので、GitHub Pages 上で数式の表示をすることができた。
+を記述すれば良い。[KaTeX 用のヘッダー](https://github.com/sekika/sekika.github.io/blob/master/_includes/head-katex.html)を記述して、それを読み込ませるための[レイアウト katex](https://github.com/sekika/sekika.github.io/blob/master/_layouts/katex.html)を用意した。数式を使う記事には ```layout: katex``` と指定することで、必要な時にだけ KaTeX を読み込ませることができる。これで、GitHub Pages 上で KaTeX で数式を表示することができた。これで、数式を多用する記事を書いても高速に表示されるはずである。
 
 LaTeX 書式の数式が KaTeX でどのように表示されるかをリアルタイムで確認するためには [KaTeX プレビュアー](http://sixthform.info/katex/examples/demo.html) を使うと便利である。
 
 [リチャーズ式](https://ja.wikipedia.org/wiki/%E3%83%AA%E3%83%81%E3%83%A3%E3%83%BC%E3%82%BA%E5%BC%8F)を表示してみる。
 
-$$\frac{\partial \theta}{\partial t}= \frac{\partial}{\partial z} 
-\left[ K(\theta) \left (\frac{\partial \psi}{\partial z} + 1 \right) \right]\ $$
+[[ \frac{\partial \theta}{\partial t}= \frac{\partial}{\partial z}
+\left[ K(\theta) \left (\frac{\partial \psi}{\partial z} + 1 \right) \right] ]]
 
 この数式のソースコードは
 
 {% highlight tex %}
-$$\frac{\partial \theta}{\partial t}= \frac{\partial}{\partial z}
-\left[ K(\theta) \left (\frac{\partial \psi}{\partial z} + 1 \right) \right]\$$
+[[ \frac{\partial \theta}{\partial t}= \frac{\partial}{\partial z}
+\left[ K(\theta) \left (\frac{\partial \psi}{\partial z} + 1 \right) \right] ]]
 {% endhighlight %}
 
 となっている。
