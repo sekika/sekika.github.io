@@ -2,6 +2,7 @@
 layout: post
 title: Google 認証システムの仕組み
 date: 2016-03-26 09:26:05 +0000
+update: 2017-05-01 05:43:54 +0000
 tag: security
 ---
 Google アカウントの[2段階認証プロセス](https://www.google.co.jp/intl/ja/landing/2step/)では、[Google 認証システム](https://support.google.com/accounts/answer/1066447?hl=ja)をモバイル端末にインストールして、```QRコード（バーコード）```を読み込ませることで、30秒ごとに変化する6桁の```確認コード```を生成することができる。通常のパスワード認証に加え、確認コードによる認証をすることで、セキュリティを高めている。Microsoft, Facebook, Dropbox 等多くのサービスで同じシステムが採用されている。この仕組みについて記す。
@@ -27,6 +28,7 @@ Google  のサーバーがランダムに生成した80ビットの```秘密鍵�
 Google 認証システムを使ってTOTPの確認コードを生成できるサービスには、例えば次のようなサービスがある。このように多くのサービスで同じモバイルアプリを使用できることが、このシステムの利便性であろう。
 
 - [Google](https://www.google.co.jp/intl/ja/landing/2step/)
+- [Amazon](https://www.amazon.co.jp/gp/help/customer/display.html?nodeId=202073820)
 - [Microsoft](http://windows.microsoft.com/ja-jp/windows/two-step-verification-faq)
 - [Facebook](http://bey.jp/?p=9484)
 - [Dropbox](https://www.dropbox.com/ja/help/363)
@@ -34,8 +36,6 @@ Google 認証システムを使ってTOTPの確認コードを生成できるサ
 - [GitHub](https://help.github.com/articles/configuring-two-factor-authentication-via-a-totp-mobile-app/)
 - [WordPress](https://wordpress.org/plugins/two-factor-authentication/)
 - [Yahoo! Japan](https://hanakomachi.wordpress.com/2014/09/29/yahoo-googleauthenticator/) - 秘密鍵の読み込み方法に注意
-
-[Amazon.co.jp は2段階認証に対応していない](http://ischool.co.jp/2015-11-13/)模様である。
 
 ## TOTP を計算するモバイルアプリ ##
 
