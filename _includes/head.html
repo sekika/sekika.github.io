@@ -25,14 +25,14 @@
     (function() {
         if(typeof jQuery=='undefined') {
             document.write('<sc'
-			   + 'ript src="/js/jquery-{{ site.jquery-version }}.min.js"></sc'
+			   + 'ript src="/js/jquery.min.js"></sc'
 			   + 'ript>');
         }
     }).call(this);
   </script>
 
   <!-- Bootstrap JS script -->
-  <script src="//maxcdn.bootstrapcdn.com/bootstrap/{{ site.bootstrap-version }}/js/bootstrap.min.js"></script>
+  <script src="http:/maxcdn.bootstrapcdn.com/bootstrap/{{ site.bootstrap-version }}/js/bootstrap.min.js"></script>
   <script>
     (function() {
 	  if (typeof($.fn.modal) === 'undefined') {
