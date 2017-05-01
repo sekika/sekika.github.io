@@ -28,12 +28,12 @@
   <script src="/js/roma.js"></script>
   
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/{{ site.jquery-version }}/jquery.min.js"></script>
   <script>
     (function() {
         if(typeof jQuery=='undefined') {
             document.write('<sc'
-			   + 'ript src="/js/jquery-1.11.2.min.js"></sc'
+			   + 'ript src="/js/jquery-{{ site.jquery-version }}.min.js"></sc'
 			   + 'ript>');
         }
     }).call(this);
