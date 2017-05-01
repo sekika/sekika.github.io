@@ -11,7 +11,7 @@
   <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
 
   <!-- Bootstrap CSS file -->
-  <link href="http://maxcdn.bootstrapcdn.com/bootstrap/{{ site.bootstrap-version }}/css/bootstrap.min.css" rel="stylesheet">
+  <link href="{{ "/css/bootstrap.min.css" | prepend: site.baseurl }}" rel="stylesheet">
 
   <!-- Search CSS file -->
   <link href="{{ "/css/search.css" | prepend: site.baseurl }}" rel="stylesheet">
