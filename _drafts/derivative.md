@@ -43,7 +43,7 @@ tag: math
 [[ \biggl[ \frac{f(x)}{g(x)} \biggr]^{\prime} = \frac{f^{\prime}(x)g(x)-f(x)g^{\prime}(x)}{[g(x)]^2} ]]
 </blockquote>
 
-$f(x)$と$1/g(x)$について、積の微分公式を適用する。
+$\biggl[ \frac{f(x)}{g(x)} \biggr] = f(x)$と$1/g(x)$より、積の微分公式を適用する。
 
 [[ \begin{array}{rl} \biggl[ \frac{f(x)}{g(x)} \biggr]^{\prime} &=&  f^{\prime}(x) \biggl[ \frac{1}{g(x)} \biggr] + f(x)\biggl[ \frac{1}{g(x)} \biggr]^{\prime} \cr\cr &=& \frac{f^{\prime}(x)}{g(x)} + f(x)\biggl[ -\frac{g^{\prime}(x)}{[g(x)]^2} \biggr]  \cr\cr &=& \frac{f^{\prime}(x)g(x)-f(x)g^{\prime}(x)}{[g(x)]^2} \end{array} ]]
 
