@@ -20,10 +20,4 @@ If you have comments on this site, post an issue to <a href="https://github.com/
 <li>メールを送る。メールアドレスは<a href="http://www.sciencedirect.com/science/article/pii/S0016706115000622">この論文</a>にあります。</li>
 </ul>
 
-このサイト構築には、以下のソフトを使っています。
-<ul>
-<li><a href="https://pages.github.com/">GitHub Pages</a> と <a href="http://jekyllrb.com/">Jekyll</a></li>
-<li><a href="http://builtwithbootstrap.com/">Bootstrap</a> と <a href="http://bootswatch.com/flatly/">Flatly</a> テーマ</li>
-</ul>
-
-[過去のブログ]({% post_url 2015-10-11-old-blog %})
+このサイトは [GitHub](https://github.com/) がホストしています。使っている[ソフトウェアとバージョン]({% post_url 2017-05-02-version %})をまとめています。[過去のブログ]({% post_url 2015-10-11-old-blog %})も残っています。
