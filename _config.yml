@@ -24,12 +24,14 @@ gems:
   - jekyll-mentions
   - jekyll-paginate
   - jekyll-redirect-from
+  - jekyll-feed
 whitelist:
   - jekyll-coffeescript
   - jekyll-gist
   - jekyll-mentions
   - jekyll-paginate
   - jekyll-redirect-from
+  - jekyll-feed
 
 # pagination
 paginate: 5
