@@ -3,7 +3,7 @@ layout: post
 title: ソフトウェアのバージョン
 tag: jekyll
 ---
-このサイトで使用しているソフトウェアのバージョンをチェックするための管理用ページです。
+このサイトは、[GitHub](https://github.com/) がホストする [GitHub Pages](https://pages.github.com/) で構築しています。以下に、使っているソフトとバージョンをまとめます。
 
 <table>
 <tr><th>ソフトウェア</th>
@@ -32,7 +32,10 @@ tag: jekyll
 </tr>
 </table>
 
-## 更新 ##
+## 更新方法 ##
+
+ソフトウェアをバージョンアップするときのための管理用メモです。
+
 * [_config.html](https://github.com/sekika/sekika.github.io/blob/master/_config.yml) を更新する。
 * Bootstrap のバージョンを更新したときには、[css/boostrap.min.css](https://github.com/sekika/sekika.github.io/blob/master/css/bootstrap.min.css) を [Bootswatch](http://bootswatch.com) の [Flatly テーマの最新バージョン](http://bootswatch.com/flatly/bootstrap.min.css) に変えて、バックアップ用の [js/bootstrap.min.js](https://github.com/sekika/sekika.github.io/blob/master/js/bootstrap.min.js) を[同じバージョン](http://maxcdn.bootstrapcdn.com/bootstrap/{{ site.bootstrap-version }}/js/bootstrap.min.js)に更新する。
 * jQuery のバージョンを更新したときには、バックアップ用の [js/jquery.min.js](https://github.com/sekika/sekika.github.io/blob/master/js/jquery.min.js) を[同じバージョン](https://ajax.googleapis.com/ajax/libs/jquery/{{ site.jquery-version }}/jquery.min.js)に更新する。
