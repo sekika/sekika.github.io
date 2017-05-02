@@ -22,4 +22,6 @@ If you have comments on this site, post an issue to <a href="https://github.com/
 <li>メールを送る。メールアドレスは<a href="http://www.sciencedirect.com/science/article/pii/S0016706115000622">この論文</a>にあります。</li>
 </ul>
 
+このサイトではサイトの閲覧状況を知るために [Google Analytics](https://www.google.com/intl/ja/analytics/) を使用しています。Google Analytics では Cookie を使用し個人を特定する情報を含まずにアクセスのログ（履歴）を収集し、収集されたログは [Google のポリシー](https://www.google.com/intl/ja/policies/privacy/)に基づいて管理されます。
+
 このサイトは [GitHub](https://github.com/) がホストしています。使っている[ソフトウェアとバージョン]({% post_url 2017-05-02-version %})をまとめています。[過去のブログ]({% post_url 2015-10-11-old-blog %})も残っています。
