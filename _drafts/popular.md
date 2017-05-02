@@ -1,0 +1,24 @@
+---
+layout: post
+title: よく読まれている記事 (2017年4月)
+tag: jekyll
+---
+当サイトの記事で、どの記事がよく読まれているのかを調べてみました。
+
+[Google アナリティクス](https://www.google.com/intl/ja_jp/analytics/)によるアクセス統計で、2017年4月のページビュー数のトップ10を並べます。
+	
+1. [ターミナルからファイルを開く](/2015/10/27/open-command/)
+2. [Mac で zip 圧縮するときの文字化け対処法](/2016/03/25/MacZip/)
+3. [Excel でデータの間引き](/2015/10/11/excel-mabiki/)
+4. [Word の校閲者名を統一する方法](/2015/10/20/word-author/)
+5. [Mac のターミナルで日本語入力](/2015/11/23/mac-terminal-japanese/)
+6. [Google 認証システムの仕組み](/2016/03/26/GoogleAuthenticator/)
+7. [オフィスソフトの比較](/2015/11/12/office-soft/)
+8. [EPSファイルの作成方法](/2015/10/18/eps-fig/)
+9. [Uploading many files to GitHub repository](/2016/06/06/github-many-files/)
+10. [GitHub リポジトリに大量のファイルを一括登録する方法](/2016/06/03/github-many-files/)
+
+2017年4月の1ヶ月間で、総ページビュー数 5974、そのうちでトップ3の割合が49%でした。時々同様のチェックして、どのページがよく読まれているかを見ようと思います。
+
+自分用メモ：レポート、行動、サイトコンテンツ、すべてのページにある。
+
