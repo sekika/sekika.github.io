@@ -12,6 +12,8 @@ If you have comments on this site, post an issue to <a href="https://github.com/
 
 <a href="{{ "/tags/" | prepend: site.baseurl }}">キーワード</a>で記事を整理しているので、関心のあるキーワードの記事をご覧ください。
 
+[Atom (RSS)](https://ja.wikipedia.org/wiki/Atom_(%E3%82%A6%E3%82%A7%E3%83%96%E3%82%B3%E3%83%B3%E3%83%86%E3%83%B3%E3%83%84%E9%85%8D%E4%BF%A1)) は[こちらから購読](/feed.xml)できます。
+
 著者にコメントを送る方法には、いくつかあります。
 
 <ul>
