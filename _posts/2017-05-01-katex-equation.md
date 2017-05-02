@@ -2,6 +2,7 @@
 layout: katex
 title:  "KaTeX による数式の表示"
 date: 2017-05-01 10:17:54 +0000
+update: 2017-05-02 04:50:49 +0000
 tags:
 - math
 - jekyll
@@ -54,3 +55,20 @@ LaTeX 書式の数式が KaTeX でどのように表示されるかをリアル�
 と書く。
 
 ついでに[このページの数式](http://seki.webmasters.gr.jp/swrc/model-ja.html)を MathJax から KaTeX に変えたところ、表示が若干軽くなった。
+
+（追記）KaTeX のテストがてら[積と商の微分公式](http://sekika.github.io/2017/05/02/derivative/)という記事を書いてみた。たしかに高速に表示される。
+
+[[ \\begin{array}{rl} \\biggl\\\{ \\frac{1}{g(x)} \\biggr\\\}^{\\prime} &=& \\lim_{h \\to 0}\\frac{\\frac{1}{g(x+h)}-\\frac{1}{g(x)}}{h} \\cr\\cr &=& \\lim_{h \\to 0}\\frac{g(x)-g(x+h)}{g(x) g(x+h) h} \\cr\\cr  &=& -\\frac{1}{ \\bigl\\\{ g(x) \\bigr\\\}^2} \\lim_{h \\to 0}\\frac{g(x+h)-g(x)}{h} \\cr\\cr &=& -\\frac{g^{\\prime}(x)}{ \\bigl\\\{g(x) \\bigr\\\}^2} \end{array} ]]
+
+この数式のソースコードは
+
+{% highlight tex %}
+[[ \\begin{array}{rl} \\biggl\\\{ \\frac{1}{g(x)} \\biggr\\\}^{\\prime} &=& \\lim_{h \\to 0}\\frac{\\frac{1}{g(x+h)}-\\frac{1}{g(x)}}{h} \\cr\\cr &=& \\lim_{h \\to 0}\\frac{g(x)-g(x+h)}{g(x) g(x+h) h} \\cr\\cr  &=& -\\frac{1}{ \\bigl\\\{ g(x) \\bigr\\\}^2} \\lim_{h \\to 0}\\frac{g(x+h)-g(x)}{h} \\cr\\cr &=& -\\frac{g^{\\prime}(x)}{ \\bigl\\\{g(x) \\bigr\\\}^2} \end{array} ]]
+{% endhighlight %}
+
+となっている。
+
+- バックスラッシュは2個重ねる。重ねないでもうまくいくときもあれば、重ねないとだめなときもある。
+- array 環境の上下間隔が標準ではつまりすぎるので、```\\cr``` を2個重ねる。
+
+
