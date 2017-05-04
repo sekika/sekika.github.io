@@ -10,7 +10,7 @@ tags:
 <a href="https://ja.wikipedia.org/wiki/%E7%AB%AF%E6%9C%AB%E3%82%A8%E3%83%9F%E3%83%A5%E3%83%AC%E3%83%BC%E3%82%BF">端末エミュレータ</a> から指定したファイルを関連付けられているアプリケーション（あるいは指定したアプリケーション）で開く方法について、Mac, Linux, Windows それぞれの方法をメモ。
 
 ## Mac の場合
-<a href="https://ja.wikipedia.org/wiki/%E3%82%BF%E3%83%BC%E3%83%9F%E3%83%8A%E3%83%AB_(Mac)">ターミナル</a>で ```open``` コマンドを使う。
+<a href="https://ja.wikipedia.org/wiki/%E3%82%BF%E3%83%BC%E3%83%9F%E3%83%8A%E3%83%AB_(macOS)">ターミナル</a>で ```open``` コマンドを使う。
 
 ~~~
 open Readme.txt
