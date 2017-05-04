@@ -1,62 +1,60 @@
 ---
-layout: english
-title: Opening files from terminal emulator
+layout: post-en
+title: How to open a file from a terminal emulator
 tags:
 - english
 - mac
 - linux
 - windows
 ---
-This article describes how to open a file from [terminal emulator](https://en.wikipedia.org/wiki/Terminal_emulator) with Mac, Linux, and Windows.
+This article describes how to open a file from a [terminal emulator](https://en.wikipedia.org/wiki/Terminal_emulator) in Mac, Linux, and Windows.
 
 ## Mac (macOS)
-Use  ```open``` command in [terminal](https://en.wikipedia.org/wiki/Terminal_(macOS)). By running
+Use  ```open``` command in [Terminal](https://en.wikipedia.org/wiki/Terminal_(macOS)). By running
 
 ~~~
 open Readme.txt
 ~~~
 
-Readme.txt opens with an application associated with Readme.txt.
+Readme.txt opens with an application associated with Readme.txt. URL can be specified. For example,
 
 ~~~
 open http://google.com
 ~~~
 
-とすれば、ブラウザで Google を開くことができる。また、ディレクトリを指定すると
+opens Google website with your default web browzer. A directory can also be specified. For example,
 
 ~~~
 open .
 ~~~
 
-とすれば、Finder でカレントディレクトリが開かれる。
+opens current directly in Finder.
 
-関連付けられているアプリケーションとは異なるアプリケーションを使いたいことがある。たとえば、html ファイルをエディタで編集したい時など。```-t```オプションを使うと、デフォルトのテキストエディタで開くことができる。
+Sometimes you may want to open a file with a program which is different from the associated one, for example, when you want to edit html file with a text editor. By using ```-t``` option, you can open a file with a default text editor.
 
 ~~~
 open -t filename
 ~~~
 
-また、```open```コマンドの```-a```オプションを使って ```-a アプリケーション```で、起動するアプリケーションを指定できる。
+You can also open a file with a specified application by using ```-a``` option.
 
-CotEditor で指定したファイルを開くコマンド ```cot``` を作るには、
+You can make a shell script ```br``` to open a file with [Brackets](http://brackets.io/), for example, like this.
 
 ~~~
 #!/bin/sh
-open $1 -a /Applications/CotEditor.app
+open $1 -a /Applications/Brackets.app
 ~~~
 
-といったシェルスクリプトを作っておき、実行可能にして ```cot```コマンドとしてパスが通る場所に置いておく。
+Make it executabe (```chmod +x br```) and put in your path (check it by ```echo $PATH```). Then you can use the ```br``` command as
 
 ~~~
-cot filename
+br filename
 ~~~
 
-として、使うことができる。
+Following help is shown by ```open --help```.
 
-```open --help``` で次のヘルプが表示される。
-
-<pre>
-Usage: open [-e] [-t] [-f] [-W] [-R] [-n] [-g] [-h] [-b &lt;bundle identifier&gt;] [-a &lt;application&gt;] [filenames] [--args arguments]
+~~~
+Usage: open [-e] [-t] [-f] [-W] [-R] [-n] [-g] [-h] [-s <partial SDK name>][-b <bundle identifier>] [-a <application>] [filenames] [--args arguments]
 Help: Open opens files from a shell.
       By default, opens each file using the default application for that file.  
       If the file is in the form of a URL, the file will be opened as a URL.
@@ -74,31 +72,31 @@ Options:
       -j, --hide        Launches the app hidden.
       -g, --background  Does not bring the application to the foreground.
       -h, --header      Searches header file locations for headers matching the given filenames, and opens them.
-</pre>
+      -s                For -h, the SDK to use; if supplied, only SDKs whose names contain the argument value are searched.
+                        Otherwise the highest versioned SDK in each platform is used.
+~~~
 
-他にも、Finder と Terminal の連携をするための技がこの記事に解説されている。
+With [cdto](https://github.com/jbtule/cdto) you can add a new button in the Finder to open a new terminal window with the folder.
 
-- [FinderとTerminalの連携を考える](http://news.mynavi.jp/column/osxhack/109/)
+## Linux
 
-## Linux の場合
-
-```xdg-open``` または ```gnome-open``` コマンドを使う。
-
-- [LinuxでコマンドラインからURLやファイルを開けるxdg-open/gnome-openのメモ](http://blog.browncat.org/2010/01/linux_xdg-open_gnome-open.html)
-
-> なんだかコマンドがダサいと思われる方は.bashrcでinteractiveか判定した後に
->
-> alias open=xdg-open
->
-> 等としておけばいいかもしれません。
+```xdg-open``` or ```gnome-open``` can be used to open a file with default applications. xdg-open is a part of [xdg-utils](https://wiki.archlinux.org/index.php/default_applications#xdg-utils).
 
 - [xdg-open(1) - Linux man page](http://linux.die.net/man/1/xdg-open)
 
-## Windows の場合
+This command is a little bit too long to type, and therefore you may want to create alias such as
 
-<a href="https://ja.wikipedia.org/wiki/Cmd.exe">コマンドプロンプト</a>から ```start``` コマンドを使う。
+~~~
+alias open=xdg-open
+~~~
 
-- [意外に知らないstartコマンドの使い方](http://orangeclover.hatenablog.com/entry/20090814/1250261637)
-- [別ウィンドウでコマンドを実行(START)](http://www.adminweb.jp/command/command/index1.html)
+in ```.bashrc```.
+
+## Windows
+
+```start``` comand can be executed from [command prompt](https://en.wikipedia.org/wiki/Cmd.exe), and ```Invoke-Item``` command is used for [PowerShell](https://en.wikipedia.org/wiki/PowerShell). See folowwing documents by Microsoft for detail.
+
+- [start](https://technet.microsoft.com/en-us/library/bb491005.aspx)
+- [Invoke-Item](https://msdn.microsoft.com/en-us/powershell/reference/5.1/microsoft.powershell.management/invoke-item)
 
 [Japanese version of this post](/2015/10/27/open-command/)
