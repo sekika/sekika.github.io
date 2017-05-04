@@ -8,9 +8,13 @@ This site is a personal note of {{ site.author-en }}. Here is a list of <a href=
 
 If you have comments on this site, post an issue to <a href="https://github.com/sekika/sekika.github.io">GitHub repository of this site</a> or send an email to <a href="http://www.sciencedirect.com/science/article/pii/S0016706115000622">the author of this paper</a>.
 
-{{ site.author }}のブログのような形式のメモ帳です。IT系のちょっとしたことを自分のために書き留めている記事がほとんどですが、たまに授業で使う資料をここに置きます。
+このサイトは{{ site.author }}のブログのような形式のメモ帳です。[よく読まれている記事]({% post_url 2017-05-04-popular %})は、IT系のちょっとした How to 記事です。授業で使う資料や、自分用のちょっとしたメモを置いたりもしています。
 
 <a href="{{ "/tags/" | prepend: site.baseurl }}">キーワード</a>で記事を整理しているので、関心のあるキーワードの記事をご覧ください。
+
+このサイトではサイトの閲覧状況を知るために [Google Analytics](https://www.google.com/intl/ja/analytics/) を使用しています。Google Analytics では [Cookie](https://ja.wikipedia.org/wiki/HTTP_cookie) を使用して個人を特定する情報を含まずにアクセスのログ（履歴）を収集し、収集されたログは [Google のポリシー](https://www.google.com/intl/ja/policies/privacy/)に基づいて管理されます。
+
+このサイトは [GitHub](https://github.com/) がホストしています。使っている[ソフトウェアとバージョン]({% post_url 2017-05-02-version %})をまとめています。[過去のブログ]({% post_url 2015-10-11-old-blog %})も残っています。
 
 [Atom (RSS)](https://ja.wikipedia.org/wiki/Atom_(%E3%82%A6%E3%82%A7%E3%83%96%E3%82%B3%E3%83%B3%E3%83%86%E3%83%B3%E3%83%84%E9%85%8D%E4%BF%A1)) は[こちらから購読](/feed.xml)できます。
 
@@ -22,6 +26,3 @@ If you have comments on this site, post an issue to <a href="https://github.com/
 <li>メールを送る。メールアドレスは<a href="http://www.sciencedirect.com/science/article/pii/S0016706115000622">この論文</a>にあります。</li>
 </ul>
 
-このサイトではサイトの閲覧状況を知るために [Google Analytics](https://www.google.com/intl/ja/analytics/) を使用しています。Google Analytics では [Cookie](https://ja.wikipedia.org/wiki/HTTP_cookie) を使用して個人を特定する情報を含まずにアクセスのログ（履歴）を収集し、収集されたログは [Google のポリシー](https://www.google.com/intl/ja/policies/privacy/)に基づいて管理されます。
-
-このサイトは [GitHub](https://github.com/) がホストしています。使っている[ソフトウェアとバージョン]({% post_url 2017-05-02-version %})をまとめています。[過去のブログ]({% post_url 2015-10-11-old-blog %})も残っています。
