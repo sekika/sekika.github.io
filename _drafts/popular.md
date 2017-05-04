@@ -5,7 +5,7 @@ tag: jekyll
 ---
 当サイトの記事で、どの記事がよく読まれているのかを調べてみました。
 
-[Google アナリティクス](https://www.google.com/intl/ja_jp/analytics/)によるアクセス統計で、2017年4月のページビュー数のトップ10を並べます。
+[Google Analytics](https://www.google.com/intl/ja_jp/analytics/) によるアクセス統計で、2017年4月のページビュー数のトップ10を並べます。
 	
 1. [ターミナルからファイルを開く](/2015/10/27/open-command/)
 2. [Mac で zip 圧縮するときの文字化け対処法](/2016/03/25/MacZip/)
