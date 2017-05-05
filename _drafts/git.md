@@ -15,6 +15,7 @@ Git の勉強はこのあたりで
 Git コマンド全般のチートシートは
 
 - [Git Cheat Sheat (PDF)](https://services.github.com/on-demand/downloads/github-git-cheat-sheet.pdf)
+- [Visual Git Cheat Sheet](http://ndpsoftware.com/git-cheatsheet.html)
 
 以下は、個人的にしばしば使うけれど忘れてしまいがちなコマンドをまとめる。
 
@@ -45,7 +46,7 @@ git push -f
 
 ## コンフリクトを無視してチェックアウトする ##
 
-git pull したときにコンフリクトが生じて、手元の変更はすべて破棄して強制的に origin をチェックアウトしたいとき
+git pull したときにコンフリクトが生じて、手元の変更はすべて破棄して強制的に git pull したいとき
 
 ## 削除したファイルの復元 ##
 
