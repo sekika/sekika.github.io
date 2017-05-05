@@ -91,7 +91,7 @@ This command is a little bit too long to type, and therefore you may want to cre
 alias open=xdg-open
 ~~~
 
-in ```.bashrc```. In Gonome, ```gnome-open``` is also available.
+in ```.bashrc```. In Gnome, ```gnome-open``` is also available.
 
 - [gnome-open](http://manpages.ubuntu.com/manpages/xenial/en/man1/gnome-open.1.html) - manual page at Ubuntu xenial
 
