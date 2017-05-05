@@ -103,7 +103,7 @@ Options:
 
 以下は、Windows 10 で ```start /?``` として表示されるヘルプ。
 
-<pre>
+~~~
 指定されたプログラムまたはコマンドを実行するためにウィンドウを開きます。
 
 START ["タイトル"] [/D パス] [/I] [/MIN] [/MAX] [/SEPARATE | /SHARED]
@@ -212,4 +212,6 @@ START ["タイトル"] [/D パス] [/I] [/MIN] [/MAX] [/SEPARATE | /SHARED]
 一致する場合は、START コマンドがそのパスでエクスプローラーを起動
 します。コマンド ラインから実行した場合は、そのパスに対する CD /D の実
 行と同じになります。
-</pre>
+~~~
+
+[English version of this post](/2017/05/05/open-command/)
