@@ -1,19 +1,38 @@
 ---
 layout: post
-title: Git コマンド
+title: Git コマンドチートシート
 tag: git
 ---
-忘れてしまいがちな Git コマンドをまとめておく、
+忘れてしまいがちな Git コマンドをまとめておく。
 
-基本操作はこのあたりで確認
+Git の勉強はこのあたりで
 
 - [git(1) Manual Page](https://git.github.io/htmldocs/git.html)
 - [Git User Manual](https://git.github.io/htmldocs/user-manual.html)
 - [Git ユーザマニュアル](http://www.thekyo.jp/manual/git/)
 - [Reference](https://git-scm.com/docs)
+
+Git コマンド全般のチートシートは
+
 - [Git Cheat Sheat (PDF)](https://services.github.com/on-demand/downloads/github-git-cheat-sheet.pdf)
 
-ここでは、個人的にしばしば使うけれど忘れてしまいがちなコマンドをまとめる。
+以下は、個人的にしばしば使うけれど忘れてしまいがちなコマンドをまとめる。
+
+## コミットの整理 ##
+
+- [base -i でコミットをまとめる](http://qiita.com/takke/items/3400b55becfd72769214)
+
+直近の4個を表示する場合
+
+* ```git rebase -i HEAD~4```
+* コミットをまとめる
+* ```git push -f```
+
+コミットをまとめるときに、vi コマンドで2行目から10行目までの pick を s に一括置換するには、
+
+~~~
+:2,10s/pick/s/
+~~~
 
 ## コミット取り消し ##
 
@@ -24,28 +43,11 @@ git reset --hard ハッシュ値
 git push -f
 ~~~
 
-## コミットの整理 ##
-
-詳しくは[base -i でコミットをまとめる](http://qiita.com/takke/items/3400b55becfd72769214)
-
-直近の4個を表示する場合
-
-* ```git rebase -i HEAD~4```
-* コミットメッセージをまとめる
-* ```git push -f```
-
-コミットメッセージをまとめるときに、vi コマンドで2行目から10行目までの pick を s に一括置換するには、
-~~~
-:2,10s/pick/s/
-~~~
-
-git push -f
-
 ## 削除したファイルの復元 ##
 
-[gitで削除してしまったファイルの復元](http://itochin2.hatenablog.com/entry/2013/06/06/020939)
+- [gitで削除してしまったファイルの復元](http://itochin2.hatenablog.com/entry/2013/06/06/020939)
 
-## 履歴の完全削除 ##
+## ファイルの完全削除 ##
 
 - [Git リポジトリに上がっているファイルを履歴ごと消すには？](http://qiita.com/go_astrayer/items/6e39d3ab16ae8094496c)
 
