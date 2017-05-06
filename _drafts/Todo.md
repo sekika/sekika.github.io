@@ -20,7 +20,7 @@ tag: jekyll
 
 ### Linuxbrew ###
 
-- [Linuxbrew](https://github.com/Homebrew/linuxbrew)
+- [Linuxbrew](https://github.com/Linuxbrew/brew)
 
 32 bit では動かない
 
@@ -48,10 +48,6 @@ update-grub
 まだ、メニューは変わらず
 
 
-### 土壌の物理性「古典を読む」
-- Allison
-- 大村さん
-
 ### Todo管理
 - Toodledo
 - トドうち
@@ -66,4 +62,3 @@ update-grub
 
 ## サイト管理 ##
 - http://sekika.github.io/tags/ に、タグの description をひろうか？ひろえるか？
-
