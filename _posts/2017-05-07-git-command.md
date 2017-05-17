@@ -33,16 +33,16 @@ git pull
 git stash pop
 ~~~
 
-stash を戻さずに消すなら
-
-~~~
-git stash drop
-~~~
-
 &lt;file&gt; を直前のコミットの状態に戻すには
 
 ~~~
 get checkout -- <file>
+~~~
+
+手元の修正を破棄するには
+
+~~~
+git reset --hard HEAD; git push -f
 ~~~
 
 ## コミットの整理 ##
