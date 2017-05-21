@@ -3,7 +3,7 @@ layout: default
 ---
 
 <div class="container">
-<h1>{{ page.tag | capitalize }} に関するページの一覧</h1>
+<h1>{% if page.title %}{{page.title}}{% else %}{{ page.tag | capitalize }} に関するページの一覧{% endif %}</h1>
 
 {% if page.description-html %}
   <p>{{page.description-html}}</p>
