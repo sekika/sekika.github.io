@@ -7,9 +7,5 @@ tag: equation
 
 ## 式 ##
 
-[[ v = \frac{2}{9} \frac{d}{\nu} ]]
-
-
-
-- [Linuxbrew](https://github.com/Linuxbrew/brew)
+[[ v = \frac{2}{9} \frac{d_1-d_2}gr^2{\eta} ]]
 
