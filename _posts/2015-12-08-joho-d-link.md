@@ -9,11 +9,11 @@ tag: link
 ## 講義全般
 - [情報処理実習D: 講義情報](http://www2.toyo.ac.jp/~seki_k/johoD.html)
 - [受講者専用ページ](http://www2.toyo.ac.jp/~seki_k/johoD/index.html) (東洋大学外からはアクセス不可)
-- [プログラミング言語の比較 (Wikipedia)](https://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E%E3%81%AE%E6%AF%94%E8%BC%83)
 - [ToyoNet 情報関連ポータル (トイロハ)](http://www.toyo.ac.jp/site/toyonet/)
 - [坂村健の目 プログラミング教育急げ (毎日新聞, 2016年1月21日)](http://mainichi.jp/articles/20160121/ddm/016/070/004000c)
 
 ## プログラミング言語
+- [プログラミング言語の比較 (Wikipedia)](https://ja.wikipedia.org/wiki/%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E8%A8%80%E8%AA%9E%E3%81%AE%E6%AF%94%E8%BC%83)
 - [2017年の人気プログラム言語１０選を徹底比較！気になる年収や求人、学習難易度まで](https://toiroha.jp/article/detail/32380)
 - [2017年、人気のプログラミング言語トップはPython。C、Javaが続く。 (Publickey, 2017年7月23日)](http://www.publickey1.jp/blog/17/2017pythoncjavagoogle_trendstwittergithubstackoverflow.html)
 
