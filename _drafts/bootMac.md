@@ -8,7 +8,9 @@ Process 1 exec of /sbinlaunchd failed
 
 ## Mac の起動オプション ##
 
-[Mac の起動時のキーコンビネーション](https://support.apple.com/ja-jp/HT201255)に、起動オプションがまとめられている。その中でも特に重要なものを抽出。
+[Mac の起動時のキーコンビネーション](https://support.apple.com/ja-jp/HT201255)に、起動オプションがまとめられている。その中で、トラブル時に試みる順番にいくつか並べる。
+
+
 
 
 
