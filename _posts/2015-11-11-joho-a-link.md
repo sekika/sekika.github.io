@@ -2,7 +2,7 @@
 layout: post
 title: 「情報処理実習A」参考サイト
 date: 2015-11-11 08:35:42 +0000
-update: 2017-05-09 09:15:38 +0000
+update: 2018-09-18 09:12:53 +0000
 tag: link
 ---
 「情報処理実習A」の授業で参考にするサイトへのリンクです。
@@ -26,6 +26,7 @@ tag: link
 ## Microsoft Office
 
 - [オフィスソフトの比較]({% post_url 2015-11-12-office-soft %})
+- [東洋大学ソフトウェアライセンス情報](http://www.toyo.ac.jp/site/toyonet/330219.html) 学生向けOffice365 educationの利用について
 - [Word 参考サイト]({% post_url 2015-11-06-word-link %})
 - [Excel 参考サイト]({% post_url 2015-11-10-excel-link %})
 - [PowerPoint 参考サイト]({% post_url 2015-11-20-powerpoint-link %})
