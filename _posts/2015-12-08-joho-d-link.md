@@ -2,7 +2,7 @@
 layout: post
 title: 「情報処理実習D」参考サイト
 date: 2015-12-08 06:34:17 +0000
-update: 2018-09-07 06:49:59 +0000
+update: 2018-09-25 05:51:34 +0000
 tag: link
 ---
 「情報処理実習D」の授業で参考にするサイトへのリンクです。
@@ -21,12 +21,16 @@ tag: link
 - [2017年の人気プログラム言語１０選を徹底比較！気になる年収や求人、学習難易度まで (トイロハ)](https://toiroha.jp/article/detail/32380)
 - [2017年、人気のプログラミング言語トップはPython。C、Javaが続く。 (Publickey, 2017年7月23日)](http://www.publickey1.jp/blog/17/2017pythoncjavagoogle_trendstwittergithubstackoverflow.html)
 
+## オンライン実行環境
+- [paiza.io](https://paiza.io/ja)
+- [ideone.com](https://ideone.com/)
+
 ## Java 言語の基礎
 - [Java SE Downloads](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
 - [初心者のためのJava講座](http://www.acroquest.co.jp/webworkshop/java_course/)
 - [JDKのダウンロードとインストール](http://www.bohyoh.com/Java/JDK/index.html)
 - [Oracle Java SE サポート・ロードマップ](http://www.oracle.com/technetwork/jp/java/eol-135779-ja.html)
-- [OpenJDK](http://jdk.java.net/)
+- [OpenJDK](http://openjdk.java.net/)
 - [Wikipedia - ボディマス指数](https://ja.wikipedia.org/wiki/%E3%83%9C%E3%83%87%E3%82%A3%E3%83%9E%E3%82%B9%E6%8C%87%E6%95%B0)
 
 ## アルゴリズム
