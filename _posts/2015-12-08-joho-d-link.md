@@ -2,7 +2,7 @@
 layout: post
 title: 「情報処理実習D」参考サイト
 date: 2015-12-08 06:34:17 +0000
-update: 2018-09-25 05:51:34 +0000
+update: 2018-09-27 02:37:13 +0000
 tag: link
 ---
 「情報処理実習D」の授業で参考にするサイトへのリンクです。
@@ -30,7 +30,8 @@ tag: link
 - [初心者のためのJava講座](http://www.acroquest.co.jp/webworkshop/java_course/)
 - [JDKのダウンロードとインストール](http://www.bohyoh.com/Java/JDK/index.html)
 - [Oracle Java SE サポート・ロードマップ](http://www.oracle.com/technetwork/jp/java/eol-135779-ja.html)
-- [OpenJDK](http://openjdk.java.net/)
+- [Java 11正式版がリリース、本バージョンからOracle JDKのサポートは有償に。OpenJDKで無償の長期サポート提供は現時点で期待薄](https://www.publickey1.jp/blog/18/java_11oracle_jdkopenjdk.html) (Publickey, 2018年9月26日)
+- [オラクルによるOpenJDKのビルド](http://jdk.java.net/)
 - [Wikipedia - ボディマス指数](https://ja.wikipedia.org/wiki/%E3%83%9C%E3%83%87%E3%82%A3%E3%83%9E%E3%82%B9%E6%8C%87%E6%95%B0)
 
 ## アルゴリズム
