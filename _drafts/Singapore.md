@@ -10,22 +10,25 @@ tag: travel
 * [天気](https://www.nea.gov.sg/weather)
 * [公益財団法人日本台湾交流協会 台北事務所](https://www.sg.emb-japan.go.jp/itprtop_ja/index.html)
 
-## Chinatown ##
+## チャイナタウン ##
+* [ナビ](https://singapore.navi.com/miru/63/) / [Wikipedia](https://en.wikipedia.org/wiki/Chinatown,_Singapore)
 * [ChinaTown Point](https://chinatownpoint.com.sg/): [map](https://goo.gl/maps/7uk1MPLgA2YTMS289) / 1F [Song Fa Bak Kut Teh 松發肉骨茶](https://songfa.com.sg/) [天仁茶](https://goo.gl/maps/UYuCXc9bm3f5kC8Z7)
 
-## Little India ##
+## オーチャード・ロード ##
+* [ナビ](https://singapore.navi.com/miru/42/) / [Wikipedia](https://en.wikipedia.org/wiki/Orchard_Road)
+* [高島屋](https://www.takashimaya.com.sg/): [map](https://goo.gl/maps/9b7Y3jmCwgSKLYG39) / [免税](https://www.takashimaya.com.sg/ja/tourists-ja/%E5%85%8D%E7%A8%8E%E6%89%8B%E7%B6%9A%E3%81%8D/)は[SunnyHills (B2)](https://goo.gl/maps/98KYsXvkL7KSXWG99)には使えず[Nespresso (B1)](https://goo.gl/maps/rb2UAmZmxwzMJowPA)くらい、refundは3F
+
+## リトルインディア ##
+* [ナビ](https://singapore.navi.com/miru/56/) / [Wikipedia](https://en.wikipedia.org/wiki/Little_India,_Singapore)
 * [Mustafa Centre](http://www.mustafa.com.sg/): [map](https://goo.gl/maps/v1jtnyE9WFTDH1fv5)
 
-## HarbourFront ##
+## ハーバーフロント ##
 * [VivoCity](https://www.vivocity.com.sg/business-directory-search/): [map](https://goo.gl/maps/aiQCCxhZbDbs2t4AA) / 1F [Honeymoon Dessert](https://www.vivocity.com.sg/business-directory-search/honeymoon-dessert/) / 2F (https://www.vivocity.com.sg/business-directory-search/cold-stone-creamery/) [7-Eleven](https://www.vivocity.com.sg/business-directory-search/7-eleven/) / 3F [Food Republic](https://www.vivocity.com.sg/business-directory-search/food-republic/)
 * [HarbourFront Centre](http://www.harbourfrontcentre.com.sg/store.php?CategoryID=594): [map](https://goo.gl/maps/HWnqFt8QjtcaYfVs8) / 1F [Cold Storage](http://www.harbourfrontcentre.com.sg/store-detail.php?CategoryID=594&StoreID=30)
 
 ## City Hall ##
 * [Capitol Plazza](http://www.capitolpiazza.com/directory.html): City Hall D 出口から直結 / [Food Republic](https://goo.gl/maps/yhPzqt59WFgJthscA)
 * [Raffles City](https://www.capitaland.com/sg/malls/rafflescity/en/stores.html): [map](https://goo.gl/maps/SMcAVKj5kVMAiVMb6) / B1 [Raffles City Market Place](https://www.capitaland.com/sg/malls/rafflescity/en/stores/raffles-city-market-place.html)
-
-## [Orchard Road](https://en.wikipedia.org/wiki/Orchard_Road) ##
-* [高島屋](https://www.takashimaya.com.sg/): [map](https://goo.gl/maps/9b7Y3jmCwgSKLYG39) / [免税](https://www.takashimaya.com.sg/ja/tourists-ja/%E5%85%8D%E7%A8%8E%E6%89%8B%E7%B6%9A%E3%81%8D/)は[SunnyHills (B2)](https://goo.gl/maps/98KYsXvkL7KSXWG99)には使えず[Nespresso (B1)](https://goo.gl/maps/rb2UAmZmxwzMJowPA)くらい、refundは3F
 
 ## ドリアン ##
 * [Durian Geylang](https://www.facebook.com/duriandarensg/) [map](https://goo.gl/maps/rvxW5G4PFox)
