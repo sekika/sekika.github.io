@@ -2,8 +2,7 @@
 layout: katex
 title: 日本語入力に関するトラブル解消法
 tags:
-- science
-- equation
+- windows
 ---
 東洋大学PC教室における日本語入力に関するトラブル解消法です。
 
