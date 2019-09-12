@@ -18,7 +18,7 @@ katex-version: "0.10.2" # KaTeX https://github.com/Khan/KaTeX/releases
 markdown: kramdown
 permalink: pretty
 
-gems:
+plugins:
   - jekyll-coffeescript
   - jekyll-gist
   - jekyll-paginate
