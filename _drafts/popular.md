@@ -7,7 +7,7 @@ tags:
 ---
 当サイトの記事で、どの記事がよく読まれているのかを調べてみました。
 
-[Google Analytics](https://www.google.com/intl/ja_jp/analytics/) によるアクセス統計で、2019年のページビュー数のトップ20を並べます。[4月](/2017/05/04/popular/)にはランクインしていなかった記事を (new) で示しています。
+[Google Analytics](https://www.google.com/intl/ja_jp/analytics/) によるアクセス統計で、2019年のページビュー数のトップ20を並べます。
 
 1. [ターミナルからファイルを開く](/2015/10/27/open-command/)
 2. [Excel の計算における空白セルの処理](/2015/11/02/blank-cell/)
