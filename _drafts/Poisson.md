@@ -3,10 +3,11 @@ layout: katex
 title: ポアソン分布の正規分布による近似
 tags:
 - math
+- javascript
 ---
-ポアソン分布が正規分布に近似される様子をグラフで確認する。
+ポアソン分布の平均mが大きくなると正規分布に近似される様子をグラフで確認するプログラムを作成した。
 
-[ポアソン分布](https://ja.wikipedia.org/wiki/%E3%83%9D%E3%82%A2%E3%82%BD%E3%83%B3%E5%88%86%E5%B8%83)
+平均 m の[ポアソン分布](https://ja.wikipedia.org/wiki/%E3%83%9D%E3%82%A2%E3%82%BD%E3%83%B3%E5%88%86%E5%B8%83)
 
 [[ P(X=x)=\frac{m^x e^{-m}}{x!} ]]
 
@@ -14,9 +15,11 @@ tags:
 
 [[ f(x)=\frac{1}{\sqrt{2\pi m}} \exp \left( -\frac{(x-m)^2}{2 m} \right) ]]
 
-に近似される。このページでは、その様子をグラフで確認する。mの値をテキストに直接入力（小数の入力可能）するか、ボタンで1ずつ増減できる。
+に近似される。このページでは、その様子をグラフで確認する。
 
-m = <input name="m" id="m" type="text" value="10" size="5" onkeyup="update()"> (0 < m &le; 300)
+mの値をテキストに直接入力（小数の入力可能）するか、ボタンで1ずつ増減できる。
+
+m = <input name="m" id="m" type="text" value="3" size="5" onkeyup="update()">
 <input type="button" value="-" onclick="decM();">
 <input type="button" value="+" onclick="incM();">
 
@@ -34,8 +37,11 @@ update();
 function decM() {
   m = document.getElementById("m").value;
   m = parseInt(m)-1;
-  if (m<1) {
+  if (m<1 || isNaN(m)) {
     m = 1;
+  }
+  if (m>300) {
+    m = 300;
   }
   document.getElementById("m").value = m;
   update();
@@ -44,6 +50,9 @@ function decM() {
 function incM() {
   m = document.getElementById("m").value;
   m = parseInt(m)+1;
+  if (isNaN(m)) {
+    m = 1;
+  }
   if (m>300) {
     m = 300;
   }
@@ -53,30 +62,29 @@ function incM() {
 
 function update() {
   // Get parameter
-  m = document.getElementById("m").value;
-  m = Number(m);
-  if (isNaN(m)) {
-      m = 1;
-  }
+  textM = document.getElementById("m").value;
+  m = Number(textM);
+
+  // Initialize canvas
+  var c = document.getElementById('canvas');
+  var ctx = c.getContext('2d');
+  ctx.font = "20px serif"; // Font of the text
+  ctx.lineWidth = 1; // Line width
+  width = c.width; // Width of the canvas
+  height = c.height; // Height of the canvas
+
+  // Clear canvas
+  ctx.clearRect(0, 0, width, height);
   if (m>300) {
-    m = 300;
-    document.getElementById("m").value = m;
+    m = NaN;
+    ctx.fillStyle = "red";
+    ctx.fillText("このプログラムでは m ≦ 300 としてください", 80, 300);
   }
   if (m<=0) {
-    m = 1;
+    m = NaN;
+    ctx.fillStyle = "red";
+    ctx.fillText("m > 0 でなければなりません", 150, 300);
   }
-
-
-// Initialize canvas
-var c = document.getElementById('canvas');
-var ctx = c.getContext('2d');
-ctx.font = "20px serif"; // Font of the text
-ctx.lineWidth = 1; // Line width
-width = c.width; // Width of the canvas
-height = c.height; // Height of the canvas
-
-// Clear canvas
-ctx.clearRect(0, 0, width, height);
 
 // Set Cartesian coodinate system for the graph (GC)
 // Origin of GC with respect to canvas coordinate
@@ -92,7 +100,8 @@ if (unitX < 1) {
   unitX = 1;
 }
 maxNorm = 1/Math.sqrt(2*Math.PI*m);
-unitY = -Math.floor(500 / maxNorm);
+pZero = Math.pow(Math.E, -m)
+unitY = -Math.floor(500 / Math.max(maxNorm, pZero));
 var coord = [originX, originY, unitX, unitY, width, height];
 
 // Draw coordinates
@@ -115,21 +124,19 @@ ctx.lineTo(originX+10, 45);
 ctx.strokeText("y", originX-5, 20);
 
 // Scale of the axis
-scaleX = Math.pow(10, Math.floor(2 - Math.log10(unitX)));
-if (scaleX == 1) {
-  scaleX = 2;
-}
+scaleX = Math.pow(10, Math.floor(2.6 - Math.log10(unitX)));
 for (x=0; originX+unitX*x < width - 30; x=x+scaleX) {
   ctx.moveTo(originX+unitX*x, originY);
-  ctx.lineTo(originX+unitX*x, originY+5);
+  ctx.lineTo(originX+unitX*x, originY+7);
   ctx.fillStyle = "black";
   ctx.fillText(x, originX+unitX*x-20, originY+25);
 }
-scaleY = Math.floor(Math.pow(10, Math.floor(2-Math.log10(-unitY))));;
+scaleY = 1/Math.pow(10, Math.floor(Math.log10(-unitY)-1.5));;
 for (y=scaleY; originY+unitY*y > 30; y=y+scaleY) {
+  y = parseInt(y * 1000 + 0.5) / 1000;
   ctx.moveTo(originX, originY+unitY*y);
   ctx.lineTo(originX-5, originY+unitY*y);
-  ctx.fillText(y, originX-50, originY+unitY*y+10);
+  ctx.fillText(y.toString(), originX-50, originY+unitY*y+10);
 }
 ctx.stroke();
 
@@ -150,7 +157,7 @@ ctx.stroke();
 ctx.fillText("正規分布", legendX + 40, legendY + 35);
   
 // Draw graphs
-if (m > 0) {
+if (!isNaN(m) && m>0) {
   plotint(poisson, ctx, coord, "red");
   draw(normDist, ctx, coord, "blue");
 }
