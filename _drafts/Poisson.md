@@ -80,7 +80,7 @@ ctx.clearRect(0, 0, width, height);
 
 // Set Cartesian coodinate system for the graph (GC)
 // Origin of GC with respect to canvas coordinate
-originX = 30;
+originX = 50;
 originY = 570;
 // Unit vector of GC with respect to canvas coordinate
 maxX = m*2.5
@@ -114,8 +114,23 @@ ctx.moveTo(originX, 30);
 ctx.lineTo(originX+10, 45);
 ctx.strokeText("y", originX-5, 20);
 
-// Origin
-ctx.strokeText("0", originX-15, originY+20);
+// Scale of the axis
+scaleX = Math.pow(10, Math.floor(2 - Math.log10(unitX)));
+if (scaleX == 1) {
+  scaleX = 2;
+}
+for (x=0; originX+unitX*x < width - 30; x=x+scaleX) {
+  ctx.moveTo(originX+unitX*x, originY);
+  ctx.lineTo(originX+unitX*x, originY+5);
+  ctx.fillStyle = "black";
+  ctx.fillText(x, originX+unitX*x-20, originY+25);
+}
+scaleY = Math.floor(Math.pow(10, Math.floor(2-Math.log10(-unitY))));;
+for (y=scaleY; originY+unitY*y > 30; y=y+scaleY) {
+  ctx.moveTo(originX, originY+unitY*y);
+  ctx.lineTo(originX-5, originY+unitY*y);
+  ctx.fillText(y, originX-50, originY+unitY*y+10);
+}
 ctx.stroke();
 
 // Legend
