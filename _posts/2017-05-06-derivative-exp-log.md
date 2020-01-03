@@ -2,6 +2,7 @@
 layout: katex
 title: 指数と対数関数の微分
 date: 2017-05-06 02:49:32 +0000
+update: 2020-01-03 15:23:03 +0000
 tag: math
 ---
 指数と対数関数の微分をする。
@@ -20,6 +21,104 @@ $e^x$ を微分すれば $e^x$ で、$\log x$ を微分すれば $1/x$ である
 
 | $n$ | 1 | 2 | 5 | 10 | 100 | 1000 | 10000 | 100000 | 1000000 |
 | $\left( 1 + \frac{1}{n} \right)^n$ | 2	 | 2.25 | 2.48832 | 2.59374 | 2.70481 | 2.71692 | 2.71815 | 2.71827 | 2.71828 |
+
+$ y = \left( 1 + \frac{1}{x} \right)^x $はこのようなグラフとなる。
+
+<!-- -------------------------------------------------------------------------------------------- -->
+<canvas id="canvas" width="520" height="300"></canvas>
+<script type="text/javascript">
+// DrawCartesianGraph by Katsutoshi Seki
+// https://sekika.github.io/2020/01/03/DrawCartesianGraph/
+// MIT License
+
+// Initialize canvas
+var c = document.getElementById('canvas');
+var ctx = c.getContext('2d');
+ctx.font = "20px serif"; // Font of the text
+ctx.lineWidth = 1; // Line width
+width = c.width; // Width of the canvas
+height = c.height; // Height of the canvas
+
+// Set Cartesian coodinate system for the graph (GC)
+// Origin of GC with respect to canvas coordinate
+originX = 50;
+originY = 250;
+// Unit vector of GC with respect to canvas coordinate
+unitX = 2;
+unitY = -50;
+
+// Draw graph
+coordinates("black", showOrigin = false);
+// Scale of the axis
+for (x=0; x<250; x=x+50) {
+  ctx.moveTo(originX+unitX*x, originY);
+  ctx.lineTo(originX+unitX*x, originY+5);
+  ctx.fillText(x, originX+unitX*x-20, originY+25);
+}
+for (y=1; y<5; y++) {
+  ctx.moveTo(originX, originY+unitY*y);
+  ctx.lineTo(originX-5, originY+unitY*y);
+  ctx.fillText(y, originX-20, originY+unitY*y+10);
+}
+ctx.stroke();
+draw(f, "blue");
+
+// Define functions to draw
+function f(x){
+  return Math.pow(1+1/x, x);
+}
+
+// Draw coordinates
+function coordinates(color, showOrigin = true) {
+  // X Axis
+  ctx.strokeStyle = color;
+  ctx.beginPath();
+  ctx.moveTo(0, originY);
+  ctx.lineTo(width-30, originY);
+  ctx.lineTo(width-45, originY-10);
+  ctx.moveTo(width-30, originY);
+  ctx.lineTo(width-45, originY+10);
+  ctx.strokeText("x", width-25, originY+5);
+
+  // Y Axis
+  ctx.moveTo(originX, height);
+  ctx.lineTo(originX, 30);
+  ctx.lineTo(originX-10, 45);
+  ctx.moveTo(originX, 30);
+  ctx.lineTo(originX+10, 45);
+  ctx.strokeText("y", originX-5, 20);
+
+  // Origin
+  if (showOrigin) {
+    ctx.strokeText("0", originX-15, originY+20);
+  }
+  ctx.stroke();
+}
+
+// Draw a graph
+function draw(func, color){
+  ctx.strokeStyle = color;
+  ctx.beginPath();
+  first = true;
+  for (pixX = 0; pixX < width-30; pixX++) {
+     x = (pixX-originX) / unitX;
+     y = func(x);
+     pixY = originY + unitY * y
+     if (pixY >= 35 && pixY <= height) {
+        if (first) {
+           ctx.moveTo(pixX, pixY);
+           first = false;
+        } else {
+           ctx.lineTo(pixX, pixY);
+        }
+     } else {
+        first = true;
+     }
+  }
+  ctx.stroke();
+}
+</script>
+<!-- -------------------------------------------------------------------------------------------- -->
 
 さて、$e$の定義式で$h=1/n$とすると$n \to \infty$で$h \to 0$なので、
 
