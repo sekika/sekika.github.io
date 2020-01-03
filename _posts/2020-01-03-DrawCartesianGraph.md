@@ -13,6 +13,7 @@ HTML5 の [Canvas要素](https://ja.wikipedia.org/wiki/Canvas%E8%A6%81%E7%B4%A0)
 <canvas id="canvas" width="600" height="600"></canvas>
 <script type="text/javascript">
 // DrawCartesianGraph by Katsutoshi Seki
+// https://sekika.github.io/2020/01/03/DrawCartesianGraph/
 // MIT License
 
 // Initialize canvas
@@ -99,7 +100,7 @@ function draw(func, color){
 </script>
 <!-- -------------------------------------------------------------------------------------------- -->
 
-このページのソースを表示して、`<canvas id="canvas" width="600" height="600"></canvas>`から`</script>`までをコピーしてHTML文書内に貼り付け、適宜書き換えることで指定したグラフを描画することができる。
+このページの[ソース](https://raw.githubusercontent.com/sekika/sekika.github.io/master/_posts/2020-01-03-DrawCartesianGraph.md)を表示して、`<canvas id="canvas" width="600" height="600"></canvas>`から`</script>`までをコピーしてHTML文書内に貼り付け、適宜書き換えることで指定したグラフを描画することができる。
 
 - 描画エリア canvas の大きさは `<canvas id="canvas" width="600" height="600">` の width と height で指定する。
 - `// Set Cartesian coodinate system for the graph (GC)`のブロックで、グラフの座標系を、Canvasの座標系に対して原点 (originX, originY)、単位ベクトル (unitX, unitY) で定める。ここでは、原点 (300, 500)、単位ベクトル (50, -50) としている。
