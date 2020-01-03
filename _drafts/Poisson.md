@@ -14,11 +14,11 @@ tags:
 
 [[ f(x)=\frac{1}{\sqrt{2\pi m}} \exp \left( -\frac{(x-m)^2}{2 m} \right) ]]
 
-に近似される。このページでは、その様子をグラフで確認する。
+に近似される。このページでは、その様子をグラフで確認する。mの値をテキストに直接入力（小数の入力可能）するか、ボタンで1ずつ増減できる。
 
-m = <input name="m" id="m" type="text" value="10" size="5" onkeyup="update()">
+m = <input name="m" id="m" type="text" value="10" size="5" onkeyup="update()"> (0 < m &le; 300)
 <input type="button" value="-" onclick="decM();">
-<input type="button" value="+" onclick="incM();"> (最大 300)
+<input type="button" value="+" onclick="incM();">
 
 <!-- -------------------------------------------------------------------------------------------- -->
 <canvas id="canvas" width="600" height="600">
@@ -54,11 +54,18 @@ function incM() {
 function update() {
   // Get parameter
   m = document.getElementById("m").value;
-  m = parseInt(m);
+  m = Number(m);
+  if (isNaN(m)) {
+      m = 1;
+  }
   if (m>300) {
     m = 300;
-    document.getElementById("m").value = "300";
+    document.getElementById("m").value = m;
   }
+  if (m<=0) {
+    m = 1;
+  }
+
 
 // Initialize canvas
 var c = document.getElementById('canvas');
