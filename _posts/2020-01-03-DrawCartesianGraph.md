@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Canvas でグラフ描画
+title: 関数のグラフを描画するプログラム
 date: 2020-01-03 12:33:17 +0000
 tags:
 - jekyll
