@@ -27,26 +27,20 @@ height = c.height; // Height of the canvas
 
 // Set Cartesian coodinate system for the graph (GC)
 // Origin of GC with respect to canvas coordinate
-originX = 300;
-originY = 500;
+originX = 30;
+originY = 570;
 // Unit vector of GC with respect to canvas coordinate
 unitX = 50;
 unitY = -50;
 
 // Draw graphs
 coordinates("black");
-draw(factorial, "blue");
-// draw(plus1, "green");
-ctx.strokeText("y = x+1", 480,300);
+draw(poisson, "blue");
 
 // Define functions to draw
-function poisson(x){
+function poisson(k){
   m=1;
   return Math.pow(m,k)*Math.pow(Math.E,-m)/factorial(k);
-}
-
-function exp(x){
-  return Math.pow(Math.E,x);
 }
 
 function factorial(num) {
@@ -102,6 +96,24 @@ function draw(func, color){
         }
      } else {
         first = true;
+     }
+  }
+  ctx.stroke();
+}
+
+function plotint(func, color){
+  ctx.strokeStyle = color;
+  ctx.beginPath();
+  for (x = Math.floor(-originX / unitX)+1; x < Math.floor((width-originX-30) / unitX); x++) {
+     y = func(x);
+     pixX = originX + unitX * x
+     pixY = originY + unitY * y
+     console.log(x,y) ////////////////
+     if (pixY >= 35 && pixY <= height) {
+         ctx.beginPath();
+         ctx.fillStyle = 'green';
+         ctx.arc(pixX, pixY, 5, 0, Math.PI*2);
+         ctx.fill();
      }
   }
   ctx.stroke();
