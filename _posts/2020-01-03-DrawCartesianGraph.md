@@ -2,7 +2,7 @@
 layout: post
 title: 関数のグラフを描画するプログラム
 date: 2020-01-03 12:33:17 +0000
-update: 2020-01-04 16:00:25 +0000
+update: 2020-01-04 16:40:30 +0000
 tags:
 - jekyll
 - javascript
@@ -63,7 +63,7 @@ function exp(x){
 このページの[ソース](https://raw.githubusercontent.com/sekika/sekika.github.io/master/_posts/2020-01-03-DrawCartesianGraph.md)を表示して、`<canvas id="canvas" width="600" height="600">`から`</script>`までをコピーしてHTML文書内に貼り付け、適宜書き換えることで指定したグラフを描画することができる。
 
 - 描画エリア canvas の大きさは `<canvas id="canvas" width="600" height="600">` の width と height で指定する。
-- `<script src="https://sekika.github.io/js/graph.js"></script>` では、[graph.js](https://sekika.github.io/js/graph.js) のURLを指定する。このサーバー上の graph.js が書き換えられる可能性があるため、コピーして使うことを推奨する。
+- `<script src="https://sekika.github.io/js/graph.js"></script>` では、[graph.js](https://sekika.github.io/js/graph.js) のURLを指定する。このサーバー上の graph.js が書き換えられる可能性があるため、コピーして使うことを推奨する。[graph.js をGitHub で表示](https://github.com/sekika/sekika.github.io/blob/master/js/graph.js)。
 - `// Set Cartesian coodinate system for the graph (GC)`のブロックで、グラフの座標系を、Canvasの座標系に対して原点 (ctx.originX, ctx.originY)、単位ベクトル (ctx.unitX, ctx.unitY) で定める。ここでは、原点 (300, 500)、単位ベクトル (50, -50) としている。
 - `// Draw graphs` のブロックで、以下のようにグラフを描画している。
 - `drawAxis(ctx);` で座標軸を描画する。
