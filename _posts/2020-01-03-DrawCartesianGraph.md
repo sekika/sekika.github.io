@@ -2,7 +2,7 @@
 layout: post
 title: 関数のグラフを描画するプログラム
 date: 2020-01-03 12:33:17 +0000
-update: 2020-01-04 18:24:07 +0000
+update: 2020-01-04 18:34:43 +0000
 tags:
 - jekyll
 - javascript
@@ -71,3 +71,7 @@ function exp(x) {
 - `draw(ctx, plus, 1);` で ctx のキャンバスに plus 関数を描画する。3つ目の引数である1は、plus 関数の2つ目の引数である。このように、draw 関数の3つ目の引数があるときは、draw 関数の2つ目の引数で指定されている関数の2つ目の引数として渡される。関数に複数の引数があるときには、配列変数として渡すことができる。
 - このように、JavaScript で自由に関数を定義して、その関数を設定した座標系で表示することができる。
 - `ctx.fillText("y = exp(x)", 420,80);` では、[HTML canvas strokeText() Method](https://www.w3schools.com/Tags/canvas_stroketext.asp) で文字を直接描画している。
+
+## このプログラムの使用例
+
+- [ポアソン分布の正規分布による近似](https://sekika.github.io/2020/01/04/Poisson/)
