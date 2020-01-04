@@ -2,7 +2,7 @@
 layout: post
 title: 関数のグラフを描画するプログラム
 date: 2020-01-03 12:33:17 +0000
-update: 2020-01-04 17:09:10 +0000
+update: 2020-01-04 18:24:07 +0000
 tags:
 - jekyll
 - javascript
@@ -43,19 +43,19 @@ drawScaleY(ctx, 1);
 ctx.strokeStyle = "blue";
 draw(ctx, exp);
 ctx.fillStyle = "blue";
-ctx.fillText("y = exp(x)", 420,80);
+ctx.fillText("y = exp(x)", 420, 80);
 ctx.strokeStyle = "green";
 draw(ctx, plus, 1);
 ctx.fillStyle = "green";
-ctx.fillText("y = x+1", 480,300);
+ctx.fillText("y = x+1", 480, 300);
 
 // Define mathematical functions
-function plus(x, a){
-  return x+a;
+function plus(x, a) {
+    return x + a;
 }
 
-function exp(x){
-  return Math.pow(Math.E,x);
+function exp(x) {
+    return Math.pow(Math.E, x);
 }
 </script>
 <!-- -------------------------------------------------------------------------------------------- -->
