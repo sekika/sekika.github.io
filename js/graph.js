@@ -44,14 +44,17 @@ function drawScaleX(ctx, scaleX) {
 }
 
 // Draw scale of the y axis
-function drawScaleY(ctx, scaleY, offset=30) {
+function drawScaleY(ctx, scaleY) {
+  if (ctx.offsetScaleY == undefined) {
+      ctx.offsetScaleY = 30;
+  }
   var minY = Math.ceil((ctx.height-ctx.originY-10)/ctx.unitY/scaleY)*scaleY;
   for (var y=minY; ctx.originY+ctx.unitY*y > 30; y=y+scaleY) {
     var precision = 10000000; y = Math.round(y * precision) / precision;
     if (!y == 0) {
       ctx.moveTo(ctx.originX, ctx.originY+ctx.unitY*y);
       ctx.lineTo(ctx.originX-5, ctx.originY+ctx.unitY*y);
-      ctx.fillText(y.toString(), ctx.originX-offset, ctx.originY+ctx.unitY*y+10);
+      ctx.fillText(y.toString(), ctx.originX-ctx.offsetScaleY, ctx.originY+ctx.unitY*y+10);
     }
   }
   ctx.stroke();
@@ -63,7 +66,7 @@ function draw(ctx, func, parameter=0){
   var first = true;
   for (var pixX = 0; pixX < ctx.width-30; pixX++) {
      var x = (pixX-ctx.originX) / ctx.unitX;
-     var y = func(x, parameter); // User array to send multiple parameters
+     var y = func(x, parameter);
      var pixY = ctx.originY + ctx.unitY * y
      if (pixY >= 35 && pixY <= ctx.height) {
         if (first) {
@@ -79,15 +82,18 @@ function draw(ctx, func, parameter=0){
   ctx.stroke();
 }
 
-function plotInt(ctx, func, color){
+// Plot integer values
+function plotInt(ctx, func, parameter=0){
+  if (ctx.plotMinX == undefined) {
+      ctx.plotMinX = 0;
+  }
   ctx.beginPath();
-  for (var x = 0; x*ctx.unitX < ctx.width-ctx.originX-30; x++) {
-     var y = func(x, ctx.m); // Calling function with a parameter m
+  for (var x = ctx.plotMinX; x*ctx.unitX < ctx.width-ctx.originX-30; x++) {
+     var y = func(x, parameter);
      var pixX = ctx.originX + ctx.unitX * x
      var pixY = ctx.originY + ctx.unitY * y
      if (pixY >= 35 && pixY <= ctx.height) {
          ctx.beginPath();
-         ctx.fillStyle = color;
          ctx.arc(pixX, pixY, 4, 0, Math.PI*2);
          ctx.fill();
      }
