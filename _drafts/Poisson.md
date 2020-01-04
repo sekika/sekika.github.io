@@ -86,84 +86,84 @@ function update() {
     ctx.fillText("m > 0 でなければなりません", 150, 300);
   }
 
-// Set Cartesian coodinate system for the graph (GC)
-// Origin of GC with respect to canvas coordinate
-originX = 50;
-originY = 570;
-// Unit vector of GC with respect to canvas coordinate
-maxX = m*2.5
-if (maxX < 20) {
-  maxX = 20;
-}
-unitX = Math.floor(500 / maxX);
-if (unitX < 1) {
-  unitX = 1;
-}
-maxNorm = 1/Math.sqrt(2*Math.PI*m);
-pZero = Math.pow(Math.E, -m)
-unitY = -Math.floor(500 / Math.max(maxNorm, pZero));
-var coord = [originX, originY, unitX, unitY, width, height];
+  // Set Cartesian coodinate system for the graph (GC)
+  // Origin of GC with respect to canvas coordinate
+  originX = 50;
+  originY = 570;
+  // Unit vector of GC with respect to canvas coordinate
+  maxX = m*2.5
+  if (maxX < 20) {
+    maxX = 20;
+  }
+  unitX = Math.floor(500 / maxX);
+  if (unitX < 1) {
+    unitX = 1;
+  }
+  maxNorm = 1/Math.sqrt(2*Math.PI*m);
+  pZero = Math.pow(Math.E, -m)
+  unitY = -Math.floor(500 / Math.max(maxNorm, pZero));
+  var coord = [originX, originY, unitX, unitY, width, height];
 
-// Draw coordinates
-// X Axis
-ctx.strokeStyle = "black";
-ctx.beginPath();
-ctx.moveTo(0, originY);
-ctx.lineTo(width-30, originY);
-ctx.lineTo(width-45, originY-10);
-ctx.moveTo(width-30, originY);
-ctx.lineTo(width-45, originY+10);
-ctx.strokeText("x", width-25, originY+5);
+  // Draw coordinates
+  // X Axis
+  ctx.strokeStyle = "black";
+  ctx.beginPath();
+  ctx.moveTo(0, originY);
+  ctx.lineTo(width-30, originY);
+  ctx.lineTo(width-45, originY-10);
+  ctx.moveTo(width-30, originY);
+  ctx.lineTo(width-45, originY+10);
+  ctx.strokeText("x", width-25, originY+5);
 
-// Y Axis
-ctx.moveTo(originX, height);
-ctx.lineTo(originX, 30);
-ctx.lineTo(originX-10, 45);
-ctx.moveTo(originX, 30);
-ctx.lineTo(originX+10, 45);
-ctx.strokeText("y", originX-5, 20);
+  // Y Axis
+  ctx.moveTo(originX, height);
+  ctx.lineTo(originX, 30);
+  ctx.lineTo(originX-10, 45);
+  ctx.moveTo(originX, 30);
+  ctx.lineTo(originX+10, 45);
+  ctx.strokeText("y", originX-5, 20);
 
-// Scale of the axis
-scaleX = Math.pow(10, Math.floor(2.6 - Math.log10(unitX)));
-for (x=0; originX+unitX*x < width - 30; x=x+scaleX) {
-  ctx.moveTo(originX+unitX*x, originY);
-  ctx.lineTo(originX+unitX*x, originY+7);
+  // Scale of the axis
+  scaleX = Math.pow(10, Math.floor(2.6 - Math.log10(unitX)));
+  for (x=0; originX+unitX*x < width - 30; x=x+scaleX) {
+    ctx.moveTo(originX+unitX*x, originY);
+    ctx.lineTo(originX+unitX*x, originY+7);
+    ctx.fillStyle = "black";
+    ctx.fillText(x, originX+unitX*x-20, originY+25);
+  }
+  scaleY = 1/Math.pow(10, Math.floor(Math.log10(-unitY)-1.5));;
+  for (y=scaleY; originY+unitY*y > 30; y=y+scaleY) {
+    y = parseInt(y * 1000 + 0.5) / 1000;
+    ctx.moveTo(originX, originY+unitY*y);
+    ctx.lineTo(originX-5, originY+unitY*y);
+    ctx.fillText(y.toString(), originX-50, originY+unitY*y+10);
+  }
+  ctx.stroke();
+
+  // Legend
+  legendX = 360
+  legendY = 120
+  ctx.beginPath();
+  ctx.fillStyle = "red";
+  ctx.arc(legendX+15, legendY, 4, 0, Math.PI*2);
+  ctx.fill();
   ctx.fillStyle = "black";
-  ctx.fillText(x, originX+unitX*x-20, originY+25);
-}
-scaleY = 1/Math.pow(10, Math.floor(Math.log10(-unitY)-1.5));;
-for (y=scaleY; originY+unitY*y > 30; y=y+scaleY) {
-  y = parseInt(y * 1000 + 0.5) / 1000;
-  ctx.moveTo(originX, originY+unitY*y);
-  ctx.lineTo(originX-5, originY+unitY*y);
-  ctx.fillText(y.toString(), originX-50, originY+unitY*y+10);
-}
-ctx.stroke();
-
-// Legend
-legendX = 360
-legendY = 120
-ctx.beginPath();
-ctx.fillStyle = "red";
-ctx.arc(legendX+15, legendY, 4, 0, Math.PI*2);
-ctx.fill();
-ctx.fillStyle = "black";
-ctx.fillText("ポアソン分布", legendX + 40, legendY + 5);
-ctx.beginPath();
-ctx.strokeStyle = "blue";
-ctx.moveTo(legendX, legendY+30);
-ctx.lineTo(legendX+30, legendY+30);
-ctx.stroke();
-ctx.fillText("正規分布", legendX + 40, legendY + 35);
+  ctx.fillText("ポアソン分布", legendX + 40, legendY + 5);
+  ctx.beginPath();
+  ctx.strokeStyle = "blue";
+  ctx.moveTo(legendX, legendY+30);
+  ctx.lineTo(legendX+30, legendY+30);
+  ctx.stroke();
+  ctx.fillText("正規分布", legendX + 40, legendY + 35);
   
-// Draw graphs
-if (!isNaN(m) && m>0) {
-  plotint(poisson, ctx, coord, "red");
-  draw(normDist, ctx, coord, "blue");
-}
+  // Draw graphs
+  if (!isNaN(m) && m>0) {
+    plotint(poisson, ctx, coord, "red");
+    draw(normDist, ctx, coord, "blue");
+  }
 }
 
-// Define functions to draw
+// Mathematical functions
 function poisson(k){
   if (k < 100) {
     return Math.pow(m,k)*Math.pow(Math.E,-m)/factorial(k);
