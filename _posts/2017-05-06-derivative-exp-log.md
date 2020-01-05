@@ -2,7 +2,7 @@
 layout: katex
 title: 指数と対数関数の微分
 date: 2017-05-06 02:49:32 +0000
-update: 2020-01-05 14:55:10 +0000
+update: 2020-01-05 15:06:11 +0000
 tag: math
 ---
 指数と対数関数の微分をする。
@@ -36,6 +36,7 @@ ctx.width = c.width; ctx.height = c.height;
 ctx.originX = 50; ctx.originY = 250;
 ctx.unitX = 2; ctx.unitY = -50;
 ctx.scaleX = 50; ctx.offsetScaleY = 20;
+ctx.vectorWidth = 5; ctx.vectorHeight = 8;
 ctx.labelX = "n"; ctx.labelY = "(1+1/n)";
 drawAxis(ctx); drawScaleX(ctx); drawScaleY(ctx);
 ctx.font = "12px serif"; ctx.fillText("n", 102, 12);
