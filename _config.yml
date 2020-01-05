@@ -31,7 +31,7 @@ whitelist:
   - jekyll-feed
 
 # pagination
-paginate: 5
+paginate: 10
 pagenate_path: "page:num"
 
 # highlighter: "rouge"
