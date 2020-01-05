@@ -2,7 +2,7 @@
 layout: post
 title: 関数のグラフを描画するプログラム
 date: 2020-01-03 12:33:17 +0000
-update: 2020-01-05 16:37:47 +0000
+update: 2020-01-05 16:55:20 +0000
 tags:
 - jekyll
 - javascript
@@ -80,3 +80,11 @@ function exp(x) {
 
 - [ポアソン分布の正規分布による近似](https://sekika.github.io/2020/01/04/Poisson/): ポアソン分布に整数値だけを離散的にプロットする plotInt 関数を使用している。テキストボックスに入力された数からリアルタイムにパラメータを変化させてグラフを描画する。（[ソース](https://raw.githubusercontent.com/sekika/sekika.github.io/master/_posts/2020-01-04-Poisson.md)）
 - [指数と対数関数の微分](https://sekika.github.io/2017/05/06/derivative-exp-log/): 小さめのグラフ。軸ラベルの文字を変えている。（[ソース](https://raw.githubusercontent.com/sekika/sekika.github.io/master/_posts/2017-05-06-derivative-exp-log.md)）
+
+## Canvas の参考サイト
+
+- [Canvasリファレンス](http://www.htmq.com/canvas/) (HTMLクイックリファレンス)
+- [HTML5 Canvas](https://www.w3schools.com/html/html5_canvas.asp) (w3schools.com)
+- [【連載】第一回HTML5でCanvasアプリを作る入門編 ~canvas関連メソッドリファレンス~](http://nigohiroki.hatenablog.com/entry/2013/01/04/025502) (nigoblog, 2013/1/4)
+- [HTML5 の Canvas を使って素晴らしいグラフィックスを作成する](https://www.ibm.com/developerworks/jp/web/library/wa-html5canvas/) (Ken Bluttman, IBM, 2011/2/8)
+- [Canvas API](https://developer.mozilla.org/ja/docs/Web/API/Canvas_API) (Mozilla)
