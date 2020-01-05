@@ -14,7 +14,7 @@
 const labelX = "x"; // Label of the x axis
 const labelY = "y"; // Label of the y axis
 const topMargin = 30; // Top margin (without label)
-const rightMargin = 10; // Right margin (without label)
+const rightMargin = 30; // Right margin (without label)
 const vectorWidth = 10; // Width of the vector of axis
 const vectorHeight = 15; // Height of the vector of axis
 
