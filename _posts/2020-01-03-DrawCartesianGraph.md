@@ -2,7 +2,7 @@
 layout: post
 title: 関数のグラフを描画するプログラム
 date: 2020-01-03 12:33:17 +0000
-update: 2020-01-05 13:29:01 +0000
+update: 2020-01-05 15:01:38 +0000
 tags:
 - jekyll
 - javascript
@@ -79,4 +79,5 @@ function exp(x) {
 
 ## このプログラムの使用例
 
-- [ポアソン分布の正規分布による近似](https://sekika.github.io/2020/01/04/Poisson/)
+- [ポアソン分布の正規分布による近似](https://sekika.github.io/2020/01/04/Poisson/): ポアソン分布に整数値だけを離散的にプロットする plotInt 関数を使用している。テキストボックスに入力された数からリアルタイムにパラメータを変化させてグラフを描画する。
+- [指数と対数関数の微分](https://sekika.github.io/2017/05/06/derivative-exp-log/): 小さめのグラフ。軸ラベルの文字を変えている。
