@@ -2,7 +2,7 @@
 layout: post
 title: 関数のグラフを描画するプログラム
 date: 2020-01-03 12:33:17 +0000
-update: 2020-01-05 03:53:12 +0000
+update: 2020-01-05 13:29:01 +0000
 tags:
 - jekyll
 - javascript
@@ -24,8 +24,8 @@ var c = document.getElementById('canvas');
 var ctx = c.getContext('2d');
 ctx.font = "20px serif"; // Font of the text
 ctx.lineWidth = 1; // Line width
-ctx.width = c.width;
-ctx.height = c.height;
+ctx.width = c.width; // Width of the canvas
+ctx.height = c.height; // Height of the canvas
 
 // Set Cartesian coodinate system for the graph (GC)
 // Origin of GC with respect to canvas coordinate = (ctx.originX, ctx.originY)
@@ -36,19 +36,17 @@ ctx.unitX = 50;
 ctx.unitY = -50;
 
 // Draw graphs
-ctx.strokeStyle = "black";
-ctx.fillStyle = "black";
-drawAxis(ctx);
-drawScaleX(ctx);
-drawScaleY(ctx);
-ctx.strokeStyle = "blue";
-draw(ctx, exp);
-ctx.fillStyle = "blue";
-ctx.fillText("y = exp(x)", 420, 80);
-ctx.strokeStyle = "green";
-draw(ctx, plus, 1);
-ctx.fillStyle = "green";
-ctx.fillText("y = x+1", 480, 300);
+drawAxis(ctx); // Draw axis and labels
+drawScaleX(ctx); // Draw scale of x axis
+drawScaleY(ctx); // Draw scale of y axis
+ctx.strokeStyle = "blue"; // Color of the curve
+draw(ctx, exp); // Draw y=exp(x) curve
+ctx.fillStyle = "blue"; // Color of legend
+ctx.fillText("y = exp(x)", 420, 80); // Write legend
+ctx.strokeStyle = "green"; // Color of the curve
+draw(ctx, plus, 1); // Draw y=x+1 curve
+ctx.fillStyle = "green"; // Color of legend
+ctx.fillText("y = x+1", 480, 300); // Write legend
 
 // Define mathematical functions
 function plus(x, a) {
