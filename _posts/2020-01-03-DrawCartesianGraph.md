@@ -2,7 +2,7 @@
 layout: post
 title: 関数のグラフを描画するプログラム
 date: 2020-01-03 12:33:17 +0000
-update: 2020-01-05 15:01:38 +0000
+update: 2020-01-05 16:37:47 +0000
 tags:
 - jekyll
 - javascript
@@ -24,8 +24,6 @@ var c = document.getElementById('canvas');
 var ctx = c.getContext('2d');
 ctx.font = "20px serif"; // Font of the text
 ctx.lineWidth = 1; // Line width
-ctx.width = c.width; // Width of the canvas
-ctx.height = c.height; // Height of the canvas
 
 // Set Cartesian coodinate system for the graph (GC)
 // Origin of GC with respect to canvas coordinate = (ctx.originX, ctx.originY)
@@ -77,7 +75,8 @@ function exp(x) {
 - `ctx.fillText("y = exp(x)", 420,80);` では、[HTML canvas strokeText() Method](https://www.w3schools.com/Tags/canvas_stroketext.asp) で文字を直接描画している。
 - パラメータの一覧は [graph.js](https://github.com/sekika/sekika.github.io/blob/master/js/graph.js) の頭の const で宣言されている定数を参照。たとえば、`const labelX = "x"; // Label of the x axis` はx軸のラベルにはxという文字が設定されていることを意味する。ctx の同じ名前のプロパティ、すなわち ctx.labelX を設定することで、このデフォルトとは異なる値を設定できる。
 
-## このプログラムの使用例
+## 使用例
 
-- [ポアソン分布の正規分布による近似](https://sekika.github.io/2020/01/04/Poisson/): ポアソン分布に整数値だけを離散的にプロットする plotInt 関数を使用している。テキストボックスに入力された数からリアルタイムにパラメータを変化させてグラフを描画する。
-- [指数と対数関数の微分](https://sekika.github.io/2017/05/06/derivative-exp-log/): 小さめのグラフ。軸ラベルの文字を変えている。
+
+- [ポアソン分布の正規分布による近似](https://sekika.github.io/2020/01/04/Poisson/): ポアソン分布に整数値だけを離散的にプロットする plotInt 関数を使用している。テキストボックスに入力された数からリアルタイムにパラメータを変化させてグラフを描画する。（[ソース](https://raw.githubusercontent.com/sekika/sekika.github.io/master/_posts/2020-01-04-Poisson.md)）
+- [指数と対数関数の微分](https://sekika.github.io/2017/05/06/derivative-exp-log/): 小さめのグラフ。軸ラベルの文字を変えている。（[ソース](https://raw.githubusercontent.com/sekika/sekika.github.io/master/_posts/2017-05-06-derivative-exp-log.md)）

@@ -50,13 +50,13 @@ function drawAxis(ctx) {
     // Draw X axis
     ctx.beginPath();
     ctx.moveTo(0, ctx.originY);
-    ctx.lineTo(ctx.width - ctx.rightMargin, ctx.originY);
-    ctx.lineTo(ctx.width - ctx.rightMargin - ctx.vectorHeight, ctx.originY - ctx.vectorWidth);
-    ctx.moveTo(ctx.width - ctx.rightMargin, ctx.originY);
-    ctx.lineTo(ctx.width - ctx.rightMargin - ctx.vectorHeight, ctx.originY + ctx.vectorWidth);
-    ctx.fillText(ctx.labelX, ctx.width - ctx.rightMargin + 10, ctx.originY + 5);
+    ctx.lineTo(ctx.canvas.width - ctx.rightMargin, ctx.originY);
+    ctx.lineTo(ctx.canvas.width - ctx.rightMargin - ctx.vectorHeight, ctx.originY - ctx.vectorWidth);
+    ctx.moveTo(ctx.canvas.width - ctx.rightMargin, ctx.originY);
+    ctx.lineTo(ctx.canvas.width - ctx.rightMargin - ctx.vectorHeight, ctx.originY + ctx.vectorWidth);
+    ctx.fillText(ctx.labelX, ctx.canvas.width - ctx.rightMargin + 10, ctx.originY + 5);
     // Draw Y axis
-    ctx.moveTo(ctx.originX, ctx.height);
+    ctx.moveTo(ctx.originX, ctx.canvas.height);
     ctx.lineTo(ctx.originX, ctx.topMargin);
     ctx.lineTo(ctx.originX - ctx.vectorWidth, ctx.topMargin + ctx.vectorHeight);
     ctx.moveTo(ctx.originX, ctx.topMargin);
@@ -73,7 +73,7 @@ function drawScaleX(ctx) {
     ctx.rightMargin = ctx.rightMargin || rightMargin;
     ctx.precision = ctx.precision || precision;
     minX = -Math.floor((ctx.originX - 20) / ctx.unitX / ctx.scaleX) * ctx.scaleX;
-    for (x = minX; ctx.originX + ctx.unitX * x < ctx.width - ctx.rightMargin; x = x + ctx.scaleX) {
+    for (x = minX; ctx.originX + ctx.unitX * x < ctx.canvas.width - ctx.rightMargin; x = x + ctx.scaleX) {
         x = Math.round(x * ctx.precision) / ctx.precision;
         ctx.moveTo(ctx.originX + ctx.unitX * x, ctx.originY);
         ctx.lineTo(ctx.originX + ctx.unitX * x, ctx.originY + ctx.scaleLengthX);
@@ -89,7 +89,7 @@ function drawScaleY(ctx) {
     ctx.scaleLengthY = ctx.scaleLengthY || scaleLengthY;
     ctx.offsetScaleY = ctx.offsetScaleY || offsetScaleY;
     ctx.precision = ctx.precision || precision;
-    minY = Math.ceil((ctx.height - ctx.originY - 10) / ctx.unitY / ctx.scaleY) * ctx.scaleY;
+    minY = Math.ceil((ctx.canvas.height - ctx.originY - 10) / ctx.unitY / ctx.scaleY) * ctx.scaleY;
     for (y = minY; ctx.originY + ctx.unitY * y > ctx.topMargin; y = y + ctx.scaleY) {
         y = Math.round(y * ctx.precision) / ctx.precision;
         if (y !== 0) {
@@ -108,11 +108,11 @@ function draw(ctx, func, parameter) {
     ctx.rightMargin = ctx.rightMargin || rightMargin;
     ctx.beginPath();
     first = true;
-    for (pixX = 0; pixX < ctx.width - ctx.rightMargin; pixX++) {
+    for (pixX = 0; pixX < ctx.canvas.width - ctx.rightMargin; pixX++) {
         x = (pixX - ctx.originX) / ctx.unitX;
         y = func(x, parameter);
         pixY = ctx.originY + ctx.unitY * y;
-        if (pixY >= ctx.topMargin + 5 && pixY <= ctx.height) {
+        if (pixY >= ctx.topMargin + 5 && pixY <= ctx.canvas.height) {
             if (first) {
                 ctx.moveTo(pixX, pixY);
                 first = false;
@@ -134,11 +134,11 @@ function plotInt(ctx, func, parameter) {
     ctx.topMargin = ctx.topMargin || topMargin;
     ctx.rightMargin = ctx.rightMargin || rightMargin;
     ctx.beginPath();
-    for (x = ctx.plotMinX; x * ctx.unitX < ctx.width - ctx.originX - ctx.rightMargin; x++) {
+    for (x = ctx.plotMinX; x * ctx.unitX < ctx.canvas.width - ctx.originX - ctx.rightMargin; x++) {
         y = func(x, parameter);
         pixX = ctx.originX + ctx.unitX * x;
         pixY = ctx.originY + ctx.unitY * y;
-        if (pixY >= ctx.topMargin + 5 && pixY <= ctx.height) {
+        if (pixY >= ctx.topMargin + 5 && pixY <= ctx.canvas.height) {
             ctx.beginPath();
             ctx.arc(pixX, pixY, ctx.plotSize, 0, Math.PI * 2);
             ctx.fill();
