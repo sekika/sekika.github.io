@@ -1,11 +1,21 @@
-// DrawCartesianGraph
-//
-// beta version
-//
-// Author: Katsutoshi Seki
-// URL: https://sekika.github.io/js/graph.js
-// Japanese description: https://sekika.github.io/2020/01/03/DrawCartesianGraph/
-// License: MIT License
+/*
+DrawCartesianGraph - Draw graphs on a Cartesian coodinate system on canvas of HTML
+
+Usage: Copy a block of html (canvas element and script) from
+https://raw.githubusercontent.com/sekika/sekika.github.io/master/_posts/2020-01-03-DrawCartesianGraph.md
+and change the code according to your need.
+
+Japanese help: https://sekika.github.io/2020/01/03/DrawCartesianGraph/
+English translation:
+https://translate.google.com/translate?sl=ja&tl=en&u=https://sekika.github.io/2020/01/03/DrawCartesianGraph/
+
+
+URL: https://sekika.github.io/js/graph.js
+Development: https://github.com/sekika/sekika.github.io/blob/master/js/graph.js
+Version: 2020/1/5
+Author: Katsutoshi Seki
+License: MIT License
+*/
 
 'use strict';
 
