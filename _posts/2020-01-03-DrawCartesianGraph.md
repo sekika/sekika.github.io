@@ -2,7 +2,7 @@
 layout: post
 title: 関数のグラフを描画するプログラム
 date: 2020-01-03 12:33:17 +0000
-update: 2020-01-05 16:55:20 +0000
+update: 2020-01-06 09:56:12 +0000
 tags:
 - jekyll
 - javascript
@@ -84,7 +84,7 @@ function exp(x) {
 ## Canvas の参考サイト
 
 - [Canvasリファレンス](http://www.htmq.com/canvas/) (HTMLクイックリファレンス)
+- [HTML Canvas 2D Context, Level 2](https://www.w3.org/TR/2dcontext2/) (W3C Working Group Note, 2015/9/29)
 - [HTML5 Canvas](https://www.w3schools.com/html/html5_canvas.asp) (w3schools.com)
 - [【連載】第一回HTML5でCanvasアプリを作る入門編 ~canvas関連メソッドリファレンス~](http://nigohiroki.hatenablog.com/entry/2013/01/04/025502) (nigoblog, 2013/1/4)
 - [HTML5 の Canvas を使って素晴らしいグラフィックスを作成する](https://www.ibm.com/developerworks/jp/web/library/wa-html5canvas/) (Ken Bluttman, IBM, 2011/2/8)
-- [Canvas API](https://developer.mozilla.org/ja/docs/Web/API/Canvas_API) (Mozilla)
