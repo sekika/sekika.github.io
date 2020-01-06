@@ -1,6 +1,6 @@
 ---
 layout: post-js
-title: Canvas のイベント
+title: Canvas のマウスイベント
 tag: javascript
 ---
 Canvas に発生したマウスとタッチのイベントを表示します。ついでに線を書きます。
@@ -59,7 +59,7 @@ function showMessageTouchMove(message) {
 function init() {
     var i, t, message;
     ctx.strokeStyle = "blue";
-    ctx.lineWidth = 0.8;
+    ctx.lineWidth = 1;
     c.addEventListener('mouseup', function(e) {
         showMessage('mouseup' + ' (' + pos(e)[0] + ', ' + pos(e)[1] + ')');
         up(pos(e));
@@ -135,15 +135,15 @@ function clear() {
 <button onclick="clear()">クリア</button>
 </form>
 
-<ul>
-<li><div id="messageMouseMove">(mousemove)</div>
-<li><div id="messageTouchMove">(touchmove)</div>
-<li>mousedown, mouseup, click, touchstart, touchend, touchcancel, touchmove
+- <div id="messageMouseMove">(mousemove)</div>
+- <div id="messageTouchMove">(touchmove)</div>
+- mousedown, mouseup, click, touchstart, touchend, touchcancel, touchmove
 <pre style='width: 350px; max-height: 300px;'>
 <div id="message"></div>
 </pre>
-</ul>
 
 ## 参考サイト
 
-- [Using Touch Events with the HTML5 Canvas](http://bencentra.com/code/2014/12/05/html5-canvas-touch-events.html)
+- [Using Touch Events with the HTML5 Canvas](http://bencentra.com/code/2014/12/05/html5-canvas-touch-events.html) (Ben Centra, 2014/12/5)
+- [Touch events](https://developer.mozilla.org/ja/docs/Web/API/Touch_events) (MDN web docs)
+- [【連載】第二回HTML5でCanvasアプリを作る入門編 ~マウスクリックイベントについて~](http://nigohiroki.hatenablog.com/entry/2013/01/11/010617) (nigoblog, 2013/1/11)
