@@ -3,6 +3,7 @@ layout: post
 title: 素数判定ゲーム
 date: 2016-12-13 12:18:45 +0000
 tags:
+- game
 - math
 - python
 ---
