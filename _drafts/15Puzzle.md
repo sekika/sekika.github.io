@@ -11,7 +11,7 @@ tags:
 <div id="message"></div>
 <div id="lang" style="display: none;">en</div>
 <button id="new" onclick="board.newGame()">New</button>
-<script src="15.js"></script>
+<script src="/js/15.js"></script>
 
 - Click or tap a tile to slide.
 - The puzzle is completed when tiles are in <button onclick="board.showGoal()">this arrangement</button>.
@@ -21,5 +21,5 @@ tags:
     <button onclick="board.changeMode()">color</button> of the tiles can be changed.
 - You can <button onclick="board.incPuzzleSize()">increase</button> the size of the puzzle to 24 Puzzle for example.
 - You can also <button onclick="board.decPuzzleSize()">decrease</button> the size of the puzzle to 8 Puzzles.
-- The settings are saved at <a href="https://en.wikipedia.org/wiki/Web_storage">local storage</a> of this browzer.
+- The settings are saved at [local storage](https://en.wikipedia.org/wiki/Web_storage) of this browzer.
 - Once loaded, the puzzle can be solved offline.
