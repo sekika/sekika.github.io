@@ -23,4 +23,3 @@ tags:
 - You can also <button onclick="board.decPuzzleSize()">decrease</button> the size of the puzzle to 8 Puzzles.
 - The settings are saved at <a href="https://en.wikipedia.org/wiki/Web_storage">local storage</a> of this browzer.
 - Once loaded, the puzzle can be solved offline.
-- <a href="15-ja.html">日本語版</a>もあります。
