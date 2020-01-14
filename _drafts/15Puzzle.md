@@ -1,0 +1,26 @@
+---
+layout: post
+title: 15 Puzzle
+tags:
+- game
+- puzzle
+- javascript
+- english
+---
+<canvas id="canvas">This browzer does not support canvas.</canvas>
+<div id="message"></div>
+<div id="lang" style="display: none;">en</div>
+<button id="new" onclick="board.newGame()">New</button>
+<script src="15.js"></script>
+
+- Click or tap a tile to slide.
+- The puzzle is completed when tiles are in <button onclick="board.showGoal()">this arrangement</button>.
+- "New" button shuffles tiles and starts a new puzzle.
+- You can <button onclick="board.restartGame()">restart</button> the puzzle with the same arrangement.
+- The <button onclick="board.changeTileSize()">size</button> and
+    <button onclick="board.changeMode()">color</button> of the tiles can be changed.
+- You can <button onclick="board.incPuzzleSize()">increase</button> the size of the puzzle to 24 Puzzle for example.
+- You can also <button onclick="board.decPuzzleSize()">decrease</button> the size of the puzzle to 8 Puzzles.
+- The settings are saved at <a href="https://en.wikipedia.org/wiki/Web_storage">local storage</a> of this browzer.
+- Once loaded, the puzzle can be solved offline.
+- <a href="15-ja.html">日本語版</a>もあります。
