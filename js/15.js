@@ -40,7 +40,8 @@ const message = {
         'finished': 'Finished in MOVE moves!',
         'bestScore': ' Best score 😁',
         'goal': 'This is the solved position.',
-        'color': 'Select color of tiles'
+        'color': 'Select color of tiles',
+        'inputSize': 'Input size of the tiles.'
     },
     'ja': {
         'puzzle': 'パズル',
@@ -50,7 +51,8 @@ const message = {
         'finished': 'MOVE手で完成！',
         'bestScore': '最短記録だ😁',
         'goal': 'この配置を目指します。',
-        'color': '駒の色を選んでください。'
+        'color': '駒の色を選んでください。',
+        'inputSize': '駒の大きさを入力してください。'
     }
 }[lang]
 
@@ -255,7 +257,7 @@ const board = {
     },
     changeTileSize: function() { // Size of tile button
         this.loadSetting();
-        const size = prompt("Tile size : ", this.gridWidth);
+        const size = prompt(message.inputSize, this.gridWidth);
         this.gridWidth = size || this.gridWidth;
         setStorage('size', this.gridWidth);
         this.initialize();
