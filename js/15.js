@@ -1,5 +1,8 @@
-// 15 puzzle by Katsutoshi Seki
-// MIT License
+// 15 Puzzle
+// https://sekika.github.io/2020/01/14/15Puzzle/
+//
+// Author: Katsutoshi Seki
+// License: MIT License
 
 'use strict';
 
