@@ -1,7 +1,7 @@
 ---
 layout: post
-title: 15 Puzzle
-excerpt: 15パズル
+title: 15パズル
+excerpt: 15パズルで遊びましょう。
 tags:
 - game
 - puzzle
@@ -11,7 +11,7 @@ tags:
 <div id="message"></div>
 <div id="lang" style="display: none;">ja</div>
 <button id="new" onclick="board.newGame()">New</button>
-<script src="15.js"></script>
+<script src="/js/15.js"></script>
 
 - 駒をクリックまたはタップしてスライドさせます。
 - <button onclick="board.showGoal()">目的の配置</button>を目指します。
