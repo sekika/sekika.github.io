@@ -1,0 +1,26 @@
+---
+layout: post
+title: 15 Puzzle
+excerpt: 15パズル
+tags:
+- game
+- puzzle
+- javascript
+---
+<canvas id="canvas">このブラウザはCanvasに対応していません。</canvas>
+<div id="message"></div>
+<div id="lang" style="display: none;">ja</div>
+<button id="new" onclick="board.newGame()">New</button>
+<script src="15.js"></script>
+
+- 駒をクリックまたはタップしてスライドさせます。
+- <button onclick="board.showGoal()">目的の配置</button>を目指します。
+- New ボタンで新しいゲームが始まります。
+- 同じ初期配置から<button onclick="board.restartGame()">やり直す</button>ことができます。
+- 駒の<button onclick="board.changeTileSize()">大きさ</button>
+と<button onclick="board.changeMode()">色</button>を変えることができます。
+- 24パズル、35パズルのように<button onclick="board.incPuzzleSize()">大きく</button>することができます。
+- 8パズルのように<button onclick="board.decPuzzleSize()">小さく</button>することもできます。
+- 設定はブラウザの[ローカルストレージ](https://ja.wikipedia.org/wiki/%E3%82%A6%E3%82%A7%E3%83%96%E3%82%B9%E3%83%88%E3%83%AC%E3%83%BC%E3%82%B8)に保存されます。
+- 一度読み込めばオフラインでも遊べます。
+- [English version]({% post_url 2020-01-14-15Puzzle %}) is available.
