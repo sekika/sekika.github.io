@@ -1,0 +1,30 @@
+---
+layout: post
+title: Unicode文字番号変換
+tag: javascript
+---
+文字と[Unicode 文字番号](http://www.unicode.org/charts/)の対応を調べます。片方を更新するともう片方が更新されます。
+
+* 文字 (1文字): <input type="text" name="char" id="char" size="2" maxlength="1" value="" onkeyup="calcCode()">
+* Unicode 文字番号 (16進数): U+<input type="text" name="code" id="code" size="8" maxlength="6" value="" onkeyup="calcChar()">
+
+<script>
+'use strict';
+function calcCode() {
+    const char = document.getElementById("char").value;
+    let txtCode = "";
+    if (char.length) {
+        const code = char.charCodeAt(0);
+        txtCode = code.toString(16).toUpperCase();
+    }
+    document.getElementById("code").value = txtCode;
+}
+function calcChar() {
+    let txtCode = document.getElementById("code").value;
+    txtCode = txtCode.replace(/[^0-9A-Fa-f]/g,"");
+    document.getElementById("code").value = txtCode;
+    const code = parseInt(txtCode, 16);
+    const char = String.fromCharCode(code);
+    document.getElementById("char").value = char;
+}
+</script>
