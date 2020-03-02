@@ -2,7 +2,7 @@
 layout: post
 title: Excel 参考サイト
 date: 2015-11-10 10:27:37 +0000
-update: 2016-06-20 15:12:08 +0000
+update: 2020-03-02 04:22:53 +0000
 tags:
 - excel
 - link
@@ -30,7 +30,7 @@ Microsoft Excel の使い方について解説しているサイトへのリン�
 - [エクセル関数の技36](http://pc.nikkeibp.co.jp/pc21/tech/excel36/) (日経PC21)
 
 ## ワンポイント
-- [相対参照と絶対参照](http://sekika.github.io/2015/10/23/excel-absolute-reference/)
+- [相対参照と絶対参照](https://sekika.github.io/2015/10/23/excel-absolute-reference/)
 
 ## 関連記事
 - [Word 参考サイト]({% post_url 2015-11-06-word-link %})

@@ -11,7 +11,7 @@ tags:
 
 おおまかな手順は
 
-* [検索ページのスクリプト](http://la.ma.la/search.html)を[検索ページ](http://sekika.github.io/search/)に入れる。[search.md](https://github.com/sekika/sekika.github.io/blob/master/search.md), [_layouts/search.html](https://github.com/sekika/sekika.github.io/blob/master/_layouts/search.html), [_includes/head-search.htm](https://github.com/sekika/sekika.github.io/blob/master/_includes/head-search.html) (css と js ファイルの指定), [_includes/search.html](https://github.com/sekika/sekika.github.io/blob/master/_includes/search.html), [css/search.css](https://github.com/sekika/sekika.github.io/blob/master/css/search.css) といった感じで分割しておく。
+* [検索ページのスクリプト](http://la.ma.la/search.html)を[検索ページ](https://sekika.github.io/search/)に入れる。[search.md](https://github.com/sekika/sekika.github.io/blob/master/search.md), [_layouts/search.html](https://github.com/sekika/sekika.github.io/blob/master/_layouts/search.html), [_includes/head-search.htm](https://github.com/sekika/sekika.github.io/blob/master/_includes/head-search.html) (css と js ファイルの指定), [_includes/search.html](https://github.com/sekika/sekika.github.io/blob/master/_includes/search.html), [css/search.css](https://github.com/sekika/sekika.github.io/blob/master/css/search.css) といった感じで分割しておく。
 * [index.js](https://github.com/sekika/sekika.github.io/blob/master/js/index.js) を作成する。
 * [roma.js](http://la.ma.la/roma.js) を入れる。
 

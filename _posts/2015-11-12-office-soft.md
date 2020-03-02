@@ -2,7 +2,7 @@
 layout: post
 title: オフィスソフトの比較
 date: 2015-11-12 03:01:50 +0000
-update: 2015-11-20 02:09:55 +0000
+update: 2020-03-02 04:22:53 +0000
 tags:
 - word
 - excel
@@ -74,8 +74,8 @@ Microsoft Officeには複数のバージョンがあり、バージョンによ�
 
 Office 2007 以降では、拡張子に「x」と「m」がつけられている。それまでは、Microsoft 独自のバイナリ形式であったファイルの形式を、<a href="https://ja.wikipedia.org/wiki/Office_Open_XML">Office Open XML</a>（```OOXML```）と呼ばれるXMLベースの国際的な標準規格の形式へと変更した。標準拡張子の「x」は、このXMLを意味するものと考えられる。複数のXMLファイルをzipで圧縮することにより、1つのファイルとしている。また、マクロ感染型ウィルスに感染することを防ぐために、マクロが有効な文書では拡張子を変えている。
 
-- [Word 参考サイト](http://sekika.github.io/2015/11/06/word-link/)
-- [Excel 参考サイト](http://sekika.github.io/2015/11/10/excel-link/)
+- [Word 参考サイト](https://sekika.github.io/2015/11/06/word-link/)
+- [Excel 参考サイト](https://sekika.github.io/2015/11/10/excel-link/)
 - [PowerPoint 参考サイト]({% post_url 2015-11-20-powerpoint-link %})
 
 ## Google ドキュメント

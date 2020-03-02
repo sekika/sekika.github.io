@@ -134,5 +134,5 @@ git config --global user.email sekika@users.noreply.github.com
 
 ## 他の記事 ##
 - [Office Open XML の git ファイル管理](/2015/10/19/office-open-xml-git/)
-- [GitHub リポジトリに大量のファイルを一括登録する方法](http://sekika.github.io/2016/06/03/github-many-files/)
+- [GitHub リポジトリに大量のファイルを一括登録する方法](https://sekika.github.io/2016/06/03/github-many-files/)
 
