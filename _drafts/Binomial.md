@@ -7,27 +7,31 @@ tags:
 ---
 二項分布がポアソン分布によって近似される様子をグラフで確認するプログラムを作成した。
 
-試行回数 n 確率 p の[二項分布](https://ja.wikipedia.org/wiki/%E4%BA%8C%E9%A0%85%E5%88%86%E5%B8%83)の確率質量関数
+試行回数 n 確率 p の[二項分布](https://ja.wikipedia.org/wiki/%E4%BA%8C%E9%A0%85%E5%88%86%E5%B8%83)の確率分布関数
 
-[[ P(X=x) = {}_n \mathrm{C}_x p^x(1-p)^{n-x} ]]
+[[ P(x) = {}_n \mathrm{C}_x p^x(1-p)^{n-x} ]]
 
-は、np = m を一定として n → ∞, p → 0 の極限を取ると、すなわち n が非常に大きくて p が非常に小さいときに、np = m として期待値 m 分散 m の[ポアソン分布](https://ja.wikipedia.org/wiki/%E3%83%9D%E3%82%A2%E3%82%BD%E3%83%B3%E5%88%86%E5%B8%83)の確率質量関数
+は、n が非常に大きくて p が非常に小さいときに、m = np として[ポアソン分布](https://ja.wikipedia.org/wiki/%E3%83%9D%E3%82%A2%E3%82%BD%E3%83%B3%E5%88%86%E5%B8%83)の確率分布関数
 
-[[ P(X=x) = \frac{m^x e^{-m}}{x!} ]]
+[[ P(x) = \frac{m^x e^{-m}}{x!} ]]
 
 に近似される。このページでは、その様子をグラフで確認する。
 
 m と n の値をテキストボックスに直接入力（mは小数の入力可能）する。ボタンで1ずつ増減できる。p は計算される。
 
+<hr>
+
 <ul>
 <li>m = <input name="m" id="m" type="text" value="2" size="7" onkeyup="update()">
 <input type="button" value="-" onclick="decM();">
-<input type="button" value="+" onclick="incM();">
+<input type="button" value="+" onclick="incM();"></li>
 <li>n = <input name="n" id="n" type="text" value="10" size="7" onkeyup="update()">
 <input type="button" value="-" onclick="decN();">
-<input type="button" value="+" onclick="incN();">
-<li><div id="p">p = 0.3</div>
+<input type="button" value="+" onclick="incN();"></li>
+<li><div id="p">p = 0.3</div></li>
 </ul>
+
+<hr>
 
 <!-- -------------------------------------------------------------------------------------------- -->
 <canvas id="canvas" width="600" height="600"
@@ -38,7 +42,7 @@ m と n の値をテキストボックスに直接入力（mは小数の入力�
 <script>
 'use strict';
 const maxM = 300;
-const maxN = 1000000;
+const maxN = 100000;
 update();
 
 function decN() {
@@ -97,7 +101,7 @@ function incM() {
 
 function update() {
     // Initialize canvas
-    var c, ctx, textM, textN, m, n, maxX, maxNorm, pZero, legendX, legendY;
+    var c, ctx, textM, textN, m, n, maxX, maxP, pZero, legendX, legendY;
     c = document.getElementById('canvas');
     ctx = c.getContext('2d');
     ctx.clearRect(0, 0, c.width, c.height);
@@ -152,14 +156,15 @@ function update() {
     if (ctx.unitX < 1) {
         ctx.unitX = 1;
     }
-    // maxNorm = 1 / Math.sqrt(2 * Math.PI * m);
-    var logP = logcomb(n, m) + m * Math.log(p) + (n-m) * Math.log(1-p);
-    maxNorm = Math.pow(Math.E, logP);
+    var modeX = Math.round(m);
+    var logP = logcomb(n, modeX) + modeX * Math.log(p) + (n-modeX) * Math.log(1-p);
+    maxP = Math.pow(Math.E, logP) * 1.1;
     pZero = Math.pow(Math.E, -m);
-    ctx.unitY = -Math.floor(500 / Math.max(maxNorm, pZero));
+    ctx.unitY = -Math.floor(500 / Math.max(maxP, pZero));
 
     // Draw graphs
     if (m > 0) {
+        ctx.labelY = "P";
         ctx.strokeStyle = "black";
         ctx.fillStyle = "black";
         drawAxis(ctx);
