@@ -2,7 +2,7 @@
 layout: post
 title: Google 認証システムの仕組み
 date: 2016-03-26 09:26:05 +0000
-update: 2020-12-06 11:53:15 +0000
+update: 2020-12-06 16:29:21 +0000
 tag: security
 ---
 Google アカウントの[2段階認証プロセス](https://www.google.co.jp/intl/ja/landing/2step/)では、[Google 認証システム](https://support.google.com/accounts/answer/1066447?hl=ja)をモバイル端末にインストールして、```QRコード（バーコード）```を読み込ませることで、30秒ごとに変化する6桁の```確認コード```を生成することができる。通常のパスワード認証に加え、確認コードによる認証をすることで、セキュリティを高めている。Amazon, Microsoft, Facebook, Dropbox, GitHub 等多くのサービスで同じシステムが採用されている。この仕組みについて記す。
@@ -32,10 +32,11 @@ Google 認証システムを使ってTOTPの確認コードを生成できるサ
 - [Microsoft](http://windows.microsoft.com/ja-jp/windows/two-step-verification-faq)
 - [Facebook](http://bey.jp/?p=9484)
 - [Dropbox](https://www.dropbox.com/ja/help/363)
-- [Evernote](https://evernote.com/intl/jp/contact/support/info/2fa/)
+- [Evernote](https://help.evernote.com/hc/ja/articles/208314238-2-%E6%AE%B5%E9%9A%8E%E8%AA%8D%E8%A8%BC%E3%82%92%E8%A8%AD%E5%AE%9A%E3%81%99%E3%82%8B)
 - [GitHub](https://help.github.com/articles/configuring-two-factor-authentication-via-a-totp-mobile-app/)
 - [WordPress](https://wordpress.org/plugins/two-factor-authentication/)
 - [Slack](https://get.slack.help/hc/ja/articles/204509068-2%E8%A6%81%E7%B4%A0%E8%AA%8D%E8%A8%BC%E3%82%92%E8%A8%AD%E5%AE%9A%E3%81%99%E3%82%8B)
+- [Discord](https://support.discord.com/hc/ja/articles/219576828-%E4%BA%8C%E6%AE%B5%E9%9A%8E%E8%AA%8D%E8%A8%BC%E3%81%AE%E3%82%BB%E3%83%83%E3%83%88%E3%82%A2%E3%83%83%E3%83%97)
 - [Yahoo! Japan](https://hanakomachi.wordpress.com/2014/09/29/yahoo-googleauthenticator/) - 秘密鍵の読み込み方法に注意
 
 ## TOTP を計算するモバイルアプリ ##
