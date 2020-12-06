@@ -2,7 +2,7 @@
 layout: post
 title: Google 認証システムの仕組み
 date: 2016-03-26 09:26:05 +0000
-update: 2020-12-06 19:01:28 +0000
+update: 2020-12-06 19:53:22 +0000
 tag: security
 ---
 Google アカウントの[2段階認証プロセス](https://www.google.co.jp/intl/ja/landing/2step/)では、[Google 認証システム](https://support.google.com/accounts/answer/1066447?hl=ja)をモバイル端末にインストールして、```QRコード（バーコード）```を読み込ませることで、30秒ごとに変化する6桁の```確認コード```を生成することができる。通常のパスワード認証に加え、確認コードによる認証をすることで、セキュリティを高めている。Amazon, Microsoft, Facebook, Dropbox, GitHub 等多くのサービスで同じシステムが採用されている。この仕組みについて記す。
@@ -55,9 +55,9 @@ TOTPをサポートするモバイルアプリには、例えば次のような�
 
 サーバーがQRコードを生成した時に、複数の端末でアプリから同じQRコードを読み込ませれば、同じ秘密鍵が登録されるため、どの端末からも同じ確認コードを生成できる。端末の紛失や故障、ソフトウェアの不具合によってモバイルアプリが起動できなくなった時のことを考えると、可能であれば2つ以上の端末に同じ秘密鍵を登録するのが望ましい。SMSや音声通話による2段階認証を設定する手段も有効である（端末を紛失しても電話番号の契約が継続していれば新しい端末で復活可能なため）。
 
-なお、すでにある端末に秘密鍵が登録されている時に、他の端末に同じ秘密鍵を登録することはできないため、すでに登録されている秘密鍵を無効にしてから、すべての端末に同じQRコードを新しく読み込み直す必要がある。Microsoft Authenticator では、[秘密鍵を一括してクラウドにバックアップ](https://docs.microsoft.com/ja-jp/azure/active-directory/user-help/user-help-auth-app-backup-recovery)することができる。
+Google 認証システムのアプリでは、アプリに登録されている秘密鍵を<a href="https://k-tai.watch.impress.co.jp/docs/news/1292825.html">QRコードによってエクスポート</a>できる。Microsoft Authenticator では、[秘密鍵を一括してクラウドにバックアップ](https://docs.microsoft.com/ja-jp/azure/active-directory/user-help/user-help-auth-app-backup-recovery)することができる。
 
-IIJ SmartKey では、アプリに登録されている秘密鍵をQRコードでエクスポートできるので、設定をコピーすることができる。ただし、2020年現在、著者が所有している iPad の中の1つで IIJ SmartKey が起動しなくなったため、著者は今後のサポートが不安となり Microsoft Authenticator に乗り換えた。QRコードを読み込ませることで、秘密鍵を引き継ぐことが可能である。
+IIJ SmartKey は、2016年の時点でアプリに登録されている秘密鍵をQRコードでエクスポートできるほぼ唯一のアプリとして重宝して使っていたが、2020年現在、著者が所有している iPad の中の1つで IIJ SmartKey が起動しなくなったため、これからは Google と Microsoft のアプリを使うこととした。
 
 ## 確認コードの計算アルゴリズム ##
 
