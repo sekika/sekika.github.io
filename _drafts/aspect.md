@@ -1,0 +1,32 @@
+---
+layout: post
+title: FFmpegによる動画のアスペクト比変換
+tag: video
+---
+オンライン授業などで動画を作成する機会が増えた。動画は短めに作成してMacの[QuickTimeで結合](https://ushigyu.net/2018/06/23/quicktime-movie-combine/)している。異なるアスペクト比（縦横比）の動画を結合する際に、まずは FFmpeg によってアスペクト比を変換する方法についてまとめる。
+
+## FFmpeg のインストール
+
+動画の変換には[FFmpeg](https://www.ffmpeg.org/)が便利であり、[Homebrew](https://brew.sh/index_ja)をインストールしてから
+
+brew install ffmpeg
+
+でインストールできる。ffmpeg を使えば、さまざまなファイル形式の動画ファイル INPUT_FILE を
+
+ ffmpeg -i INPUT_FILE -pix_fmt yuv420p output.mp4
+
+のように、INPUT_FILE をQuickTimeで再生できる[YUV420 形式](https://ja.wikipedia.org/wiki/YUV)のmp4 に変換することができる。
+
+## アスペクト比の変換
+
+アスペクト比 4:3 で収録された動画と 16:9 で収録された動画が混在しているときに、QuickTime で結合する前に、すべての動画を 16:9 のアスペクト比に変換するという作業を考える。
+
+ffmpeg -i INPUT_FILE -pix_fmt yuv420p -aspect "16:9" output.mp4
+
+とすればアスペクト比を変換できるが、この方法だと画像が横長に拡大されてしまい、資料を提示している場合は読みにくくなってしまう。そこで、画像は4:3のままで、左右に黒いボックスを付け加えて動画の画面サイズだけ16:9にするにはどうすれば良いのだろうか。
+
+そのための方法について、ネットを調べ回った結果、[Redditの回答より](https://www.reddit.com/r/ffmpeg/comments/lknz38/padded_dimensions_cannot_be_smaller_than_input/)
+
+ ffmpeg -i INPUT_FILE -pix_fmt yuv420p -vf "pad=width=max(iw\,ih*(16/9)):height=ow/(16/9):x=(ow-iw)/2:y=(oh-ih)/2" output.mp4
+
+とすればうまくいくことが分かった。
