@@ -112,6 +112,9 @@ function move(pos) {
 
 キャンバスのマウスとタッチによる操作をともなう JavaScript プログラムを書くときには、まずはこのプログラムをコピーしてからプログラムを書けば、イベントを確認しながらプログラムを書けるので効率的であろう。最後にイベントを表示する処理を消してから公開すれば良い。
 
+## 作成例
+- [15パズル](https://sekika.github.io/2020/01/17/15Puzzle/) ([ソースコード](https://sekika.github.io/js/15.js))
+
 ## 参考サイト
 
 - [Using Touch Events with the HTML5 Canvas](http://bencentra.com/code/2014/12/05/html5-canvas-touch-events.html) (Ben Centra, 2014/12/5)
