@@ -6,10 +6,10 @@ tag: javascript
 テキストに取り消し線 ([合成可能なダイアクリティカルマーク](https://ja.wikipedia.org/wiki/%E5%90%88%E6%88%90%E5%8F%AF%E8%83%BD%E3%81%AA%E3%83%80%E3%82%A4%E3%82%A2%E3%82%AF%E3%83%AA%E3%83%86%E3%82%A3%E3%82%AB%E3%83%AB%E3%83%9E%E3%83%BC%E3%82%AF) の U+0336) をつけます。
 
 <p>文字入力:<br />
-<textarea id="string" onkeyup="striken()"></textarea>
+<textarea id="string" rows="4" cols="40" onkeyup="striken()"></textarea>
 </p>
 <p>取り消し線:<br />
-<textarea id="striken" readonly="true"></textarea>
+<textarea id="striken"  rows="4" cols="40" readonly="true"></textarea>
 </p>
 <button id="btnCopy" disabled="true">コピー</button>
 
