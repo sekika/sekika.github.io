@@ -20,7 +20,10 @@ function striken() {
     const string = document.getElementById("string").value;
     let txtStriken = "";
     for (const char of string.split('')) {
-    	txtStriken += chrStrikeThrough + char;
+        if (char != '\n') {
+        	txtStriken += chrStrikeThrough;
+        }
+    	txtStriken += char;
     }
     document.getElementById("striken").value = txtStriken;
     document.getElementById('btnCopy').disabled = false;
