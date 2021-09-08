@@ -8,10 +8,10 @@ tag: javascript
 <p>文字入力:<br />
 <textarea id="string" rows="4" cols="40" onkeyup="striken()"></textarea>
 </p>
-<p>取り消し線:<br />
+<p>̶取̶り̶消̶し̶線:<br />
 <textarea id="striken"  rows="4" cols="40" readonly="true"></textarea>
 </p>
-<button id="btnCopy" disabled="true">コピー</button>
+<button id="btnCopy" disabled="true">クリップボードにコピー</button>
 
 <script>
 'use strict';
