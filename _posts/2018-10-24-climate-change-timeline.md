@@ -2,7 +2,7 @@
 layout: post
 title: 気候変動への国際的取り組み年表
 date: 2018-10-24 16:40:49 +0000
-update: 2020-10-02 06:28:40 +0000
+update: 2021-10-14 06:25:31 +0000
 tag: environment
 ---
 気候変動に関する国際交渉の経緯です。
@@ -26,3 +26,4 @@ tag: environment
 |2017 |アメリカのトランプ大統領がパリ協定離脱表明 | ただし発効後3年は脱退を通告できず、通告後1年経たないと脱退が成立しない。[NHKの解説](http://www.nhk.or.jp/kaisetsu-blog/400/272922.html)
 |2018 |IPCCの1.5℃特別報告書 |工業化以前の水準から1.5°Cの気温上昇にかかる影響や関連する地球全体での温室効果ガス排出経路に関する特別報告書。参考:[政策決定者向け要約](https://www.ipcc.ch/site/assets/uploads/sites/2/2019/05/SR15_SPM_version_report_LR.pdf)と[環境書の解説](https://www.env.go.jp/press/106052.html) |
 |2019 |アメリカがパリ協定離脱を正式通告 |参考:[BBCの記事](https://www.bbc.com/japanese/50297884) |
+|2021|アメリカがパリ協定に復帰 |バイデン新大統領が復帰を決定。参考:[ジェトロの記事](https://www.jetro.go.jp/biznews/2021/02/d9f0b261a8e18d11.html) |
