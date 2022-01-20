@@ -1,7 +1,6 @@
 ---
 layout: post
 title: よく読まれている記事 (2021年)
-date:
 tags:
 - jekyll
 - rank
