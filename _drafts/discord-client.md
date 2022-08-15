@@ -3,13 +3,13 @@ layout: post
 title: Discord 簡易ボット
 tag: python
 ---
-[Discord](https://ja.wikipedia.org/wiki/Discord) のボットはサーバーに常駐することが想定されているものがほとんどである。サーバーに常駐せずに、サーバーに入って自分宛に特定のメッセージを送る、あるいは自分が管理するサーバー内のチャンネルに投稿する、といった動作をして、終わったらサーバーから抜ける簡易ボットを作成した。
+[Discord](https://ja.wikipedia.org/wiki/Discord) のボットはサーバーに常駐させて使うものが[ほとんど](https://top.gg/)である。常駐させずに、自分宛に特定のメッセージを送る、あるいは自分が管理するサーバー内のチャンネルに投稿する、といった動作をして、終わったらログアウトする簡易ボットを作成した。
 
 ## 準備
 
 通常のボットと同様に、以下の準備が必要となる。
 
-- [bot アカウントの作成](https://discordpy.readthedocs.io/en/stable/discord.html)とトークンの取得
+- [ボットアカウントの作成](https://discordpy.readthedocs.io/en/stable/discord.html)とトークンの取得
 - サーバーのチャンネルに投稿する場合には、サーバーに招待する。
 - `python3 -m pip install -U discord.py` によって [discord.py](https://pypi.org/project/discord.py/) を読み込む。
 
