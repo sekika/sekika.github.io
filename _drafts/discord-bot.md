@@ -11,7 +11,7 @@ tag: python
 
 通常のボットと同様に、以下の準備が必要となる。
 
-- [ボットアカウントを作成](https://discordpy.readthedocs.io/en/stable/discord.html)し、トークンを取得する。トークンを公開してはならない。
+- [ボットアカウントを作成](https://discordpy.readthedocs.io/ja/latest/discord.html)し、トークンを取得する。トークンを他者と共有してはならない。
 - サーバーのチャンネルに投稿する場合には、サーバーに招待する。
 - `python3 -m pip install -U discord.py` によって [discord.py](https://pypi.org/project/discord.py/) を読み込む。
 
@@ -23,10 +23,10 @@ tag: python
 
 以下の Python コードで、ユーザー宛に「やっほー」というメッセージを送信し、チャンネルに「こんにちは！」という投稿をする。パラメータはあらかじめ以下のように設定する。
 
-- `user_id`（int 型）には「やっほー」と送信するユーザーのIDを入れる。ユーザー設定の「詳細設定」で「開発者モード」をオンにすると、ユーザーを右クリックすることで「IDをコピー」することができるようになる。
-- `channel_id`（int 型）には「こんにちは！」と投稿するチャンネルのIDを入れる。開発者モードにすると、チャンネルを右クリックしてIDをコピーできる。
-- `token`（str 型）にはボットのトークンを入れる。プログラムを共有する場合にはトークンを共有しないように別ファイルで管理するなどの注意をする。
 - `path`（str 型）は`espresso.py` が保存されているディレクトリである。同じディレクトリに入れる場合には最初の2行は不要である。
+- `user_id`（int 型）には「やっほー」と送信するユーザーのID（ユーザー名とは無関係の整数）を入れる。ユーザー設定の「詳細設定」で「開発者モード」をオンにすると、ユーザーを右クリックすることで「IDをコピー」することができるようになる。
+- `channel_id`（int 型）には「こんにちは！」と投稿するチャンネルのID（整数）を入れる。開発者モードにすると、チャンネルを右クリックしてIDをコピーできる。
+- `token`（str 型）にはボットのトークンを入れる。プログラムを共有する場合にはトークンを共有しないように別ファイルで管理するなどの注意をする。
 
 ```python
 import sys
@@ -39,3 +39,7 @@ client.run(token)
 ```
 
 client.send_dm と client.send_channel はそれぞれ何回実行しても良いが、client.run(token) で投稿をした後は同じプログラム内では投稿できなくなる。
+
+## 参考
+- [discord.py ドキュメント](https://discordpy.readthedocs.io/ja/latest/index.html)
+- [How to create a non-interactive Discord bot](https://honzajavorek.cz/blog/how-to-create-non-interactive-discord-bot/) (Honza Javorek, Feb 6, 2021)
