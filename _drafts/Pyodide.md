@@ -1,20 +1,18 @@
 ---
 layout: post
-title: ブラウザでPython
+title: ブラウザで Python が動くよ
 tag: python
 ---
-Pyodide のテストコードを動かしてみた。ブラウザで Python を動かす。すごい！
-
-[ブラウザサイドでNumPyもscikit-learnもできるPython環境「Pyodide」がすごい](https://zenn.dev/bluepost/articles/93d1fa8eabce99)の記事を参考に、[テストコード](https://zenn.dev/bluepost/articles/93d1fa8eabce99#:~:text=https%3A//pyodide.org/en/stable/usage/quickstart.html%23alternative%2Dexample)を設置した。numpy, scipy, scikit-learn を import できる。
+Pyodide のテストコードを設置したら、ブラウザで Python が動いた。すごい！テキストボックスにコマンドを入れて「実行する」ボタンを押すだけで、対話モードで Python を使うことができる。
 
 <script src="https://cdn.jsdelivr.net/pyodide/v0.21.0/full/pyodide.js"></script>
 
-<input id="code" value="sum([1, 2, 3, 4, 5])" />
-<button onclick="evaluatePython()">Run</button>
+<input id="code" value="sum([1, 2, 3, 4, 5])" size="40"/>
+<button onclick="evaluatePython()">実行する</button>
 <br />
 <br />
-<div>Output:</div>
-<textarea id="output" style="width: 100%;" rows="6" disabled></textarea>
+<div>結果表示</div>
+<textarea id="output" style="width: 100%;" rows="15" disabled></textarea>
 
 <script>
     const output = document.getElementById("output");
@@ -24,14 +22,14 @@ Pyodide のテストコードを動かしてみた。ブラウザで Python を�
     output.value += ">>>" + code.value + "\n" + s + "\n";
     }
 
-    output.value = "Initializing...\n";
+    output.value = "初期化中...\n";
     // init Pyodide
     async function main() {
     let pyodide = await loadPyodide();
     await pyodide.loadPackage("numpy");
     await pyodide.loadPackage("scipy");
     await pyodide.loadPackage("scikit-learn");
-    output.value += "Ready!\n";
+    output.value += "準備できたよ!\n";
     return pyodide;
     }
     let pyodideReadyPromise = main();
@@ -46,3 +44,18 @@ Pyodide のテストコードを動かしてみた。ブラウザで Python を�
     }
     }
 </script>
+
+[ブラウザサイドでNumPyもscikit-learnもできるPython環境「Pyodide」がすごい](https://zenn.dev/bluepost/articles/93d1fa8eabce99)の記事を参考に、[テストコード](https://pyodide.org/en/stable/usage/quickstart.html#alternative-example)を設置した。numpy, scipy, scikit-learn を import できるようにしておいた。たとえば import numpy as np とすると undefined と出力されるが、きちんと import できている。
+
+
+## Pyodide とは何か？
+
+[Pyodite のページ](https://pyodide.org/en/stable/)から What is Pyodide? を以下に訳します。 
+
+Pyodide は CPython の WebAssembly / [Emscripten](https://emscripten.org/) への移植です。
+
+Pyodide は、micropip によってブラウザ内で Python パッケージをインストールして走らせることを可能とします。PyPI で wheel が配布されている純粋な Python のパッケージであれば、すべてサポートされます。さらに、多くの C 言語の拡張パッケージが Pyodide に移植されています。その中には、regex, pyyaml, lxml のような多くの一般的なパッケージや、numpy, pandas, scipy, matplotlib, scikit-learn のような科学分野の Python パッケージが含まれます。
+
+Pyodide は強力な Javascript ⟺ Python 間の関数インターフェイスを提供しているため、言語間の摩擦をほとんど感じることなしに、この2つの言語を自由に混ぜて使うことができます。たとえば、エラー制御のフルサポート（片方の言語でエラーを発生させ、もう片方でエラーをキャッチする）、async と await の処理など、他にも色々あります。
+
+ブラウザ内で実行されるときには、Python は Web API に完全にアクセスできます。
