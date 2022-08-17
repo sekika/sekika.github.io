@@ -39,7 +39,10 @@ client.send_channel(channel_id, 'こんにちは！')
 client.run(token)
 ```
 
-client.send_dm と client.send_channel はそれぞれ何回実行しても良いが、client.run(token) で投稿をした後は同じプログラム内では投稿できなくなる。
+補足
+
+- client.send_dm と client.send_channel はそれぞれ何回実行しても良いが、client.run(token) で投稿をした後は同じプログラム内では投稿できなくなる。
+- 特定のユーザーID宛にメッセージを送る send_dm_me(message) というメソッドや、特定のトークンでボットを走らせる run_bot() というメソッドを Client クラスに作っておくことで、より手軽に呼び出すことができる。
 
 ## 参考
 - [discord.py ドキュメント](https://discordpy.readthedocs.io/ja/latest/index.html)
