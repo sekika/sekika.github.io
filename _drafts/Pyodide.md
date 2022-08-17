@@ -3,7 +3,7 @@ layout: post
 title: ブラウザで Python が動くよ
 tag: python
 ---
-Pyodide のテストコードを設置したら、ブラウザで Python が動いた。すごい！テキストボックスにコマンドを入れて「実行する」ボタンを押すだけで、対話モードで Python を使うことができる。
+下のボックスに Python のコマンドを入れて「実行する」ボタンを押すと、Python を実行できます。
 
 <script src="https://cdn.jsdelivr.net/pyodide/v0.21.0/full/pyodide.js"></script>
 
@@ -45,7 +45,7 @@ Pyodide のテストコードを設置したら、ブラウザで Python が動�
     }
 </script>
 
-[ブラウザサイドでNumPyもscikit-learnもできるPython環境「Pyodide」がすごい](https://zenn.dev/bluepost/articles/93d1fa8eabce99)の記事を参考に、[テストコード](https://pyodide.org/en/stable/usage/quickstart.html#alternative-example)を設置した。numpy, scipy, scikit-learn を import できるようにしておいた。たとえば import numpy as np とすると undefined と出力されるが、きちんと import できている。
+[ブラウザサイドでNumPyもscikit-learnもできるPython環境「Pyodide」がすごい](https://zenn.dev/bluepost/articles/93d1fa8eabce99)の記事を参考に、Pyodide の[テストコード](https://pyodide.org/en/stable/usage/quickstart.html#alternative-example)を設置した。numpy, scipy, scikit-learn を import できるようにしておいた。たとえば import numpy as np とすると undefined と出力されるが、きちんと import できている。
 
 
 ## Pyodide とは何か？
