@@ -50,7 +50,7 @@ Pyodide のテストコードを設置したら、ブラウザで Python が動�
 
 ## Pyodide とは何か？
 
-[Pyodite のページ](https://pyodide.org/en/stable/)から What is Pyodide? を以下に訳します。 
+[Pyodide のページ](https://pyodide.org/en/stable/)から What is Pyodide? を以下に訳します。 
 
 Pyodide は CPython の WebAssembly / [Emscripten](https://emscripten.org/) への移植です。
 
