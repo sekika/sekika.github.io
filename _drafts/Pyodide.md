@@ -1,13 +1,11 @@
 ---
-layout: post
+layout: pyodide
 title: ブラウザで Python が動くよ
 tag: 
 - python
 - javascript
 ---
 下のボックスに Python のコマンドを入れて「実行する」ボタンを押すと、対話モードで Python が動きます。
-
-<script src="https://cdn.jsdelivr.net/pyodide/v{{ site.katex-version }}/full/pyodide.js"></script>
 
 <input id="code" value="sum([1, 2, 3, 4, 5])" size="40"/>
 <button onclick="evaluatePython()">実行する</button>
