@@ -1,7 +1,9 @@
 ---
 layout: post
 title: ブラウザで Python が動くよ
-tag: python
+tag: 
+- python
+- javascript
 ---
 下のボックスに Python のコマンドを入れて「実行する」ボタンを押すと、対話モードで Python が動きます。
 
