@@ -18,20 +18,9 @@ tag:
 
 まずは、解独にモジュールを作成して、Kaidoku 1.0.0 として公開した。モジュールの使い方は[サンプルスクリプト](https://github.com/sekika/kaidoku/blob/master/dev/sample.py)のように簡単なもので、局面の文字列を引数として呼び出せばヒントの文字列がインスタンスのプロパティとして設定される。
 
-次に[JavaScript](https://github.com/sekika/kaidoku/blob/master/docs/assets/js/sudoku.js)から Pyodide を読み込む。async function hint() の中で
+次に[JavaScript](https://github.com/sekika/kaidoku/blob/master/docs/assets/js/sudoku.js)から Pyodide を読み込む。micropip で kaidoku を読み込む時に、pip の依存パッケージを読み込むとうまくいかず、依存パッケージは不要なので[Micropip API](https://pyodide.org/en/stable/usage/api/micropip-api.html) に書かれているように deps=False を指定して `await micropip.install("kaidoku", deps=False);` とするとエラーになる。JavaScript から呼び出しているのだから、Python と同じ引数の指定方法ではだめだ。しかし、どうやって deps のオプションを指定するのだろうか？と考えて、よくわからなかったので deps は3番目の引数だから3番目が false になっていればいいのかな、と思って `await micropip.install("kaidoku", false, false);` としたところうまくいった。
 
-    let pyodide = await loadPyodide();
-    await pyodide.loadPackage("micropip");
-    const micropip = pyodide.pyimport("micropip");
-    await micropip.install("kaidoku", false, false);
-
-のように読み込んでいる。ヒントボタンを押すたびに読み込まれるので、ボタンを押す前に読み込んでおく方が良さそうであるが、そのあたりのうまい書き方はよくわからない。ここではまったのは、micropip で kaidoku を読み込もうとすると、kaidoku の依存パッケージである ConfigObj がみつからないといわれてうまくいかなかった。ConfigObj はコマンドラインの実行時に設定ファイルを読み込むために使っているもので、今回使う機能には必要ない。また、読み込みは最小限にしたいことから、依存パッケージを読み込まない方が良い。[Micropip API](https://pyodide.org/en/stable/usage/api/micropip-api.html) には
-
-    async micropip.install(requirements: str | list[str], keep_going: bool = False, deps: bool = True, credentials: Optional[str] = None, pre: bool = False) → None
-
-のように書かれているから、await micropip.install("kaidoku", deps=False); とすれば良いのだな、と思って実行するとエラーになる。考えてみると JavaScript から呼び出しているのだから、Python と同じ引数の指定方法ではだめだ。しかし、どうやって deps のオプションを指定するのだろうか？と考えて、よくわからなかったので deps は3番目の引数だから3番目が false になっていればいいのかな、と思ってやってみたらうまくいった。
-
-続いて変数のやりとりについては[ここ](https://pyodide.org/en/stable/usage/type-conversions.html#type-translations-using-js-obj-from-py)に書かれているように[pyodide.registerJsModule(https://pyodide.org/en/stable/usage/type-conversions.html#type-translations-using-js-obj-from-py)を使うのが簡便なので
+変数のやりとりについては[ここ](https://pyodide.org/en/stable/usage/type-conversions.html#type-translations-using-js-obj-from-py)に書かれているように[pyodide.registerJsModule(https://pyodide.org/en/stable/usage/type-conversions.html#type-translations-using-js-obj-from-py)を使うのが簡便なので
 
     let js_namespace = { pos : current };
     pyodide.registerJsModule("js_namespace", js_namespace);
