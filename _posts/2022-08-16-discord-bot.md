@@ -32,8 +32,9 @@ tag: python
 ```python
 import sys
 sys.path.append(path)
+import discord
 import espresso
-client = espresso.Client()
+client = espresso.Client(intents=discord.Intents.default())
 client.send_dm(user_id, 'やっほー')
 client.send_channel(channel_id, 'こんにちは！')
 client.run(token)
