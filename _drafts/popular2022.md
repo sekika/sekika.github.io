@@ -28,7 +28,7 @@ tags:
 17. [エコロジカル・フットプリント](/2017/04/22/EcologicalFootprint/)
 18. [ブラウザで Python が動くよ](/2022/08/18/Pyodide/) (New)
 19. [「ファイナンス数学」参考サイト](/2021/01/11/math-link/) (New)
-20. [How to open a file from a terminal emulator](/2017/05/05/open-command/ (New)
+20. [How to open a file from a terminal emulator](/2017/05/05/open-command/) (New)
 
 2022年の1年間（12/21まで、それ以降はGoogle アナリティクス 4に移行）で、総ページビュー数 76413、そのうちでトップ3の割合が44%、トップ5の割合が58%でした。2011年のトップ20に入っていなかった記事には (New) が付されています。
 
