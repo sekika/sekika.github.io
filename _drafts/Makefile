@@ -23,3 +23,7 @@ index:
 linkcheck:
 	# pip install linkchecker
 	linkchecker http://sekika.github.io/
+
+reinstall:
+	rm ../Gemfile.lock
+	$(RUBY_PATH)/bundle install
