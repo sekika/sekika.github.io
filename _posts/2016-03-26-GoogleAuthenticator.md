@@ -2,7 +2,8 @@
 layout: post
 title: Google 認証システムの仕組み
 date: 2016-03-26 09:26:05 +0000
-update: 2020-12-06 19:53:22 +0000
+update: 2022-12-31 08:21:33 +0000
+hashtag: Google認証システム
 tag: security
 ---
 Google アカウントの[2段階認証プロセス](https://www.google.co.jp/intl/ja/landing/2step/)では、[Google 認証システム](https://support.google.com/accounts/answer/1066447?hl=ja)をモバイル端末にインストールして、```QRコード（バーコード）```を読み込ませることで、30秒ごとに変化する6桁の```確認コード```を生成することができる。通常のパスワード認証に加え、確認コードによる認証をすることで、セキュリティを高めている。Amazon, Microsoft, Facebook, Dropbox, GitHub 等多くのサービスで同じシステムが採用されている。この仕組みについて記す。

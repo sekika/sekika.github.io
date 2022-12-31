@@ -2,6 +2,7 @@
 layout: post-js-en
 ja: /2020/01/07/CanvasEvent/
 title: Show mouse and touch events in the HTML canvas element
+hashtag: JavaScript
 tags:
 - english
 - javascript

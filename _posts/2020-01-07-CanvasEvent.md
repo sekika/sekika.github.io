@@ -2,6 +2,7 @@
 layout: post-js
 title: Canvas のマウスとタッチのイベントを表示するプログラム
 date: 2020-01-07 06:12:16 +0000
+HashTag: JavaScript
 tag: javascript
 ---
 HTMLのCanvas要素におけるマウスとタッチのイベントの取り扱いを理解するために、発生したイベントの名前と位置を表示ながら線を描画するJavaScriptのプログラムを作成した。
