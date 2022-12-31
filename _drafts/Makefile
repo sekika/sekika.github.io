@@ -25,5 +25,5 @@ linkcheck:
 	linkchecker http://sekika.github.io/
 
 reinstall:
-	rm ../Gemfile.lock
+	rm -f ../Gemfile.lock
 	$(RUBY_PATH)/bundle install
