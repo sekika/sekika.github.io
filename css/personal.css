@@ -31,3 +31,9 @@ td{
     border:1px solid #00ff00;
     background: #f5fff5;
 }
+
+.fb-share-button { /* https://blog.lqd.jp/css/css/ */
+    display: inline-block;
+    height: 20px;
+    overflow: hidden;
+}

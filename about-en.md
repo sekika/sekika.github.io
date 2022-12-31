@@ -16,7 +16,7 @@ The service hosting the sekika.github.io website stores access logs. This data i
 
 This site uses [Google Analytics](https://analytics.google.com/analytics/) to know which pages are visited most frequently. Google Analytics uses [cookies](https://en.wikipedia.org/wiki/HTTP_cookie) to track and analyze the pages you visit. All the information that Google collects (including your IP address) will be treated accorging to [Google Analytics privacy policy](https://support.google.com/analytics/answer/6004245).
 
-Some social networking services (SNS) may automatically send information such as user IDs and accessing sites to the SNS when the user visits a page with SNS "buttons" while logged in, even if the user does not press the "button". Please refer to the <a href="https://twitter.com/privacy?lang=en">privacy policy of Twitter</a> for the Twitter Tweet button and the <a href="https://line.me/en/terms/policy/">privacy policy of LINE Corporation</a> for the Send button on LINE.
+Some social networking services (SNS) may automatically send information such as user IDs and accessing sites to the SNS when the user visits a page with SNS "buttons" while logged in, even if the user does not press the "button". Please refer to the <a href="https://twitter.com/privacy?lang=en">privacy policy of Twitter</a> for the Twitter Tweet button, the <a href="https://www.facebook.com/privacy/policy/">privacy policy of Meta Corporation</a> for the Facebook Share button, and the <a href="https://line.me/en/terms/policy/">privacy policy of LINE Corporation</a> for the Send button on LINE.
 
 ## Feedback
 If you have comments on this site, send an email to <a href="http://www.sciencedirect.com/science/article/pii/S0016706115000622">the author of this paper</a>.
