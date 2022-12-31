@@ -1,6 +1,7 @@
 ---
 layout: post-en
 title: How to open a file from a terminal emulator
+ja: /2015/10/27/open-command/
 date: 2017-05-05 04:29:05 +0000
 tags:
 - english
@@ -101,5 +102,3 @@ in ```.bashrc```. In Gnome, ```gnome-open``` is also available.
 
 - [start](https://technet.microsoft.com/en-us/library/bb491005.aspx)
 - [Invoke-Item](https://msdn.microsoft.com/en-us/powershell/reference/5.1/microsoft.powershell.management/invoke-item)
-
-[Japanese version of this post](/2015/10/27/open-command/)

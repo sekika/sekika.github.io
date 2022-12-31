@@ -1,6 +1,7 @@
 ---
 layout: post-en
 title: Uploading many files to GitHub repository
+ja: /2016/06/03/github-many-files/
 date: 2016-06-06 06:18:58 +0000
 tags:
 - english
@@ -96,5 +97,3 @@ Standard way to adding all the files to repository is ```git add -A; git commit;
 {% gist 570495bd0627acff6c836de18e78f6fd %}
 
 When you get error by ```git add -A; git commit; git push```, you can reset the commit and index by ```git reset HEAD~``` and run ```gitadd``` after that.
-
-[Japanese version of this post]({% post_url 2016-06-03-github-many-files %})

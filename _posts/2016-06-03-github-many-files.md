@@ -1,6 +1,7 @@
 ---
 layout: post
 title: GitHub リポジトリに大量のファイルを一括登録する方法
+en: /2016/06/06/github-many-files/
 date: 2016-06-03 07:16:54 +0000
 tags:
 - git

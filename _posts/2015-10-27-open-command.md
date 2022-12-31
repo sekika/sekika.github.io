@@ -1,6 +1,7 @@
 ---
 layout: post
 title: ターミナルからファイルを開く
+en: /2017/05/05/open-command/
 date: 2015-10-27 05:08:02 +0000
 tags:
 - mac
@@ -213,5 +214,3 @@ START ["タイトル"] [/D パス] [/I] [/MIN] [/MAX] [/SEPARATE | /SHARED]
 します。コマンド ラインから実行した場合は、そのパスに対する CD /D の実
 行と同じになります。
 ~~~
-
-[English version of this post](/2017/05/05/open-command/)
