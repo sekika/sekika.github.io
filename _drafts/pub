@@ -6,10 +6,10 @@
 #
 # (1) Copy Filename to ../_posts/YY-MM-DD-Filename
 #     with "date:" field added
-# (2) The file is commited to git with commit message of:
+# (2) The draft file is removed from the git repository
+# (3) The file is commited to git with commit message of:
 #     Published on [permalink]
-# (3) The change is pushed to master branch
-# (4) The draft file is removed from the git repository
+# (4) The change is pushed to master branch
 # (5) Now just wait for jekyll at GitHub Pages to build
 
 Filename=$1
@@ -55,6 +55,12 @@ if [ `diff $Filename ../_posts/$DestFile | wc -l` -ne 2 ]; then
   echo "Something wrong. Stop. Check ../_posts/$DestFile"; exit
 fi
 
+echo "Removing draft."
+cd ../_drafts  || { echo "cd ../_drafts failed. Stop."; exit; }
+git rm -f $Filename || { echo "git rm $Filename failed. Stop."; exit; }
+git commit -m "Remove draft because it was published" || \
+   { echo "Commit failed. Stop."; exit; }
+
 # Search index for http://sekika.github.io/search/
 if [ -e ../setup/index ]; then
   echo "Making search index."
@@ -71,11 +77,6 @@ git add $DestFile || \
    { echo "git add $DestFile at ../_posts failed. Stop."; exit; }
 git commit -m "Published on "$Permalink || \
    { echo "Commit at ../_posts failed. Stop."; exit; }
-echo "Removing draft."
-cd ../_drafts  || { echo "cd ../_drafts failed. Stop."; exit; }
-git rm -f $Filename || { echo "git rm $Filename failed. Stop."; exit; }
-git commit -m "Remove draft because it was published" || \
-   { echo "Commit failed. Stop."; exit; }
 echo "Pushing to master repository."
 git push origin master || { echo "Push failed. Stop."; exit; }
 echo "Published successfully."
