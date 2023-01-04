@@ -3,7 +3,7 @@ layout: default-en
 ---
 
 <div class="container">
-<h1>{{ page.tag | capitalize }} posts</h1>
+<h1>{% if page.title %}{{page.title}}{% else %}Pages about {{ page.tag | capitalize }} {% endif %}</h1>
 
 <ul>
 {% for post in site.tags[page.tag] %}
