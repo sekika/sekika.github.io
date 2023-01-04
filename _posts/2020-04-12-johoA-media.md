@@ -4,7 +4,7 @@ title: オンライン学習環境について
 date: 2020-04-12 10:37:58 +0000
 tag: toyo
 ---
-東洋大学経営学部の[情報処理実習A](http://www2.toyo.ac.jp/~seki_k/johoA.html)は、例年はPC教室で実施していますが、今学期は```自宅からのオンライン学習```となります。授業の内容は、PCを使って Microsoft Office (Word, Excel, PowerPoint) の使い方を学ぶというものです。そのため、受講には自宅で Microsoft Office を使うことができる環境が必須です。
+東洋大学経営学部の[情報処理実習A](https://sekika.github.io/toyo/johoA.html)は、例年はPC教室で実施していますが、今学期は```自宅からのオンライン学習```となります。授業の内容は、PCを使って Microsoft Office (Word, Excel, PowerPoint) の使い方を学ぶというものです。そのため、受講には自宅で Microsoft Office を使うことができる環境が必須です。
 
 私が実施する他の授業では、スマホのみでも履修可能となるように工夫をする予定ですが、以下の環境を整えておく方がはるかに学習効率は高いものと思います。
 

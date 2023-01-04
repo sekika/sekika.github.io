@@ -2,14 +2,13 @@
 layout: post
 title: 「情報処理実習D」参考サイト
 date: 2015-12-08 06:34:17 +0000
-update: 2018-09-27 02:37:13 +0000
+update: 2023-01-04 20:16:07 +0000
 tag: link
 ---
 「情報処理実習D」の授業で参考にするサイトへのリンクです。
 
 ## 講義全般
-- [情報処理実習D: 講義情報](http://www2.toyo.ac.jp/~seki_k/johoD.html)
-- [受講者専用ページ](http://www2.toyo.ac.jp/~seki_k/johoD/index.html) (東洋大学外からはアクセス不可)
+- [情報処理実習D: 講義情報](https://sekika.github.io/toyo/johoD.html)
 - [ToyoNet 情報関連ポータル](http://www.toyo.ac.jp/site/toyonet/)
 
 ## プログラミング教育
