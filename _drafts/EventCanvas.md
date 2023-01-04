@@ -45,7 +45,7 @@ var c = document.getElementById('canvas');
 var ctx = c.getContext('2d');
 ```
 
-the canvas and context are read by the global variables c and ctx. たとえば mousedown のイベントは
+the canvas and context are read by the global variables c and ctx. For example, the mousedown event is read as follows.
 
 ```javascript
     c.addEventListener('mousedown', function(e) {
@@ -54,7 +54,7 @@ the canvas and context are read by the global variables c and ctx. たとえば 
     });
 ```
 
-と読み取っている。ここで、pos(e)はeというイベントからマウスのキャンバスにおける座標をリストとして返す関数で
+Here, pos(e) is a function that returns the coordinates on the canvas of the mouse from the event e as a list, and is calculated like this.
 
 ```javascript
 function pos(e) {
@@ -65,11 +65,11 @@ function pos(e) {
 }
 ```
 
-のように計算している。すなわち、マウス位置のx座標 e.clientX からキャンバス左端の位置 c.getBoundingClientRect().left を引くことで、キャンバス上のx座標を得ることができる。y座標も同様である。strPair は座標のリストを文字列に変換する関数で strPair(pos(e)) によって e というイベントのマウスの位置を ” (x, y)” の形の文字列として得ることができる。
+This means that the x-coordinate on the canvas can be obtained by subtracting the position c.getBoundingClientRect().left of the left edge of the canvas from the x-coordinate e.clientX of the mouse position. The same is true for the y-coordinate. strPair is a function that converts a list of coordinates into a string, and strPair(pos(e)) can obtain the mouse position of the event e as a string of the form (x, y).
 
-マウスのイベント mouseup, click, mousemove についても同様である。
+The same is true for the mouse events mouseup, click and mousemove.
 
-タッチのイベントについては、マウスと違って複数の指によるタッチが生じるため、取り扱いが異なる。たとえば touchstart では
+Touch events are handled differently because, unlike a mouse, multiple finger touches occur. For example touchstart handles like this.
 
 ```javascript
    c.addEventListener('touchstart', function(e) {
@@ -84,7 +84,7 @@ function pos(e) {
     });
 ```
 
-としている。すなわち、タッチのイベントは e.changedTouches にリストとして格納されていて、その長さを e.changedTouches.length で取得できる。1つ目の指の座標は、先程の pos 関数を使って pos(e.changedTouches[0]) によって取得できる。touchcancel, touchend, touchmove も同様である。
+すなわち、タッチのイベントは e.changedTouches にリストとして格納されていて、その長さを e.changedTouches.length で取得できる。1つ目の指の座標は、先程の pos 関数を使って pos(e.changedTouches[0]) によって取得できる。touchcancel, touchend, touchmove も同様である。
 
 線を描画する処理については、マウスとタッチで同じ処理ができるように、mousedown と touchdown イベントからは down 関数を、mouseup と touchup イベントからは up 関数を、mousemove と touchmove イベントからは move 関数を、それぞれキャンバス上の座標を引数として呼び出している。グローバル変数 dragging を、down で true に、up で false にして、dragging が true のときだけ線を描画している。線の描画は、
 
