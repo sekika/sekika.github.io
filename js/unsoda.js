@@ -193,7 +193,7 @@ function scatter(code, table) {
     let label_x, label_y, type_x, type_y;
     let ret = '<ul>';
     if (tt[1] == 'size') {
-        label_x = 'size (μg)';
+        label_x = 'size (μm)';
         label_y = 'fraction';
         type_x = 'log';
         type_y = 'normal';
