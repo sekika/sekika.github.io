@@ -1,0 +1,33 @@
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://code.jquery.com/jquery-{{ site.jquery-version }}.min.js"></script>
+  <script>
+    (function() {
+        if(typeof jQuery=='undefined') {
+            document.write('<sc'
+			   + 'ript src="/js/jquery.min.js"></sc'
+			   + 'ript>');
+        }
+    }).call(this);
+  </script>
+
+  <!-- Bootstrap JS script -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/{{ site.bootstrap-version }}/js/bootstrap.min.js"></script>
+  <script>
+    (function() {
+	  if (typeof($.fn.modal) === 'undefined') {
+	    document.write('<sc'
+			   + 'ript async src="/js/bootstrap.min.js"></sc'
+			   + 'ript>');
+	  }
+    }).call(this);
+  </script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1JRPK4WZ2B"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-1JRPK4WZ2B');
+</script>
