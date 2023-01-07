@@ -8,15 +8,14 @@
 
 <h1>UNSODA data</h1>
 
-<p>This directory contains data converted from <a href="https://data.nal.usda.gov/dataset/unsoda-20-unsaturated-soil-hydraulic-database-database-and-program-indirect-methods-estimating-unsaturated-hydraulic-properties">UNSODA 2.0: Unsaturated Soil Hydraulic Database</a>. Here is how the files were obtained.</p>
+<p><a href="https://github.com/sekika/sekika.github.io/tree/master/file/unsoda">This directory</a> contains data converted from <a href="https://data.nal.usda.gov/dataset/unsoda-20-unsaturated-soil-hydraulic-database-database-and-program-indirect-methods-estimating-unsaturated-hydraulic-properties">UNSODA 2.0: Unsaturated Soil Hydraulic Database</a>. Here is how the files were obtained.</p>
 
 <ol>
 <li><a href="https://data.nal.usda.gov/dataset/unsoda-20-unsaturated-soil-hydraulic-database-database-and-program-indirect-methods-estimating-unsaturated-hydraulic-properties/resource/e4fdc08d-1e55-4f64-8f68-9002dfde67e0">UNSODA 2.0 zip package</a> unsoda.ZIP was downloaded where the timestamp was shown as Jun 08, 2020 and the MD5 sum was shown as 7c6170d47fe8b3df3b79d2f7d56fdc02.</li>
 <li>The zip archive was unpacked and unsoda.mdb was obtained. Then it was converted to a SQLite file <a href="unsoda.sqlite">unsoda.sqlite</a> (1.6 MB) with a <a href="https://www.rebasedata.com/convert-mdb-to-sqlite-online">converter at rebasedata.com</a>.</li>
-<li>All the tables in the database were converted to json files such as <a href="general.json">general.json</a> with <a href="https://github.com/sekika/sekika.github.io/blob/master/file/unsoda/json.sh">this shell script</a>. A <a href="tables.txt">list of tables</a> is also produced.</li>
+<li>All the tables in the database were converted to json files such as <a href="general.json">general.json</a> with <a href="https://github.com/sekika/sekika.github.io/blob/master/file/unsoda/json.sh">this shell script</a>. A <a href="tables.txt">list of tables</a> was also produced.</li>
 <li>"Sandy laom" was manually corrected to "Sandy loam" for code 3322 in general.json.</li>
 <li>Finally, the json files were concatenated into a single json file <a href="unsoda.json">unsoda.json</a> (2.2 MB) with <a href="https://github.com/sekika/sekika.github.io/blob/master/file/unsoda/concat_json.py">this Python script</a> for the use from the <a href="https://sekika.github.io/unsoda/">UNSODA viewer</a>. Most lists were converted to dictionaries with appropriate keys.</li>
-<li><a href="https://github.com/sekika/sekika.github.io/tree/master/file/unsoda">List of all the files in this directory</a> is shown.</li>
 </ol>
 
 <p>Copyright of the UNSODA database is shown as <a href="https://www.usa.gov/government-works">U.S. Public domain</a>. Suggested Citation is shown at <a href="https://data.nal.usda.gov/dataset/unsoda-20-unsaturated-soil-hydraulic-database-database-and-program-indirect-methods-estimating-unsaturated-hydraulic-properties">the source website</a>.</p>
