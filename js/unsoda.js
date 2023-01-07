@@ -279,8 +279,8 @@ function scatter(code, table) {
   let typeY
   let ret = '<ul>'
   if (tt[1] === 'size') {
-    labelX = 'size (μm)'
-    labelY = 'fraction'
+    labelX = 'Size (μm)'
+    labelY = 'Mass fraction'
     typeX = 'log'
     typeY = 'normal'
   } else {
