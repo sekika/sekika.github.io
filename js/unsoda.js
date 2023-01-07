@@ -8,6 +8,7 @@ const dataUrl = 'https://sekika.github.io/file/unsoda/unsoda.json'
 const showColumn = ['code', 'texture', 'series', 'location', 'depth_upper',
   'depth_lower'
 ]
+const unsatfit = ['2360', '2362', '3033', '4592', '4770', '4780', '3130', '3152', '3142', '3163', '3182', '4263', '4660', '4661', '3370', '3390', '3392', '3393', '4673', '3120']
 const showName = {
   OM_content: 'Organic matter',
   k_sat: '<strong>K<sub>s</sub></strong> (saturated hydraulic conductivity)',
@@ -155,6 +156,9 @@ function SelectID(code) {
   s += scatterGroup(code, 't-k')
   if (s) {
     html += '<h3>Hydraulic conductivity</h3>\n'
+    if (unsatfit.includes(code)) {
+      html += '<ul><li>Fitting result availabe at <a href="https://arxiv.org/abs/2212.02965">Fig. 6 and Appendix in this paper</a>.</li></ul>\n'
+    }
     const com = showComment(code, 'lhc', 'lab_hydr_cond', 'Laboratory') +
             showComment(code, 'fhc', 'field_hydr_cond', 'Field')
     if (com) {
