@@ -14,7 +14,7 @@ const ctx = c.getContext('2d');
 window.onload = function() {
     board.newGame();
     initEvent();
-}
+};
 
 // Block of predetermined parameters --------------------
 
@@ -57,7 +57,7 @@ const message = {
         'color': '駒の色を選んでください。',
         'inputSize': '駒の大きさを入力してください。'
     }
-}[lang]
+}[lang];
 
 // Appearance - Pull request is welcome
 
@@ -112,7 +112,7 @@ const initEvent = function() { // Add mouse and touch events
             board.down(pos(e.changedTouches[0]));
         }
     });
-}
+};
 
 const pos = function(e) { // Get position from event
     // Mouse position in canvas coordinate
@@ -123,20 +123,20 @@ const pos = function(e) { // Get position from event
     const boardY = Math.floor(y / board.gridHeight);
     // Return position in the board as 1D parameter
     return boardX + boardY * board.n;
-}
+};
 
 const showMessage = function(mes) { // Show message
     document.getElementById("message").textContent = mes;
-}
+};
 
 const getStorage = function(key) { // Get local storage.
     // Prefix is attached for indicating the name of this application.
     return localStorage.getItem(localStoragePrefix + key);
-}
+};
 
 const setStorage = function(key, value) { // Set local storage
     localStorage.setItem(localStoragePrefix + key, String(value));
-}
+};
 
 // Board object of the puzzle -----------------------------
 
@@ -432,7 +432,7 @@ const board = {
                 }
                 showMessage(mes);
             } else {
-                showMessage(message.start)
+                showMessage(message.start);
             }
         }
     },
