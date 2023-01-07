@@ -1,6 +1,5 @@
 "use strict";
 const data_url = 'https://sekika.github.io/file/unsoda/unsoda.json';
-const texture = ['Tuffaceous Rock', 'clay', 'clay loam', 'loam', 'loamy sand', 'sand', 'sandy', 'sandy clay', 'sandy clay loam', 'sandy loam', 'silt', 'silt loam', 'silty clay', 'silty clay loam', 'silty loam']
 const show_name = {'OM_content': 'Organic matter', 'k_sat': '<strong>K<sub>s</sub></strong> (saturated hydraulic conductivity)', 'theta_sat': '<strong>&theta;<sub>s</sub></strong> (saturated volumetric water content)', 'free_Fe_Al_oxide': 'Free Fe and Al oxide'}
 const unit = {'bulk_density': 'g/cm<sup>3</sup>', 'particle_density': 'g/cm<sup>3</sup>', 'porosity': 'cm<sup>3</sup>/cm<sup>3</sup>', 'OM_content': 'mass %', 'k_sat': 'cm/day', 'theta_sat': 'cm<sup>3</sup>/cm<sup>3</sup>', 'CEC': 'cmol/kg', 'pH': '', 'electrolyte_level': 'meq/L', 'SAR': 'mmol<sup>1/2</sup>/L<sup>1/2</sup>', 'ESP': '%', 'EC': 'dS/m', 'free_Fe_Al_oxide': 'mass %'}
 var data = '';
@@ -26,12 +25,23 @@ $.ajax({
 
 function set_query() {
     var text = 'Texture: <select id="texture" onChange="select()">\n<option value="all" selected>All\n';
+    let texture = values(data['general'], 'texture');
     for (let i = 0; i < texture.length; i++) {
         text += '<option value="' + texture[i] + '">' + texture[i] + '\n';
     }
     text += '</select>'
     $('#query').html(text);
     select();
+}
+
+function values(table, key) {
+    let value = new Set();
+    for (let code in table) {
+        if (key in table[code] && table[code][key]) {
+            value.add(table[code][key]);
+        }
+    }
+    return Array.from(value).sort();
 }
 
 function select() {
@@ -147,11 +157,16 @@ function SelectID(code) {
             html += '<li>' + show_title(key) + ': ' + mineral[key];
         }
     }
-    html += show_comment(code, 'lsc', 'lab_sat_cond', 'Laboratory K<sub>s</sub>')
-    html += show_comment(code, 'fsc', 'field_sat_cond', 'Laboratory K<sub>s</sub>')
-    html += show_comment(code, 'soilprop', 'soil_properties', 'Comment')
-    html += show_comment(code, 'lab', 'lab_general', 'Laboratory measurement')
-    html += show_comment(code, 'field', 'field_general', 'Field measurement')
+    let com = ''
+    com += show_comment(code, 'lab', 'lab_general', 'Laboratory')
+    com += show_comment(code, 'field', 'field_general', 'Field')
+    com += show_comment(code, 'soilprop', 'soil_properties', 'Soil properties')
+    com += show_comment(code, 'lsc', 'lab_sat_cond', 'Laboratory K<sub>s</sub>')
+    com += show_comment(code, 'fsc', 'field_sat_cond', 'Field K<sub>s</sub>')
+    if (com != '') {
+        html += '</ul>\n\n<h3>Method</h3>\n<ul>';
+        html += com;
+    }
     html += '</ul>';
     $('#show').html(html);
     for (let p in plot) {
