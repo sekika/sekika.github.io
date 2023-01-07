@@ -52,7 +52,7 @@ function select() {
     }
     var text = '<div id="list" style="max-height:400px; overflow-y:scroll;"><table border="1"><tr>';
     for (let j = 0; j < key.length; j++) {
-        text += '<td>' + key[j];
+        text += '<th>' + key[j];
     }
     let count = 0;
     for (let i = 0; i < data['code'].length; i++) {
