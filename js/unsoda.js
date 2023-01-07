@@ -164,7 +164,8 @@ function SelectID(code) {
   }
   s = scatterGroup(code, 't-d')
   if (s) {
-    html += `<h3>Diffusivity</h3>\n${s}`
+    html += '<h3>Diffusivity</h3>\n'
+    html += `<ul><li>Defined as D = K/C, C=-d&theta;/dh</li></ul>${s}`
   }
   if (code in data.particle_size) {
     html += '<h3>Particle size distribution</h3>\n'
