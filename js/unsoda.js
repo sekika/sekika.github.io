@@ -1,3 +1,9 @@
+// UNSODA Viewer
+// https://sekika.github.io/unsoda/
+//
+// Author: Katsutoshi Seki
+// License: MIT License
+
 "use strict";
 const data_url = 'https://sekika.github.io/file/unsoda/unsoda.json';
 const show_name = {'OM_content': 'Organic matter', 'k_sat': '<strong>K<sub>s</sub></strong> (saturated hydraulic conductivity)', 'theta_sat': '<strong>&theta;<sub>s</sub></strong> (saturated volumetric water content)', 'free_Fe_Al_oxide': 'Free Fe and Al oxide'}
