@@ -30,6 +30,12 @@ function set_query() {
         text += '<option value="' + texture[i] + '">' + texture[i] + '\n';
     }
     text += '</select>'
+    text += ' Series: <select id="series" onChange="select()">\n<option value="all" selected>All\n';
+    let series = values(data['general'], 'series');
+    for (let i = 0; i < series.length; i++) {
+        text += '<option value="' + series[i] + '">' + series[i] + '\n';
+    }
+    text += '</select>'
     $('#query').html(text);
     select();
 }
@@ -38,25 +44,35 @@ function values(table, key) {
     let value = new Set();
     for (let code in table) {
         if (key in table[code] && table[code][key]) {
-            value.add(table[code][key]);
+            value.add(cut_num(table[code][key]));
         }
     }
     return Array.from(value).sort();
 }
 
+function cut_num(str) {
+    let last = str.split(' ').slice(-1)[0];
+    if (jQuery.isNumeric(last) || 'III'.includes(last)) {
+        str = str.split(' ').slice(0,-1).join(' ');
+    }
+    return str;
+}
+
 function select() {
-    let key = ['code', 'texture', 'location', 'keyword'];
+    let key = ['code', 'texture', 'series', 'location', 'depth_upper', 'depth_lower'];
     let t = document.getElementById("texture").value;
     if (t == '') {
         return;
     }
+    let s = document.getElementById("series").value;
     var text = '<div id="list" style="max-height:400px; overflow-y:scroll;"><table border="1"><tr>';
     for (let j = 0; j < key.length; j++) {
-        text += '<th>' + key[j];
+        text += '<th>' + show_title(key[j]);
     }
     let count = 0;
     for (let i = 0; i < data['code'].length; i++) {
-        if (t == 'all' || data['general'][data['code'][i]]['texture'] == t) {
+        let d = data['general'][data['code'][i]];
+        if ((t == 'all' || t == d['texture']) && (s == 'all' || s == cut_num(d['series']))) {
             let id = data['code'][i]
             let d = data['general'][id];
             count += 1;
