@@ -5,9 +5,39 @@
 // License: MIT License
 
 "use strict";
+
 const data_url = 'https://sekika.github.io/file/unsoda/unsoda.json';
-const show_name = {'OM_content': 'Organic matter', 'k_sat': '<strong>K<sub>s</sub></strong> (saturated hydraulic conductivity)', 'theta_sat': '<strong>&theta;<sub>s</sub></strong> (saturated volumetric water content)', 'free_Fe_Al_oxide': 'Free Fe and Al oxide'}
-const unit = {'bulk_density': 'g/cm<sup>3</sup>', 'particle_density': 'g/cm<sup>3</sup>', 'porosity': 'cm<sup>3</sup>/cm<sup>3</sup>', 'OM_content': 'mass %', 'k_sat': 'cm/day', 'theta_sat': 'cm<sup>3</sup>/cm<sup>3</sup>', 'CEC': 'cmol/kg', 'pH': '', 'electrolyte_level': 'meq/L', 'SAR': 'mmol<sup>1/2</sup>/L<sup>1/2</sup>', 'ESP': '%', 'EC': 'dS/m', 'free_Fe_Al_oxide': 'mass %'}
+const show_column = ['code', 'texture', 'series', 'location', 'depth_upper',
+    'depth_lower'
+];
+const show_name = {
+    'OM_content': 'Organic matter',
+    'k_sat': '<strong>K<sub>s</sub></strong> (saturated hydraulic conductivity)',
+    'theta_sat': '<strong>&theta;<sub>s</sub></strong> (saturated volumetric water content)',
+    'free_Fe_Al_oxide': 'Free Fe and Al oxide'
+}
+const unit = {
+    'bulk_density': 'g/cm<sup>3</sup>',
+    'particle_density': 'g/cm<sup>3</sup>',
+    'porosity': 'cm<sup>3</sup>/cm<sup>3</sup>',
+    'OM_content': 'mass %',
+    'k_sat': 'cm/day',
+    'theta_sat': 'cm<sup>3</sup>/cm<sup>3</sup>',
+    'CEC': 'cmol/kg',
+    'pH': '',
+    'electrolyte_level': 'meq/L',
+    'SAR': 'mmol<sup>1/2</sup>/L<sup>1/2</sup>',
+    'ESP': '%',
+    'EC': 'dS/m',
+    'free_Fe_Al_oxide': 'mass %'
+}
+const plotly_margin = {
+    l: 100,
+    r: 30,
+    b: 70,
+    t: 10,
+    pad: 1
+}
 var data = '';
 var plot = {};
 
@@ -15,11 +45,12 @@ $.ajax({
     url: data_url,
     success: function(readdata) {
         data = readdata;
-        let code = location.search.replace('?','');
-        if ( data['code'].includes(code) ) {
+        let code = location.search.replace('?', '');
+        if (data['code'].includes(code)) {
             SelectID(code);
             let url = location.href.split('?')[0];
-            $('#query').html('<a href="' + url + '">Select data from database</a>');
+            $('#query').html('<a href="' + url +
+                '">Select data from database</a>');
             return;
         }
         set_query();
@@ -30,13 +61,15 @@ $.ajax({
 });
 
 function set_query() {
-    var text = 'Texture: <select id="texture" onChange="select()">\n<option value="all" selected>All\n';
+    var text =
+        'Texture: <select id="texture" onChange="select()">\n<option value="all" selected>All\n';
     let texture = values(data['general'], 'texture');
     for (let i = 0; i < texture.length; i++) {
         text += '<option value="' + texture[i] + '">' + texture[i] + '\n';
     }
     text += '</select>'
-    text += ' Series: <select id="series" onChange="select()">\n<option value="all" selected>All\n';
+    text +=
+        ' Series: <select id="series" onChange="select()">\n<option value="all" selected>All\n';
     let series = values(data['general'], 'series');
     for (let i = 0; i < series.length; i++) {
         text += '<option value="' + series[i] + '">' + series[i] + '\n';
@@ -59,83 +92,80 @@ function values(table, key) {
 function cut_num(str) {
     let last = str.split(' ').slice(-1)[0];
     if (jQuery.isNumeric(last) || 'III'.includes(last)) {
-        str = str.split(' ').slice(0,-1).join(' ');
+        str = str.split(' ').slice(0, -1).join(' ');
     }
     return str;
 }
 
 function select() {
-    let key = ['code', 'texture', 'series', 'location', 'depth_upper', 'depth_lower'];
     let t = document.getElementById("texture").value;
     if (t == '') {
         return;
     }
     let s = document.getElementById("series").value;
-    var text = '<div id="list" style="max-height:400px; overflow-y:scroll;"><table border="1"><tr>';
-    for (let j = 0; j < key.length; j++) {
-        text += '<th>' + show_title(key[j]);
+    var text =
+        '<div id="list" style="max-height:400px; overflow-y:scroll;"><table border="1"><tr>';
+    for (let j = 0; j < show_column.length; j++) {
+        text += '<th>' + show_title(show_column[j]);
     }
     let count = 0;
     for (let i = 0; i < data['code'].length; i++) {
         let d = data['general'][data['code'][i]];
-        if ((t == 'all' || t == d['texture']) && (s == 'all' || s == cut_num(d['series']))) {
-            let id = data['code'][i]
+        if ((t == 'all' || t == d['texture']) && (s == 'all' || s == cut_num(d[
+                'series']))) {
+            let id = data['code'][i];
             let d = data['general'][id];
             count += 1;
-            text += '<tr>'
-            for (let j = 0; j < key.length; j++) {
+            text += '<tr>';
+            for (let j = 0; j < show_column.length; j++) {
                 if (j == 0) {
-                    text += '<td><a href="javascript:SelectID(' + id + ');">' + d[key[j]] + '</a></td>';
+                    text += '<td><a href="javascript:SelectID(' + id + ');">' +
+                        d[show_column[
+                            j]] + '</a></td>';
                 } else {
-                    text += '<td>' + d[key[j]] + '</td>';
+                    text += '<td>' + d[show_column[j]] + '</td>';
                 }
             }
         }
     }
-    text = count + ' data selected' + text;
-    text += '</table></div>'
+    text = count + ' data selected' + text + '</table></div>';
     $('#table').html(text);
     $('#show').html('');
 }
 
 function SelectID(code) {
     var html = '<h2>UNSODA ' + code + '</h2>';
-    let target = document.getElementById("list");  
+    let target = document.getElementById("list");
     if (target) {
-        target.style.maxHeight="150px";
-    }      
-    if (location.search.replace('?','') != code) {
+        target.style.maxHeight = "150px";
+    }
+    if (location.search.replace('?', '') != code) {
         html += '<p><a href="?' + code + '">Permalink</a></p>';
     }
-    if (code in data['lab_drying_h-t'] || code in data['lab_wetting_h-t'] || code in data['field_drying_h-t'] || code in data['field_wetting_h-t']) {
+    let s = scatter_group(code, 'h-t');
+    if (s) {
         html += '<h3>Water retention</h3>\n';
-        let com = show_comment(code, 'lwr', 'lab_wat_ret', 'Laboratory') + show_comment(code, 'fwr', 'field_wat_ret', 'Field') 
+        let com = show_comment(code, 'lwr', 'lab_wat_ret', 'Laboratory') +
+            show_comment(code, 'fwr', 'field_wat_ret', 'Field');
         if (com) {
-            html += '<ul>'+ com + '</ul>';
+            html += '<ul>' + com + '</ul>';
         }
-        let tables = ['lab_drying_h-t', 'lab_wetting_h-t', 'field_drying_h-t', 'field_wetting_h-t'];
-        tables.forEach(table => {
-            html += scatter(code, table);
-        });
+        html += s;
     }
-    if (code in data['lab_drying_h-k'] || code in data['lab_wetting_h-k'] || code in data['field_drying_h-k'] || code in data['field_wetting_h-k'] || code in data['lab_drying_t-k'] || code in data['lab_wetting_t-k'] || code in data['field_drying_t-k'] || code in data['field_wetting_t-k'] || code in data['lab_drying_t-d'] || code in data['lab_wetting_t-d'] || code in data['field_drying_t-d'] || code in data['field_wetting_t-d'] ) {
+    s = scatter_group(code, 'h-k');
+    s += scatter_group(code, 't-k');
+    if (s) {
         html += '<h3>Hydraulic conductivity</h3>\n';
-        let com = show_comment(code, 'lhc', 'lab_hydr_cond', 'Laboratory') + show_comment(code, 'fhc', 'field_hydr_cond', 'Field') 
+        let com = show_comment(code, 'lhc', 'lab_hydr_cond', 'Laboratory') +
+            show_comment(code, 'fhc', 'field_hydr_cond', 'Field')
         if (com) {
-            html += '<ul>'+ com + '</ul>';
+            html += '<ul>' + com + '</ul>';
         }
-        let tables = ['lab_drying_h-k', 'lab_wetting_h-k', 'field_drying_h-k', 'field_wetting_h-k'];
-        tables.forEach(table => {
-            html += scatter(code, table);
-        });
-        tables = ['lab_drying_t-k', 'lab_wetting_t-k', 'field_drying_t-k', 'field_wetting_t-k'];
-        tables.forEach(table => {
-            html += scatter(code, table);
-        });
-        tables = ['lab_drying_t-d', 'lab_wetting_t-d', 'field_drying_t-d', 'field_wetting_t-d'];
-        tables.forEach(table => {
-            html += scatter(code, table);
-        });
+        html += s;
+    }
+    s = scatter_group(code, 't-d');
+    if (s) {
+        html += '<h3>Diffusivity</h3>\n' + s;
     }
     if (code in data['particle_size']) {
         html += '<h3>Particle size distribution</h3>\n';
@@ -143,15 +173,15 @@ function SelectID(code) {
     }
     if (code in data['aggregate_size_distribution']) {
         html += '<h3>Aggregate size distribution</h3>\n';
-        html += scatter(code, 'aggregate_size_distribution')
+        html += scatter(code, 'aggregate_size_distribution');
     }
 
     html += '<h3>General description</h3>\n<ul>\n';
     let d = data['general'][code];
-    for ( let key in d ) {
+    for (let key in d) {
         if (d[key]) {
-            if ( key.includes('ID') && !key.includes('site')) {
-                if ( d[key] != '999' ) {
+            if (key.includes('ID') && !key.includes('site')) {
+                if (d[key] != '999') {
                     let id = d[key]
                     key = key.replace('_ID', '');
                     html += '<li>' + show_title(key) + ': ' + data[key][id];
@@ -166,10 +196,11 @@ function SelectID(code) {
 
     html += '<h3>Soil properties</h3>\n<ul>\n';
     let sp = data['soil_properties'][code];
-    for ( let key in sp ) {
+    for (let key in sp) {
         if (sp[key] && key != 'code') {
             {
-                html += '<li>' + show_title(key) + ': ' + sp[key] + ' ' + unit[key];
+                html += '<li>' + show_title(key) + ': ' + sp[key] + ' ' + unit[
+                    key];
             }
         }
     }
@@ -180,11 +211,11 @@ function SelectID(code) {
         }
     }
     let com = ''
-    com += show_comment(code, 'lab', 'lab_general', 'Laboratory')
-    com += show_comment(code, 'field', 'field_general', 'Field')
-    com += show_comment(code, 'soilprop', 'soil_properties', 'Soil properties')
-    com += show_comment(code, 'lsc', 'lab_sat_cond', 'Laboratory K<sub>s</sub>')
-    com += show_comment(code, 'fsc', 'field_sat_cond', 'Field K<sub>s</sub>')
+    com += show_comment(code, 'lab', 'lab_general', 'Laboratory');
+    com += show_comment(code, 'field', 'field_general', 'Field');
+    com += show_comment(code, 'soilprop', 'soil_properties', 'Soil properties');
+    com += show_comment(code, 'lsc', 'lab_sat_cond', 'Laboratory K<sub>s</sub>');
+    com += show_comment(code, 'fsc', 'field_sat_cond', 'Field K<sub>s</sub>');
     if (com != '') {
         html += '</ul>\n\n<h3>Method</h3>\n<ul>';
         html += com;
@@ -198,7 +229,7 @@ function SelectID(code) {
 }
 
 function show_title(str) {
-    if ( str in show_name ) {
+    if (str in show_name) {
         str = show_name[str];
     } else {
         str = str.split('_').join(' ');
@@ -217,6 +248,18 @@ function show_comment(code, method, table, comment) {
         return '<li>' + comment + ': ' + data['comment_' + table][id];
     }
     return ''
+}
+
+function scatter_group(code, group) {
+    let html = '';
+    let tables = ['lab_drying_' + group, 'lab_wetting_' + group,
+        'field_drying_' +
+        group, 'field_wetting_' + group
+    ];
+    tables.forEach(table => {
+        html += scatter(code, table);
+    });
+    return html;
 }
 
 function scatter(code, table) {
@@ -241,7 +284,7 @@ function scatter(code, table) {
             'h': 'h (cm)',
             't': 'θ',
             'k': 'K (cm/day)',
-            'd': 'Diffusivity (cm^2/d)'
+            'd': 'D (cm^2/d)'
         }
         label_x = label[par[0]];
         label_y = label[par[1]];
@@ -249,13 +292,16 @@ function scatter(code, table) {
         type_y = 'log';
         if (par[0] == 't') {
             type_x = 'normal';
-        } 
+        }
         if (par[1] == 't') {
             type_y = 'normal';
-        } 
+        }
         ret += '<li>' + show_title(caption) + '</li>';
         if (tt[2] == 'h-t') {
-            ret += '<li><a href="https://seki.webmasters.gr.jp/swrc/?unsoda=' + code + '&place=' + tt[0] + '&process=' + tt[1] + '">Fit with various water retention models</a> data will be transferred</li>'
+            ret += '<li><a href="https://seki.webmasters.gr.jp/swrc/?unsoda=' +
+                code +
+                '&place=' + tt[0] + '&process=' + tt[1] +
+                '">Fit with various water retention models</a> data will be transferred</li>'
         }
     }
     ret += '<li>' + label_x + ' = ' + x.toString() + '</li>';
@@ -269,28 +315,22 @@ function scatter(code, table) {
     };
     let layout = {
         xaxis: {
-          type: type_x,
-          autorange: true,
-          title: {
-            text: label_x
-          }
+            type: type_x,
+            autorange: true,
+            title: {
+                text: label_x
+            }
         },
         yaxis: {
             type: type_y,
             autorange: true,
-          title: {
-            text: label_y
-          }
+            title: {
+                text: label_y
+            }
         },
         width: 400,
         height: 300,
-        margin: {
-            l: 100,
-            r: 30,
-            b: 70,
-            t: 10,
-            pad: 1
-        }
+        margin: plotly_margin
     };
     plot[table] = [p, layout];
     return ret;
