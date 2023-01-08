@@ -82,18 +82,15 @@ function values(table, key) {
   const value = new Set()
   for (const code in table) {
     if (key in table[code] && table[code][key]) {
-      value.add(cutNumeric(table[code][key]))
+      value.add(truncateSeries(table[code][key]))
     }
   }
   return Array.from(value).sort()
 }
 
-function cutNumeric(str) {
-  const last = str.split(' ').slice(-1)[0]
-  if (jQuery.isNumeric(last) || 'III'.includes(last)) {
-    str = str.split(' ').slice(0, -1).join(' ')
-  }
-  if (['Berlin', 'Dmitrov', 'FC', 'Heimdal', 'Hecla', 'Yolo', 'Virginia'].includes(str.split(' ')[0])) {
+function truncateSeries(str) {
+  strFirst = str.split(' ')[0]
+  if (!['Medium', 'S.'].includes(strFirst)) {
     str = str.split(' ')[0]
   }
   return str
@@ -113,7 +110,7 @@ function select() {
   let count = 0
   for (let i = 0; i < data.code.length; i++) {
     const d = data.general[data.code[i]]
-    if ((t === 'all' || t === d.texture) && (s === 'all' || s === cutNumeric(d.series))) {
+    if ((t === 'all' || t === d.texture) && (s === 'all' || s === truncateSeries(d.series))) {
       const id = data.code[i]
       const d = data.general[id]
       count += 1
