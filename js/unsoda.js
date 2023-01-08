@@ -85,7 +85,11 @@ function values(table, key) {
   const value = new Set()
   for (const code in table) {
     if (key in table[code] && table[code][key]) {
-      value.add(truncateSeries(table[code][key]))
+      let v = table[code][key]
+      if (key === 'series') {
+        v = truncateSeries(v)
+      }
+      value.add(v)
     }
   }
   return Array.from(value).sort()
