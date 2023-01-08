@@ -41,7 +41,6 @@ const plotlyMargin = {
 }
 let data = ''
 let plot = {}
-const loadCounter = 0
 
 $.ajax({
   url: dataUrl,
@@ -137,44 +136,72 @@ function select() {
   $('#show').html('')
 }
 
-async function selectID(code) {
-  let html = `<h2>UNSODA ${code}</h2>`
+function selectID(code) {
   const target = document.getElementById('list')
   if (target) {
     target.style.maxHeight = '150px'
   }
+  let html = `<h2>UNSODA ${code}</h2>`
   if (location.search.replace('?', '') !== code) {
     html += `<p><a href="?${code}">Permalink</a></p>`
   }
-  let s = scatterGroup(code, 'h-t')
-  if (s) {
-    html += '<h3>Water retention</h3>\n'
-    const com = showComment(code, 'lwr', 'lab_wat_ret', 'Laboratory') +
-            showComment(code, 'fwr', 'field_wat_ret', 'Field')
-    if (com) {
-      html += `<ul>${com}</ul>`
-    }
-    html += s
+  html += waterRetention(code)
+  html += hydraulicConductivity(code)
+  html += diffusivity(code)
+  html += sizeDistribution(code)
+  html += generalDescription(code)
+  html += soilProperties(code)
+  html += method(code)
+  $('#show').html(html)
+  drawPlot()
+}
+
+function waterRetention(code) {
+  const s = scatterGroup(code, 'h-t')
+  if (!s) {
+    return ''
   }
+  let html = '<h3>Water retention</h3>\n'
+  const com = showComment(code, 'lwr', 'lab_wat_ret', 'Laboratory') +
+          showComment(code, 'fwr', 'field_wat_ret', 'Field')
+  if (com) {
+    html += `<ul>${com}</ul>`
+  }
+  html += s
+  return html
+}
+
+function hydraulicConductivity(code) {
   s = scatterGroup(code, 'h-k')
   s += scatterGroup(code, 't-k')
-  if (s) {
-    html += '<h3>Hydraulic conductivity</h3>\n'
-    if (unsatfit.includes(code)) {
-      html += '<ul><li>Fitting result availabe at <a href="https://arxiv.org/abs/2212.02965">Fig. 6 and Appendix in this paper</a>.</li></ul>\n'
-    }
-    const com = showComment(code, 'lhc', 'lab_hydr_cond', 'Laboratory') +
-            showComment(code, 'fhc', 'field_hydr_cond', 'Field')
-    if (com) {
-      html += `<ul>${com}</ul>`
-    }
-    html += s
+  if (!s) {
+    return ''
   }
+  let html = '<h3>Hydraulic conductivity</h3>\n'
+  if (unsatfit.includes(code)) {
+    html += '<ul><li>Fitting result availabe at <a href="https://arxiv.org/abs/2212.02965">Fig. 6 and Appendix in this paper</a>.</li></ul>\n'
+  }
+  const com = showComment(code, 'lhc', 'lab_hydr_cond', 'Laboratory') +
+          showComment(code, 'fhc', 'field_hydr_cond', 'Field')
+  if (com) {
+    html += `<ul>${com}</ul>`
+  }
+  html += s
+  return html
+}
+
+function diffusivity(code) {
   s = scatterGroup(code, 't-d')
-  if (s) {
-    html += '<h3>Diffusivity</h3>\n'
-    html += `<ul><li>Defined as D = K/C, C=-d&theta;/dh</li></ul>${s}`
+  if (!s) {
+    return ''
   }
+  let html = '<h3>Diffusivity</h3>\n'
+  html += `<ul><li>Defined as D = K/C, C=-d&theta;/dh</li></ul>${s}`
+  return html
+}
+
+function sizeDistribution(code) {
+  let html
   if (code in data.particle_size) {
     html += '<h3>Particle size distribution</h3>\n'
     html += scatter(code, 'particle_size')
@@ -183,8 +210,11 @@ async function selectID(code) {
     html += '<h3>Aggregate size distribution</h3>\n'
     html += scatter(code, 'aggregate_size_distribution')
   }
+  return html
+}
 
-  html += '<h3>General description</h3>\n<ul>\n'
+function generalDescription(code) {
+  let html = '<h3>General description</h3>\n<ul>\n'
   const d = data.general[code]
   for (const key in d) {
     if (d[key]) {
@@ -193,8 +223,23 @@ async function selectID(code) {
   }
   html += showComment(code, 'general', 'general', 'Comment')
   html += '</ul>'
+  return html
+}
 
-  html += '<h3>Soil properties</h3>\n<ul>\n'
+function showGeneral(d, key) {
+  if (!key.includes('ID') || key.includes('site')) {
+    return `<li>${showTitle(key)}: ${d[key]}`
+  }
+  if (d[key] === '999') {
+    return ''
+  }
+  const id = d[key]
+  key = key.replace('_ID', '')
+  return `<li>${showTitle(key)}: ${data[key][id]}`
+}
+
+function soilProperties(code) {
+  let html = '<h3>Soil properties</h3>\n<ul>\n'
   const sp = data.soil_properties[code]
   for (const key in sp) {
     if (sp[key] && key !== 'code') {
@@ -209,17 +254,35 @@ async function selectID(code) {
       }
     }
   }
+  html += '</ul>'
+  return html
+}
+
+function method(code) {
   let com = showComment(code, 'lab', 'lab_general', 'Laboratory')
   com += showComment(code, 'field', 'field_general', 'Field')
   com += showComment(code, 'soilprop', 'soil_properties', 'Soil properties')
   com += showComment(code, 'lsc', 'lab_sat_cond', 'Laboratory K<sub>s</sub>')
   com += showComment(code, 'fsc', 'field_sat_cond', 'Field K<sub>s</sub>')
-  if (com !== '') {
-    html += '</ul>\n\n<h3>Method</h3>\n<ul>'
-    html += com
+  if (com === '') {
+    return ''
   }
-  html += '</ul>'
-  $('#show').html(html)
+  return `\n\n<h3>Method</h3>\n<ul>${com}</ul>`
+}
+
+function showComment(code, method, table, comment) {
+  const m = data.methodology[code]
+  if (`comment_${method}_ID` in m) {
+    const id = m[`comment_${method}_ID`]
+    if (id === '999') {
+      return ''
+    }
+    return `<li>${comment}: ${data[`comment_${table}`][id]}`
+  }
+  return ''
+}
+
+async function drawPlot() {
   await waitPlotly()
   for (const p in plot) {
     if (Object.hasOwn(plot, p)) {
@@ -250,30 +313,6 @@ function showTitle(str) {
   return str
 }
 
-function showGeneral(d, key) {
-  if (!key.includes('ID') || key.includes('site')) {
-    return `<li>${showTitle(key)}: ${d[key]}`
-  }
-  if (d[key] === '999') {
-    return ''
-  }
-  const id = d[key]
-  key = key.replace('_ID', '')
-  return `<li>${showTitle(key)}: ${data[key][id]}`
-}
-
-function showComment(code, method, table, comment) {
-  const m = data.methodology[code]
-  if (`comment_${method}_ID` in m) {
-    const id = m[`comment_${method}_ID`]
-    if (id === '999') {
-      return ''
-    }
-    return `<li>${comment}: ${data[`comment_${table}`][id]}`
-  }
-  return ''
-}
-
 function scatterGroup(code, group) {
   let html = ''
   const tables = [`lab_drying_${group}`, `lab_wetting_${group}`,
@@ -298,7 +337,7 @@ function scatter(code, table) {
   let labelY
   let typeX
   let typeY
-  let ret = '<ul>'
+  let html = '<ul>'
   if (tt[1] === 'size') {
     labelX = 'Size (μm)'
     labelY = 'Mass fraction'
@@ -323,17 +362,17 @@ function scatter(code, table) {
     if (par[1] === 't') {
       typeY = 'normal'
     }
-    ret += `<li>${showTitle(caption)}</li>`
+    html += `<li>${showTitle(caption)}</li>`
     if (tt[2] === 'h-t') {
-      ret += `<li><a href="https://seki.webmasters.gr.jp/swrc/?unsoda=${
+      html += `<li><a href="https://seki.webmasters.gr.jp/swrc/?unsoda=${
         code
       }&place=${tt[0]}&process=${tt[1]
       }">Fit with various water retention models</a> data will be transferred</li>`
     }
   }
-  ret += `<li>${labelX} = ${x.toString()}</li>`
-  ret += `<li>${labelY} = ${y.toString()}</li></ul>`
-  ret += `<div id="${table}"></div>`
+  html += `<li>${labelX} = ${x.toString()}</li>`
+  html += `<li>${labelY} = ${y.toString()}</li></ul>`
+  html += `<div id="${table}"></div>`
   const p = {
     x,
     y,
@@ -360,5 +399,5 @@ function scatter(code, table) {
     margin: plotlyMargin
   }
   plot[table] = [p, layout]
-  return ret
+  return html
 }
