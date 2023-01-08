@@ -4,6 +4,8 @@
 // Author: Katsutoshi Seki
 // License: MIT License
 
+const plotlyVersion = '2.16.1'
+const plotlyUrl = `https://cdn.plot.ly/plotly-${plotlyVersion}.min.js`
 const dataUrl = 'https://sekika.github.io/file/unsoda/unsoda.json'
 const showColumn = ['code', 'texture', 'series', 'location', 'depth_upper',
   'depth_lower'
@@ -39,6 +41,7 @@ const plotlyMargin = {
 }
 let data = ''
 let plot = {}
+const loadCounter = 0
 
 $.ajax({
   url: dataUrl,
@@ -46,10 +49,9 @@ $.ajax({
     data = readdata
     const code = location.search.replace('?', '')
     if (data.code.includes(code)) {
-      SelectID(code)
       const url = location.href.split('?')[0]
-      $('#query').html(`<a href="${url
-      }">Select data from database</a>`)
+      $('#query').html(`<script src="${plotlyUrl}"></script>\n<a href="${url}">Select data from database</a>`)
+      selectID(code)
       return
     }
     setQuery()
@@ -74,6 +76,7 @@ function setQuery() {
     text += `<option value="${series[i]}">${series[i]}\n`
   }
   text += '</select>'
+  text += `<script src="${plotlyUrl}"></script>`
   $('#query').html(text)
   select()
 }
@@ -117,7 +120,7 @@ function select() {
       text += '<tr>'
       for (let j = 0; j < showColumn.length; j++) {
         if (j === 0) {
-          text += `<td><a href="javascript:SelectID(${id});">${
+          text += `<td><a href="javascript:selectID(${id});">${
             d[showColumn[j]]}</a></td>`
         } else {
           text += `<td>${d[showColumn[j]]}</td>`
@@ -130,7 +133,7 @@ function select() {
   $('#show').html('')
 }
 
-function SelectID(code) {
+async function selectID(code) {
   let html = `<h2>UNSODA ${code}</h2>`
   const target = document.getElementById('list')
   if (target) {
@@ -213,6 +216,7 @@ function SelectID(code) {
   }
   html += '</ul>'
   $('#show').html(html)
+  await waitPlotly()
   for (const p in plot) {
     if (Object.hasOwn(plot, p)) {
       Plotly.newPlot(p, [plot[p][0]], plot[p][1])
@@ -220,6 +224,17 @@ function SelectID(code) {
   }
   plot = []
 }
+
+const waitPlotly = () => new Promise((resolve) => {
+  const checkInterval = 50
+  const interval = setInterval(() => {
+    if (typeof Plotly === 'undefined') {
+      return
+    }
+    clearInterval(interval)
+    resolve()
+  }, checkInterval)
+})
 
 function showTitle(str) {
   if (str in showName) {

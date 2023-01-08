@@ -266,11 +266,13 @@ const board = {
     this.drawBoard()
   },
   posZero() { // position of 0 = empty grid
+    const notFound = 99
     for (let i = 0; i < this.tile.length; i++) {
       if (this.tile[i] === 0) {
         return i
       }
     }
+    return notFound
   },
   row(i) { // row number of position i
     return Math.floor(i / this.n)
