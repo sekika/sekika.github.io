@@ -1,5 +1,8 @@
-// To be loaded from https://sekika.github.io/2020/01/07/CanvasEvent/
-
+/* Show mouse and touch events in the HTML canvas element
+https://sekika.github.io/2020/01/07/CanvasEvent/
+Author: Katsutoshi Seki
+License: MIT License
+*/
 
 const c = document.getElementById('canvas')
 const ctx = c.getContext('2d')
