@@ -39,7 +39,7 @@ UGFLAGS := --comments /.*MIT.*/ --verbose --warn
 all: graph.min.js 15.min.js unsoda.min.js
 
 %.min.js: %.js
-	- eslint $(ESFLAGS) $<
+	eslint $(ESFLAGS) $<
 	uglifyjs $(UGFLAGS) $< > $@
 
 install:
@@ -56,6 +56,6 @@ install:
 	uglifyjs $(UGFLAGS) $< > $@
 ```
 
-によって校正と圧縮がされる。ここで、`%.min.js: %.js`は[パターンルール](http://quruli.ivory.ne.jp/document/make_3.79.1/make-jp_9.html#Pattern-Rules) ([pattern rule](https://www.gnu.org/software/make/manual/html_node/Pattern-Rules.html#Pattern-Rules)) であり、`%`は空ではないすべての文字列にマッチする。したがって、たとえばターゲット 15.min.js に対応する事前要件は 15.js となり、15.js が更新されると校正と圧縮がされて 15.min.js が生成される。
+によって校正と圧縮がされる。ここで、`%.min.js: %.js`は[パターンルール](http://quruli.ivory.ne.jp/document/make_3.79.1/make-jp_9.html#Pattern-Rules) ([pattern rule](https://www.gnu.org/software/make/manual/html_node/Pattern-Rules.html#Pattern-Rules)) であり、`%`は空ではないすべての文字列にマッチする。したがって、たとえばターゲット 15.min.js に対応する事前要件 (必要条件, prerequisite) は 15.js となり、15.js が更新されると校正と圧縮がされて 15.min.js が生成される。
 
-`$@`と`$<`は[自動変数](http://quruli.ivory.ne.jp/document/make_3.79.1/make-jp_9.html#Automatic) ([automatic variable](https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html#Automatic-Variables)) であり、`$@`はターゲットのファイル名、`$<`は最初の必要条件の名前である。
+`$@`と`$<`は[自動変数](http://quruli.ivory.ne.jp/document/make_3.79.1/make-jp_9.html#Automatic) ([automatic variable](https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html#Automatic-Variables)) であり、`$@`はターゲットのファイル名、`$<`は最初の事前要件の名前である。ESFLAGSとUGFLAGSは[変数](http://quruli.ivory.ne.jp/document/make_3.79.1/make-jp_5.html#Using-Variables)([variable](https://www.gnu.org/software/make/manual/html_node/Using-Variables.html#Using-Variables))である。
