@@ -95,7 +95,7 @@ function values(table, key) {
 }
 
 function truncateSeries(str) {
-  strFirst = str.split(' ')[0]
+  const strFirst = str.split(' ')[0]
   if (!['Medium', 'S.'].includes(strFirst)) {
     str = str.split(' ')[0]
   }
@@ -172,7 +172,7 @@ function waterRetention(code) {
 }
 
 function hydraulicConductivity(code) {
-  s = scatterGroup(code, 'h-k')
+  let s = scatterGroup(code, 'h-k')
   s += scatterGroup(code, 't-k')
   if (!s) {
     return ''
@@ -191,7 +191,7 @@ function hydraulicConductivity(code) {
 }
 
 function diffusivity(code) {
-  s = scatterGroup(code, 't-d')
+  const s = scatterGroup(code, 't-d')
   if (!s) {
     return ''
   }
