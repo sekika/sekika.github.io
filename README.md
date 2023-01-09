@@ -5,7 +5,9 @@ No plugin is used and it is build with jekyll on GitHub server.
 
 [Bootstrap](http://builtwithbootstrap.com/) and [Flatly](http://bootswatch.com/flatly/) theme are used.
 
-Files under ```_posts``` and ```img``` directories are [CC BY-NC-SA 2.1 JP](http://creativecommons.org/licenses/by-nc-sa/2.1/jp/deed.en) license.
+Files under ```_posts```, ```img``` and ```file``` directories are [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) license, except for certain files such as ```file/unsoda``` as described at https://sekika.github.io/file/unsoda/ .
+
+Licenses of files under ```js``` directory are described in individual files.
 
 Files under ```_drafts``` directory are not yet permitted for copying.
 
