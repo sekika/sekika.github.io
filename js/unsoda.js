@@ -1,8 +1,8 @@
-// UNSODA Viewer
-// https://sekika.github.io/unsoda/
-//
-// Author: Katsutoshi Seki
-// License: MIT License
+/* UNSODA Viewer
+https://sekika.github.io/unsoda/
+Author: Katsutoshi Seki
+License: MIT License
+*/
 
 const plotlyVersion = '2.16.1'
 const plotlyUrl = `https://cdn.plot.ly/plotly-${plotlyVersion}.min.js`

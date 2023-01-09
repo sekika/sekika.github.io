@@ -2,7 +2,7 @@
 layout: post
 title: 関数のグラフを描画するプログラム
 date: 2020-01-03 12:33:17 +0000
-update: 2020-01-06 09:56:12 +0000
+update: 2023-01-09 06:59:11 +0000
 tags:
 - jekyll
 - javascript
@@ -15,7 +15,7 @@ HTML5 の [Canvas要素](https://ja.wikipedia.org/wiki/Canvas%E8%A6%81%E7%B4%A0)
   style="max-width: 100%; height: auto; max-height: 100%">
 このブラウザはHTML5のCanvas要素に対応していないためグラフを表示できません。
 </canvas>
-<script src="https://sekika.github.io/js/graph.js"></script>
+<script src="https://sekika.github.io/js/graph.min.js"></script>
 <script>
 'use strict';
 
