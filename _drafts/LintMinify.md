@@ -3,9 +3,9 @@ layout: post
 title: JavaScript コードの整形
 tag: javascript
 ---
-JavaScript コードの校正 (lint) と圧縮 (minify) についてやってみたことをまとめる。
+JavaScript コードの構文チェック (lint) と圧縮 (minify) についてやってみたことをまとめる。
 
-## 校正 (lint)
+## 構文チェック (lint)
 
 [eslint](https://eslint.org/)を使った。[.eslintrc.json](https://github.com/sekika/sekika.github.io/blob/master/js/.eslintrc.json)は、[chromiumのページにあったもの](https://chromium.googlesource.com/external/github.com/twbs/bootstrap/+/refs/tags/v4.1.2/.eslintrc.json)をコピーしてから適宜編集した。
 
