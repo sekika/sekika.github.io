@@ -4,7 +4,7 @@ UGFLAGS := --comments /.*MIT.*/ --verbose --warn
 all: graph.min.js 15.min.js unsoda.min.js
 
 %.min.js: %.js
-	- eslint $(ESFLAGS) $<
+	eslint $(ESFLAGS) $<
 	uglifyjs $(UGFLAGS) $< > $@
 
 install:

@@ -52,10 +52,10 @@ install:
 
 ```
 %.min.js: %.js
-	- eslint $(ESFLAGS) $<
+	eslint $(ESFLAGS) $<
 	uglifyjs $(UGFLAGS) $< > $@
 ```
 
 によって校正と圧縮がされる。ここで、`%.min.js: %.js`は[パターンルール](http://quruli.ivory.ne.jp/document/make_3.79.1/make-jp_9.html#Pattern-Rules) ([pattern rule](https://www.gnu.org/software/make/manual/html_node/Pattern-Rules.html#Pattern-Rules)) であり、`%`は空ではないすべての文字列にマッチする。したがって、たとえばターゲット 15.min.js に対応する事前要件は 15.js となり、15.js が更新されると校正と圧縮がされて 15.min.js が生成される。
 
-`$@`と`$<`は[自動変数](http://quruli.ivory.ne.jp/document/make_3.79.1/make-jp_9.html#Automatic) ([automatic variable](https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html#Automatic-Variables)) であり、`$@`はターゲットのファイル名、`$<`は最初の必要条件の名前である。なお、eslint は警告が出るとエラーとなるため、エラーを無視して次の行を実行するために先頭に - をつけた。
+`$@`と`$<`は[自動変数](http://quruli.ivory.ne.jp/document/make_3.79.1/make-jp_9.html#Automatic) ([automatic variable](https://www.gnu.org/software/make/manual/html_node/Automatic-Variables.html#Automatic-Variables)) であり、`$@`はターゲットのファイル名、`$<`は最初の必要条件の名前である。
