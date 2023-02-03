@@ -101,7 +101,7 @@ function move(pos) {
 }
 ```
 
-When a finger is moved by touch, it is difficult to draw because the screen moves with the swipe. Therefore, by checking the "Disable swiping in Canvas" checkbox, the default touch operation is disabled by e.preventDefault() when a touchmove event occurs in the Canvas (Normally, we always disable it, but here we did it this way to see the difference between disabling it and not disabling it.). It is in the following place.
+When a finger is moved by touch, it is difficult to draw because the screen moves with the swipe. Therefore, by checking the "Disable swiping in the canvas" checkbox, the default touch operation is disabled by e.preventDefault() when a touchmove event occurs in the Canvas (Normally, we always disable it, but here we did it this way to see the difference between disabling it and not disabling it.). It is in the following place.
 
 ```javascript
         if (document.formOption.noSwipe.checked) {
