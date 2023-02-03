@@ -84,9 +84,11 @@ Touch events are handled differently because, unlike a mouse, multiple finger to
     });
 ```
 
-すなわち、タッチのイベントは e.changedTouches にリストとして格納されていて、その長さを e.changedTouches.length で取得できる。1つ目の指の座標は、先程の pos 関数を使って pos(e.changedTouches[0]) によって取得できる。touchcancel, touchend, touchmove も同様である。
+In this way, touch events are stored as a list in e.changedTouches, the length of which can be obtained by e.changedTouches.length. The coordinates of the first finger can be obtained by pos(e.changedTouches[0]) using the pos function described earlier. The same applies to touchcancel, touchend, and touchmove.
 
-線を描画する処理については、マウスとタッチで同じ処理ができるように、mousedown と touchdown イベントからは down 関数を、mouseup と touchup イベントからは up 関数を、mousemove と touchmove イベントからは move 関数を、それぞれキャンバス上の座標を引数として呼び出している。グローバル変数 dragging を、down で true に、up で false にして、dragging が true のときだけ線を描画している。線の描画は、
+For the process of drawing lines, the down function is called from the mousedown and touchdown events, the up function from the mouseup and touchup events, and the move function from the mousemove and touchmove events, so that the same process can be performed for mouse and touch. Each of these functions is called with the coordinates on the canvas as arguments. The global variable "dragging" is set to true for down and false for up, and lines are drawn only when "dragging" is true.
+
+The lines are drawn as follows.
 
 ```javascript
 function move(pos) {
@@ -99,9 +101,7 @@ function move(pos) {
 }
 ```
 
-のようにしている。
-
-タッチで指を動かすと、スワイプによって画面が動くため描画しにくい。そこで「Canvas 内のスワイプを無効にする」をチェックすることで、Canvas 内で touchmove イベントが発生したときには e.preventDefault() によってデフォルトのタッチ操作が無効となるようにした（通常は常に無効にするが、ここでは無効にする場合としない場合の違いを見るためにこのようにした）。それは、次の箇所である。
+When a finger is moved by touch, it is difficult to draw because the screen moves with the swipe. Therefore, by checking the "Disable swiping in Canvas" checkbox, the default touch operation is disabled by e.preventDefault() when a touchmove event occurs in the Canvas (Normally, we always disable it, but here we did it this way to see the difference between disabling it and not disabling it.). It is in the following place.
 
 ```javascript
         if (document.formOption.noSwipe.checked) {
@@ -109,11 +109,11 @@ function move(pos) {
         }
 ```
 
-また、タッチイベントによる線の描画は、1本指のときにだけ発生するようにしている。
+In addition, drawing of lines by touch events occurs only when one finger is used.
 
-タッチペンで描画してみたところ、良い書き心地であった。色や線の太さを変える機能と点を打つ機能、直線を引く機能、塗りつぶす機能をつければ、十分に実用的な簡易お絵かきソフトになるであろう。c.toDataURL() で画像データを得ることができるようなので、作成した画像をブラウザの localStorage に保存するといった運用も可能である。いずれまた、そのようなソフトを作って公開するかもしれない。
+I tried drawing with a stylus and found it to be a good drawing experience. If we add functions to change the color and line thickness, dot, draw a straight line, and fill, it will be a practical simple drawing software. Since it seems that c.toDataURL() can be used to obtain image data, the software can also be used to store the created images in the browser's local storage. I may eventually create such software and release it to the public.
 
-キャンバスのマウスとタッチによる操作をともなう JavaScript プログラムを書くときには、まずはこのプログラムをコピーしてからプログラムを書けば、イベントを確認しながらプログラムを書けるので効率的であろう。最後にイベントを表示する処理を消してから公開すれば良い。
+When writing a JavaScript program that involves mouse and touch operations on the canvas, it would be efficient to copy this program first and then write the program while checking the events. Finally, you can delete the process of displaying the events before publishing the program.
 
 ## Example
 - [15 Puzzle](https://sekika.github.io/2020/01/14/15Puzzle/) ([source](https://sekika.github.io/js/15.js))
