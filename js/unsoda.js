@@ -179,7 +179,7 @@ function hydraulicConductivity(code) {
   }
   let html = '<h3>Hydraulic conductivity</h3>\n'
   if (unsatfit.includes(code)) {
-    html += '<ul><li>Fitting result availabe at <a href="https://arxiv.org/abs/2212.02965">Fig. 6 and Appendix in this paper</a>.</li></ul>\n'
+    html += '<ul><li>Fitting result availabe at <a href="https://doi.org/10.2478/johh-2022-0039">Fig. 6 and Appendix in this paper</a>.</li></ul>\n'
   }
   const com = showComment(code, 'lhc', 'lab_hydr_cond', 'Laboratory') +
           showComment(code, 'fhc', 'field_hydr_cond', 'Field')
@@ -201,7 +201,7 @@ function diffusivity(code) {
 }
 
 function sizeDistribution(code) {
-  let html
+  let html = ''
   if (code in data.particle_size) {
     html += '<h3>Particle size distribution</h3>\n'
     html += scatter(code, 'particle_size')

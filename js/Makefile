@@ -8,6 +8,7 @@ all: canvasevent.min.js graph.min.js 15.min.js unsoda.min.js
 	uglifyjs $(UGFLAGS) $< > $@
 
 install:
+	arch -arm64 brew install node
 	npm install -g eslint uglify-js
 
 .PHONY: install
