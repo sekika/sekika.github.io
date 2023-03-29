@@ -7,7 +7,6 @@ tag: jekyll
 
 ## 執筆中
 - [IPCCのAR6](ipcc-ar6.md) [AR6 WG1 SPMの図](https://www.ipcc.ch/report/ar6/wg1/)を載せる。[統合報告書](https://www.ipcc.ch/reports/)の完成を待つ。3月完成予定
-- [Show mouse and touch events in the HTML canvas element](EventCanvas.md)
 - [ストークスの式](Stokes.md)
 
 ## これから
