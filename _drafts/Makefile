@@ -1,6 +1,7 @@
 UNAME = ${shell uname}
 # RUBY_PATH = /opt/homebrew/opt/ruby/bin
-RUBY_PATH = /usr/local/homebrew/opt/ruby/bin
+RUBY_PATH = /usr/local/opt/ruby/bin/
+# RUBY_PATH = /usr/local/homebrew/opt/ruby/bin
 
 all: push
 
