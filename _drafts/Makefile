@@ -10,7 +10,7 @@ push:
 	git add -A
 	- git commit -m draft
 	git push origin master
-	make preview
+	note start
 
 preview:
 	- if [ $(UNAME) = "Darwin" ]; then open http://localhost:4000/; fi
