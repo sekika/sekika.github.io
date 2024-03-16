@@ -9,7 +9,7 @@ tags:
 
 ## 計算方法
 
-ガウス・ルジャンドルのアルゴリズムを元にしたアルゴリズム、すなわち初期値を
+ガウス・ルジャンドルのアルゴリズム法、すなわち初期値を
 
 $$a_0 =1, b_0 =\frac{1}{\sqrt{2}}, t_0 =\frac{1}{4}, p_0 =1$$
 
@@ -30,11 +30,14 @@ $$\pi \approx \frac{(a+b)^2}{4t}$$
 
 と近似される、というアルゴリズムにより円周率を任意桁数計算する。多倍長計算の[rug crate](https://crates.io/crates/rug)を使った。
 
-Mac mini でも、100万桁を2秒以内に、1億桁を10分以内に計算できる（計算時間は最後に記載）。ただし、10億桁を超すような計算になると、メモリが十分に確保されていなければ計算速度が落ちる。金田康正と[高橋大介](https://scholar.google.co.jp/citations?user=eITKfuQAAAAJ)は、1998年にガウス・ルジャンドル法によって[分散メモリ型並列計算機による円周率の515億桁計算](https://tsukuba.repo.nii.ac.jp/records/37234)をした。さらに計算精度を上げるには、Chudnovsky の公式などが使われるようだ。以下に、いくつかの参考サイトを示す。
+MacBook でも、100万桁を1.5秒で、3億桁を23分で計算できる（計算時間は最後に記載）。これ以上の桁数は、メモリが十分にないと計算ができないようだ。
+
+金田康正と[高橋大介](https://scholar.google.co.jp/citations?user=eITKfuQAAAAJ)は、1998年にガウス・ルジャンドル法によって[分散メモリ型並列計算機による円周率の515億桁計算](https://tsukuba.repo.nii.ac.jp/records/37234)をした。さらに2009年には高橋が作成したプログラムによって[ガウス・ルジャンドル法で2兆5769億8037万桁](https://www.hpcs.cs.tsukuba.ac.jp/~daisuke/pi-j.html)を計算した。ただし、高橋らのガウス・ルジャンドル法に関する計算についてarctanを使った式が参照されていることがあり、上記の計算方法と同じであるかどうかは不明である。Chudnovsky の公式などが使われるようだ。以下に、いくつかの参考サイトを示す。
 
 - [世界記録は31兆桁！ 日本人も活躍する円周率「π」計算の最先端](https://gendai.media/articles/-/84616) - 柳谷晃, 2021/7/17
 - [円周率を求める公式・アルゴリズム](https://xn--w6q13e505b.jp/formula/) - 円周率.jp
 - [Chudnovsky の公式を用いた円周率の計算用メモ](https://qiita.com/peria/items/c02ef9fc18fb0362fb89) - Peria Peria
+- [パソコンによる円周率小数点以下５兆桁の計算](https://www.nistep.go.jp/conference/nt110630/pdf/kondou.pdf) - 近藤茂, 2011/6/30
 - [円周率の歴史](https://ja.wikipedia.org/wiki/%E5%86%86%E5%91%A8%E7%8E%87%E3%81%AE%E6%AD%B4%E5%8F%B2) - Wikipedia
 
 ## 使い方
@@ -77,7 +80,7 @@ Pi to 1000 decimal places: 3.141592653589793238462643383279502884197169399375105
 と表示される。クレートを読み込んで Rust プログラムの中から関数を使うこともできる。[ドキュメント](https://crates.io/crates/compute-pi)参照。
 
 ## 計算時間
-M1 Mac mini (2020)での計算。
+Mac mini (Apple M1, 16 GB)での計算。
 
 ```
 > time compute-pi 1000
@@ -97,6 +100,14 @@ Executed in    3.02 millis    fish           external
 - 1000万桁: 34.2 秒
 - 1億桁: 498.80 秒 (8.3 分)
 - 2億桁: 16.8 分)
+- 4億桁:
+
+MacBook Air (Apple M1, 16 GB)
+- 100万桁: 1.51 秒
+- 1000万桁: 25.30 秒
+- 1億桁: 403.05 秒 (6.7 分)
+- 2億桁: 880.47 秒 (14.7分)
+- 3億桁: 22.65 分
 
 なお、1億桁表示したときの最後の10桁は
 0187751592
