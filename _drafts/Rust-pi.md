@@ -30,7 +30,7 @@ $$\pi \approx \frac{(a+b)^2}{4t}$$
 
 と近似される、というアルゴリズムにより円周率を任意桁数計算する。多倍長計算の[rug crate](https://crates.io/crates/rug)を使った。
 
-ただし、10億桁を超すような計算になると、メモリが十分に確保されていなければ計算速度が落ちる。金田康正と[高橋大介](https://scholar.google.co.jp/citations?user=eITKfuQAAAAJ)は、1998年にガウス・ルジャンドル法によって[分散メモリ型並列計算機による円周率の515億桁計算](https://tsukuba.repo.nii.ac.jp/records/37234)をした。さらに計算精度を上げるには、Chudnovsky の公式などが使われるようだ。以下に、いくつかの参考サイトを示す。
+Mac mini でも、100万桁を2秒以内に、1億桁を10分以内に計算できる（計算時間は最後に記載）。ただし、10億桁を超すような計算になると、メモリが十分に確保されていなければ計算速度が落ちる。金田康正と[高橋大介](https://scholar.google.co.jp/citations?user=eITKfuQAAAAJ)は、1998年にガウス・ルジャンドル法によって[分散メモリ型並列計算機による円周率の515億桁計算](https://tsukuba.repo.nii.ac.jp/records/37234)をした。さらに計算精度を上げるには、Chudnovsky の公式などが使われるようだ。以下に、いくつかの参考サイトを示す。
 
 - [世界記録は31兆桁！ 日本人も活躍する円周率「π」計算の最先端](https://gendai.media/articles/-/84616) - 柳谷晃, 2021/7/17
 - [円周率を求める公式・アルゴリズム](https://xn--w6q13e505b.jp/formula/) - 円周率.jp
