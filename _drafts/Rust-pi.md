@@ -7,6 +7,38 @@ tags:
 ---
 円周率を任意桁数計算するプログラムをRustで作成した。
 
+## 計算方法
+
+ガウス・ルジャンドルのアルゴリズムを元にしたアルゴリズム、すなわち初期値を
+
+$$a_0 =1, b_0 =\frac{1}{\sqrt{2}}, t_0 =\frac{1}{4}, p_0 =1$$
+
+反復式を
+
+$$
+\begin{align}
+a_{n+1} &=\frac{a_n +b_n}{2} \\
+b_{n+1} &=\sqrt{a_n b_n} \\
+t_{n+1} &=t_n -p_n(a_n - a_{n+1})^2 \\
+p_{n+1} &= 2p_n
+\end{align}
+$$
+
+とすると、円周率πは
+
+$$\pi \approx \frac{(a+b)^2}{4t}$$
+
+と近似される、というアルゴリズムにより円周率を任意桁数計算する。多倍長計算の[rug crate](https://crates.io/crates/rug)を使った。
+
+ただし、10億桁を超すような計算になると、たとえば桁数がn倍になると掛け算の計算時間がn<sup>2</sup>倍になることから、さらに計算コストを低くするアルゴリズムが必要とされる。1999年にはさらに、金田康正と高橋大介がHITACHI SR8000 を使って、ガウス・ルジャンドル法によって2061億5843万桁まで求めたという記述がこの式の説明とともに記されていることがあるが、実際には以下の参考サイトを調べると、
+π = 48 arctan(1/49) + 128 arctan(1/57) - 20 arctan(1/239) + 48 arctan(1/110443)
+という式を使っていて、ガウス・ルジャンドル法を元にしているかどうかは不明であるが、上記とは別の式である。
+
+- [世界記録は31兆桁！ 日本人も活躍する円周率「π」計算の最先端](https://gendai.media/articles/-/84616) - 柳谷晃, 2021/7/17
+- [円周率を求める公式・アルゴリズム](https://xn--w6q13e505b.jp/formula/) - 円周率.jp
+- [Chudnovsky の公式を用いた円周率の計算用メモ](https://qiita.com/peria/items/c02ef9fc18fb0362fb89) - Peria Peria
+- [円周率の歴史](https://ja.wikipedia.org/wiki/%E5%86%86%E5%91%A8%E7%8E%87%E3%81%AE%E6%AD%B4%E5%8F%B2) - Wikipedia
+
 ## 使い方
 [Rustをインストール](https://doc.rust-jp.rs/book-ja/ch01-01-installation.html)してcargoが使えるようになったら、次のように[compute-pi crate](https://crates.io/crates/compute-pi)をインストールする。
 
@@ -45,31 +77,6 @@ Pi to 1000 decimal places: 3.141592653589793238462643383279502884197169399375105
 ```
 
 と表示される。クレートを読み込んで Rust プログラムの中から関数を使うこともできる。[ドキュメント](https://crates.io/crates/compute-pi)参照。
-
-## 計算方法
-
-ガウス・ルジャンドルのアルゴリズムは、初期値を
-
-$$a_0 =1, b_0 =\frac{1}{\sqrt{2}}, t_0 =\frac{1}{4}, p_0 =1$$
-
-反復式を
-
-$$
-\begin{align}
-a_{n+1} &=\frac{a_n +b_n}{2} \\
-b_{n+1} &=\sqrt{a_n b_n} \\
-t_{n+1} &=t_n -p_n(a_n - a_{n+1})^2 \\
-p_{n+1} &= 2p_n
-\end{align}
-$$
-
-とすると、円周率πは
-
-$$\pi \approx \frac{(a+b)^2}{4t}$$
-
-と近似される、というアルゴリズムであり、極めて収束が速いアルゴリズムである。1999年には、このアルゴリズムで円周率が2061億5843万桁計算され、[Borweinのアルゴリズム](https://en.wikipedia.org/wiki/Borwein%27s_algorithm)によって計算結果が確認された。
-
-多倍長計算の[rug crate](https://crates.io/crates/rug)を使って、任意精度の計算ができるようにした。
 
 ## 計算時間
 M1 Mac mini (2020)での計算。
