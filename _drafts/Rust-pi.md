@@ -30,7 +30,7 @@ $$\pi \approx \frac{(a+b)^2}{4t}$$
 
 と近似される、というアルゴリズムにより円周率を任意桁数計算する。多倍長計算の[rug crate](https://crates.io/crates/rug)を使った。
 
-MacBook では、100万桁を1.5秒で、3億2000万桁を24分で計算できたが、3億3000万桁は計算がいつまでも終了しなかった（計算時間は最後に記載）。16GBのメモリとこのプログラムでは、3億2000万桁が限界となる。このプログラムによる円周率3億2000万桁の計算結果は、y-cruncher による計算結果と完全に一致することが確認された。
+MacBook では、100万桁を1.5秒で、3億2000万桁を24分で計算できたが、3億3000万桁は計算がいつまでも終了しなかった（計算時間は最後に記載）。16GBのメモリとこのプログラムでは、3億2000万桁が限界となる。このプログラムによる円周率3億2000万桁の計算結果は、[y-cruncher](http://www.numberworld.org/y-cruncher/) による計算結果と完全に一致することが確認された。
 
 [高橋大介](https://scholar.google.com/citations?user=eITKfuQAAAAJ)と[金田康正](https://ja.wikipedia.org/wiki/%E9%87%91%E7%94%B0%E5%BA%B7%E6%AD%A3)は、1998年にガウス・ルジャンドル法によって[分散メモリ型並列計算機による円周率の515億桁計算](https://tsukuba.repo.nii.ac.jp/records/37234)をした。さらに高橋は2009年に[ガウス・ルジャンドル法で2兆5769億8037万桁](https://www.hpcs.cs.tsukuba.ac.jp/~daisuke/pi-j.html)を計算した。以下に、いくつかの参考サイトを示す。
 
@@ -39,7 +39,6 @@ MacBook では、100万桁を1.5秒で、3億2000万桁を24分で計算でき�
 - [Chudnovsky の公式を用いた円周率の計算用メモ](https://qiita.com/peria/items/c02ef9fc18fb0362fb89) - Peria Peria, 2015/12/9
 - [パソコンによる円周率小数点以下５兆桁の計算](https://www.nistep.go.jp/conference/nt110630/pdf/kondou.pdf) - 近藤茂, 2011/6/30
 - [Even more pi in the sky: Calculating 100 trillion digits of pi on Google Cloud](https://cloud.google.com/blog/products/compute/calculating-100-trillion-digits-of-pi-on-google-cloud) - Emma Haruka Iwao, 2022/6/9
-- [y-cruncher - A Multi-Threaded Pi-Program](http://www.numberworld.org/y-cruncher/) - Alexander J. Yee
 - [円周率の歴史](https://ja.wikipedia.org/wiki/%E5%86%86%E5%91%A8%E7%8E%87%E3%81%AE%E6%AD%B4%E5%8F%B2) - Wikipedia
 
 ## 使い方
