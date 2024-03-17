@@ -30,7 +30,7 @@ $$\pi \approx \frac{(a+b)^2}{4t}$$
 
 と近似される、というアルゴリズムにより円周率を任意桁数計算する。多倍長計算の[rug crate](https://crates.io/crates/rug)を使った。
 
-MacBook では、100万桁を1.5秒で、3億2000万桁を24分で計算できたが、3億3000万桁は計算がいつまでも終了しなかった（計算時間は最後に記載）。16GBのメモリとこのプログラムでは、3億2000万桁が限界となる。これ以上桁数を伸ばすには、メモリの増設、プログラムの効率化やメモリだけでなくHDDを使いながらの計算などが必要とされるだろう。
+MacBook では、100万桁を1.5秒で、3億2000万桁を24分で計算できたが、3億3000万桁は計算がいつまでも終了しなかった（計算時間は最後に記載）。16GBのメモリとこのプログラムでは、3億2000万桁が限界となる。このプログラムによる円周率3億2000万桁の計算結果は、y-cruncher による計算結果とすべての数字が一致することが確認された。
 
 [高橋大介](https://scholar.google.com/citations?user=eITKfuQAAAAJ)と[金田康正](https://ja.wikipedia.org/wiki/%E9%87%91%E7%94%B0%E5%BA%B7%E6%AD%A3)は、1998年にガウス・ルジャンドル法によって[分散メモリ型並列計算機による円周率の515億桁計算](https://tsukuba.repo.nii.ac.jp/records/37234)をした。さらに高橋は2009年に[ガウス・ルジャンドル法で2兆5769億8037万桁](https://www.hpcs.cs.tsukuba.ac.jp/~daisuke/pi-j.html)を計算した。以下に、いくつかの参考サイトを示す。
 
@@ -41,8 +41,6 @@ MacBook では、100万桁を1.5秒で、3億2000万桁を24分で計算でき�
 - [Even more pi in the sky: Calculating 100 trillion digits of pi on Google Cloud](https://cloud.google.com/blog/products/compute/calculating-100-trillion-digits-of-pi-on-google-cloud) - Emma Haruka Iwao, 2022/6/9
 - [y-cruncher - A Multi-Threaded Pi-Program](http://www.numberworld.org/y-cruncher/) - Alexander J. Yee
 - [円周率の歴史](https://ja.wikipedia.org/wiki/%E5%86%86%E5%91%A8%E7%8E%87%E3%81%AE%E6%AD%B4%E5%8F%B2) - Wikipedia
-
-比較のために、y-cruncher で同様に3億2000万桁を計算した。Mac mini で Docker の Debian コンテナから y-cruncher を起動して計算したところ、87秒で計算できた。MacBook では、なぜか計算が途中で極端に遅くなり計算を停止した。このプログラムと y-cruncher の計算結果を比較したところ、3億2000万桁すべての数字が一致することが確認された。
 
 ## 使い方
 [Rustをインストール](https://doc.rust-jp.rs/book-ja/ch01-01-installation.html)してcargoが使えるようになったら、次のように[compute-pi crate](https://crates.io/crates/compute-pi)をインストールする。
@@ -105,3 +103,5 @@ Mac mini (Apple M1, 16 GB) ではこのようになった。
 - 3億2000万桁: 28.48 分
 
 このように、いずれの場合でも3億2000万桁までは30分以内に計算ができるが、3億3000万桁の計算はできなかった。メモリ割り当てに失敗してパニックで終了するのではなく、いつまでも計算が終了しないことから、メモリのスワッピングに時間がかかっているものと推察される。実際に、vm_stat で確認すると、Pageins と Pageouts が計算中に増えていく。16GBのメモリのマシン2台で同じ結果となったことから、16GBのメモリの場合はこのあたりに限界があるものと考えられる。
+
+比較のために、y-cruncher で同様に3億2000万桁を計算した。Mac mini で Docker の Debian コンテナから y-cruncher を起動して計算したところ、87秒で計算できた。MacBook では、なぜか計算が途中で極端に遅くなり計算を停止した。このプログラムと y-cruncher の計算結果を比較したところ、3億2000万桁すべての数字が一致することが確認された。
