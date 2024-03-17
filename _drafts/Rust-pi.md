@@ -5,7 +5,7 @@ tags:
 - math
 - rust
 ---
-円周率を任意桁数計算するプログラムをRustで作成した。
+円周率πを任意桁数計算するプログラム [compute-pi](https://crates.io/crates/compute-pi) をRustで作成した。16GBのメモリを持つPCでは、円周率を3億2000万桁まで計算できる。
 
 ## 計算方法
 
