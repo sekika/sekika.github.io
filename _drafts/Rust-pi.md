@@ -30,7 +30,7 @@ $$\pi \approx \frac{(a+b)^2}{4t}$$
 
 と近似される、というアルゴリズムにより円周率を任意桁数計算する。多倍長計算の[rug crate](https://crates.io/crates/rug)を使った。
 
-MacBook (Apple M1, 16 GB) では、100万桁を1.5秒で、3億2000万桁を24分で計算できて、これがこのプログラムとマシン能力の限界桁数となる。このプログラムによる円周率3億2000万桁の計算結果は、[y-cruncher](http://www.numberworld.org/y-cruncher/) による計算結果と完全に一致することが確認された。
+MacBook (Apple M1, 16 GB) では、100万桁を1.5秒で、3億2000万桁を24分で計算できて、これがこのプログラムとマシン能力の限界桁数となる。このプログラムによる円周率3億2000万桁の計算結果は、[y-cruncher](http://www.numberworld.org/y-cruncher/) と Chudnovsky アルゴリズムによる計算結果と完全に一致することが確認された。
 
 [高橋大介](https://scholar.google.com/citations?user=eITKfuQAAAAJ)と[金田康正](https://ja.wikipedia.org/wiki/%E9%87%91%E7%94%B0%E5%BA%B7%E6%AD%A3)は、1998年にガウス・ルジャンドル法によって[分散メモリ型並列計算機による円周率の515億桁計算](https://tsukuba.repo.nii.ac.jp/records/37234)をした。さらに高橋は2009年に[ガウス・ルジャンドル法で2兆5769億8037万桁](https://www.hpcs.cs.tsukuba.ac.jp/~daisuke/pi-j.html)を計算した。以下に、いくつかの参考サイトを示す。
 
