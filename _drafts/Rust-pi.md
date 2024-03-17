@@ -36,7 +36,7 @@ MacBook では、100万桁を1.5秒で、3億2000万桁を24分で計算でき�
 
 - [世界記録は31兆桁！ 日本人も活躍する円周率「π」計算の最先端](https://gendai.media/articles/-/84616) - 柳谷晃, 2021/7/17
 - [円周率を求める公式・アルゴリズム](https://xn--w6q13e505b.jp/formula/) - 円周率.jp
-- [Chudnovsky の公式を用いた円周率の計算用メモ](https://qiita.com/peria/items/c02ef9fc18fb0362fb89) - Peria Peria
+- [Chudnovsky の公式を用いた円周率の計算用メモ](https://qiita.com/peria/items/c02ef9fc18fb0362fb89) - Peria Peria, 2015/12/9
 - [パソコンによる円周率小数点以下５兆桁の計算](https://www.nistep.go.jp/conference/nt110630/pdf/kondou.pdf) - 近藤茂, 2011/6/30
 - [Even more pi in the sky: Calculating 100 trillion digits of pi on Google Cloud](https://cloud.google.com/blog/products/compute/calculating-100-trillion-digits-of-pi-on-google-cloud) - Emma Haruka Iwao, 2022/6/9
 - [y-cruncher - A Multi-Threaded Pi-Program](http://www.numberworld.org/y-cruncher/) - Alexander J. Yee
