@@ -39,6 +39,7 @@ MacBook では、100万桁を1.5秒で、3億2000万桁を24分で計算でき�
 - [Chudnovsky の公式を用いた円周率の計算用メモ](https://qiita.com/peria/items/c02ef9fc18fb0362fb89) - Peria Peria
 - [パソコンによる円周率小数点以下５兆桁の計算](https://www.nistep.go.jp/conference/nt110630/pdf/kondou.pdf) - 近藤茂, 2011/6/30
 - [Even more pi in the sky: Calculating 100 trillion digits of pi on Google Cloud](https://cloud.google.com/blog/products/compute/calculating-100-trillion-digits-of-pi-on-google-cloud) - Emma Haruka Iwao, 2022/6/9
+- [y-cruncher - A Multi-Threaded Pi-Program](http://www.numberworld.org/y-cruncher/)
 - [円周率の歴史](https://ja.wikipedia.org/wiki/%E5%86%86%E5%91%A8%E7%8E%87%E3%81%AE%E6%AD%B4%E5%8F%B2) - Wikipedia
 
 ## 使い方
