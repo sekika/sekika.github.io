@@ -32,7 +32,7 @@ $$\pi \approx \frac{(a+b)^2}{4t}$$
 
 MacBook では、100万桁を1.5秒で、3億2000万桁を24分で計算できたが、3億3000万桁は計算がいつまでも終了しなかった（計算時間は最後に記載）。16GBのメモリとこのプログラムでは、3億2000万桁が限界となる。これ以上桁数を伸ばすには、メモリの増設、プログラムの効率化やメモリだけでなくHDDを使いながらの計算などが必要とされるだろう。
 
-[金田康正](https://ja.wikipedia.org/wiki/%E9%87%91%E7%94%B0%E5%BA%B7%E6%AD%A3)と[高橋大介](https://scholar.google.com/citations?user=eITKfuQAAAAJ)は、1998年にガウス・ルジャンドル法によって[分散メモリ型並列計算機による円周率の515億桁計算](https://tsukuba.repo.nii.ac.jp/records/37234)をした。さらに2009年には高橋が作成したプログラムによって[ガウス・ルジャンドル法で2兆5769億8037万桁](https://www.hpcs.cs.tsukuba.ac.jp/~daisuke/pi-j.html)を計算した。以下に、いくつかの参考サイトを示す。
+[高橋大介](https://scholar.google.com/citations?user=eITKfuQAAAAJと[金田康正](https://ja.wikipedia.org/wiki/%E9%87%91%E7%94%B0%E5%BA%B7%E6%AD%A3)は、1998年にガウス・ルジャンドル法によって[分散メモリ型並列計算機による円周率の515億桁計算](https://tsukuba.repo.nii.ac.jp/records/37234)をした。さらに2009年には高橋が作成したプログラムによって[ガウス・ルジャンドル法で2兆5769億8037万桁](https://www.hpcs.cs.tsukuba.ac.jp/~daisuke/pi-j.html)を計算した。以下に、いくつかの参考サイトを示す。
 
 - [世界記録は31兆桁！ 日本人も活躍する円周率「π」計算の最先端](https://gendai.media/articles/-/84616) - 柳谷晃, 2021/7/17
 - [円周率を求める公式・アルゴリズム](https://xn--w6q13e505b.jp/formula/) - 円周率.jp
