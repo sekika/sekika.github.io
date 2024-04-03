@@ -12,7 +12,7 @@ popular: "/2024/01/04/popular2023/"
 # Versions of JavaScript
 # Last update on 2017-05-01
 bootstrap-version: "3.3.7" # Bootstrap http://getbootstrap.com/getting-started/
-jquery-version: "3.6.3" # jQuery https://jquery.com/download/
+jquery-version: "3.7.1" # jQuery https://jquery.com/download/
 katex-version: "0.16.4" # KaTeX https://github.com/Khan/KaTeX/releases
 pyodide-version: "0.22.0" # Pyodide https://pyodide.org/en/stable/project/changelog.html
 plotly-version: "2.16.1" # Plotly https://plotly.com/javascript/getting-started/
