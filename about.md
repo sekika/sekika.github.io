@@ -3,7 +3,8 @@ layout: page
 title: このサイトについて
 permalink: /about/
 ---
-<a href="/">このサイト</a>は{{ site.author }}のブログのような形式のメモ帳です。[よく読まれている記事]({{ site.popular }})は、IT系のちょっとした How to 記事です。授業で使う資料や、自分用のちょっとしたメモを置いたりもしています。
+{% assign popular_link = site.data.navigation | where: "name", "人気記事" | map: "link" %}
+<a href="/">このサイト</a>は{{ site.author }}のブログのような形式のメモ帳です。[よく読まれている記事]({{ popular_link.first }})は、IT系のちょっとした How to 記事です。授業で使う資料や、自分用のちょっとしたメモを置いたりもしています。
 
 ## プライバシーポリシー
 このサイト sekika.github.io は以下のページもホストしています。これらは独立に管理され、プライバシーポリシーを共有します。
