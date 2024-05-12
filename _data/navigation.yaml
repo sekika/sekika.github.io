@@ -1,0 +1,8 @@
+- name: サイト情報
+  link: /about/
+- name: キーワード
+  link: /tags/
+- name: 人気記事
+  link: /2024/01/04/popular2023/
+- name: English
+  link: /en/

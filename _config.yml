@@ -7,11 +7,10 @@ author-en: <a href="https://scholar.google.com/citations?user=Gs_ABawAAAAJ">Kats
 baseurl: "" 
 url: "https://sekika.github.io" 
 repository: "https://github.com/sekika/sekika.github.io"
-popular: "/2024/01/04/popular2023/"
 
 # Versions of JavaScript
-# Last update on 2017-05-01
-bootstrap-version: "3.4.1" # Bootstrap http://getbootstrap.com/getting-started/
+# Last update on 2024-05-13
+bootstrap-version: "5.3.3" # Bootstrap http://getbootstrap.com/getting-started/
 jquery-version: "3.7.1" # jQuery https://jquery.com/download/
 katex-version: "0.16.10" # KaTeX https://github.com/Khan/KaTeX/releases
 pyodide-version: "0.25.1" # Pyodide https://pyodide.org/en/stable/project/changelog.html
