@@ -62,14 +62,14 @@ git commit -m "Remove draft because it was published" || \
    { echo "Commit failed. Stop."; exit; }
 
 # Search index for http://sekika.github.io/search/
-if [ -e ../setup/index ]; then
-  echo "Making search index."
-  ../setup/index
-  cd ../js
-  git add index.js
-  git commit -m "Added index of "$DestFile || \
-   { echo "Commit of index.js failed. Stop."; exit; }
-fi
+#if [ -e ../setup/index ]; then
+#  echo "Making search index."
+#  ../setup/index
+#  cd ../js
+#  git add index.js
+#  git commit -m "Added index of "$DestFile || \
+#   { echo "Commit of index.js failed. Stop."; exit; }
+#fi
 
 echo "Committing to repository."
 cd ../_posts || { echo "cd ../_posts failed. Stop."; exit; }
@@ -81,4 +81,3 @@ echo "Pushing to master repository."
 git push origin master || { echo "Push failed. Stop."; exit; }
 echo "Published successfully."
 echo "Now wait for some time and check published post at $Site_URL"
-
