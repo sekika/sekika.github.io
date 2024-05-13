@@ -8,7 +8,8 @@
       <ul class="navbar-nav me-auto">
         {%- for item in site.data.navigation %}
         <li class="nav-item">
-          <a href="{{ item.link | prepend: site.baseurl }}" {% if item.link == page.url %}class="nav-link active"{% else %}class="nav-link"{% endif %}>{{ item.name }}</a></li>
+          <a href="{{ item.link | prepend: site.baseurl }}" class="nav-link{% if item.link == page.url %} active{% endif %}">{{ item.name }}</a>
+        </li>
         {% endfor -%}
       </ul>
     </div>
