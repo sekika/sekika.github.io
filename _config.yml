@@ -11,10 +11,14 @@ repository: "https://github.com/sekika/sekika.github.io"
 # Versions of JavaScript
 # Last update on 2024-05-13
 bootstrap-version: "5.3.3" # Bootstrap http://getbootstrap.com/getting-started/
-jquery-version: "3.7.1" # jQuery https://jquery.com/download/
+highlight-version: "11.9.0" # highlight.js https://highlightjs.org/
 katex-version: "0.16.10" # KaTeX https://github.com/Khan/KaTeX/releases
 pyodide-version: "0.25.1" # Pyodide https://pyodide.org/en/stable/project/changelog.html
 plotly-version: "2.32.0" # Plotly https://plotly.com/javascript/getting-started/
+jquery-version: "3.7.1" # jQuery https://jquery.com/download/
+
+# Bootstrap theme
+bootstrap-theme: "flatly" # https://bootswatch.com/
 
 # Build settings
 markdown: kramdown
