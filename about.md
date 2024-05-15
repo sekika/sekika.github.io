@@ -12,6 +12,7 @@ permalink: /about/
 - <a href="/toyo/">関の東洋大学におけるプロフィールページ</a>
 - <a href="/kaidoku/">Kaidoku</a> ソフトウェア
 - <a href="/unsatfit/">Unsatfit</a> ソフトウェア
+- <a href="/hystfit/">Hystfit</a> ソフトウェア
 
 このサイト sekika.github.io をホストする GitHub はアクセスログを保持し、<a href="https://docs.github.com/ja/site-policy/privacy-policies/github-privacy-statement">プライバシーポリシー</a>に従って管理されます。このサイトの所有者はアクセスログを閲覧することができません。
 
