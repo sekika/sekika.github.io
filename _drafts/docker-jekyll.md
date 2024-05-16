@@ -13,7 +13,7 @@ entrypoint.sh はこのファイル
 
 {% gist 7ec7dbe520e0381b1f449581ef903880 %}
 
-さらに、[このような Makefile](https://gist.github.com/sekika/a486fb7d07df30ff86e75c960051cfc1)を作っている。冒頭の repo 変数はレポジトリのローカルパスを入れる。`make open` で Docker が起動していなければ起動して（Mac 限定）、`make install` でコンテナを作り `make start` で localhost にサーバーを起動する。ここで、`make start` だけで Docker の起動から一連の処理をしてサーバーが起動される。`make stop` でサーバーが停止して、`make sh` でシェルに入り、`make root` でルートのシェルに入り、`make update` で alpine パッケージと jekyll をアップデートして、`make clean` でコンテナを消去して、`make reinstall` でコンテナを再インストールする。Ruby や alpine の新しいバージョンのイメージがあれば、これで最新になる。
+さらに、[このような Makefile](https://gist.github.com/sekika/a486fb7d07df30ff86e75c960051cfc1)を作っている。冒頭の repo 変数はレポジトリのローカルパスを入れる。`make open` で Docker が起動していなければ起動して（Mac 限定）、`make install` でコンテナを作り `make start` で localhost にサーバーを起動する。ここで、`make start` だけで Docker の起動から一連の処理をしてサーバーが起動される。`make stop` でサーバーが停止して、`make sh` でシェルに入り、`make root` でルートのシェルに入り、`make update` で alpine パッケージと gem をアップデートして、`make clean` でコンテナを消去して、`make reinstall` でコンテナを再インストールする。Ruby や alpine の新しいバージョンのイメージがあれば、これで最新になる。
 
 このような Makefile と Dockerfile の組を使うシステムごとに作成している。さらには、ディレクトリに入るのも面倒なので、起動と停止のためのシェルスクリプトを作っている。
 
