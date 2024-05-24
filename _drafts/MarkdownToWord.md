@@ -12,28 +12,22 @@ tag: word
 この段階では細かい見栄えは気にせず、文章を書くことに集中する。
 
 - [VS Codeでプレビュー](https://atmarkit.itmedia.co.jp/ait/articles/1804/20/news030.html)しながら原稿を書く。キーボードでは［Ctrl］＋［K］→［V］（Win／Linux）、［Command］＋［K］→［V］（macOS）。
-- Wordのテンプレートファイル `template.docx ` を作成しておく。テンプレートファイルでは、用紙サイズ、マージン、本文のフォントや段落などを指定できる。ただし、あまり細かい制御はできないので、細かいところはWordによる仕上げの段階で編集する。
+- Wordのテンプレートファイル `template.docx` を作成しておく。テンプレートファイルでは、用紙サイズ、マージン、本文のフォントや段落などを指定できる。ただし、あまり細かい制御はできないので、細かいところは Word による仕上げの段階で編集する。
 - 章や節の見出しは、`#`、`##`などで作る。
 - 数式は LaTex の文法で書く。`$`で囲めばインライン数式、`$$`で囲めばブロック数式となる。式が VS Code で即座にプレビューできるのは便利。式番号は、式の最後に`\tag{1}`のように直接式番号を書くことで VS Code のプレビューには表示されるが、Word に変換した時には式番号は消える。また、連番をつける機能はない。よって、式番号はこの段階ではつけない、あるいはプレビュー用に仮につけるかのどちらかとなる。
 - 図の挿入は`![**Fig. 1.** 図のタイトル](図のファイル名)`のようにする。ここでも、図の番号について連番を管理することはできない。また、Word原稿にするためには図の形式はPDFファイルとするのが良い。VS Codeのプレビューでは表示されないが、Wordでは図が添付されるので問題ない。プレビューしたい場合には、`png`や`svg`などのファイルで図を作成する。
+- 表は[Markdown表変換ツール](https://boost-tool.com/ja/tools/md_table)などを活用してマークダウンで作成するか、あるいは Word での編集段階で Excel からコピーペーストする。
 - 文献リストは `-` によるリストで列記しておく。
 
-以下の `Makefile` を作成する。
+以下の `Makefile` を作成する。ここで、`--number-sections` は章の見出しに番号を振る設定であり、不要であれば消す。
 ```
 all: manuscript.pdf
 
-%.docx: %.md default.yml
-	pandoc -d default.yml
+%.docx: %.md
+	pandoc $< -o $@ --reference-docx=template.docx --number-sections
 
 %.pdf: %.docx
 	docx2pdf $<
-```
-`default.yml`ファイルは、このようにする。ここで、`number-sections: true`は章の見出しに番号を振る設定である。
-```
-input-file: manuscript.md
-output-file: manuscript.docx
-reference-doc: template.docx 
-number-sections: true
 ```
 [Pandoc](https://qiita.com/sky_y/items/3c5c46ebd319490907e8) と Python の [docx2pdf](https://pypi.org/project/docx2pdf/) パッケージをインストールする。以上の設定で、原稿のディレクトリで `make` することで、原稿ファイル `manuscript.md` から Word 経由で `manuscript.pdf` が作成される。時々PDFに変換して確認する。
 
@@ -50,15 +44,15 @@ manuscript.pdf
 
 `make manuscript.docx` で Word ファイルを作成して、`.gitignore` からは `manuscript.docx` を削除する。`Makefile` からは、
 ```
-%.docx: %.md default.yml
-	pandoc -d default.yml
+%.docx: %.md
+	pandoc $< -o $@ --reference-docx=template.docx --number-sections
 ```
-の2行を削除あるいはコメントアウトする。これで、以降は `manuscript.md` の編集は反映されず、`manuscript.docx` で編集を継続することとなる。提出用に書式を整える。
+の2行を削除あるいはコメントアウトする。これで、以降は `manuscript.md` の編集は反映されず、`manuscript.docx` で仕上げの編集をすることとなる。
 
 - [式番号を追加](https://sekika.github.io/2023/03/09/WordEquation/)する。
 - 文献リストをぶら下げインデントに設定する。
 - 式番号や図表番号の対応を整える。今後も編集が継続するようであれば、必要に応じてブックマーク名で管理する。
-- タイトル、著者、その他細かい見栄えの調整をする。
+- タイトル、著者、図表の位置調整、表の罫線設定、その他細かい見栄えの調整をする。
 
 原稿を提出したら、`.gitignore` を削除して PDF を git に入れておく。
 
