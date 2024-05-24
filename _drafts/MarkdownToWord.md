@@ -24,7 +24,7 @@ tag: word
 all: manuscript.pdf
 
 %.docx: %.md
-	pandoc $< -o $@ --reference-docx=template.docx --number-sections
+	pandoc $< -o $@ --reference-doc=template.docx --number-sections
 
 %.pdf: %.docx
 	docx2pdf $<
@@ -45,7 +45,7 @@ manuscript.pdf
 `make manuscript.docx` で Word ファイルを作成して、`.gitignore` からは `manuscript.docx` を削除する。`Makefile` からは、
 ```
 %.docx: %.md
-	pandoc $< -o $@ --reference-docx=template.docx --number-sections
+	pandoc $< -o $@ --reference-doc=template.docx --number-sections
 ```
 の2行を削除あるいはコメントアウトする。これで、以降は `manuscript.md` の編集は反映されず、`manuscript.docx` で仕上げの編集をすることとなる。
 
