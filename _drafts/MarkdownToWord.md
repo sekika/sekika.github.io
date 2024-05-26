@@ -1,9 +1,9 @@
 ---
 layout: post
-title: マークダウンと Word による原稿作成
+title: マークダウンと Word による論文執筆
 tag: word
 ---
-[マークダウン](https://ja.wikipedia.org/wiki/Markdown)による原稿作成は手軽で便利である。[Pandoc で Markdown から PDF を作成](https://qiita.com/Kumassy/items/5b6ae6b99df08fb434d9)すれば良い。ところが、投稿論文の執筆時など、Word ファイルの提出が求められる時がある。そのような場合に、マークダウンで原稿を作成して、pandoc で Word に変換してから仕上げる方法についてまとめておく。
+[マークダウン](https://ja.wikipedia.org/wiki/Markdown)で原稿を執筆して、[Pandoc で PDF に変換して提出する](https://qiita.com/Kumassy/items/5b6ae6b99df08fb434d9)という方法はとても手軽で便利である。ところが、投稿論文では PDF ではなくて Word ファイルの提出が求められるため（LaTeX は別として）、マークダウンで原稿を執筆して、pandoc で Word に変換してから仕上げる方法についてまとめておく。
 
 ## マークダウンによる原稿執筆
 
