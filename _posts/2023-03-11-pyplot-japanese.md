@@ -2,6 +2,7 @@
 layout: post
 title: Matplotlib で日本語のグラフを作成する
 date: 2023-03-11 09:07:31 +0000
+update: 2024-06-14 16:41:56 +0000
 tags:
 - python
 - mac
@@ -33,6 +34,16 @@ fp = FontProperties(fname=font_path, style='italic', size=9)
 ~~~
 
 とする。
+
+また、plt.rcParams['font.family'] を使ってまとめてフォントの設定ができることを[すがやみつる先生に教えていただいた](https://x.com/msugaya/status/1801622708658327564)。以下のコードによって、ラベルやタイトルなどに個別にフォントを設定することなく、グラフのフォントがすべて指定した日本語フォントで表示できるようになる。
+
+~~~
+import matplotlib.pyplot as plt
+from matplotlib.font_manager import FontProperties, fontManager
+fontManager.addfont(font_path)
+fp = FontProperties(fname=font_path)
+plt.rcParams['font.family'] = fp.get_name()
+~~~
 
 ## TTC ファイルの変換方法
 
