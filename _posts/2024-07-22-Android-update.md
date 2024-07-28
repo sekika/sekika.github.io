@@ -113,7 +113,7 @@ plugins {
 ここで、"com.android.application" は AGP (Android Gradle Plugin) であり、"org.jetbrains.kotlin.android" は Kotlin である。それぞれ、以下から最新版を確認してバージョン番号を更新する。
 
 - [AGP のリリース](https://mvnrepository.com/artifact/com.android.tools.build/gradle) / [リリースノート](https://developer.android.com/build/releases/gradle-plugin?hl=ja)
-- [Kotlin のリリース](https://github.com/JetBrains/kotlin/releases)
+- [Kotlin のリリース](https://kotlinlang.org/docs/releases.html)
 
 ## Flutter のアップデート
 - `flutter upgrade` で　Flutter をアップデートする。
