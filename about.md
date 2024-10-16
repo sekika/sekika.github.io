@@ -27,7 +27,7 @@ permalink: /about/
 
 <ul>
 <li><a href="http://twitter.com/seki/">Twitter アカウント</a></li>
-<li>著者のメールアドレスは<a href="http://www.sciencedirect.com/science/article/pii/S0016706115000622">この論文</a>にあります。</li>
+<li>著者のメールアドレスは<a href="https://doi.org/10.1002/vzj2.20168">この論文</a>にあります。</li>
 </ul>
 
 ---
