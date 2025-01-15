@@ -170,10 +170,21 @@ The match equity of backgammon and the <a href="https://bkgm.com/articles/GOL/Oc
                 dropPoint = drop(myAway, oppAway, gammonRate) * 100;
                 result += `<li>Pass opponent's double if your winning chance is below <strong>${dropPoint.toFixed(1)}%</strong> and opponent has ${((100 - dropPoint) * gammonRate).toFixed(1)}% gammon chance. Your gammon chance is not counted.</li>`;
             }
+            // Recube potential
+            if (myAway > 2) {
+                if (oppAway == 2) {
+                    result += "<li>Redouble right after taking the cube."
+                } else {
+                    let doublePoint = double(myAway, oppAway, 0, 2)
+                    dropPoint = drop(oppAway, myAway, 0, 2);
+                    result += `<li>After taking the cube, you can consider redoubling if your winning chance is higher than <strong>${(doublePoint * 100).toFixed(1)}%</strong>, and opponent will pass your recube when your winning chance is above <strong>${(100 - dropPoint * 100).toFixed(1)}%</strong>.`;
+                }
+            }
             // Your double
             result += "</ul><h2>Your double</h2>";
             dropPoint = drop(oppAway, myAway, 0);
             k = ltqnorm(dropPoint) ** 2 * 2;
+            const drop1 = 1 - dropPoint;
             result += `<ul><li>Opponent will pass your double if your winning chance is above <strong>${(100 - dropPoint * 100).toFixed(1)}%</strong>, or D<sup>2</sup>/S > ${k.toFixed(2)} <a href="https://bkgm.com/articles/Kleinman/NormalRaceTakes/index.html">in the race</a>, `;
             if (myAway == 2) {
                 result += "regardless of your gammon chance.</li>";
@@ -184,14 +195,28 @@ The match equity of backgammon and the <a href="https://bkgm.com/articles/GOL/Oc
             }
             result += `<li>Minimum doubling point is <strong>${(double(myAway, oppAway, 0) * 100).toFixed(1)}%</strong>, `;
             if (myAway == 2) {
-                result += "regardless of your gammon chance.</li></ul>";
+                result += "regardless of your gammon chance.</li>";
             } else {
                 result += "where gammon is not counted.</li>";
                 let doublePoint = double(myAway, oppAway, gammonRate) * 100;
-                result += `<li>Minimum doubling point is <strong>${doublePoint.toFixed(1)}%</strong> when you have ${((100 - doublePoint) * gammonRate).toFixed(1)}% gammon chance. Opponent's gammon chance is not counted.</li></ul>`;
+                result += `<li>Minimum doubling point is <strong>${doublePoint.toFixed(1)}%</strong> when you have ${((100 - doublePoint) * gammonRate).toFixed(1)}% gammon chance. Opponent's gammon chance is not counted.</li>`;
+            }
+            // Recube potential
+            if (oppAway > 2) {
+                if (myAway == 2) {
+                    result += "<li>Opponent will redouble right after taking the cube."
+                } else {
+                    let doublePoint = 1 - double(oppAway, myAway, 0, 2)
+                    dropPoint = drop(myAway, oppAway, 0, 2);
+                    var watch = "";
+                    if (doublePoint > drop1) {
+                        watch = "Note that opponent's <strong>recube potential</strong> is very high. "
+                    }
+                    result += `<li>${watch}Opponent may redoube if your winning chance is lower than <strong>${(doublePoint * 100).toFixed(1)}%</strong>, and you should pass the recube when your winning chance is below <strong>${(dropPoint * 100).toFixed(1)}%</strong>.`;
+                }
             }
             // Match equity table
-            result += "<h2>Match equity table</h2>";
+            result += "</ul><h2>Match equity table</h2>";
             const maxAway = Math.max(myAway, oppAway);
             result += "<table><tr><th>";
             for (let away = 1; away <= maxAway; away++) {
@@ -246,13 +271,13 @@ The match equity of backgammon and the <a href="https://bkgm.com/articles/GOL/Oc
     }
 
     function equity(myAway, oppAway) {
-        if (myAway === oppAway) {
+        if (myAway == oppAway) {
             return 0.5;
         }
         if (myAway > oppAway) {
             return 1 - equity(oppAway, myAway);
         }
-        if (myAway === 0) {
+        if (myAway < 1) {
             return 1;
         }
         // Now myAway is the leader and oppAway is the trailer
@@ -275,60 +300,68 @@ The match equity of backgammon and the <a href="https://bkgm.com/articles/GOL/Oc
         return m;
     }
 
-    function drop(myAway, oppAway, oppGammon) {
+    function drop(myAway, oppAway, oppGammon=0, cube=1) {
         if (myAway < 2 || oppAway < 2) {
             console.log(`Drop point for ${myAway}-away ${oppAway}-away cannot be calculated.`);
             return 0;
         }
         // Drop point (MWC for drop)
-        const drop = equity(myAway, oppAway - 1);
+        const drop = equity(myAway, oppAway - cube);
         // Loss for taking and losing
         const single = 1 - oppGammon;
-        const singleEquity = equity(myAway, oppAway - 2);
+        var singleEquity = 0;
+        if (oppAway > 2 * cube) {
+            singleEquity = equity(myAway, oppAway - 2 * cube);
+        }
         var gammonEquity = 0;
-        if (oppAway > 4) {
-            gammonEquity = equity(myAway, oppAway - 4);
+        if (oppAway > 4 * cube) {
+            gammonEquity = equity(myAway, oppAway - 4 * cube);
         }
         const loss = drop - singleEquity * single - gammonEquity * oppGammon;
-        // console.log(`${myAway}-away ${oppAway}-away drop = ${drop.toFixed(3)} singleEquity = ${singleEquity.toFixed(3)} gammonEquity = ${gammonEquity.toFixed(3)} loss = ${loss.toFixed(3)}`);
         // Gain for taking and winning
         let gain;
-        if (oppAway > 2) {
-            gain = equity(myAway - 2, oppAway) - drop;
-        } else if (myAway > 4) {
-            gain = equity(myAway - 4, oppAway) - drop;
+        if (oppAway > 2 * cube) {
+            gain = equity(myAway - 2 * cube, oppAway) - drop;
+        } else if (myAway > 4 * cube) {
+            gain = equity(myAway - 4 * cube, oppAway) - drop;
         } else {
             gain = 1 - drop;
         }
+        // console.log(`${myAway}-away ${oppAway}-away cube = ${cube} drop = ${drop.toFixed(3)} singleEquity = ${singleEquity.toFixed(3)} gammonEquity = ${gammonEquity.toFixed(3)} loss = ${loss.toFixed(3)} gain = ${gain.toFixed(3)}`);
 
         // Calculate drop point
         const dropPoint = loss / (loss + gain);
         return dropPoint;
     }
 
-    function double(myAway, oppAway, myGammon) {
+    function double(myAway, oppAway, myGammon=0, cube=1) {
         if (myAway < 2 || oppAway < 2) {
             console.log(`Minimum doubling point for ${me}-away ${oppAway}-away cannot be calculated.`);
             return 0;
         }
         // Gain for double and win
-        let gainSingle = equity(myAway - 2, oppAway) - equity(myAway - 1, oppAway);
-        var gammonEquity = 1;
-        if (oppAway > 4) {
-            gammonEquity = equity(myAway - 4, oppAway);
+        var singleEquity = 1;
+        if (myAway > 2 * cube) {
+            singleEquity = equity(myAway - 2 * cube, oppAway);
         }
-        let gainGammon = gammonEquity - equity(myAway - 2, oppAway);
+        let gainSingle = singleEquity - equity(myAway - cube, oppAway);
+        var gammonEquity = 1;
+        if (myAway > 4 * cube) {
+            gammonEquity = equity(myAway - 4 * cube, oppAway);
+        }
+        let gainGammon = gammonEquity - equity(myAway - 2 * cube, oppAway);
         const gain = gainSingle * (1 - myGammon) + gainGammon * myGammon
         // Loss for double and lose
         let loss;
-        if (myAway > 2) {
-            loss = equity(myAway, oppAway - 1) - equity(myAway, oppAway - 2);
-        } else if (oppAway > 4) {
-            loss = equity(myAway, oppAway - 1) - equity(myAway, oppAway - 4);
+        if (myAway > 2 * cube) {
+            loss = equity(myAway, oppAway - cube) - equity(myAway, oppAway - 2 * cube);
+        } else if (oppAway > 4 * cube) {
+            loss = equity(myAway, oppAway - cube) - equity(myAway, oppAway - 4 * cube);
         } else {
-            loss = equity(myAway, oppAway - 1);
+            loss = equity(myAway, oppAway - cube);
         }
         // Calculate doubling point
+        // console.log(`${myAway}-away ${oppAway}-away cube = ${cube} singleEquity = ${singleEquity.toFixed(3)} gainSingle = ${gainSingle.toFixed(3)} gain = ${gain.toFixed(3)} loss = ${loss.toFixed(3)}`);
         let doublingPoint = loss / (loss + gain);
         return doublingPoint;
     }
