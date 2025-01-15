@@ -7,7 +7,7 @@ tags:
 - javascript
 - english
 ---
-The match equity of backgammon and the <a href="https://bkgm.com/articles/GOL/Oct99/hanka99.htm">doubling window</a> can be calculated up to a 15-point match.
+The match equity in backgammon and the reference values for cube decisions can be calculated for matches of up to 15 points.
 
 <ul>
     <li><input name="point" id="point" type="text" value="5" size="3" onkeyup="update()" /> point match
@@ -25,6 +25,14 @@ The match equity of backgammon and the <a href="https://bkgm.com/articles/GOL/Oc
 <h2 id="matchStatus"></h2>
 
 <div id="result"></div>
+
+<h2>Reference</h2>
+<ul>
+<li><a href="https://bkgm.com/articles/GOL/Aug99/double.htm">Doubling Theory and Market Losers</a> by Hank Youngerman</li>
+<li><a href="https://bkgm.com/articles/GOL/Oct99/hanka99.htm">Match Equity and Doubling Windows</a> by Hank Youngerman</li>
+<li><a href="https://bkgm.com/articles/GOL/Nov99/hankb99.htm">Doubling Windows and Special Doubling Situations</a> by Hank Youngerman</li>
+<li><a href="https://bkgm.com/articles/GOL/Aug99/fivept.htm">Five Point Match</a> by Kit Woolsey</li>
+</ul>
 
 <script>
     'use strict';
@@ -168,7 +176,7 @@ The match equity of backgammon and the <a href="https://bkgm.com/articles/GOL/Oc
             } else {
                 result += "where gammon is not counted.</li>";
                 dropPoint = drop(myAway, oppAway, gammonRate) * 100;
-                result += `<li>Pass opponent's double if your winning chance is below <strong>${dropPoint.toFixed(1)}%</strong> and opponent has ${((100 - dropPoint) * gammonRate).toFixed(1)}% gammon chance. Your gammon chance is not counted.</li>`;
+                result += `<li>Assuming ${gammonRate * 100}% gammon ratio, pass opponent's double if your winning chance is below <strong>${dropPoint.toFixed(1)}%</strong>, where opponent has ${((100 - dropPoint) * gammonRate).toFixed(1)}% gammon chance and you have ${(dropPoint * gammonRate).toFixed(1)}% gammon chance.</li>`;
             }
             // Recube potential
             if (myAway > 2) {
@@ -191,26 +199,37 @@ The match equity of backgammon and the <a href="https://bkgm.com/articles/GOL/Oc
             } else {
                 result += "where gammon is not counted.</li>";
                 dropPoint = (100 - drop(oppAway, myAway, gammonRate) * 100);
-                result += `<li>Opponent will pass your double if your winning chance is above <strong>${dropPoint.toFixed(1)}%</strong> and you have ${(dropPoint * gammonRate).toFixed(1)}% gammon chance. Opponent's gammon chance is not counted.</li>`;
+                result += `<li>Assuming ${gammonRate * 100}% gammon ratio, opponent will pass your double if your winning chance is above <strong>${dropPoint.toFixed(1)}%</strong>, where you have ${(dropPoint * gammonRate).toFixed(1)}% gammon chance and opponent has ${((100 - dropPoint) * gammonRate).toFixed(1)}% gammon chance.</li>`;
             }
+            // Minimum doubling point
             result += `<li>Minimum doubling point is <strong>${(double(myAway, oppAway, 0) * 100).toFixed(1)}%</strong>, `;
             if (myAway == 2) {
-                result += "regardless of your gammon chance.</li>";
+                if (oppAway == 2) {
+                    result += "and it is <strong>always correct to double</strong> when you are in favorite.";
+                } else {
+                    result += "regardless of your gammon chance. If you have a good gammon chance, it is better not to double and play for a gammon.</li>";
+                }
             } else {
                 result += "where gammon is not counted.</li>";
                 let doublePoint = double(myAway, oppAway, gammonRate) * 100;
-                result += `<li>Minimum doubling point is <strong>${doublePoint.toFixed(1)}%</strong> when you have ${((100 - doublePoint) * gammonRate).toFixed(1)}% gammon chance. Opponent's gammon chance is not counted.</li>`;
+                if (oppAway == 2) {
+                    result += `<li>Minimum doubling point is <strong>${doublePoint.toFixed(1)}%</strong> when you have ${((100 - doublePoint) * gammonRate).toFixed(1)}% gammon chance.</li>`;
+                }
             }
             // Recube potential
             if (oppAway > 2) {
                 if (myAway == 2) {
                     result += "<li>Opponent will redouble right after taking the cube."
                 } else {
-                    let doublePoint = 1 - double(oppAway, myAway, 0, 2)
+                    let doublePoint = 1 - double(oppAway, myAway, 0, 2);
                     dropPoint = drop(myAway, oppAway, 0, 2);
                     var watch = "";
-                    if (doublePoint > drop1) {
-                        watch = "Note that opponent's <strong>recube potential</strong> is very high. "
+                    if (drop1 - doublePoint < 0.15) {
+                        if (oppAway > 4) {
+                            watch = "Note that opponent's <strong>recube potential</strong> is very high, especially when opponent has a chance to win gammon. ";
+                        } else {
+                            watch = "Note that opponent's <strong>recube potential</strong> is very high. ";
+                        }
                     }
                     result += `<li>${watch}Opponent may redoube if your winning chance is lower than <strong>${(doublePoint * 100).toFixed(1)}%</strong>, and you should pass the recube when your winning chance is below <strong>${(dropPoint * 100).toFixed(1)}%</strong>.`;
                 }
@@ -258,12 +277,11 @@ The match equity of backgammon and the <a href="https://bkgm.com/articles/GOL/Oc
             if (oppAway > 2) {
                 dropPoint = equity(myAway, oppAway - 1);
                 const single = 1 - gammonRate
-                var gammonEquity = 0;
-                if (oppAway > 4) {
-                    gammonEquity = equity(myAway, oppAway - 4);
-                }
-                loss = dropPoint - equity(myAway, oppAway - 2) * single - gammonEquity * gammonRate;
-                result += `<li>When opponent wins by gammon, MWC = ${(gammonEquity * 100).toFixed(1)}%. Therefore by assuming ${(gammonRate * 100).toFixed(0)}% gammon chance out of the win, loss of MWC is calculated as ${(loss * 100).toFixed(1)}%, and the take/pass border = ${(loss * 100).toFixed(1)} / (${(loss * 100).toFixed(1)} + ${(gain * 100).toFixed(1)}) = ${(loss / (loss + gain) * 100).toFixed(1)}%. In this case, opponent's gammon chance is ${(gain / (loss + gain) * 100).toFixed(1)}% x ${gammonRate.toFixed(2)} = ${(gain / (loss + gain) * gammonRate * 100).toFixed(1)}%.</li>`;
+                const oppGammonEquity = equity(myAway, oppAway - 4);
+                loss = dropPoint - equity(myAway, oppAway - 2) * single - oppGammonEquity * gammonRate;
+                const myGammonEquity = equity(myAway - 4, oppAway);
+                gain = equity(myAway - 2, oppAway) * single + myGammonEquity * gammonRate - dropPoint;
+                result += `<li>When the opponent wins by gammon, the MWC is ${(oppGammonEquity * 100).toFixed(1)}%. When you win by gammon, the MWC is ${(myGammonEquity * 100).toFixed(1)}%. Assuming a ${(gammonRate * 100).toFixed(0)}% gammon ratio (gammon percentage divided by winning percentage), the loss of MWC is calculated as ${(dropPoint* 100).toFixed(1)}% - (${(equity(myAway, oppAway - 2)* 100).toFixed(1)}% x ${single} + ${(oppGammonEquity* 100).toFixed(1)}% x ${gammonRate}) = ${(loss * 100).toFixed(1)}%. The gain is calculated as ${(gain * 100).toFixed(1)}%, resulting in the take/pass border of ${(loss * 100).toFixed(1)} / (${(loss * 100).toFixed(1)} + ${(gain * 100).toFixed(1)}) = ${(loss / (loss + gain) * 100).toFixed(1)}%. Note that it is ${((2 * gammonRate + 1)/(4 * gammonRate + 4) * 100).toFixed(1)}% for the money game. In this scenario, the opponent's chance of gammon is ${(gain / (loss + gain) * 100).toFixed(1)}% x ${gammonRate.toFixed(2)} = ${(gain / (loss + gain) * gammonRate * 100).toFixed(1)}% while your chance of gammon is ${(loss / (loss + gain) * gammonRate * 100).toFixed(1)}%.</li>`;
             }
         }
         result += "</ul>";            
@@ -300,7 +318,7 @@ The match equity of backgammon and the <a href="https://bkgm.com/articles/GOL/Oc
         return m;
     }
 
-    function drop(myAway, oppAway, oppGammon=0, cube=1) {
+    function drop(myAway, oppAway, gammonRate=0, cube=1) {
         if (myAway < 2 || oppAway < 2) {
             console.log(`Drop point for ${myAway}-away ${oppAway}-away cannot be calculated.`);
             return 0;
@@ -308,25 +326,17 @@ The match equity of backgammon and the <a href="https://bkgm.com/articles/GOL/Oc
         // Drop point (MWC for drop)
         const drop = equity(myAway, oppAway - cube);
         // Loss for taking and losing
-        const single = 1 - oppGammon;
-        var singleEquity = 0;
-        if (oppAway > 2 * cube) {
-            singleEquity = equity(myAway, oppAway - 2 * cube);
-        }
-        var gammonEquity = 0;
-        if (oppAway > 4 * cube) {
-            gammonEquity = equity(myAway, oppAway - 4 * cube);
-        }
-        const loss = drop - singleEquity * single - gammonEquity * oppGammon;
+        const single = 1 - gammonRate;
+        var singleEquity = equity(myAway, oppAway - 2 * cube);
+        var gammonEquity = equity(myAway, oppAway - 4 * cube);
+        const loss = drop - singleEquity * single - gammonEquity * gammonRate;
         // Gain for taking and winning
-        let gain;
-        if (oppAway > 2 * cube) {
-            gain = equity(myAway - 2 * cube, oppAway) - drop;
-        } else if (myAway > 4 * cube) {
-            gain = equity(myAway - 4 * cube, oppAway) - drop;
-        } else {
-            gain = 1 - drop;
+        if (oppAway <= 2 * cube) {
+            cube *= 2;
         }
+        var singleEquity = equity(myAway - 2 * cube, oppAway);
+        var gammonEquity = equity(myAway - 4 * cube, oppAway);
+        var gain = singleEquity * single + gammonEquity * gammonRate - drop;
         // console.log(`${myAway}-away ${oppAway}-away cube = ${cube} drop = ${drop.toFixed(3)} singleEquity = ${singleEquity.toFixed(3)} gammonEquity = ${gammonEquity.toFixed(3)} loss = ${loss.toFixed(3)} gain = ${gain.toFixed(3)}`);
 
         // Calculate drop point
@@ -371,6 +381,10 @@ The match equity of backgammon and the <a href="https://bkgm.com/articles/GOL/Oc
     *
     * Author:      Peter John Acklam
     * WWW URL:     http://home.online.no/~pjacklam/notes/invnorm/
+    * 
+    * Javascript implementation by Liorzou Etienne
+    * - Adapted from Dr. Thomas Ziegler's C implementation itself adapted from Peter's Perl version
+    * URL:   https://github.com/liorzoue/js-normal-inverse
     */
 
     function ltqnorm(p) {
