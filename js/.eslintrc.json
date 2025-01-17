@@ -23,6 +23,7 @@
         "lines-around-comment": "off",
         "line-comment-position": "off",
         "logical-assignment-operators": "off",
+        "max-depth": ["error", 5],
         "max-len": "off",
         "max-lines": "off",
         "max-lines-per-function": "off",
@@ -33,7 +34,7 @@
         "no-alert": "warn",
         "no-inline-comments": "off",
         "no-magic-numbers": ["warn", {
-            "ignore": [-1, 0, 1, 2],
+            "ignore": [-1, 0, 1, 2, 4, 100],
             "ignoreArrayIndexes": true
             }
         ],
