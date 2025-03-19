@@ -1,1 +1,10 @@
-{}
+{
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.0",
+    "@eslint/js": "^9.22.0",
+    "globals": "^16.0.0"
+  },
+  "dependencies": {
+    "eslint": "^9.22.0"
+  }
+}
