@@ -6,6 +6,7 @@ This directory contains JavaScript programs used at https://sekika.github.io/.
 |日本語|English|JavaScript|Minified|
 | ---- | ---- | ---- | ---- |
 |[15パズル](https://sekika.github.io/2020/01/17/15Puzzle/)|[15 Puzzle](https://sekika.github.io/2020/01/14/15Puzzle/)|[15.js](15.js)|[mini](15.min.js)|
+|[ドッジェム](https://sekika.github.io/dodgem/ja/)|[Dodgem](https://sekika.github.io/dodgem/)|[dodgem.js](dodgem.js)|[mini](dodgem.min.js)|
 |[Canvas のイベント表示](https://sekika.github.io/2020/01/07/CanvasEvent/)||[canvasevent.js](canvasevent.js)|[mini](canvasevent.min.js)
 |[関数のグラフを描画](https://sekika.github.io/2020/01/03/DrawCartesianGraph/)||[graph.js](graph.js)|[mini](graph.min.js)|
 |[UNSODA ビューア](https://sekika.github.io/unsoda/ja/)|[UNSODA viewer](https://sekika.github.io/unsoda/)|[unsoda.js](unsoda.js)|[mini](unsoda.min.js)|

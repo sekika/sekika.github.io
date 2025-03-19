@@ -16,6 +16,7 @@ katex-version: "0.16.10" # KaTeX https://github.com/Khan/KaTeX/releases
 pyodide-version: "0.25.1" # Pyodide https://pyodide.org/en/stable/project/changelog.html
 plotly-version: "2.32.0" # Plotly https://plotly.com/javascript/getting-started/
 jquery-version: "3.7.1" # jQuery https://jquery.com/download/
+pako-version: "2.1.0" # pako https://cdnjs.com/libraries/pako
 
 # Bootstrap theme
 bootstrap-theme: "flatly" # https://bootswatch.com/
