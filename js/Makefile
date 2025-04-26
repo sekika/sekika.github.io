@@ -9,6 +9,6 @@ all: canvasevent.min.js graph.min.js 15.min.js dodgem.min.js unsoda.min.js match
 
 install:
 	arch -arm64 brew install node
-	npm install -g eslint uglify-js
+	npm install eslint uglify-js
 
 .PHONY: install

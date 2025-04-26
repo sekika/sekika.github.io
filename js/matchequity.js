@@ -10,7 +10,29 @@ License: MIT License
 
 // Maximum match length
 const maxPoint = 15
+parseGet()
 update()
+
+function parseGet() {
+  const parse = location.search.replace('?', '')
+  const parts = parse.split('-')
+  const defaultPoint = 5
+  const point = parseInt(parts[0] || defaultPoint, 10)
+  if (point < 1 || point > maxPoint) {
+    return
+  }
+  setPoint(point)
+  const myPoint = parseInt(parts[1] || 0, 10)
+  if (myPoint < 0 || myPoint > point) {
+    return
+  }
+  document.getElementById('myPoint').value = myPoint
+  const oppPoint = parseInt(parts[2] || 0, 10)
+  if (oppPoint < 0 || oppPoint > point) {
+    return
+  }
+  document.getElementById('oppPoint').value = oppPoint
+}
 
 function decPoint() { // eslint-disable-line no-unused-vars
   let point = document.getElementById('point').value
@@ -24,7 +46,7 @@ function incPoint() { // eslint-disable-line no-unused-vars
   setPoint(point)
 }
 
-function setPoint(point) { // eslint-disable-line no-unused-vars
+function setPoint(point) {  
   const minPoint = 3
   if (isNaN(point) || point < minPoint) {
     point = minPoint
