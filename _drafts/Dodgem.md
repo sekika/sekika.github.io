@@ -31,4 +31,4 @@ tags:
 <input type="radio" name="level" value="3">L3
 - <p><button id="new" onclick="board.newGame()">New game</button>
 - Change <button onclick="board.changeTileSize()">size of square</button>
-- [15 puzzle](/2020/01/14/15Puzzle/) and [Sudoku](/kaidoku/sudoku) is also available.
+- [15 puzzle](/2020/01/14/15Puzzle/) and [Sudoku](/kaidoku/sudoku) are also available.

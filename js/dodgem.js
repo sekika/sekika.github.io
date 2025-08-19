@@ -15,8 +15,7 @@ window.onload = function () {
  * Block of predetermined parameters
  */
 
-// URL of the evaluation value database
-// It was obtained through almost complete reading.
+// Evaluation database created with dodgem-game package of Python
 const urlEval = '/file/dodgem/dodgem_eval.json.gz'
 
 // Game setting
@@ -88,7 +87,8 @@ const message = {
     win: 'win',
     loss: 'loss',
     numDraw: 'draw',
-    confirmStop: 'Quit this game?'
+    confirmStop: 'Quit this game?',
+    inputSize: 'Input size of the squares.'
   },
   ja: {
     pleaseWait: 'お待ちください...',
@@ -110,7 +110,8 @@ const message = {
     win: '勝',
     loss: '敗',
     numDraw: '分',
-    confirmStop: 'ゲームを中断しますか？'
+    confirmStop: 'ゲームを中断しますか？',
+    inputSize: 'ます目の大きさを入力してください。'
   }
 }[lang]
 
@@ -492,49 +493,68 @@ const board = {
   },
   getDepth() { // Get thinking depth
     const level = this.players[this.turn]
+    const remain = this.remain(this.pieces)
+    const moves = this.moveHistory.length
+    const rnd = Math.random()
     if (level === 1) {
       // Level 1 does not use predetermined evaluation data
       this.evalMap = {3:{}, 4:{}, 5:{}}
       // Add some randomness in the move
-      return 1 + Math.floor(Math.random() * 7)
+      return 1 + Math.floor(rnd * 7)
     } if (level === 2) {
       // Level 2
       if (this.n === 3) {
         this.evalMap['3'] = {}
-        return 6 + Math.floor(Math.random() * 5)
+        return 6 + Math.floor(rnd * 5)
       }
       if (this.n === 4) {
-        if (this.moveHistory.length < 8) {
+        if (moves < 8) {
           return 1 // Use book in the opening
         }
-        if (this.remain(this.pieces) === 12) {
-          this.evalMap['4'] = {} // Clear preloaded evaluation data
+        if (remain > 12) {
+          return 6 + Math.floor(rnd * 3)
         }
-        if (this.remain(this.pieces) > 12) {
-          return 6 + Math.floor(Math.random() * 5)
-        }
+        this.evalMap['4'] = {} // Clear preloaded evaluation data
         return 30
       }
       // For n=5, evaluation is refreshed every time to save memory
       this.reloadEvalData()
-      return 38 - 5 * this.n - Math.floor(this.remain(this.pieces) / 5)  
+      if (moves < 10) {
+        return 1 // Use book in the opening
+      }
+      if (remain < 15) {
+        return 10
+      }
+      return 4
     }
     // Level 3
-    if (this.moveHistory.length <= 2) {
-      return 1
-    }
     if (this.n === 3) {
       return 5
     }
-    if (this.n === 5) {
-      this.reloadEvalData()
+    if (this.n === 4) {
+      if (moves < 3) {
+        return 1
+      }
+      if (remain < 15) {
+        return 40
+      }
+      return 12 + Math.floor(rnd * 7)
     }
-    if (this.n === 4 || this.remain(this.pieces) < 15) {
+    this.reloadEvalData()
+    if (moves < 3) {
+      return 1
+    }
+    if (remain < 15) {
       return 40
     }
-    return 38 - 5 * this.n - Math.floor(this.remain(this.pieces) / 5)  
+    return 13 - 5 * this.n - Math.floor(remain / 5)  
   },
   evaluate(pieces, turn, depth) { // Evaluation function
+    // Check if the position is in evalmap
+    const key = this.makeKey(pieces, turn)
+    if (key in this.evalMap[this.n] && this.evalMap[this.n][key][1] >= depth) {
+      return this.evalMap[this.n][key][0]
+    }
     // Check if the game is finished
     if (pieces[turn].length === 0) {
       return evalWin
@@ -780,7 +800,7 @@ const board = {
       if (this.players[this.turn] === 0) {
         showMessage(message.selectPiece.replace('PIECE', pieceHtml(this.turn)))
       } else {
-        showMessage(message.showThinking.replace('TURN', this.showTurn[this.turn]))
+        showMessage(message.showThinking.replace('TURN', `${this.showTurn[this.turn]}${pieceHtml(this.turn)}`))
         this.playCompAndWait()
       }
     }
