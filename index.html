@@ -1,5 +1,7 @@
 ---
 layout: default
+pagination:
+  enabled: true
 ---
 <div class="container">
 
@@ -17,19 +19,17 @@ layout: default
   </div>
 </div>
 
-  {% for post in paginator.posts %}
-    <h2><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h2>
-    <p>{{ post.excerpt | strip_html }}</p>
-  {% endfor %}
+{% for post in paginator.posts %}
+  <h2><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h2>
+  <p>{{ post.excerpt | strip_html }}</p>
+{% endfor %}
+
+<div class="text-center">
+  {% if paginator.previous_page %}
+    <a class="btn btn-default" href="{{ paginator.previous_page.url | prepend: site.baseurl }}">Previous</a>
+  {% endif %}
+  <span>{{ paginator.page }} / {{ paginator.total_pages }}</span>
+  {% if paginator.next_page %}
+    <a class="btn btn-default" href="{{ paginator.next_page.url | prepend: site.baseurl }}">Next</a>
+  {% endif %}
 </div>
-
-  <div class="text-center">
-    {% if paginator.previous_page %}
-      <a class="btn btn-default" href="{{ site.baseurl }}{{ paginator.previous_page_path }}">Previous</a>
-      {% endif %}
-      <span>{{ paginator.page }} / {{ paginator.total_pages }}</span>
-    {% if paginator.next_page %}
-      <a class="btn btn-default" href="{{ site.baseurl }}{{ paginator.next_page_path }}">Next</a>
-    {% endif %}
-  </div>
-
