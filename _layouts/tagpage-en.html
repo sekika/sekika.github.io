@@ -4,32 +4,21 @@ layout: default-en
 
 <div class="container">
 
-<div class="row">
-  <div class="col-sm-3 d-none d-sm-block">
-    <img src="https://sekika.github.io/toyo/photos/small.jpg"
-     alt="Seki's photo" height="120">
+  <div class="row">
+    <div class="col-sm-3 d-none d-sm-block">
+      <img src="https://sekika.github.io/toyo/photos/small.jpg"
+        alt="Seki's photo" height="120">
+    </div>
+    <div class="col-sm-6 col-xs-12">
+      <h1>{{ site.title }}</h1>
+    </div>
+    <div class="col-sm-3 d-none d-sm-block">
+      <img src="https://pbs.twimg.com/profile_images/2986696034/dddd38f9ce3271c4c0627e94e179659e_400x400.jpeg"
+        alt="image" height="120">
+    </div>
   </div>
-  <div class="col-sm-6 col-xs-12">
-    <h1>{{ site.title }}</h1>
-  </div>
-  <div class="col-sm-3 d-none d-sm-block">
-    <img src="https://pbs.twimg.com/profile_images/2986696034/dddd38f9ce3271c4c0627e94e179659e_400x400.jpeg"
-      alt="image" height="120">
-  </div>
-</div>
 
-{% for post in site.tags[page.tag] %}
-<h2><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h2>
-<p>{{ post.excerpt | strip_html }}</p>
-{% endfor %}
+  {{ content }}
 
-<!--
-<ul>
-{% for post in site.tags[page.tag] %}
-  <li>
-    {{ post.date | date: "%b %-d, %Y" }}: <a href="{{ post.url }}">{{ post.title }}</a>
-  </li>
-{% endfor %}
-</ul>
--->
+  <!-- ページリンクは alias.html 側で生成済み -->
 </div>

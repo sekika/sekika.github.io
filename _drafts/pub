@@ -55,8 +55,11 @@ if [ `diff $Filename ../_posts/$DestFile | wc -l` -ne 2 ]; then
   echo "Something wrong. Stop. Check ../_posts/$DestFile"; exit
 fi
 
+echo "Producing English pagination."
+cd ..; setup/english-pagination
+
 echo "Removing draft."
-cd ../_drafts  || { echo "cd ../_drafts failed. Stop."; exit; }
+cd _drafts  || { echo "cd ../_drafts failed. Stop."; exit; }
 git rm -f $Filename || { echo "git rm $Filename failed. Stop."; exit; }
 git commit -m "Remove draft because it was published" || \
    { echo "Commit failed. Stop."; exit; }

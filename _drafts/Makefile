@@ -6,6 +6,9 @@ RUBY_PATH = /usr/local/bin
 
 all: push
 
+english:
+	cd ..; setup/english-pagination
+
 push:
 	git add -A
 	- git commit -m draft
@@ -30,3 +33,6 @@ linkcheck:
 reinstall:
 	rm -f ../Gemfile.lock
 	$(RUBY_PATH)/bundle install
+
+install:
+	python3 -m pip install markdown PyYAML

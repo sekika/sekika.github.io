@@ -1,0 +1,114 @@
+#!/usr/bin/env python3
+import os
+import glob
+import math
+import markdown
+import yaml
+
+output_dir = "tags/english"
+os.makedirs(output_dir, exist_ok=True)
+
+page_size = 5
+tag = "english"
+
+posts = []
+
+# ファイル名で降順にソート（YYYY-MM-DD-xxx.md 形式なので文字列降順で新しい順）
+md_files = sorted(glob.glob("_posts/*.md"), reverse=True)
+
+for md_file in md_files:
+    with open(md_file, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    # YAML front matter
+    if content.startswith("---"):
+        fm_end = content.find("---", 3)
+        front_matter = content[3:fm_end]
+        body = content[fm_end+3:].strip()
+        data = yaml.safe_load(front_matter)
+    else:
+        data = {}
+        body = content
+
+    # 英語タグのみ
+    if "tags" not in data or tag not in data["tags"]:
+        continue
+
+    # ファイル名から日付とスラッグ
+    filename = os.path.basename(md_file)
+    parts = filename.split("-", 3)
+    if len(parts) < 4:
+        continue
+    year, month, day, slug_md = parts
+    slug = slug_md.replace(".md", "")
+
+    # permalink があればそれを優先
+    if "permalink" in data and data["permalink"]:
+        url = data["permalink"]
+    else:
+        url = f"/{year}/{month}/{day}/{slug}/"
+
+    # 日付情報も追加（ソート用）
+    post_date = f"{year}-{month}-{day}"
+
+    # タイトル
+    title = data.get("title", slug)
+
+    # excerpt
+    excerpt_md = data.get("excerpt", "")
+    if not excerpt_md:
+        lines = [l for l in body.split("\n\n") if l.strip()]
+        excerpt_md = lines[0] if lines else ""
+
+    excerpt_html = markdown.markdown(excerpt_md)
+
+    posts.append({
+        "title": title,
+        "url": url,
+        "excerpt_html": excerpt_html,
+        "date": post_date
+    })
+
+# 念のため日付で降順にソート
+posts.sort(key=lambda x: x["date"], reverse=True)
+
+print(f"Total posts collected: {len(posts)}")
+
+# ページ分割
+total_pages = math.ceil(len(posts)/page_size)
+for page_num in range(1, total_pages+1):
+    start = (page_num-1)*page_size
+    end = start + page_size
+    page_posts = posts[start:end]
+
+    filename = "alias.html" if page_num == 1 else f"page{page_num}.html"
+    filepath = os.path.join(output_dir, filename)
+
+    with open(filepath, "w", encoding="utf-8") as f:
+        # front matter
+        f.write("---\n")
+        f.write("layout: tagpage-en\n")
+        f.write(f"tag: {tag}\n")
+        f.write(f"page_num: {page_num}\n")
+        f.write(f"total_pages: {total_pages}\n")
+        f.write(f"permalink: /en/\n" if page_num == 1 else f"permalink: /en/page{page_num}/\n")
+        f.write("---\n\n")
+
+        f.write('<div class="container">\n\n')
+        # 投稿内容
+        for post in page_posts:
+            f.write(f"<h2><a href=\"{post['url']}\">{post['title']}</a></h2>\n")
+            f.write(f"{post['excerpt_html']}\n\n")
+
+        # ページリンク
+        f.write('<div class="text-center">\n')
+        if page_num > 1:
+            prev_link = "/en/" if page_num == 2 else f"/en/page{page_num-1}/"
+            f.write(f'<a class="btn btn-default" href="{prev_link}">Previous</a>\n')
+        f.write(f"<span>{page_num} / {total_pages}</span>\n")
+        if page_num < total_pages:
+            next_link = f"/en/page{page_num+1}/"
+            f.write(f'<a class="btn btn-default" href="{next_link}">Next</a>\n')
+        f.write('</div>\n</div>\n')
+
+print(f"Pages generated in {output_dir}")
