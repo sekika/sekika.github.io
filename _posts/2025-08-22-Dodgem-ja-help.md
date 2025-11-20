@@ -47,4 +47,4 @@ n×n の盤面に、左端の列に青の駒を n−1 個、最下段に赤の�
 ## 参考文献
 - Berlekamp, Elwyn R.; Conway, John Horton; Guy, Richard K. (2003), “Dodgem,” Winning Ways for your Mathematical Plays, vol. 3 (2nd ed.), A.K. Peters, pp. 749–750, ISBN 978-1-56881-143-7.
 - [rec.games.abstract のディスカッションスレッド (1996)](https://ics.uci.edu/~eppstein/cgt/dodgem.html)。David desJardins による 4×4 と 5×5 の勝敗表が掲載され、いずれも引き分けと結論づけられています。
-- [Wikipedia: Dodgem](https://en.wikipedia.org/wiki/Dodgem)
+- [Wikipedia: ドッジェム](https://ja.wikipedia.org/wiki/%E3%83%89%E3%83%83%E3%82%B8%E3%82%A7%E3%83%A0)
