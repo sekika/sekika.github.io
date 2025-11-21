@@ -75,11 +75,11 @@ git commit -m "Remove draft because it was published" || \
 #fi
 
 echo "Committing to repository."
-cd ../_posts || { echo "cd ../_posts failed. Stop."; exit; }
+cd .. || { echo "cd .. failed. Stop."; exit; }
 git add $DestFile || \
-   { echo "git add $DestFile at ../_posts failed. Stop."; exit; }
+   { echo "git add $DestFile at .. failed. Stop."; exit; }
 git commit -m "Published on "$Permalink || \
-   { echo "Commit at ../_posts failed. Stop."; exit; }
+   { echo "Commit at .. failed. Stop."; exit; }
 echo "Pushing to master repository."
 git push origin master || { echo "Push failed. Stop."; exit; }
 echo "Published successfully."
