@@ -1,0 +1,16 @@
+---
+layout: default-en
+tag: english
+title: List of English pages
+permalink: /en/list/
+---
+<div class="container">
+<h1>{{ page.title }}</h1>
+<ul>
+{% for post in site.tags[page.tag] %}
+  <li>
+    {{ post.date | date: "%Y-%m-%d" }}: <a href="{{ post.url }}">{{ post.title }}</a>
+  </li>
+{% endfor %}
+</ul>
+</div>
