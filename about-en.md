@@ -3,15 +3,17 @@ layout: page-en
 title: About
 permalink: /en/about/
 ---
-This site, {{ site.title }}, is a personal note of {{ site.author-en }}. Most of the posts are written <a href="{{ "/" | prepend: site.baseurl }}">in Japanese</a>, and some posts are <a href="{{ "/en/" | prepend: site.baseurl }}">translated into English</a>. This site is hosted by [GitHub](https://github.com/) with the system of [GitHub Pages](https://pages.github.com/).
+This site, {{ site.title }}, is a personal note of {{ site.author-en }}. Most of the posts are written <a href="{{ "/" | prepend: site.baseurl }}">in Japanese</a>, and some posts are <a href="{{ "/en/list/" | prepend: site.baseurl }}">translated into English</a>. This site is hosted by [GitHub](https://github.com/) with the system of [GitHub Pages](https://pages.github.com/).
 
 ## Privacy policy
 The sekika.github.io website also includes following websites which are maintained separately but share the same privacy policy.
 
 - <a href="/toyo/en/">My profile page</a>
 - <a href="/kaidoku/">Kaidoku</a> software
+- <a href="/dodgem-py/">Dodgem</a> software
 - <a href="/unsatfit/">Unsatfit</a> software
 - <a href="/hystfit/">Hystfit</a> software
+- <a href="/multiai/">Multiai</a> software
 
 The service hosting the sekika.github.io website stores access logs. This data is not accessible to and not readable for the owner of this website. The hosting service, GitHub, has their <a href="https://docs.github.com/en/github/site-policy/github-privacy-statement">privacy policy</a>.
 
