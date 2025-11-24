@@ -11,7 +11,7 @@ To automate website link checking, you need to process many URLs efficiently whi
 
 However, naive parallelization may send many requests to the same host in a short period of time, potentially overloading the server. The link checker introduced in this article implements a mechanism where **each host is assigned its own worker goroutine, and requests to that host are spaced out at a fixed interval**.
 
-This article explains how this access control is implemented through two functions: `FetchHTTP` and `RunWorkers`.
+This article explains how this access control is implemented in [linkchecker](https://github.com/sekika/linkchecker/blob/main/README.md) through two functions: `FetchHTTP` and `RunWorkers`.
 
 ## FetchHTTP: Sending a GET request and checking the status
 
