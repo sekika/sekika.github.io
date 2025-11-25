@@ -11,7 +11,7 @@ To automate website link checking, you need to process many URLs efficiently whi
 
 However, naive parallelization may send many requests to the same host in a short period of time, potentially overloading the server. The link checker introduced in this article implements a mechanism where **each host is assigned its own worker goroutine, and requests to that host are spaced out at a fixed interval**.
 
-This article explains how this access control is implemented in [linkchecker](https://github.com/sekika/linkchecker/blob/main/README.md) through two functions: `FetchHTTP` and `RunWorkers`.
+This article explains how this access control is implemented in [linkchecker](https://github.com/sekika/linkchecker/blob/main/README.md) through two functions: `FetchHTTP` and `RunWorkers`. It is slightly different from the latest code.
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/sekika/linkchecker.svg)](https://pkg.go.dev/github.com/sekika/linkchecker)
 
@@ -27,6 +27,9 @@ func FetchHTTP(link string, client *http.Client, userAgent string) error {
 	req.Header.Set("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
 	req.Header.Set("Accept-Language", "en-US,en;q=0.5")
 	req.Header.Set("Accept-Encoding", "gzip, deflate")
+	req.Header.Set("Connection", "keep-alive")
+	req.Header.Set("Cache-Control", "max-age=0")
+	req.Header.Set("Sec-Fetch-Dest", "document")
 	resp, err := client.Do(req)
 
 	if err != nil {
@@ -50,8 +53,7 @@ In short, it performs a simple HTTP access and error check.
 
 ## RunWorkers: Creating workers per host and processing links
 
-Now we move on to the core of the implementation: the
-[RunWorkers function](https://gist.github.com/sekika/bc5c423607872fc1de1e99ed42049fef).
+Now we move on to the core of the implementation: the RunWorkers function.
 
 ```go
 func RunWorkers(
@@ -136,9 +138,9 @@ If this host is encountered for the first time:
 			for l := range ch {
 				err := FetchHTTP(l, client, userAgent)
 				if err != nil {
-					log.Printf("[NG] %s (%v)\n", l, err)
+					fmt.Printf("[NG] %s (%v)\n", l, err)
 				} else {
-					log.Printf("[OK] %s\n", l)
+					fmt.Printf("[OK] %s\n", l)
 				}
 				time.Sleep(time.Duration(waitSec) * time.Second)
 			}
@@ -163,7 +165,6 @@ The worker creates a per-host HTTP client, complete with timeout and cookie jar:
 
 * Timeout prevents hanging indefinitely
 * Cookie jar allows handling cookies per host
-* `log.Printf` outputs results (default to stderr unless changed via `log.SetOutput(os.Stdout)`)
 
 #### 3-3. Sending the URL to the host’s channel
 

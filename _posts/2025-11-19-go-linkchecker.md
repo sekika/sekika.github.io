@@ -9,7 +9,7 @@ Web サイトのリンクチェックを自動化するには、多数の URL �
 
 しかし、単に並列化すると同じホストに短時間で大量アクセスしてしまい、相手サーバーに迷惑をかける可能性があります。そこで今回紹介するリンクチェッカーのコードでは、**ホストごとに専用のワーカー（goroutine）を割り当て、同じホストには一定間隔を空けてアクセスする**という仕組みを実装しています。
 
-この記事では、このアクセス制御をどのように実現しているのか、[Go 製リンクチェッカー](https://github.com/sekika/linkchecker/blob/main/README-ja.md)の`FetchHTTP` と `RunWorkers` の2つの関数を解説します。
+この記事では、このアクセス制御をどのように実現しているのか、[Go 製リンクチェッカー](https://github.com/sekika/linkchecker/blob/main/README-ja.md)の`FetchHTTP` と `RunWorkers` の2つの関数を解説します。最新版のコードとは若干異なります。
 
 [![Go Reference](https://pkg.go.dev/badge/github.com/sekika/linkchecker.svg)](https://pkg.go.dev/github.com/sekika/linkchecker)
 
@@ -25,6 +25,9 @@ func FetchHTTP(link string, client *http.Client, userAgent string) error {
 	req.Header.Set("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
 	req.Header.Set("Accept-Language", "en-US,en;q=0.5")
 	req.Header.Set("Accept-Encoding", "gzip, deflate")
+	req.Header.Set("Connection", "keep-alive")
+	req.Header.Set("Cache-Control", "max-age=0")
+	req.Header.Set("Sec-Fetch-Dest", "document")
 	resp, err := client.Do(req)
 
 	if err != nil {
@@ -46,7 +49,7 @@ func FetchHTTP(link string, client *http.Client, userAgent string) error {
 
 ## RunWorkers：ホストごとにワーカーを作り、リンクを処理する
 
-ここからが全体の中心になる[RunWorkers関数](https://gist.github.com/sekika/bc5c423607872fc1de1e99ed42049fef)です。
+ここからが全体の中心になるRunWorkers関数です。
 
 ```go
 func RunWorkers(
@@ -140,9 +143,9 @@ for _, link := range filteredLinks {
 			for l := range ch {
 				err := FetchHTTP(l, client, userAgent)
 				if err != nil {
-					log.Printf("[NG] %s (%v)\n", l, err)
+					fmt.Printf("[NG] %s (%v)\n", l, err)
 				} else {
-					log.Printf("[OK] %s\n", l)
+					fmt.Printf("[OK] %s\n", l)
 				}
 				time.Sleep(time.Duration(waitSec) * time.Second)
 			}
@@ -164,8 +167,6 @@ time.Sleep(waitSec)
 を入れることで、同一ホストへのアクセス間隔があくようになっています。
 
 このワーカー内部では、まず `client := &http.Client{Timeout: ..., Jar: jar}` により、各ホスト専用の [HTTP クライアント](https://pkg.go.dev/net/http#Client)が生成されており、アクセスごとにタイムアウト時間を設定することで、応答が返ってこないリンクに対して無限に待ち続けないようにしています。ここで [cookiejar](https://pkg.go.dev/net/http/cookiejar) をつけておきます。
-
-また、goroutine の中で `log.Printf` を使っているのは、複数のワーカーが同時に実行されてもログ出力が混ざらずに扱われるためですが、`log.Printf` のデフォルトの出力先は標準エラー出力であり、標準出力に出したい場合は `log.SetOutput(os.Stdout)` のように明示的に設定を変更する必要があります。
 
 #### 3-3. 作成済みの（または前に作った）ホスト用チャネルにリンクを送る
 
