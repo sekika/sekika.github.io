@@ -11,6 +11,8 @@ Web サイトのリンクチェックを自動化するには、多数の URL �
 
 この記事では、このアクセス制御をどのように実現しているのか、[Go 製リンクチェッカー](https://github.com/sekika/linkchecker/blob/main/README-ja.md)の`FetchHTTP` と `RunWorkers` の2つの関数を解説します。
 
+[![Go Reference](https://pkg.go.dev/badge/github.com/sekika/linkchecker.svg)](https://pkg.go.dev/github.com/sekika/linkchecker)
+
 ## FetchHTTP：実際に GET してステータスを調べる関数
 
 ```go

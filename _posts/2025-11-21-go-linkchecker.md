@@ -13,6 +13,8 @@ However, naive parallelization may send many requests to the same host in a shor
 
 This article explains how this access control is implemented in [linkchecker](https://github.com/sekika/linkchecker/blob/main/README.md) through two functions: `FetchHTTP` and `RunWorkers`.
 
+[![Go Reference](https://pkg.go.dev/badge/github.com/sekika/linkchecker.svg)](https://pkg.go.dev/github.com/sekika/linkchecker)
+
 ## FetchHTTP: Sending a GET request and checking the status
 
 ```go
