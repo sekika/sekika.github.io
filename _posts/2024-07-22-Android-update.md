@@ -85,10 +85,13 @@ flutter.versionCode=9
 flutter.minSdkVersion = 21
 flutter.targetSdkVersion = 35
 ndk.version=27.0.12077973
-javaVersion = 22⏎ 
+javaVersion = 17⏎ 
 ```
 
-ここで、flutter.versionCode の行までは Flutter が自動的に設定する（ただしアプリのバージョンは `pubspec.yaml` を更新する）。flutter.minSdkVersion は対応する最小 SDK バージョンで、flutter.targetSdkVersion は最新のSDKバージョンである（compile と target で別の値にすることもできるが、ここでは同じ値を使うようにしている）。flutter.ndkVersion は NDK のバージョンで、javaVersion は Java のバージョンである。flutter.targetSdkVersion と ndk.Version は「SDK と NDK のアップデート」でインストールしたバージョンである。
+- flutter.versionCode の行までは Flutter が自動的に設定する（ただしアプリのバージョンは `pubspec.yaml` を更新する）。
+- flutter.minSdkVersion は対応する最小 SDK バージョンで、flutter.targetSdkVersion は最新のSDKバージョンである（compile と target で別の値にすることもできるが、ここでは同じ値を使うようにしている）。
+- flutter.ndkVersion は NDK のバージョンである。flutter.targetSdkVersion と ndk.Version は「SDK と NDK のアップデート」でインストールしたバージョンである。Mac の場合は、`ls ~/Library/Android/sdk/ndk/` とするとインストールされている NDK のバージョン一覧が出るので、それをコピーするのが確実である。
+- javaVersion はアプリの形式としての Java のバージョンであり、古い Android スマートフォンで実行されることや Android へ変換するツール（D8/R8）が対応しているかを考えると、必ずしも高ければ良いというものでもない。コンパイラの Java のバージョンは javaVersion と同じかより高くなければならない。
 
 ## Gradle のアップデート
 - Gradle のバージョンについては、[Gradle のリリース](https://gradle.org/releases/)と[Java との互換性](https://docs.gradle.org/current/userguide/compatibility.html)を確認して、適切なバージョンを選ぶ。
