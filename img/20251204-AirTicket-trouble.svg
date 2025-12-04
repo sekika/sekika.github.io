@@ -1,0 +1,80 @@
+<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="800" height="600" fill="#e8f4f8"/>
+  
+  <!-- Airport floor -->
+  <rect x="0" y="400" width="800" height="200" fill="#d0d0d0"/>
+  
+  <!-- Title area -->
+  <rect x="50" y="30" width="700" height="80" fill="#2c5aa0" rx="10"/>
+  <text x="400" y="60" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="white" text-anchor="middle">サンパウロ空港での乗り継ぎトラブル</text>
+  <text x="400" y="90" font-family="Arial, sans-serif" font-size="16" fill="white" text-anchor="middle">～オフィスを探し当てるまでの記録～</text>
+  
+  <!-- Traveler (困っている人) -->
+  <circle cx="150" cy="330" r="25" fill="#ffdbac"/>
+  <rect x="135" y="355" width="30" height="50" fill="#4a90e2" rx="5"/>
+  <rect x="130" y="360" width="15" height="35" fill="#4a90e2"/>
+  <rect x="155" y="360" width="15" height="35" fill="#4a90e2"/>
+  <rect x="135" y="405" width="12" height="30" fill="#2c5282"/>
+  <rect x="153" y="405" width="12" height="30" fill="#2c5282"/>
+  
+  <!-- Confused expression -->
+  <circle cx="143" cy="325" r="3" fill="#333"/>
+  <circle cx="157" cy="325" r="3" fill="#333"/>
+  <path d="M 140 338 Q 150 335 160 338" stroke="#333" stroke-width="2" fill="none"/>
+  
+  <!-- Sweat drops -->
+  <ellipse cx="165" cy="315" rx="4" ry="6" fill="#4a90e2" opacity="0.6"/>
+  <ellipse cx="172" cy="320" rx="3" ry="5" fill="#4a90e2" opacity="0.6"/>
+  
+  <!-- Suitcase -->
+  <rect x="180" y="390" width="35" height="45" fill="#8b4513" rx="3"/>
+  <rect x="185" y="395" width="25" height="35" fill="#a0522d"/>
+  <rect x="193" y="383" width="9" height="10" fill="#654321" rx="2"/>
+  <circle cx="190" cy="420" r="4" fill="#333"/>
+  <circle cx="210" cy="420" r="4" fill="#333"/>
+  
+  <!-- Airplane icon (missed flight) -->
+  <g transform="translate(650, 180)">
+    <path d="M 0 10 L 50 10 L 60 0 L 65 5 L 55 15 L 50 10 L 20 10 L 10 30 L 5 30 L 10 10 L 0 10" fill="#e74c3c" opacity="0.7"/>
+    <text x="75" y="20" font-family="Arial" font-size="14" fill="#e74c3c" font-weight="bold">✗</text>
+  </g>
+  
+  <!-- Clock showing time pressure -->
+  <circle cx="680" cy="280" r="30" fill="white" stroke="#333" stroke-width="3"/>
+  <line x1="680" y1="280" x2="680" y2="260" stroke="#e74c3c" stroke-width="3"/>
+  <line x1="680" y1="280" x2="695" y2="280" stroke="#e74c3c" stroke-width="3"/>
+  <text x="680" y="330" font-family="Arial" font-size="12" fill="#333" text-anchor="middle">時間切れ!</text>
+  
+  <!-- Closed counter -->
+  <rect x="300" y="250" width="120" height="150" fill="#5a5a5a" rx="5"/>
+  <rect x="310" y="260" width="100" height="80" fill="#7a7a7a"/>
+  <text x="360" y="310" font-family="Arial" font-size="16" fill="white" text-anchor="middle" font-weight="bold">CLOSED</text>
+  <text x="360" y="330" font-family="Arial" font-size="10" fill="white" text-anchor="middle">エチオピア航空</text>
+  <text x="360" y="345" font-family="Arial" font-size="10" fill="white" text-anchor="middle">カウンター</text>
+  
+  <!-- Question marks (confusion) -->
+  <text x="230" y="280" font-family="Arial" font-size="40" fill="#e74c3c" opacity="0.7">?</text>
+  <text x="250" y="310" font-family="Arial" font-size="35" fill="#e74c3c" opacity="0.6">?</text>
+  <text x="220" y="320" font-family="Arial" font-size="30" fill="#e74c3c" opacity="0.5">?</text>
+  
+  <!-- Hidden door (hard to find) -->
+  <rect x="500" y="280" width="70" height="120" fill="#8b7355"/>
+  <rect x="510" y="290" width="50" height="100" fill="#a0826d"/>
+  <circle cx="555" cy="340" r="3" fill="#333"/>
+  <text x="535" y="320" font-family="Arial" font-size="8" fill="#666" text-anchor="middle">目立たない</text>
+  <text x="535" y="330" font-family="Arial" font-size="8" fill="#666" text-anchor="middle">ドア</text>
+  
+  <!-- Arrow pointing to door -->
+  <path d="M 250 360 Q 350 340 490 340" stroke="#27ae60" stroke-width="3" fill="none" stroke-dasharray="5,5"/>
+  <polygon points="490,340 480,335 480,345" fill="#27ae60"/>
+  
+  <!-- Success star near door -->
+  <text x="545" y="270" font-family="Arial" font-size="24" fill="#f39c12">★</text>
+  
+  <!-- Bottom message -->
+  <rect x="50" y="480" width="700" height="90" fill="white" stroke="#2c5aa0" stroke-width="2" rx="10"/>
+  <text x="400" y="510" font-family="Arial" font-size="14" fill="#333" text-anchor="middle" font-weight="bold">教訓：乗り継ぎに失敗したら...</text>
+  <text x="400" y="530" font-family="Arial" font-size="12" fill="#555" text-anchor="middle">① 航空会社のカウンターへ → 閉まっていたら</text>
+  <text x="400" y="550" font-family="Arial" font-size="12" fill="#555" text-anchor="middle">② オフィスを探す（地図に載ってないことも！）</text>
+</svg>
