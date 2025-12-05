@@ -29,7 +29,7 @@ if [ -z $Filename ]; then
 fi
 
 if [ -e $Filename ]; then
-  if [ -r $Filname ]; then
+  if [ -r $Filename ]; then
     if [ -d ../_posts ]; then
       if [ -w ../_posts ]; then
         DestFile=`date -u +%Y-%m-%d-`$Filename
@@ -76,7 +76,7 @@ git commit -m "Remove draft because it was published" || \
 
 echo "Committing to repository."
 cd .. || { echo "cd .. failed. Stop."; exit; }
-git add $DestFile || \
+git add _posts/$DestFile || \
    { echo "git add $DestFile at .. failed. Stop."; exit; }
 git commit -m "Published on "$Permalink || \
    { echo "Commit at .. failed. Stop."; exit; }
