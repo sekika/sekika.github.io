@@ -1,6 +1,7 @@
 ---
 layout: post
 title: 航空券の変更手続き
+en: /2025/12/05/AirTicket-trouble/
 date: 2025-12-04 11:09:49 +0000
 tag: travel
 ---
