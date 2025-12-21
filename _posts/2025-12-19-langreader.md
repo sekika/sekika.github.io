@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Markdownから「読む・聴く」語学教材HTMLを自動生成する：langreader
+en: /2025/12/21/langreader/
 date: 2025-12-19 12:58:16 +0000
 tag: python
 ---
