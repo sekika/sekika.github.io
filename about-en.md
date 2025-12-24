@@ -15,6 +15,7 @@ The sekika.github.io website also includes following websites which are maintain
 - <a href="/hystfit/">Hystfit</a> software
 - <a href="/multiai/">Multiai</a> software
 - <a href="/langreader/">Langreader</a> software
+- <a href="/paperfig/">Paperfig</a> software
 
 The service hosting the sekika.github.io website stores access logs. This data is not accessible to and not readable for the owner of this website. The hosting service, GitHub, has their <a href="https://docs.github.com/en/github/site-policy/github-privacy-statement">privacy policy</a>.
 
