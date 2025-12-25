@@ -14,6 +14,7 @@ permalink: /about/
 - <a href="/dodgem-py/">Dodgem</a> ソフトウェア
 - <a href="/unsatfit/">Unsatfit</a> ソフトウェア
 - <a href="/hystfit/">Hystfit</a> ソフトウェア
+- <a href="/passme/">Passme</a> ソフトウェア
 - <a href="/multiai/">Multiai</a> ソフトウェア
 - <a href="/langreader/">Langreader</a> ソフトウェア
 - <a href="/paperfig/">Paperfig</a> ソフトウェア
