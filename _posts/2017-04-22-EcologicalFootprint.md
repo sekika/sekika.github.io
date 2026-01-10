@@ -2,16 +2,17 @@
 layout: post
 title: エコロジカル・フットプリント
 date: 2017-04-22 17:54:41 +0000
-update: 2022-04-13 09:21:17 +0000
+update: 2026-01-10 17:36:56 +0000
 tag: environment
 ---
 [Global Footprint Network](http://data.footprintnetwork.org/)が公開している[エコロジカル・フットプリント](https://ja.wikipedia.org/wiki/%E3%82%A8%E3%82%B3%E3%83%AD%E3%82%B8%E3%82%AB%E3%83%AB%E3%83%BB%E3%83%95%E3%83%83%E3%83%88%E3%83%97%E3%83%AA%E3%83%B3%E3%83%88)の[国別データ](http://data.footprintnetwork.org/#/compareCountries)から、いくつかの国の1人当たりグローバルヘクタールのデータを抜粋して表にしています。グローバルヘクタール (gha) は、平均的な生物生産量をもつ土地1ヘクタール（1万平方メートル）に相当する生物生産量の単位です。炭素吸収は、二酸化炭素を吸収する森林面積です。
 
-* 年度: 2018年
+* 年度: 2024年
 * 単位: gha / 人
 
 <table>
 	<tr>
+		<th></th>
 		<th>国</th>
 		<th>炭素吸収</th>
 		<th>耕作地</th>
@@ -22,104 +23,114 @@ tag: environment
 		<th>計</th>
 	</tr>
 	<tr>
-		<th>カタール</th>
-		<td>12.823</td>
-		<td>0.706</td>
-		<td>0.160</td>
-		<td>0.190</td>
-		<td>0.342</td>
-		<td>0.049</td>
-		<td>14.271</td>
+		<th>Qatar</th>
+		<td>カタール</td>
+		<td>13.921</td>
+		<td>0.719</td>
+		<td>0.171</td>
+		<td>0.193</td>
+		<td>0.445</td>
+		<td>0.034</td>
+		<td>15.484</td>
 	</tr>
 	<tr>
-		<th>アメリカ</th>
-		<td>5.773</td>
-		<td>0.938</td>
-		<td>0.128</td>
-		<td>0.922</td>
-		<td>0.289</td>
-		<td>0.072</td>
-		<td>8.122</td>
+		<th>United States</th>
+		<td>アメリカ</td>
+		<td>4.766</td>
+		<td>1.327</td>
+		<td>0.121</td>
+		<td>0.920</td>
+		<td>0.282</td>
+		<td>0.062</td>
+		<td>7.477</td>
 	</tr>
 	<tr>
-		<th>ロシア</th>
-		<td>3.606</td>
-		<td>0.640</td>
-		<td>0.189</td>
-		<td>0.746</td>
-		<td>0.091</td>
-		<td>0.039</td>
-		<td>5.311</td>
-	</tr>
-	<tr>
-		<th>日本</th>
-		<td>3.500</td>
-		<td>0.440</td>
-		<td>0.259</td>
-		<td>0.226</td>
-		<td>0.122</td>
-		<td>0.060</td>
-		<td>4.608</td>
-	</tr>
-	<tr>
-		<th>中国</th>
-		<td>2.679</td>
-		<td>0.570</td>
-		<td>0.072</td>
-		<td>0.224</td>
-		<td>0.145</td>
-		<td>0.107</td>
-		<td>3.797</td>
-	</tr>
-	<tr>
-		<th>ブラジル</th>
-		<td>0.703</td>
-		<td>0.593</td>
-		<td>0.041</td>
-		<td>0.466</td>
-		<td>0.656</td>
-		<td>0.129</td>
-		<td>2.588</td>
-	</tr>
-	<tr>
-		<th>インドネシア</th>
-		<td>0.703</td>
-		<td>0.499</td>
-		<td>0.229</td>
-		<td>0.183</td>
-		<td>0.043</td>
+		<th>Russia</th>
+		<td>ロシア</td>
+		<td>3.888</td>
+		<td>1.224</td>
+		<td>0.256</td>
+		<td>0.708</td>
 		<td>0.061</td>
-		<td>1.717</td>
+		<td>0.073</td>
+		<td>6.210</td>
 	</tr>
 	<tr>
-		<th>インド</th>
-		<td>0.677</td>
-		<td>0.340</td>
+		<th>Japan</th>
+		<td>日本</td>
+		<td>2.972</td>
+		<td>0.415</td>
+		<td>0.229</td>
+		<td>0.235</td>
+		<td>0.127</td>
+		<td>0.057</td>
+		<td>4.036</td>
+	</tr>
+	<tr>
+		<th>China</th>
+		<td>中国</td>
+		<td>2.784</td>
+		<td>0.411</td>
+		<td>0.069</td>
+		<td>0.211</td>
+		<td>0.125</td>
+		<td>0.075</td>
+		<td>3.675</td>
+	</tr>
+	<tr>
+		<th>Brazil</th>
+		<td>ブラジル</td>
+		<td>0.775</td>
+		<td>0.418</td>
+		<td>0.058</td>
+		<td>0.434</td>
+		<td>0.612</td>
+		<td>0.092</td>
+		<td>2.389</td>
+	</tr>
+	<tr>
+		<th>Indonesia</th>
+		<td>インドネシア</td>
+		<td>0.891</td>
+		<td>0.474</td>
+		<td>0.227</td>
+		<td>0.168</td>
+		<td>0.043</td>
+		<td>0.054</td>
+		<td>1.856</td>
+	</tr>
+	<tr>
+		<th>India</th>
+		<td>インド</td>
+		<td>0.715</td>
+		<td>0.221</td>
+		<td>0.015</td>
+		<td>0.113</td>
+		<td>0.009</td>
+		<td>0.040</td>
+		<td>1.113</td>
+	</tr>
+	<tr>
+		<th>Pakistan</th>
+		<td>パキスタン</td>
+		<td>0.365</td>
+		<td>0.248</td>
 		<td>0.016</td>
-		<td>0.118</td>
-		<td>0.0074</td>
-		<td>0.051</td>
-		<td>1.210</td>
+		<td>0.066</td>
+		<td>0.006</td>
+		<td>0.033</td>
+		<td>0.734</td>
 	</tr>
 	<tr>
-		<th>パキスタン</th>
-		<td>0.384</td>
-		<td>0.255</td>
-		<td>0.012</td>
-		<td>0.079</td>
-		<td>0.0045</td>
-		<td>0.038</td>
-		<td>0.771</td>
-	</tr>
-	<tr>
-		<th>世界</th>
-		<td>1.690</td>
-		<td>0.513</td>
-		<td>0.090</td>
-		<td>0.285</td>
-		<td>0.135</td>
-		<td>0.063</td>
-		<td>2.775</td>
+		<th>World</th>
+		<td>世界</td>
+		<td>1.647</td>
+		<td>0.447</td>
+		<td>0.083</td>
+		<td>0.271</td>
+		<td>0.126</td>
+		<td>0.064</td>
+		<td>2.638</td>
 	</tr>
 </table>
 
