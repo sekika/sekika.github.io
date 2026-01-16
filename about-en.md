@@ -11,6 +11,7 @@ The sekika.github.io website also includes following websites which are maintain
 - <a href="/toyo/en/">My profile page</a>
 - <a href="/kaidoku/">Kaidoku</a> software
 - <a href="/dodgem-py/">Dodgem</a> software
+- <a href="/slidemovie/">Slidemovie</a> software
 - <a href="/unsatfit/">Unsatfit</a> software
 - <a href="/hystfit/">Hystfit</a> software
 - <a href="/passme/">Passme</a> software

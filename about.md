@@ -12,6 +12,7 @@ permalink: /about/
 - <a href="/toyo/">関の東洋大学におけるプロフィールページ</a>
 - <a href="/kaidoku/">Kaidoku</a> ソフトウェア
 - <a href="/dodgem-py/">Dodgem</a> ソフトウェア
+- <a href="/slidemovie/">Slidemovie</a> ソフトウェア
 - <a href="/unsatfit/">Unsatfit</a> ソフトウェア
 - <a href="/hystfit/">Hystfit</a> ソフトウェア
 - <a href="/passme/">Passme</a> ソフトウェア
