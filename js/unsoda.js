@@ -5,7 +5,7 @@ License: MIT License
 */
 
 /* See https://plotly.com/javascript/getting-started/ */
-const plotlyVersion = '2.32.0'
+const plotlyVersion = '3.4.0'
 const plotlyUrl = `https://cdn.plot.ly/plotly-${plotlyVersion}.min.js`
 const dataUrl = 'https://sekika.github.io/file/unsoda/unsoda.json'
 const showColumn = ['code', 'texture', 'series', 'location', 'depth_upper',
