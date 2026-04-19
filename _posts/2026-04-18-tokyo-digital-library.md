@@ -13,6 +13,7 @@ tag: link
 * 足立区 - [あだち電子図書館](https://web.d-library.jp/adachi/g0101/top/)
 * 荒川区 - [荒川区電子図書館サービス](https://arakawa.overdrive.com/)
 * 板橋区 - [板橋区電子図書館](https://web.d-library.jp/itabashi/g0101/top/)
+* 江戸川区 - [システム移行準備中](https://www.library.city.edogawa.tokyo.jp/toshow/denshi.html)
 * 大田区 - [大田区電子書籍貸出サービス](https://web.d-library.jp/ota/g0101/top/)
 * 葛飾区 - [葛飾区立図書館電子書籍サービス](https://web.d-library.jp/katsushika/g0101/top/)
 * 北区 - [北区電子図書館](https://tokyo-kitacity-lib.overdrive.com/)
@@ -20,6 +21,7 @@ tag: link
 * 品川区 - [しながわ電子図書館](https://web.d-library.jp/shinagawa/g0101/top/)
 * 渋谷区 - [渋谷区電子図書館](https://web.d-library.jp/shibuya/g0101/top/)
 * 新宿区 - [しんじゅく電子図書館](https://web.d-library.jp/shinjuku/g0101/top/)
+* 杉並区 - 不明
 * 墨田区 - [墨田区電子書籍サービス](https://web.d-library.jp/sumida/g0101/top/)
 * 世田谷区 - [世田谷区電子書籍サービス](https://web.d-library.jp/setagaya/g0101/top/)
 * 台東区 - [台東区立図書館オーディオブック](https://www.city.taito.lg.jp/library/service/sonota/audiobook.html)
