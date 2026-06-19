@@ -39,7 +39,7 @@ whitelist:
 
 # pagination
 paginate: 10
-pagenate_path: "page:num"
+pagenate_path: "page:num/"
 
 # highlighter: "rouge"
 

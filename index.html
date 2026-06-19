@@ -26,10 +26,10 @@ pagination:
 
 <div class="text-center">
   {% if paginator.previous_page %}
-    <a class="btn btn-default" href="{{ paginator.previous_page.url | prepend: site.baseurl }}">Previous</a>
+    <a href="{{ paginator.previous_page_path | relative_url }}">Previous</a>
   {% endif %}
-  <span>{{ paginator.page }} / {{ paginator.total_pages }}</span>
+  <span style="margin: 0 10px;">{{ paginator.page }} / {{ paginator.total_pages }}</span>
   {% if paginator.next_page %}
-    <a class="btn btn-default" href="{{ paginator.next_page.url | prepend: site.baseurl }}">Next</a>
+    <a href="{{ paginator.next_page_path | relative_url }}">Next</a>
   {% endif %}
 </div>
