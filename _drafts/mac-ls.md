@@ -1,0 +1,126 @@
+---
+layout: post
+title: macOS におけるファイルフラグと拡張属性の確認
+tag: mac
+---
+macOS の `ls` コマンドには、Linux の `ls`（GNU coreutils）にはない BSD 系独自のオプションがいくつか存在する。その中でも、「名前を変更できない」「[chmod](https://ja.wikipedia.org/wiki/Chmod) が失敗する」といったようなトラブルの時に役立つのが `-O` と `-@` オプションである。
+
+## 実行例
+
+```bash
+ls -lO@
+```
+
+と実行して、
+
+```bash
+-r--------@ 1 seki staff uchg 140425 report.pdf
+```
+
+という表示であれば、
+
+* `@` が付いているため拡張属性が存在する。
+* `uchg` が付いているため変更禁止フラグが設定されている。
+
+ことが分かる。
+
+## `-O` オプション
+
+`-O` オプションは、ファイルの**フラグ（file flags）**を表示する。例えば、
+
+```bash
+$ ls -lO
+-r--------  1 seki  staff  uchg  140425 Jul 14 10:32 report.pdf
+```
+
+ここで表示されている `uchg` は **user immutable flag** を意味し、このフラグが付いているファイルは所有者であっても内容の変更、名前の変更、削除、パーミッション変更などが禁止される。主なフラグには次のようなものがある。詳しくは [BSD File Flags](https://developer.apple.com/library/archive/documentation/FileManagement/Conceptual/FileSystemProgrammingGuide/FileSystemDetails/FileSystemDetails.html#//apple_ref/doc/uid/TP40010672-CH8-SW8) を参照。
+
+| フラグ      | 意味                              |
+| -------- | ------------------------------- |
+| `uchg`   | ユーザーによる変更禁止（user immutable）     |
+| `uappnd` | ユーザーによる追記のみ許可（user append-only） |
+| `hidden` | Finder で非表示にする                  |
+| `schg`   | システム変更禁止（system immutable）      |
+| `sappnd` | システム追記のみ許可（system append-only）  |
+
+フラグは [chflags](https://developer.apple.com/library/archive/documentation/System/Conceptual/ManPages_iPhoneOS/man2/chflags.2.html) コマンドで変更できる。`uchg` フラグについては、
+
+```bash
+chflags uchg filename
+```
+
+で設定し、
+
+```bash
+chflags nouchg filename
+```
+
+で解除する。`uchg` が設定されたファイルは、所有者であっても `chmod`、`mv`、`rm` などが失敗し、`Operation not permitted` や `Permission denied` が表示される場合がある。
+
+## `-@` オプション
+
+`-@` オプションは、ファイルに設定されている**拡張属性（Extended Attributes, xattr）**の存在を表示する。例えば、
+
+```bash
+$ ls -l@
+-rw-r--r--@ 1 seki staff 140425 Jul 14 10:32 report.pdf
+        com.apple.lastuseddate#PS      16
+        com.google.drivefs.item-id     33
+```
+
+この例では、次の二つの拡張属性が設定されている。
+
+* `com.apple.lastuseddate#PS` : ファイルの最終利用日時に関する情報
+* `com.google.drivefs.item-id` : Google Drive for Desktop が管理するファイル識別子
+
+拡張属性の内容を詳しく確認するには、
+
+```bash
+xattr -l filename
+```
+
+を実行する。不要な属性は
+
+```bash
+xattr -d 属性名 filename
+```
+
+で削除できる。
+
+ファイルフラグと拡張属性は混同されやすいが、目的が異なる。
+
+* **ファイルフラグ**は、ファイルシステムが管理する特殊な属性であり、変更禁止や追記専用など、ファイルの動作そのものに影響を与える。
+* **拡張属性**は、ファイルに付加される追加情報であり、アプリケーションや Finder が利用するメタデータである。
+
+## `uchg`・`schg`・SIP の関係
+
+macOS のファイルフラグには、ユーザー用とシステム用の二種類が存在する。
+
+| フラグ      | 名称                 | 設定・解除できるユーザー | 用途             |
+| -------- | ------------------ | ------------ | -------------- |
+| `uchg`   | User immutable     | 所有者または root  | ユーザーによる変更禁止    |
+| `uappnd` | User append-only   | 所有者または root  | ユーザーによる追記のみ許可  |
+| `schg`   | System immutable   | root（制約あり）   | システムレベルの変更禁止   |
+| `sappnd` | System append-only | root（制約あり）   | システムレベルの追記のみ許可 |
+
+`schg` はシステム変更禁止フラグであり、`uchg` よりも強力である。FreeBSD などでは root 権限を持つユーザーが設定・解除できるが、macOS では SIP（System Integrity Protection）の影響を受ける。そのため、通常の macOS 環境では root であっても簡単には解除できない。
+
+[SIP](https://support.apple.com/ja-jp/102149) （System Integrity Protection） は OS X 10.11 El Capitan 以降に導入された macOS のセキュリティ機構であり、システムファイルや重要なディレクトリを保護する。SIP が有効な状態では、
+
+* `/System`
+* `/usr`（`/usr/local` を除く）
+* `/bin`
+* `/sbin`
+* 一部の `/Library`
+
+などに対する変更は、root 権限を持っていても制限される。また、SIP は一部のシステムフラグ（`schg` など）についても保護を行うため、root 権限だけでは変更できない場合がある。役割を整理すると次のようになる。
+
+| 機能     | 保護対象    | 主な目的               |
+| ------ | ------- | ------------------ |
+| `uchg` | 個々のファイル | ユーザーによる変更を禁止する     |
+| `schg` | 個々のファイル | システムレベルで変更を禁止する    |
+| SIP    | OS 全体   | システム領域や重要ファイルを保護する |
+
+つまり、`uchg` と `schg` はファイルシステム上のファイルフラグであり、SIP はmacOS 全体の保護機構である。
+
+通常のユーザーが遭遇する「名前を変更できない」「`chmod` が失敗する」といった問題は、多くの場合 `uchg` が原因であり、`ls -lO` を実行すると確認できる。一方、システムファイルの変更に関する問題では、`schg` よりも SIP が原因となっていることが多い。
