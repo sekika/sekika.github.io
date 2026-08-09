@@ -8,7 +8,7 @@ import yaml
 output_dir = "tags/english"
 os.makedirs(output_dir, exist_ok=True)
 
-page_size = 5
+page_size = 10
 tag = "english"
 
 posts = []
