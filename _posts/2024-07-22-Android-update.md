@@ -80,11 +80,11 @@ android {
 sdk.dir=/Users/seki/Library/Android/sdk
 flutter.sdk=/opt/homebrew/Caskroom/flutter/3.22.2/flutter
 flutter.buildMode=release
-flutter.versionName=1.0.1
-flutter.versionCode=9
-flutter.minSdkVersion = 21
-flutter.targetSdkVersion = 35
-ndk.version=27.0.12077973
+flutter.versionName=1.0.5
+flutter.versionCode=14
+flutter.minSdkVersion = 24
+flutter.targetSdkVersion = 37
+ndk.version=30.0.15729638
 javaVersion = 17⏎ 
 ```
 
@@ -97,9 +97,9 @@ javaVersion = 17⏎
 - Gradle のバージョンについては、[Gradle のリリース](https://gradle.org/releases/)と[Java との互換性](https://docs.gradle.org/current/userguide/compatibility.html)を確認して、適切なバージョンを選ぶ。
 - Gradle が入っていない場合はインストールする。Homebrew の場合は `brew install gradle`
 - Gradle wrapper が入っていない場合（`android/gradlew` がない場合）には、android ディレクトリで `gradle wrapper` とすることで入れる。
-- `android/gradle/wrapper/gradle-wrapper.properties` に、以下のように記述する。ここで 8.9 は Gradle のバージョンである。
+- `android/gradle/wrapper/gradle-wrapper.properties` に、以下のように記述する。ここで 9.5.0 は Gradle のバージョンである。
 ```
-distributionUrl=https\://services.gradle.org/distributions/gradle-8.9-all.zip
+distributionUrl=https\://services.gradle.org/distributions/gradle-9.5.0-all.zip
 ```
 
 ## プラグインのアップデート
@@ -108,15 +108,15 @@ distributionUrl=https\://services.gradle.org/distributions/gradle-8.9-all.zip
 ```
 plugins {
     id "dev.flutter.flutter-plugin-loader" version "1.0.0"
-    id "com.android.application" version "8.5.1" apply false
-    id "org.jetbrains.kotlin.android" version "2.0.0" apply false
+    id "com.android.application" version "9.3.1" apply false
 }
 ```
 
-ここで、"com.android.application" は AGP (Android Gradle Plugin) であり、"org.jetbrains.kotlin.android" は Kotlin である。それぞれ、以下から最新版を確認してバージョン番号を更新する。
+ここで、"com.android.application" は AGP (Android Gradle Plugin) である。
 
 - [AGP のリリース](https://mvnrepository.com/artifact/com.android.tools.build/gradle) / [リリースノート](https://developer.android.com/build/releases/gradle-plugin?hl=ja)
-- [Kotlin のリリース](https://kotlinlang.org/docs/releases.html)
+
+The 'org.jetbrains.kotlin.android' plugin is no longer required for Kotlin support since AGP 9.0.
 
 ## Flutter のアップデート
 - `flutter upgrade` で　Flutter をアップデートする。
