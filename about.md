@@ -19,6 +19,7 @@ permalink: /about/
 - <a href="/multiai/">Multiai</a> ソフトウェア
 - <a href="/langreader/">Langreader</a> ソフトウェア
 - <a href="/paperfig/">Paperfig</a> ソフトウェア
+- <a href="/chatlog/">Chatlog</a> ソフトウェア
 
 このサイト sekika.github.io をホストする GitHub はアクセスログを保持し、<a href="https://docs.github.com/ja/site-policy/privacy-policies/github-privacy-statement">プライバシーポリシー</a>に従って管理されます。このサイトの所有者はアクセスログを閲覧することができません。
 
