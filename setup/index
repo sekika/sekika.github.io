@@ -1,81 +1,96 @@
 #!/usr/bin/env python3
-# coding: utf-8
-# http://sekika.github.io/search/ の index.js を生成するスクリプト
-# 生成されたファイル: http://sekika.github.io/js/index.js
+"""Generate the client-side search index for posts.
 
-# 準備: pip3 install markdown
+Run this script from any directory. It uses only Python's standard library,
+so a commit does not require installing Python packages.
+"""
 
-# ファイルの場所指定
-post_dir = '../_posts/' # _posts/ ディレクトリ
-index = '../js/index.js' # index.js
+from __future__ import annotations
 
-# date フォーマット (+0000 はスクリプト内で削除)
-format = '%Y-%m-%d %H:%M:%S'
+import argparse
+import datetime as dt
+import html
+import json
+import re
+from pathlib import Path
 
-# Strip HTML from strings in Python
-# http://stackoverflow.com/questions/753052/strip-html-from-strings-in-python
-from html.parser import HTMLParser
 
-class MLStripper(HTMLParser):
-    def __init__(self):
-        self.reset()
-        self.strict = False
-        self.convert_charrefs= True
-        self.fed = []
-    def handle_data(self, d):
-        self.fed.append(d)
-    def get_data(self):
-        return ''.join(self.fed)
+ROOT = Path(__file__).resolve().parent.parent
+POST_NAME = re.compile(r"^(\d{4}-\d{2}-\d{2})-(.+)\.(md|markdown)$")
+TAG = re.compile(r"<[^>]+>")
+FRONT_MATTER = re.compile(r"\A---\s*\r?\n(.*?)\r?\n---\s*\r?\n", re.DOTALL)
 
-def strip_tags(html):
-    s = MLStripper()
-    s.feed(html)
-    return s.get_data()
 
-# markdown をインポートできなければ pip でインストールする
-try:
-    import markdown
-except ImportError:
-    from pip._internal import main
-    main(['install', 'markdown'])
-import markdown
+def front_matter_value(front_matter: str, key: str) -> str | None:
+    """Read the simple scalar values used by this site's post front matter."""
+    match = re.search(rf"^{re.escape(key)}:\s*(.*?)\s*$", front_matter, re.MULTILINE)
+    if not match:
+        return None
+    value = match.group(1).strip()
+    if len(value) >= 2 and value[0] == value[-1] and value[0] in "\"'":
+        value = value[1:-1]
+    return value or None
 
-# 処理の開始
-import os
-import time
-f = open(index, 'w')
-f.write('var start = new Date().getTime();\n')
-f.write('var data = [')
-first=True
-for i in os.listdir(post_dir):
-    data=open(post_dir+i, 'r')
-    line=data.readline()
-    date=int(time.mktime(time.strptime(i[:10], '%Y-%m-%d')))
-    update=0
-    while ('--' in line):
-        line=data.readline()
-    while ('--' in line) == False:
-        if 'title' in line:
-            title=line.rstrip("\n").replace('title:','').replace('"','').strip()
-        if 'update' in line:
-            line=line.rstrip("\n").replace('update:','').replace('+0000','').strip()
-            update=int(time.mktime(time.strptime(line, format)))
-        if 'date' in line:
-            line=line.rstrip("\n").replace('date:','').replace('+0000','').strip()
-            date=int(time.mktime(time.strptime(line, format)))
-        line=data.readline()
-    if update==0:
-        update=date
-    if first:
-        first=False
-    else:
-        f.write(',\n')
-    f.write('{file:"/')
-    f.write(i.replace('-','/',3).replace('.md','').replace('.markdown',''))
-    f.write('/",title:"'+title+'",mtime:'+str(update)+',ctime:'+str(date)+',body:"'+title+' ')
-    for line in data:
-        f.write(strip_tags(markdown.markdown(line)).replace("\n",'').replace('"',' ').replace('~~~',''))
-    data.close()
-    f.write('"}')
-f.write('];\n')
-f.close()
+
+def timestamp(value: str | None, fallback: str) -> int:
+    value = (value or fallback).replace("Z", "+00:00")
+    value = re.sub(r"\s+([+-]\d{2})(\d{2})$", r"\1:\2", value)
+    try:
+        parsed = dt.datetime.fromisoformat(value)
+    except ValueError:
+        parsed = dt.datetime.fromisoformat(fallback)
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=dt.timezone.utc)
+    return int(parsed.timestamp())
+
+
+def plain_text(markdown: str) -> str:
+    """Keep searchable text while removing common Markdown and HTML markup."""
+    markdown = re.sub(r"```[^\n]*", " ", markdown)
+    markdown = re.sub(r"`([^`]*)`", r"\1", markdown)
+    markdown = re.sub(r"!?\[([^\]]*)\]\([^)]*\)", r"\1", markdown)
+    markdown = re.sub(r"!?(\[([^\]]*)\])\[[^\]]*\]", r"\2", markdown)
+    markdown = TAG.sub(" ", markdown)
+    markdown = re.sub(r"[*_~>#|]", " ", markdown)
+    return " ".join(html.unescape(markdown).split())
+
+
+def entry(post: Path) -> dict[str, object] | None:
+    match = POST_NAME.match(post.name)
+    if not match:
+        return None
+    content = post.read_text(encoding="utf-8")
+    front_matter_match = FRONT_MATTER.match(content)
+    front_matter = front_matter_match.group(1) if front_matter_match else ""
+    body = content[front_matter_match.end():] if front_matter_match else content
+    date = front_matter_value(front_matter, "date") or f"{match.group(1)} 00:00:00 +0000"
+    updated = front_matter_value(front_matter, "update") or date
+    title = front_matter_value(front_matter, "title") or match.group(2).replace("-", " ")
+    return {
+        "file": f"/{match.group(1).replace('-', '/')}/{match.group(2)}/",
+        "title": title,
+        "mtime": timestamp(updated, date),
+        "ctime": timestamp(date, f"{match.group(1)} 00:00:00 +0000"),
+        "body": f"{title} {plain_text(body)}",
+    }
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--posts-dir", type=Path, default=ROOT / "_posts")
+    parser.add_argument("--output", type=Path, default=ROOT / "js" / "index.js")
+    args = parser.parse_args()
+
+    entries = [entry(post) for post in sorted(args.posts_dir.iterdir()) if post.is_file()]
+    entries = [item for item in entries if item is not None]
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+    args.output.write_text(
+        "var start = new Date().getTime();\nvar data = "
+        + json.dumps(entries, ensure_ascii=False, separators=(",", ":"))
+        + ";\n",
+        encoding="utf-8",
+    )
+
+
+if __name__ == "__main__":
+    main()

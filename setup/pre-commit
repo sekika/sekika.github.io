@@ -1,11 +1,21 @@
 #!/bin/sh
-# Contents of .git/hooks/pre-commit
+# Install as .git/hooks/pre-commit (run: make -C setup).
+# Rebuild and stage the search index whenever a post is part of the commit.
 
-# Read YAML front matter in all the modified files for committing,
-# and replace "update:" line to "update: current date and time"
+set -eu
 
-git diff --cached --name-status | grep "^M" | grep "_posts" | while read a b; do
-  cat $b | sed "/---.*/,/---.*/s/^update:.*$/update: $(date -u "+%Y-%m-%d %T") +0000/" > tmp
-  mv tmp $b
-  git add $b
-done
+repo_root=$(git rev-parse --show-toplevel)
+cd "$repo_root"
+
+if git diff --cached --name-only --diff-filter=ACDMR -- _posts/ | grep -q .; then
+  # setup/index reads the working tree. Refuse a mixed staged/unstaged post
+  # change so the committed index never describes uncommitted content.
+  if ! git diff --quiet -- _posts/; then
+    echo "pre-commit: _posts/ に未ステージの変更があります。" >&2
+    echo "pre-commit: 検索索引と本文を一致させるため、先にステージするか退避してください。" >&2
+    exit 1
+  fi
+
+  python3 "$repo_root/setup/index"
+  git add js/index.js
+fi
