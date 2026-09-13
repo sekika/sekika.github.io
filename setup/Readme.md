@@ -50,7 +50,7 @@ git add _posts/
 
 `_posts/` 内の記事はデフォルトでPDF生成対象です。フロントマターに `pdf: false` を指定した記事は生成しません。また、コード例の外に実行・操作用のHTML（`script`、`canvas`、`form`、`input`、`textarea`、`select`、`button`、`iframe`、`object`、`embed`、`applet`）がある記事、JavaScriptイベント属性または `javascript:` URLがある記事、実行環境用レイアウト（`javascript`、`javascript-en`、`post-js`、`post-js-en`、`pyodide`）の記事も生成しません。
 
-判定時にはMarkdownのコードフェンス、インラインコード、および `{% highlight %}` のコード例を除外します。そのため、JavaScriptを説明するだけの記事はPDF生成対象のままです。PDFは通常 `/pdf/YYYY/MM/DD/slug.pdf` に生成され、既存記事で `pdf:` にパスを指定している場合はそのパスを維持します。
+判定時にはMarkdownのコードフェンス、インラインコード、およびJekyllのhighlightタグで囲んだコード例を除外します。そのため、JavaScriptを説明するだけの記事はPDF生成対象のままです。PDFは通常 `/pdf/YYYY/MM/DD/slug.pdf` に生成され、既存記事で `pdf:` にパスを指定している場合はそのパスを維持します。
 
 現在の実行型19記事には、この判定に基づいて `pdf: false` を設定済みです。新たな実行型記事にも同じ指定を追加してください。
 
