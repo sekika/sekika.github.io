@@ -5,7 +5,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { PDFArray, PDFDict, PDFDocument, PDFName } from "pdf-lib";
 import { Resvg } from "@resvg/resvg-js";
-import { H, Q, box, color, h1, image, inlineGraphic, inlineMath, math, mdFile, minitype, p, page, physical, ratio, rgb, sub, sup, url } from "@minitype/minitype";
+import { H, Q, box, color, h1, image, inlineGraphic, inlineMath, math, mdFile, texToSvg, minitype, p, page, physical, ratio, rgb, sub, sup, url } from "@minitype/minitype";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, "../..");
@@ -72,6 +72,22 @@ function pdfImageSource(src) {
 /** Creates a Minitype image, rasterizing local SVG files when necessary. */
 function pdfImage(src) {
   return image(pdfImageSource(src));
+}
+
+/** Rasterizes display math containing Japanese text, which svg-to-pdfkit cannot draw. */
+function mathImage(latex, size = Q(10)) {
+  const rendered = texToSvg(latex, size, true);
+  const name = createHash("sha256").update(latex).digest("hex").slice(0, 16);
+  const output = path.join(root, "tmp", "pdfs", "rasterized-math", `${name}.png`);
+  if (!existsSync(output)) {
+    mkdirSync(path.dirname(output), { recursive: true });
+    const png = new Resvg(rendered.svg, {
+      fitTo: { mode: "width", value: Math.ceil(rendered.width * 96 / 25.4 * 4) },
+      font: { fontFiles: [path.join(fontDir, "SourceHanSerifJP-Regular.otf")], loadSystemFonts: false },
+    }).render().asPng();
+    writeFileSync(output, png);
+  }
+  return { source: output, width: rendered.width };
 }
 
 /** Parses YAML front matter and returns it with the Markdown body. */
@@ -317,6 +333,10 @@ function replaceDisplayMathBlocks(blocks, displayMath) {
       : null;
     if (!marker) return [block];
     const latex = displayMath[Number(marker[1])];
+    if (/[\u3040-\u30ff\u3400-\u9fff\uff00-\uffef]/u.test(latex)) {
+      const rasterized = mathImage(latex);
+      return [image(rasterized.source, { align: "center", width: rasterized.width })];
+    }
     return [math(latex.split(/\r?\n/), { size: Q(10) })];
   });
 }
