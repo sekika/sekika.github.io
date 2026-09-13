@@ -13,14 +13,22 @@ const postsDirectory = path.join(root, "_posts");
 const outputDirectory = path.join(root, "pdf");
 const fontDir = path.join(here, "node_modules/@minitype/minitype/fonts");
 const siteUrl = "https://sekika.github.io";
+const serifFont = {
+  default: { font: "SourceHanSerifJP-Regular" },
+  latin: { font: "NOTONOTO35HS-Regular" },
+};
+const sansFont = {
+  default: { font: "SourceHanSansJP-Regular" },
+  latin: { font: "NOTONOTO35HS-Regular" },
+};
 
 const documentStyle = {
   size: "A4", writingMode: "horizontal", padding: physical(20, 18, 24, 18),
   block: {
-    paragraph: { font: "SourceHanSerifJP-Regular", size: Q(10), lineHeight: H(18), firstIndent: Q(10) },
+    paragraph: { font: serifFont, size: Q(10), lineHeight: H(18), firstIndent: Q(10) },
     h1: { font: "SourceHanSerifJP-Bold", size: Q(20), lineHeight: H(28) },
     h2: { font: "SourceHanSerifJP-Bold", size: Q(15), lineHeight: H(22) },
-    code: { font: "SourceHanSansJP-Regular", size: Q(9), lineHeight: H(13), highlight: "atom-one-light" },
+    code: { font: sansFont, size: Q(9), lineHeight: H(13), highlight: "atom-one-light" },
     image: { align: "center", width: ratio(0.78) }, table: { textStyle: { size: Q(8) } },
   },
   gaps: [["fallback", "fallback", 3], ["paragraph", "h2", 8], ["h2", "paragraph", 4], ["image", "image", 5]],
@@ -75,6 +83,25 @@ function normalizedMarkdown(source) {
     .replace(/^(`{3,}|~{3,})([^\s]*)\s*$/gm, (line, fence, language) =>
     language && !supported.has(language.toLowerCase()) ? `${fence}text` : line,
     );
+}
+
+function expandCodeTabs(source, tabWidth = 4) {
+  let fence;
+  let inHighlight = false;
+  return source.split(/(\r?\n)/).map((part) => {
+    if (/^{%\s*highlight\b/i.test(part)) inHighlight = true;
+    if (/^{%\s*endhighlight\s*%}/i.test(part)) inHighlight = false;
+    const fenceMatch = part.match(/^\s*(`{3,}|~{3,})/);
+    const inCode = Boolean(fence) || inHighlight || /^\t/.test(part);
+    const expanded = inCode
+      ? part.replace(/\t/g, (_tab, index) => " ".repeat(tabWidth - (index % tabWidth)))
+      : part;
+    if (fenceMatch) {
+      if (fence && fenceMatch[1][0] === fence) fence = undefined;
+      else if (!fence) fence = fenceMatch[1][0];
+    }
+    return expanded;
+  }).join("");
 }
 
 function htmlAttribute(attributes, name) {
@@ -223,7 +250,7 @@ function replaceMathOutsideExamples(source) {
 
 function replaceDisplayMathBlocks(blocks, displayMath) {
   return blocks.flatMap((block) => {
-    const marker = block.type === "text" && block.textType === "paragraph" && block.lines.length === 1 && block.lines[0].length === 1
+    const marker = block.type === "text" && block.textType === "paragraph" && block.lines.length === 1 && block.lines[0].length === 1 && typeof block.lines[0][0] === "string"
       ? block.lines[0][0].match(/^@@MINITYPEDISPLAY(\d+)@@$/)
       : null;
     if (!marker) return [block];
@@ -318,9 +345,10 @@ async function generate(file) {
   const sourceUrl = `${siteUrl}${identity.urlPath}`;
   const pdfFile = outputFile(identity, metadata);
   const mathEnabled = metadata.get("layout") === "katex" || metadata.get("layout") === "math";
+  const sourceWithExpandedCodeTabs = expandCodeTabs(source);
   const preparedMath = mathEnabled
-    ? replaceMathOutsideExamples(source)
-    : { source, displayMath: [], inlineMath: [] };
+    ? replaceMathOutsideExamples(sourceWithExpandedCodeTabs)
+    : { source: sourceWithExpandedCodeTabs, displayMath: [], inlineMath: [] };
   const normalized = normalizedMarkdown(separateMarkdownImagesOutsideExamples(replaceSupportedHtmlOutsideExamples(preparedMath.source)));
   const markdownFile = normalized === source ? file : path.join(root, "tmp", "pdfs", "normalized", path.basename(file));
   if (markdownFile !== file) {
@@ -335,9 +363,9 @@ async function generate(file) {
     : ["著者：関 勝寿　公開日：", dateLabel(identity, false), "　ソース：", link(sourceUrl, sourceUrl)];
   const document = minitype([{ body: [
     h1(title, { align: "center", unnumbered: true }),
-    p([publication], { align: "right", font: "SourceHanSansJP-Regular", size: Q(9), firstIndent: 0 }),
+    p([publication], { align: "right", font: sansFont, size: Q(9), firstIndent: 0 }),
     box(article.blocks, { columns: 2, columnGap: 7, splitable: true }),
-    { type: "flow", position: "page", blockOffset: 283, inlineSize: 210, blocks: [p([[page]], { align: "center", firstIndent: 0, font: "SourceHanSansJP-Regular", size: Q(9) })] },
+    { type: "flow", position: "page", blockOffset: 283, inlineSize: 210, blocks: [p([[page]], { align: "center", firstIndent: 0, font: sansFont, size: Q(9) })] },
   ] }], structuredClone(documentStyle), { fontDir, outline: false, metadata: { title, author: "Katsutoshi Seki" } });
   const errors = (await document.getDiagnostics()).filter((diagnostic) => diagnostic.severity === "error");
   if (errors.length) throw new Error(JSON.stringify(errors, null, 2));
