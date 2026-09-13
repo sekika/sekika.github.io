@@ -123,6 +123,27 @@ function replaceSupportedHtmlOutsideExamples(source) {
   }).join("");
 }
 
+function separateMarkdownImagesOutsideExamples(source) {
+  let fence;
+  let inHighlight = false;
+  let previousWasImage = false;
+  const output = [];
+  for (const line of source.split(/\r?\n/)) {
+    if (/^{%\s*highlight\b/i.test(line)) inHighlight = true;
+    if (/^{%\s*endhighlight\s*%}/i.test(line)) inHighlight = false;
+    const fenceMatch = line.match(/^\s*(`{3,}|~{3,})/);
+    if (fenceMatch) {
+      if (fence && fenceMatch[1][0] === fence) fence = undefined;
+      else if (!fence) fence = fenceMatch[1][0];
+    }
+    const isImage = !fence && !inHighlight && /^\s*!\[[^\]]*\]\([^\s)]+(?:\s+"[^"]*")?\)\s*$/.test(line);
+    if (isImage && previousWasImage) output.push("");
+    output.push(line);
+    previousWasImage = isImage;
+  }
+  return output.join("\n");
+}
+
 function replaceMathOutsideExamples(source) {
   const displayMath = [];
   const inlineMath = [];
@@ -291,7 +312,7 @@ async function generate(file) {
   const preparedMath = mathEnabled
     ? replaceMathOutsideExamples(source)
     : { source, displayMath: [], inlineMath: [] };
-  const normalized = normalizedMarkdown(replaceSupportedHtmlOutsideExamples(preparedMath.source));
+  const normalized = normalizedMarkdown(separateMarkdownImagesOutsideExamples(replaceSupportedHtmlOutsideExamples(preparedMath.source)));
   const markdownFile = normalized === source ? file : path.join(root, "tmp", "pdfs", "normalized", path.basename(file));
   if (markdownFile !== file) {
     await mkdir(path.dirname(markdownFile), { recursive: true });
