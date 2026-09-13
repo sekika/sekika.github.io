@@ -1,12 +1,10 @@
 ---
 layout: post
 title: 記事を PDF でも読めるようにした
-date: 2026-09-13 08:48:49 +0000
+date: 2026-09-13 08:49:00 +0000
 tags:
-- pdf
-- markdown
+- jekyll
 - javascript
-- minitype
 ---
 このブログの記事に、ブラウザで読む本文とは別に、PDFで表示するリンクを付けた。記事のヘッダにある「PDFで表示」を選ぶと、A4縦・二段組のPDFを新しいタブで開ける。
 

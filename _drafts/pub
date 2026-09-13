@@ -76,8 +76,12 @@ git commit -m "Remove draft because it was published" || \
 
 echo "Committing to repository."
 cd .. || { echo "cd .. failed. Stop."; exit; }
+echo "Generating PDF."
+node tools/minitype-pdf/generate-pdfs.mjs _posts/$DestFile || \
+  { echo "PDF generation failed. Stop."; exit; }
 git add _posts/$DestFile || \
    { echo "git add $DestFile at .. failed. Stop."; exit; }
+git add pdf/ || { echo "git add pdf/ failed. Stop."; exit; }
 git commit -m "Published on "$Permalink || \
    { echo "Commit at .. failed. Stop."; exit; }
 echo "Pushing to master repository."
