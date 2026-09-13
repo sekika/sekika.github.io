@@ -136,9 +136,18 @@ function separateMarkdownImagesOutsideExamples(source) {
       if (fence && fenceMatch[1][0] === fence) fence = undefined;
       else if (!fence) fence = fenceMatch[1][0];
     }
-    const isImage = !fence && !inHighlight && /^\s*!\[[^\]]*\]\([^\s)]+(?:\s+"[^"]*")?\)\s*$/.test(line);
+    const imageMatch = !fence && !inHighlight
+      ? line.match(/^(\s*)!\[([^\]]*)\]\(([^\s)]+)(\s+"[^"]*")?\)\s*$/)
+      : null;
+    const isImage = Boolean(imageMatch);
+    if (previousWasImage && !isImage && line.trim() && !fence && !inHighlight) output.push("");
     if (isImage && previousWasImage) output.push("");
-    output.push(line);
+    if (imageMatch && !imageMatch[2]) {
+      const filename = path.basename(imageMatch[3].split(/[?#]/)[0], path.extname(imageMatch[3]));
+      output.push(`${imageMatch[1]}![${filename}](${imageMatch[3]}${imageMatch[4] ?? ""})`);
+    } else {
+      output.push(line);
+    }
     previousWasImage = isImage;
   }
   return output.join("\n");
