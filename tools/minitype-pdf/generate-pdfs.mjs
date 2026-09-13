@@ -202,7 +202,7 @@ function separateMarkdownImagesOutsideExamples(source) {
 function replaceMathOutsideExamples(source) {
   const displayMath = [];
   const inlineMath = [];
-  const normalizeLatex = (latex) => latex.trim();
+  const normalizeLatex = (latex) => latex.trim().replace(/\\{2,}(?!\r?\n)/g, String.fromCharCode(92));
   const displayMarker = (latex) => {
     const index = displayMath.push(normalizeLatex(latex)) - 1;
     return `@@MINITYPEDISPLAY${index}@@`;
