@@ -1,3 +1,4 @@
+import { codeFence } from "./code-fence.mjs";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { mkdir, readdir, readFile, stat, writeFile } from "node:fs/promises";
 import { createHash } from "node:crypto";
@@ -48,6 +49,7 @@ const documentStyle = {
 
 const interactiveTags = new Set(["applet", "button", "canvas", "embed", "form", "iframe", "input", "object", "script", "select", "textarea"]);
 const executableLayouts = new Set(["javascript", "javascript-en", "post-js", "post-js-en", "pyodide"]);
+const gistCache = new Map();
 const link = (href, body) => color(url(href, typeof body === "string" ? replaceInlineHtmlString(body) : body), rgb(0, 82, 155));
 const imagePath = (src) => {
   const resolved = path.resolve(root, src.replace(/^\//, ""));
@@ -125,6 +127,64 @@ function normalizedMarkdown(source) {
     );
 }
 
+/**
+ * Replaces standalone Jekyll gist tags with the referenced Gist as a fenced
+ * code block. GitHub Pages performs this transformation for HTML pages, but
+ * the PDF pipeline reads the Markdown source directly.
+ */
+async function expandGists(source) {
+  const tag = /^\s*{%\s*gist\s+([0-9a-f]{5,})(?:\s+([^\s%]+))?\s*%}\s*$/i;
+  let fence;
+  let inHighlight = false;
+  const lines = source.split(/(\r?\n)/);
+  for (let index = 0; index < lines.length; index += 2) {
+    const line = lines[index];
+    if (/^{%\s*highlight\b/i.test(line)) inHighlight = true;
+    if (/^{%\s*endhighlight\s*%}/i.test(line)) inHighlight = false;
+    const nextFence = codeFence(line, fence);
+    const fenceMatch = nextFence !== fence;
+    if (!fence && !inHighlight) {
+      const matched = line.match(tag);
+      if (matched) lines[index] = await gistMarkdown(matched[1], matched[2]);
+    }
+    if (fenceMatch) {
+      fence = nextFence;
+    }
+  }
+  return lines.join("");
+}
+
+/** Fetches one public Gist and converts its selected file to Markdown. */
+async function gistMarkdown(id, requestedFilename) {
+  const gist = await getGist(id);
+  const files = Object.values(gist.files ?? {});
+  const selected = requestedFilename
+    ? files.find((file) => file.filename === requestedFilename)
+    : files[0];
+  if (!selected) throw new Error(`Gist ${id}${requestedFilename ? ` has no file named ${requestedFilename}` : " has no files"}.`);
+  let content = selected.content;
+  if (selected.truncated) {
+    const response = await fetch(selected.raw_url);
+    if (!response.ok) throw new Error(`Could not fetch Gist ${id}: ${response.status} ${response.statusText}`);
+    content = await response.text();
+  }
+  const language = ({ Shell: "shell", JavaScript: "javascript", JSON: "json", Python: "python", Go: "go", HTML: "html" })[selected.language] ?? "text";
+  const longestRun = Math.max(0, ...[...content.matchAll(/`+/g)].map((match) => match[0].length));
+  const delimiter = "`".repeat(Math.max(3, longestRun + 1));
+  const owner = gist.owner?.login ? `${gist.owner.login}/` : "";
+  return `[Gist: ${selected.filename}](https://gist.github.com/${owner}${id})\n\n${delimiter}${language}\n${content.replace(/\n?$/, "\n")}${delimiter}`;
+}
+
+/** Loads a public Gist once per run. */
+async function getGist(id) {
+  if (!gistCache.has(id)) gistCache.set(id, (async () => {
+    const response = await fetch(`https://api.github.com/gists/${id}`, { headers: { Accept: "application/vnd.github+json" } });
+    if (!response.ok) throw new Error(`Could not fetch Gist ${id}: ${response.status} ${response.statusText}`);
+    return response.json();
+  })());
+  return gistCache.get(id);
+}
+
 /** Removes control characters that cannot be rendered safely. */
 function stripUnsupportedControlCharacters(source) {
   return source.replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, "");
@@ -137,14 +197,14 @@ function expandCodeTabs(source, tabWidth = 4) {
   return source.split(/(\r?\n)/).map((part) => {
     if (/^{%\s*highlight\b/i.test(part)) inHighlight = true;
     if (/^{%\s*endhighlight\s*%}/i.test(part)) inHighlight = false;
-    const fenceMatch = part.match(/^\s*(`{3,}|~{3,})/);
+    const nextFence = codeFence(part, fence);
+    const fenceMatch = nextFence !== fence;
     const inCode = Boolean(fence) || inHighlight || /^\t/.test(part);
     const expanded = inCode
       ? part.replace(/\t/g, (_tab, index) => " ".repeat(tabWidth - (index % tabWidth)))
       : part;
     if (fenceMatch) {
-      if (fence && fenceMatch[1][0] === fence) fence = undefined;
-      else if (!fence) fence = fenceMatch[1][0];
+      fence = nextFence;
     }
     return expanded;
   }).join("");
@@ -201,10 +261,10 @@ function replaceSupportedHtmlOutsideExamples(source) {
   return source.split(/(\r?\n)/).map((part) => {
     if (/^{%\s*highlight\b/i.test(part)) inHighlight = true;
     if (/^{%\s*endhighlight\s*%}/i.test(part)) inHighlight = false;
-    const fenceMatch = part.match(/^\s*(`{3,}|~{3,})/);
+    const nextFence = codeFence(part, fence);
+    const fenceMatch = nextFence !== fence;
     if (fenceMatch) {
-      if (fence && fenceMatch[1][0] === fence) fence = undefined;
-      else if (!fence) fence = fenceMatch[1][0];
+      fence = nextFence;
       return part;
     }
     if (fence || inHighlight) return part;
@@ -234,10 +294,10 @@ function separateMarkdownImagesOutsideExamples(source) {
   for (const line of source.split(/\r?\n/)) {
     if (/^{%\s*highlight\b/i.test(line)) inHighlight = true;
     if (/^{%\s*endhighlight\s*%}/i.test(line)) inHighlight = false;
-    const fenceMatch = line.match(/^\s*(`{3,}|~{3,})/);
+    const nextFence = codeFence(line, fence);
+    const fenceMatch = nextFence !== fence;
     if (fenceMatch) {
-      if (fence && fenceMatch[1][0] === fence) fence = undefined;
-      else if (!fence) fence = fenceMatch[1][0];
+      fence = nextFence;
     }
     const imageMatch = !fence && !inHighlight
       ? line.match(/^(\s*)!\[([^\]]*)\]\(([^\s)]+)(\s+"[^"]*")?\)\s*$/)
@@ -294,10 +354,10 @@ function replaceMathOutsideExamples(source) {
     }
     if (/^{%\s*highlight\b/i.test(line)) inHighlight = true;
     if (/^{%\s*endhighlight\s*%}/i.test(line)) inHighlight = false;
-    const fenceMatch = line.match(/^\s*(`{3,}|~{3,})/);
+    const nextFence = codeFence(line, fence);
+    const fenceMatch = nextFence !== fence;
     if (fenceMatch) {
-      if (fence && fenceMatch[1][0] === fence) fence = undefined;
-      else if (!fence) fence = fenceMatch[1][0];
+      fence = nextFence;
       result.push(line);
       continue;
     }
@@ -453,7 +513,8 @@ async function generate(file) {
   const sourceUrl = `${siteUrl}${identity.urlPath}`;
   const pdfFile = outputFile(identity, metadata);
   const mathEnabled = metadata.get("layout") === "katex" || metadata.get("layout") === "math";
-  const sourceWithExpandedCodeTabs = expandCodeTabs(stripUnsupportedControlCharacters(source));
+  const sourceWithExpandedGists = await expandGists(source);
+  const sourceWithExpandedCodeTabs = expandCodeTabs(stripUnsupportedControlCharacters(sourceWithExpandedGists));
   const preparedMath = mathEnabled
     ? replaceMathOutsideExamples(sourceWithExpandedCodeTabs)
     : { source: sourceWithExpandedCodeTabs, displayMath: [], inlineMath: [] };
