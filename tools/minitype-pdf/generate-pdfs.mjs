@@ -5,7 +5,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { PDFArray, PDFDict, PDFDocument, PDFName } from "pdf-lib";
 import { Resvg } from "@resvg/resvg-js";
-import { H, Q, box, color, h1, image, inlineMath, math, mdFile, minitype, p, page, physical, ratio, rgb, sub, sup, url } from "@minitype/minitype";
+import { H, Q, box, color, h1, image, inlineGraphic, inlineMath, math, mdFile, minitype, p, page, physical, ratio, rgb, sub, sup, url } from "@minitype/minitype";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, "../..");
@@ -55,10 +55,10 @@ const imagePath = (src) => {
   return resolved;
 };
 
-/** Creates a Minitype image, rasterizing local SVG files when necessary. */
-function pdfImage(src) {
+/** Resolves a PDF-compatible image source, rasterizing local SVG files when necessary. */
+function pdfImageSource(src) {
   const source = imagePath(src);
-  if (path.extname(source).toLowerCase() !== ".svg") return image(source);
+  if (path.extname(source).toLowerCase() !== ".svg") return source;
   const name = createHash("sha256").update(source).digest("hex").slice(0, 16);
   const rasterized = path.join(root, "tmp", "pdfs", "rasterized-svg", `${name}.png`);
   if (!existsSync(rasterized)) {
@@ -66,7 +66,12 @@ function pdfImage(src) {
     const png = new Resvg(readFileSync(source), { fitTo: { mode: "width", value: 1600 } }).render().asPng();
     writeFileSync(rasterized, png);
   }
-  return image(rasterized);
+  return rasterized;
+}
+
+/** Creates a Minitype image, rasterizing local SVG files when necessary. */
+function pdfImage(src) {
+  return image(pdfImageSource(src));
 }
 
 /** Parses YAML front matter and returns it with the Markdown body. */
@@ -152,6 +157,11 @@ function markdownLinkTarget(href) {
   return href.trim().replace(/[()\\]/g, "\\\\$&");
 }
 
+/** Creates a placeholder for a repository image appearing within a line of text. */
+function htmlInlineImageMarker(src) {
+  return `@@MINITYPEIMAGE${Buffer.from(src, "utf8").toString("base64url")}@@`;
+}
+
 /** Creates a placeholder for supported inline HTML. */
 function htmlInlineMarker(tag, text) {
   return `@@MINITYPE${tag.toUpperCase()}${Buffer.from(text.replace(/<[^>]*>/g, ""), "utf8").toString("base64url")}@@`;
@@ -159,10 +169,11 @@ function htmlInlineMarker(tag, text) {
 
 /** Restores inline HTML placeholders as Minitype nodes. */
 function replaceInlineHtmlString(value) {
-  return value.split(/@@MINITYPE(SUB|SUP)([A-Za-z0-9_-]+)@@/).flatMap((part, index, parts) => {
+  return value.split(/@@MINITYPE(SUB|SUP|IMAGE)([A-Za-z0-9_-]+)@@/).flatMap((part, index, parts) => {
     if (index % 3 === 0) return part ? [part] : [];
     if (index % 3 === 1) return [];
     const text = Buffer.from(part, "base64url").toString("utf8");
+    if (parts[index - 1] === "IMAGE") return [inlineGraphic(pdfImageSource(text), { size: Q(10) })];
     return [parts[index - 1] === "SUB" ? sub(text) : sup(text)];
   });
 }
@@ -181,10 +192,11 @@ function replaceSupportedHtmlOutsideExamples(source) {
       return part;
     }
     if (fence || inHighlight) return part;
-    const images = part.replace(/<img\b([^>]*)\/?\s*>/gi, (tag, attributes) => {
+    const images = part.replace(/<img\b([^>]*)\/?\s*>/gi, (tag, attributes, offset) => {
       const src = htmlAttribute(attributes, "src");
       if (!isRepositoryImage(src)) return tag;
       const alt = htmlAttribute(attributes, "alt").replace(/[\[\]\\]/g, "\\$&");
+      if (part.slice(0, offset).trim() || part.slice(offset + tag.length).trim()) return htmlInlineImageMarker(src);
       return `![${alt}](${src})`;
     });
     return images
