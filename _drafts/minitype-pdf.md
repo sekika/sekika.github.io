@@ -21,6 +21,8 @@ Since the posts in this blog are written in Markdown, the [minitype Markdown plu
 
 Some posts also contain raw HTML. This blog converts an `img` tag that refers to a file in the repository into a Markdown image. PNG, JPEG, and similar images are placed directly, while SVG images are first rasterized to PNG so that they can be embedded in the PDF. It also converts `<a href="...">link text</a>` into a Markdown link, which is displayed in blue and remains clickable in the PDF. HTML in code blocks and Jekyll `highlight` blocks is left unchanged because it is source code shown for explanation.
 
+Existing posts that use `layout: math` or `layout: katex` are also handled as mathematical documents. The generator recognizes display equations written with `$$ ... $$` or `[[ ... ]]`, and inline equations written with `$ ... $`, then typesets them as minitype math elements. Repeated backslashes in existing mathematical source are normalized as TeX commands. The same notation in code blocks, inline code, and Jekyll `highlight` blocks remains unchanged as explanatory source code.
+
 This is not a screenshot-like conversion of the published HTML page. Instead, the Markdown source is typeset again for a PDF page. Browser buttons and JavaScript results are therefore not copied to the PDF; the aim is a readable version of the article itself.
 
 ## Typesetting for this blog
