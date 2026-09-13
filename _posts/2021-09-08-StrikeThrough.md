@@ -1,5 +1,6 @@
 ---
 layout: post
+pdf: false
 title: 取り消し線
 date: 2021-09-08 19:22:12 +0000
 tag: javascript

@@ -1,6 +1,6 @@
 #!/bin/sh
 # Install as .git/hooks/pre-commit (run: make -C setup).
-# Rebuild and stage the search index whenever a post is part of the commit.
+# Rebuild and stage generated files whenever a post is part of the commit.
 
 set -eu
 
@@ -18,4 +18,13 @@ if git diff --cached --name-only --diff-filter=ACDMR -- _posts/ | grep -q .; the
 
   python3 "$repo_root/setup/index"
   git add js/index.js
+
+  # Generate every currently missing static-article PDF, and refresh PDFs for
+  # the posts included in this commit. The generator itself excludes articles
+  # with pdf: false and interactive browser content.
+  set -- $(git diff --cached --name-only --diff-filter=ACMR -- _posts/)
+  if [ "$#" -gt 0 ]; then
+    node "$repo_root/tools/minitype-pdf/generate-pdfs.mjs" --missing "$@"
+    git add pdf/
+  fi
 fi

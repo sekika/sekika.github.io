@@ -1,5 +1,6 @@
 ---
 layout: katex
+pdf: false
 title: 指数と対数関数の微分
 date: 2017-05-06 02:49:32 +0000
 update: 2020-01-05 16:37:47 +0000

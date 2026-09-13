@@ -3,7 +3,7 @@
     {% if page.ja %}<p style="text-align: right;"><a href="{{ page.ja }}">日本語版</a></p>{% endif %}
     <h1>{{ page.title }}</h1>
   </div>
-  <p style="text-align: right;">{{ page.date | date: "%b %-d, %Y" }} by {{ site.author-en }}<br>
+  <p style="text-align: right;">{{ page.date | date: "%b %-d, %Y" }} by {{ site.author-en }}{% unless page.pdf == false %}{% if page.pdf %}{% assign pdf_url = page.pdf %}{% else %}{% assign pdf_url = page.url | append: ".pdf" | replace: "/.pdf", ".pdf" | prepend: "/pdf" %}{% endif %} - <a href="{{ pdf_url }}" target="_blank" rel="noopener" type="application/pdf">View PDF</a>{% endunless %}<br>
 Tags:
 {% capture tags %}
 {% for tag in page.tags %}

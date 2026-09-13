@@ -1,0 +1,11 @@
+{
+  "name": "sekis-note-minitype-pdf",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node generate-pdfs.mjs --missing"
+  },
+  "dependencies": {
+    "@minitype/minitype": "^0.1.0"
+  }
+}

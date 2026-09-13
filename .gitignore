@@ -7,3 +7,7 @@ Gemfile.lock
 /vendor
 .bundle/
 js/node_modules/
+tools/minitype-pdf/node_modules/
+tools/minitype-pdf/font-caches.db
+font-caches.db
+/tmp

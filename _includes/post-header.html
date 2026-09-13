@@ -4,7 +4,7 @@
     <h1>{{ page.title }}</h1>
 </div>
 <p style="text-align: right;">著者：{{ site.author }}<br>
-公開日：{{ page.date | date: "%Y年%-m月%-d日" }}{% if page.update %} - <a href="{{ site.repository }}/commits/master/{{ page.path }}">最終更新日</a>：{{ page.update | date: "%Y年%-m月%-d日" }}{% endif %}<br>
+公開日：{{ page.date | date: "%Y年%-m月%-d日" }}{% if page.update %} - <a href="{{ site.repository }}/commits/master/{{ page.path }}">最終更新日</a>：{{ page.update | date: "%Y年%-m月%-d日" }}{% endif %}{% unless page.pdf == false %}{% if page.pdf %}{% assign pdf_url = page.pdf %}{% else %}{% assign pdf_url = page.url | append: ".pdf" | replace: "/.pdf", ".pdf" | prepend: "/pdf" %}{% endif %} - <a href="{{ pdf_url }}" target="_blank" rel="noopener" type="application/pdf">PDFで表示</a>{% endunless %}<br>
 キーワード：
 {% capture tags %}
 {% for tag in page.tags %}

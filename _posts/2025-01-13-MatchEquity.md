@@ -1,5 +1,6 @@
 ---
 layout: post-en
+pdf: false
 title: Match equity calculator
 date: 2025-01-13 12:29:51 +0000
 tags:

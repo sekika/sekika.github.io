@@ -1,6 +1,6 @@
 # 検索インデックスのセットアップ
 
-このディレクトリには、サイト内検索で使う `js/index.js` を生成し、記事をコミットするときに自動更新するためのスクリプトがあります。
+このディレクトリには、サイト内検索で使う `js/index.js` と記事PDFを生成し、記事をコミットするときに自動更新するためのスクリプトがあります。
 
 ## 初回設定
 
@@ -17,12 +17,14 @@ make -C setup install-hook
 `_posts/` 内の記事を追加、編集、削除、または名前変更してコミットすると、`pre-commit` フックが次を自動的に行います。
 
 1. `setup/index` を実行して、全記事の検索データを `js/index.js` に生成します。
-2. 生成された `js/index.js` をコミット対象に追加します。
+2. `tools/minitype-pdf/generate-pdfs.mjs` を実行し、未生成のPDFを一括生成します。コミットに含まれる記事のPDFは、既存であっても再生成します。
+3. 生成された `js/index.js` と `pdf/` 配下のPDFをコミット対象に追加します。
 
-したがって、通常は記事と一緒に `js/index.js` を手作業で `git add` する必要はありません。ただし、生成された変更内容を確認したい場合は、コミット前に手動生成しておくこともできます。
+したがって、通常は記事と一緒に `js/index.js` やPDFを手作業で `git add` する必要はありません。ただし、生成された変更内容を確認したい場合は、コミット前に手動生成しておくこともできます。
 
 ```sh
 python3 setup/index
+node tools/minitype-pdf/generate-pdfs.mjs --missing
 git diff -- js/index.js
 ```
 
@@ -39,9 +41,18 @@ git add _posts/
 ## スクリプトの仕様
 
 - `index` はPython 3の標準ライブラリだけで動作し、追加の `pip` パッケージは不要です。
+- PDF生成はNode.jsを使用します。初回だけ `cd tools/minitype-pdf && npm install` を実行してください。
 - 実行するディレクトリにかかわらず、リポジトリ内の `_posts/` を読み込み、`js/index.js` に出力します。
 - 記事のタイトル、作成日、更新日、本文のテキストを検索データに含めます。
 - 検索メニューは日本語サイトのナビゲーションにのみ表示されます。
+
+## PDF生成の対象外
+
+`_posts/` 内の記事はデフォルトでPDF生成対象です。フロントマターに `pdf: false` を指定した記事は生成しません。また、コード例の外に実行・操作用のHTML（`script`、`canvas`、`form`、`input`、`textarea`、`select`、`button`、`iframe`、`object`、`embed`、`applet`）がある記事、JavaScriptイベント属性または `javascript:` URLがある記事、実行環境用レイアウト（`javascript`、`javascript-en`、`post-js`、`post-js-en`、`pyodide`）の記事も生成しません。
+
+判定時にはMarkdownのコードフェンス、インラインコード、および `{% highlight %}` のコード例を除外します。そのため、JavaScriptを説明するだけの記事はPDF生成対象のままです。PDFは通常 `/pdf/YYYY/MM/DD/slug.pdf` に生成され、既存記事で `pdf:` にパスを指定している場合はそのパスを維持します。
+
+現在の実行型19記事には、この判定に基づいて `pdf: false` を設定済みです。新たな実行型記事にも同じ指定を追加してください。
 
 ## フックを更新した場合
 

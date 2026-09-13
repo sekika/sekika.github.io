@@ -1,5 +1,6 @@
 ---
 layout: post-js-en
+pdf: false
 ja: /2020/01/07/CanvasEvent/
 title: Show mouse and touch events in the HTML canvas element
 date: 2023-03-06 08:59:56 +0000

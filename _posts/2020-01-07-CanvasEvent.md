@@ -1,5 +1,6 @@
 ---
 layout: post-js
+pdf: false
 title: Canvas のマウスとタッチのイベントを表示するプログラム
 date: 2020-01-07 06:12:16 +0000
 HashTag: JavaScript
