@@ -208,7 +208,7 @@ function replaceInlineMathBlocks(value, inlineFormulae) {
   }
   if (!value || typeof value !== "object") return;
   if (value.type === "code") return;
-  if (value.type === "text" && Array.isArray(value.lines)) {
+  if ((value.type === "text" || value.type === "list") && Array.isArray(value.lines)) {
     value.lines = value.lines.map((line) => line.flatMap((item) => {
       if (typeof item !== "string") return [item];
       return item.split(/@@MINITYPEINLINE(\d+)@@/).flatMap((part, index) => {
