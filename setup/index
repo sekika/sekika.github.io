@@ -66,8 +66,9 @@ def entry(post: Path) -> dict[str, object] | None:
     date = front_matter_value(front_matter, "date") or f"{match.group(1)} 00:00:00 +0000"
     updated = front_matter_value(front_matter, "update") or date
     title = front_matter_value(front_matter, "title") or match.group(2).replace("-", " ")
+    permalink = front_matter_value(front_matter, "permalink")
     return {
-        "file": f"/{match.group(1).replace('-', '/')}/{match.group(2)}/",
+        "file": permalink or f"/{match.group(1).replace('-', '/')}/{match.group(2)}/",
         "title": title,
         "mtime": timestamp(updated, date),
         "ctime": timestamp(date, f"{match.group(1)} 00:00:00 +0000"),
