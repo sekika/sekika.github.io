@@ -5,7 +5,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { PDFArray, PDFDict, PDFDocument, PDFName } from "pdf-lib";
 import { Resvg } from "@resvg/resvg-js";
-import { H, Q, box, color, h1, image, mdFile, minitype, p, page, physical, ratio, rgb, url } from "@minitype/minitype";
+import { H, Q, box, color, h1, image, inlineMath, math, mdFile, minitype, p, page, physical, ratio, rgb, sub, sup, url } from "@minitype/minitype";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, "../..");
@@ -13,28 +13,49 @@ const postsDirectory = path.join(root, "_posts");
 const outputDirectory = path.join(root, "pdf");
 const fontDir = path.join(here, "node_modules/@minitype/minitype/fonts");
 const siteUrl = "https://sekika.github.io";
+const serifFont = {
+  default: { font: "SourceHanSerifJP-Regular" },
+  latin: { font: "NOTONOTO35HS-Regular" },
+};
+const sansFont = {
+  default: { font: "SourceHanSansJP-Regular" },
+  latin: { font: "NOTONOTO35HS-Regular" },
+};
 
 const documentStyle = {
   size: "A4", writingMode: "horizontal", padding: physical(20, 18, 24, 18),
   block: {
-    paragraph: { font: "SourceHanSerifJP-Regular", size: Q(10), lineHeight: H(18), firstIndent: Q(10) },
+    paragraph: { font: serifFont, size: Q(10), lineHeight: H(18), firstIndent: Q(10) },
     h1: { font: "SourceHanSerifJP-Bold", size: Q(20), lineHeight: H(28) },
     h2: { font: "SourceHanSerifJP-Bold", size: Q(15), lineHeight: H(22) },
-    code: { font: "SourceHanSansJP-Regular", size: Q(9), lineHeight: H(13), highlight: "atom-one-light" },
+    h3: { font: "SourceHanSerifJP-Bold", size: Q(14), lineHeight: H(21) },
+    code: { font: sansFont, size: Q(9), lineHeight: H(13), highlight: "atom-one-light" },
+    li1: { indent: Q(15), firstIndent: Q(-12) },
+    li2: { indent: Q(15), firstIndent: Q(-12) },
+    li3: { indent: Q(15), firstIndent: Q(-12) },
     image: { align: "center", width: ratio(0.78) }, table: { textStyle: { size: Q(8) } },
   },
-  gaps: [["fallback", "fallback", 3], ["paragraph", "h2", 8], ["h2", "paragraph", 4], ["image", "image", 5]],
+  gaps: [
+    ["fallback", "fallback", 0],
+    ["paragraph", "h2", 8], ["h2", "paragraph", 4],
+    ["fallback", "h3", 4],
+    ["fallback", "code", 3], ["code", "fallback", 3],
+    ["fallback", "math", 3], ["math", "fallback", 3],
+    ["fallback", "box", 3], ["box", "fallback", 3],
+    ["image", "image", 5],
+  ],
 };
 
 const interactiveTags = new Set(["applet", "button", "canvas", "embed", "form", "iframe", "input", "object", "script", "select", "textarea"]);
 const executableLayouts = new Set(["javascript", "javascript-en", "post-js", "post-js-en", "pyodide"]);
-const link = (href, body) => color(url(href, body), rgb(0, 82, 155));
+const link = (href, body) => color(url(href, typeof body === "string" ? replaceInlineHtmlString(body) : body), rgb(0, 82, 155));
 const imagePath = (src) => {
   const resolved = path.resolve(root, src.replace(/^\//, ""));
   if (!resolved.startsWith(`${root}${path.sep}`)) throw new Error(`Image is outside the repository: ${src}`);
   return resolved;
 };
 
+/** Creates a Minitype image, rasterizing local SVG files when necessary. */
 function pdfImage(src) {
   const source = imagePath(src);
   if (path.extname(source).toLowerCase() !== ".svg") return image(source);
@@ -48,6 +69,7 @@ function pdfImage(src) {
   return image(rasterized);
 }
 
+/** Parses YAML front matter and returns it with the Markdown body. */
 function frontMatter(source) {
   const matched = source.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?/);
   if (!matched) throw new Error("YAML front matter is required.");
@@ -67,35 +89,85 @@ function frontMatter(source) {
   return { values, body: source.slice(matched[0].length) };
 }
 
+/** Normalizes unsupported Markdown features for the PDF renderer. */
 function normalizedMarkdown(source) {
   const supported = new Set(["bash", "go", "html", "javascript", "json", "python", "shell", "text"]);
   return source
     .replace(/{%\s*raw\s*%}\r?\n?/gi, "")
     .replace(/{%\s*endraw\s*%}\r?\n?/gi, "")
+    .replace(/{%\s*highlight\s+([\w+-]+)(?:\s+[^%]*)?%}\r?\n?/gi, (_match, language) =>
+      `\`\`\`${supported.has(language.toLowerCase()) ? language.toLowerCase() : "text"}\n`,
+    )
+    .replace(/{%\s*endhighlight\s*%}\r?\n?/gi, "```\n")
     .replace(/^(`{3,}|~{3,})([^\s]*)\s*$/gm, (line, fence, language) =>
     language && !supported.has(language.toLowerCase()) ? `${fence}text` : line,
     );
 }
 
+/** Removes control characters that cannot be rendered safely. */
+function stripUnsupportedControlCharacters(source) {
+  return source.replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, "");
+}
+
+/** Expands tabs in code examples while preserving other content. */
+function expandCodeTabs(source, tabWidth = 4) {
+  let fence;
+  let inHighlight = false;
+  return source.split(/(\r?\n)/).map((part) => {
+    if (/^{%\s*highlight\b/i.test(part)) inHighlight = true;
+    if (/^{%\s*endhighlight\s*%}/i.test(part)) inHighlight = false;
+    const fenceMatch = part.match(/^\s*(`{3,}|~{3,})/);
+    const inCode = Boolean(fence) || inHighlight || /^\t/.test(part);
+    const expanded = inCode
+      ? part.replace(/\t/g, (_tab, index) => " ".repeat(tabWidth - (index % tabWidth)))
+      : part;
+    if (fenceMatch) {
+      if (fence && fenceMatch[1][0] === fence) fence = undefined;
+      else if (!fence) fence = fenceMatch[1][0];
+    }
+    return expanded;
+  }).join("");
+}
+
+/** Returns the value of an HTML attribute string. */
 function htmlAttribute(attributes, name) {
   const match = attributes.match(new RegExp(`\\b${name}\\s*=\\s*(?:"([^"]*)"|'([^']*)'|([^\\s"'=<>\\x60]+))`, "i"));
   return match?.[1] ?? match?.[2] ?? match?.[3] ?? "";
 }
 
+/** Checks whether an image source points inside the repository. */
 function isRepositoryImage(src) {
   if (!src || /^(?:[a-z][a-z0-9+.-]*:|\/\/)/i.test(src)) return false;
   const resolved = path.resolve(root, src.replace(/^\//, ""));
   return resolved.startsWith(`${root}${path.sep}`);
 }
 
+/** Escapes text for use as a Markdown link label. */
 function markdownLinkLabel(text) {
   return text.trim().replace(/[\\[\\]\\\\]/g, "\\\\$&");
 }
 
+/** Escapes a URL for use as a Markdown link target. */
 function markdownLinkTarget(href) {
   return href.trim().replace(/[()\\]/g, "\\\\$&");
 }
 
+/** Creates a placeholder for supported inline HTML. */
+function htmlInlineMarker(tag, text) {
+  return `@@MINITYPE${tag.toUpperCase()}${Buffer.from(text.replace(/<[^>]*>/g, ""), "utf8").toString("base64url")}@@`;
+}
+
+/** Restores inline HTML placeholders as Minitype nodes. */
+function replaceInlineHtmlString(value) {
+  return value.split(/@@MINITYPE(SUB|SUP)([A-Za-z0-9_-]+)@@/).flatMap((part, index, parts) => {
+    if (index % 3 === 0) return part ? [part] : [];
+    if (index % 3 === 1) return [];
+    const text = Buffer.from(part, "base64url").toString("utf8");
+    return [parts[index - 1] === "SUB" ? sub(text) : sup(text)];
+  });
+}
+
+/** Converts supported HTML outside code examples to Markdown. */
 function replaceSupportedHtmlOutsideExamples(source) {
   let fence;
   let inHighlight = false;
@@ -115,14 +187,165 @@ function replaceSupportedHtmlOutsideExamples(source) {
       const alt = htmlAttribute(attributes, "alt").replace(/[\[\]\\]/g, "\\$&");
       return `![${alt}](${src})`;
     });
-    return images.replace(/<a\b([^>]*)>([\s\S]*?)<\/a\s*>/gi, (tag, attributes, text) => {
+    return images
+      .replace(/<(sub|sup)\b[^>]*>([\s\S]*?)<\/\1\s*>/gi, (_tag, name, text) => htmlInlineMarker(name, text))
+      .replace(/<a\b([^>]*)>([\s\S]*?)<\/a\s*>/gi, (tag, attributes, text) => {
       const href = htmlAttribute(attributes, "href");
       if (!href || /\s*javascript:/i.test(href)) return tag;
       return `[${markdownLinkLabel(text)}](${markdownLinkTarget(href)})`;
-    });
+      });
   }).join("");
 }
 
+/** Adds spacing around standalone images outside code examples. */
+function separateMarkdownImagesOutsideExamples(source) {
+  let fence;
+  let inHighlight = false;
+  let previousWasImage = false;
+  const output = [];
+  for (const line of source.split(/\r?\n/)) {
+    if (/^{%\s*highlight\b/i.test(line)) inHighlight = true;
+    if (/^{%\s*endhighlight\s*%}/i.test(line)) inHighlight = false;
+    const fenceMatch = line.match(/^\s*(`{3,}|~{3,})/);
+    if (fenceMatch) {
+      if (fence && fenceMatch[1][0] === fence) fence = undefined;
+      else if (!fence) fence = fenceMatch[1][0];
+    }
+    const imageMatch = !fence && !inHighlight
+      ? line.match(/^(\s*)!\[([^\]]*)\]\(([^\s)]+)(\s+"[^"]*")?\)\s*$/)
+      : null;
+    const isImage = Boolean(imageMatch);
+    if (previousWasImage && !isImage && line.trim() && !fence && !inHighlight) output.push("");
+    if (isImage && previousWasImage) output.push("");
+    if (imageMatch && !imageMatch[2]) {
+      const filename = path.basename(imageMatch[3].split(/[?#]/)[0], path.extname(imageMatch[3]));
+      output.push(`${imageMatch[1]}![${filename}](${imageMatch[3]}${imageMatch[4] ?? ""})`);
+    } else {
+      output.push(line);
+    }
+    previousWasImage = isImage;
+  }
+  return output.join("\n");
+}
+
+/** Replaces math outside code examples with temporary markers. */
+function replaceMathOutsideExamples(source) {
+  const displayMath = [];
+  const inlineMath = [];
+  const normalizeLatex = (latex) => latex.trim().replace(/\\{2,}(?!\r?\n)/g, String.fromCharCode(92));
+  const displayMarker = (latex) => {
+    const index = displayMath.push(normalizeLatex(latex)) - 1;
+    return `@@MINITYPEDISPLAY${index}@@`;
+  };
+  const inlineMarker = (latex) => {
+    const index = inlineMath.push(normalizeLatex(latex)) - 1;
+    return `@@MINITYPEINLINE${index}@@`;
+  };
+  const replaceInline = (line) => line.split(/(`[^`]*`)/).map((part, index) => {
+    if (index % 2) return part;
+    return part
+      .replace(/(?<!\\)\$\$([^$\n]+?)(?<!\\)\$\$/g, (_match, latex) => inlineMarker(latex))
+      .replace(/(?<![\\$])\$(?!\$)([^$\n]+?)(?<!\\)\$(?!\$)/g, (_match, latex) => inlineMarker(latex));
+  }).join("");
+
+  let fence;
+  let inHighlight = false;
+  let display;
+  const result = [];
+  for (const line of source.split(/\r?\n/)) {
+    if (display) {
+      const end = display.type === "dollars" ? line.trim() === "$$" : line.indexOf("]]" );
+      if (end !== false && end !== -1) {
+        if (display.type === "brackets") display.lines.push(line.slice(0, end));
+        result.push("", displayMarker(display.lines.join("\n")), "");
+        display = undefined;
+      } else {
+        display.lines.push(line);
+      }
+      continue;
+    }
+    if (/^{%\s*highlight\b/i.test(line)) inHighlight = true;
+    if (/^{%\s*endhighlight\s*%}/i.test(line)) inHighlight = false;
+    const fenceMatch = line.match(/^\s*(`{3,}|~{3,})/);
+    if (fenceMatch) {
+      if (fence && fenceMatch[1][0] === fence) fence = undefined;
+      else if (!fence) fence = fenceMatch[1][0];
+      result.push(line);
+      continue;
+    }
+    if (fence || inHighlight || /^(?: {4}|\t)/.test(line)) {
+      result.push(line);
+      continue;
+    }
+    if (line.trim() === "$$") {
+      display = { type: "dollars", lines: [] };
+      continue;
+    }
+    const bracket = line.match(/^\s*\[\[\s*(.*)$/);
+    if (bracket) {
+      const end = bracket[1].indexOf("]]" );
+      if (end !== -1 && /^\s*$/.test(bracket[1].slice(end + 2))) {
+        result.push("", displayMarker(bracket[1].slice(0, end)), "");
+      } else {
+        display = { type: "brackets", lines: [bracket[1]] };
+      }
+      continue;
+    }
+    result.push(replaceInline(line));
+  }
+  if (display) result.push(...display.lines);
+  return { source: result.join("\n"), displayMath, inlineMath };
+}
+
+/** Replaces display-math markers with rendered math blocks. */
+function replaceDisplayMathBlocks(blocks, displayMath) {
+  return blocks.flatMap((block) => {
+    const marker = block.type === "text" && block.textType === "paragraph" && block.lines.length === 1 && block.lines[0].length === 1 && typeof block.lines[0][0] === "string"
+      ? block.lines[0][0].match(/^@@MINITYPEDISPLAY(\d+)@@$/)
+      : null;
+    if (!marker) return [block];
+    const latex = displayMath[Number(marker[1])];
+    return [math(latex.split(/\r?\n/), { size: Q(10) })];
+  });
+}
+
+/** Replaces inline-math markers throughout parsed content. */
+function replaceInlineMathBlocks(value, inlineFormulae) {
+  if (Array.isArray(value)) {
+    value.forEach((item) => replaceInlineMathBlocks(item, inlineFormulae));
+    return;
+  }
+  if (!value || typeof value !== "object") return;
+  if (value.type === "code") return;
+  if ((value.type === "text" || value.type === "list") && Array.isArray(value.lines)) {
+    value.lines = value.lines.map((line) => line.flatMap((item) => {
+      if (typeof item !== "string") return [item];
+      return item.split(/@@MINITYPEINLINE(\d+)@@/).flatMap((part, index) => {
+        if (index % 2) return [inlineFormulae[Number(part)] ? inlineMath(inlineFormulae[Number(part)]) : part];
+        return part ? [part] : [];
+      });
+    }));
+  }
+  Object.values(value).forEach((child) => replaceInlineMathBlocks(child, inlineFormulae));
+}
+
+/** Replaces inline HTML placeholders throughout parsed content. */
+function replaceInlineHtmlBlocks(value) {
+  if (Array.isArray(value)) {
+    value.forEach(replaceInlineHtmlBlocks);
+    return;
+  }
+  if (!value || typeof value !== "object" || value.type === "code") return;
+  if ((value.type === "text" || value.type === "list") && Array.isArray(value.lines)) {
+    value.lines = value.lines.map((line) => line.flatMap((item) => {
+      if (typeof item !== "string") return [item];
+      return replaceInlineHtmlString(item);
+    }));
+  }
+  Object.values(value).forEach(replaceInlineHtmlBlocks);
+}
+
+/** Removes code examples before inspecting post content. */
 function sourceWithoutExamples(body) {
   return body
     .replace(/{%\s*highlight\b[\s\S]*?{%\s*endhighlight\s*%}/gi, "")
@@ -130,6 +353,7 @@ function sourceWithoutExamples(body) {
     .replace(/`[^`]*`/g, "");
 }
 
+/** Returns why a post cannot be safely converted to PDF. */
 function exclusionReason(metadata, body) {
   if (metadata.get("pdf") === "false") return "front matter sets pdf: false";
   if (executableLayouts.has(metadata.get("layout"))) return `layout: ${metadata.get("layout")}`;
@@ -143,6 +367,7 @@ function exclusionReason(metadata, body) {
   return null;
 }
 
+/** Extracts date, slug, and URL details from a post filename. */
 function postIdentity(file) {
   const matched = path.basename(file).match(/^(\d{4})-(\d{2})-(\d{2})-(.+)\.(?:md|markdown)$/i);
   if (!matched) throw new Error("Post filename must begin with YYYY-MM-DD-.");
@@ -150,11 +375,13 @@ function postIdentity(file) {
   return { year, month, day, slug, urlPath: `/${year}/${month}/${day}/${slug}/` };
 }
 
+/** Determines whether a post uses the English layout or tag. */
 function isEnglish(metadata) {
   const tags = metadata.get("tags") ?? metadata.get("tag") ?? "";
   return /\benglish\b/i.test(tags) || metadata.get("layout") === "post-en";
 }
 
+/** Formats a publication date for the selected language. */
 function dateLabel(identity, english) {
   const date = new Date(`${identity.year}-${identity.month}-${identity.day}T00:00:00Z`);
   return english
@@ -162,12 +389,14 @@ function dateLabel(identity, english) {
     : `${identity.year}年${Number(identity.month)}月${Number(identity.day)}日`;
 }
 
+/** Resolves the configured or default PDF output path. */
 function outputFile(identity, metadata) {
   const configured = metadata.get("pdf");
   if (configured && configured !== "true") return path.join(root, configured.replace(/^\//, ""));
   return path.join(outputDirectory, identity.year, identity.month, identity.day, `${identity.slug}.pdf`);
 }
 
+/** Removes square annotations created by PDF rendering. */
 async function removeSquareAnnotations(file) {
   const pdf = await PDFDocument.load(await readFile(file));
   for (const pdfPage of pdf.getPages()) {
@@ -182,6 +411,7 @@ async function removeSquareAnnotations(file) {
   await writeFile(file, await pdf.save());
 }
 
+/** Generates a PDF for one Markdown post. */
 async function generate(file) {
   const source = await readFile(file, "utf8");
   const { values: metadata } = frontMatter(source);
@@ -190,21 +420,29 @@ async function generate(file) {
   const title = metadata.get("title") || identity.slug;
   const sourceUrl = `${siteUrl}${identity.urlPath}`;
   const pdfFile = outputFile(identity, metadata);
-  const normalized = normalizedMarkdown(replaceSupportedHtmlOutsideExamples(source));
+  const mathEnabled = metadata.get("layout") === "katex" || metadata.get("layout") === "math";
+  const sourceWithExpandedCodeTabs = expandCodeTabs(stripUnsupportedControlCharacters(source));
+  const preparedMath = mathEnabled
+    ? replaceMathOutsideExamples(sourceWithExpandedCodeTabs)
+    : { source: sourceWithExpandedCodeTabs, displayMath: [], inlineMath: [] };
+  const normalized = normalizedMarkdown(separateMarkdownImagesOutsideExamples(replaceSupportedHtmlOutsideExamples(preparedMath.source)));
   const markdownFile = normalized === source ? file : path.join(root, "tmp", "pdfs", "normalized", path.basename(file));
   if (markdownFile !== file) {
     await mkdir(path.dirname(markdownFile), { recursive: true });
     await writeFile(markdownFile, normalized);
   }
   const article = await mdFile(markdownFile, { image: (src) => pdfImage(src), link: (href, text) => link(href, text) });
+  article.blocks = replaceDisplayMathBlocks(article.blocks, preparedMath.displayMath);
+  replaceInlineMathBlocks(article.blocks, preparedMath.inlineMath);
+  replaceInlineHtmlBlocks(article.blocks);
   const publication = english
     ? ["Katsutoshi Seki | Published: ", dateLabel(identity, true), " | Source: ", link(sourceUrl, sourceUrl)]
     : ["著者：関 勝寿　公開日：", dateLabel(identity, false), "　ソース：", link(sourceUrl, sourceUrl)];
   const document = minitype([{ body: [
     h1(title, { align: "center", unnumbered: true }),
-    p([publication], { align: "right", font: "SourceHanSansJP-Regular", size: Q(9), firstIndent: 0 }),
+    p([publication], { align: "right", font: sansFont, size: Q(9), firstIndent: 0 }),
     box(article.blocks, { columns: 2, columnGap: 7, splitable: true }),
-    { type: "flow", position: "page", blockOffset: 283, inlineSize: 210, blocks: [p([[page]], { align: "center", firstIndent: 0, font: "SourceHanSansJP-Regular", size: Q(9) })] },
+    { type: "flow", position: "page", blockOffset: 283, inlineSize: 210, blocks: [p([[page]], { align: "center", firstIndent: 0, font: sansFont, size: Q(9) })] },
   ] }], structuredClone(documentStyle), { fontDir, outline: false, metadata: { title, author: "Katsutoshi Seki" } });
   const errors = (await document.getDiagnostics()).filter((diagnostic) => diagnostic.severity === "error");
   if (errors.length) throw new Error(JSON.stringify(errors, null, 2));
@@ -214,6 +452,7 @@ async function generate(file) {
   return path.relative(root, pdfFile);
 }
 
+/** Lists Markdown posts in a stable order. */
 async function postFiles() {
   return (await readdir(postsDirectory, { withFileTypes: true }))
     .filter((entry) => entry.isFile() && /\.m(?:arkdown|d)$/i.test(entry.name))

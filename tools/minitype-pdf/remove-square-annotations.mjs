@@ -1,6 +1,7 @@
 import { readFile, writeFile } from "node:fs/promises";
 import { PDFArray, PDFDict, PDFDocument, PDFName } from "pdf-lib";
 
+/** PDF dictionary keys used to identify square annotations. */
 const annotsName = PDFName.of("Annots");
 const subtypeName = PDFName.of("Subtype");
 const squareName = PDFName.of("Square");
