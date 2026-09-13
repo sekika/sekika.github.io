@@ -5,7 +5,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { PDFArray, PDFDict, PDFDocument, PDFName } from "pdf-lib";
 import { Resvg } from "@resvg/resvg-js";
-import { H, Q, box, color, h1, image, inlineMath, math, mdFile, minitype, p, page, physical, ratio, rgb, url } from "@minitype/minitype";
+import { H, Q, box, color, h1, image, inlineMath, math, mdFile, minitype, p, page, physical, ratio, rgb, sub, sup, url } from "@minitype/minitype";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, "../..");
@@ -36,7 +36,7 @@ const documentStyle = {
 
 const interactiveTags = new Set(["applet", "button", "canvas", "embed", "form", "iframe", "input", "object", "script", "select", "textarea"]);
 const executableLayouts = new Set(["javascript", "javascript-en", "post-js", "post-js-en", "pyodide"]);
-const link = (href, body) => color(url(href, body), rgb(0, 82, 155));
+const link = (href, body) => color(url(href, typeof body === "string" ? replaceInlineHtmlString(body) : body), rgb(0, 82, 155));
 const imagePath = (src) => {
   const resolved = path.resolve(root, src.replace(/^\//, ""));
   if (!resolved.startsWith(`${root}${path.sep}`)) throw new Error(`Image is outside the repository: ${src}`);
@@ -85,6 +85,10 @@ function normalizedMarkdown(source) {
     );
 }
 
+function stripUnsupportedControlCharacters(source) {
+  return source.replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, "");
+}
+
 function expandCodeTabs(source, tabWidth = 4) {
   let fence;
   let inHighlight = false;
@@ -123,6 +127,19 @@ function markdownLinkTarget(href) {
   return href.trim().replace(/[()\\]/g, "\\\\$&");
 }
 
+function htmlInlineMarker(tag, text) {
+  return `@@MINITYPE${tag.toUpperCase()}${Buffer.from(text.replace(/<[^>]*>/g, ""), "utf8").toString("base64url")}@@`;
+}
+
+function replaceInlineHtmlString(value) {
+  return value.split(/@@MINITYPE(SUB|SUP)([A-Za-z0-9_-]+)@@/).flatMap((part, index, parts) => {
+    if (index % 3 === 0) return part ? [part] : [];
+    if (index % 3 === 1) return [];
+    const text = Buffer.from(part, "base64url").toString("utf8");
+    return [parts[index - 1] === "SUB" ? sub(text) : sup(text)];
+  });
+}
+
 function replaceSupportedHtmlOutsideExamples(source) {
   let fence;
   let inHighlight = false;
@@ -142,11 +159,13 @@ function replaceSupportedHtmlOutsideExamples(source) {
       const alt = htmlAttribute(attributes, "alt").replace(/[\[\]\\]/g, "\\$&");
       return `![${alt}](${src})`;
     });
-    return images.replace(/<a\b([^>]*)>([\s\S]*?)<\/a\s*>/gi, (tag, attributes, text) => {
+    return images
+      .replace(/<(sub|sup)\b[^>]*>([\s\S]*?)<\/\1\s*>/gi, (_tag, name, text) => htmlInlineMarker(name, text))
+      .replace(/<a\b([^>]*)>([\s\S]*?)<\/a\s*>/gi, (tag, attributes, text) => {
       const href = htmlAttribute(attributes, "href");
       if (!href || /\s*javascript:/i.test(href)) return tag;
       return `[${markdownLinkLabel(text)}](${markdownLinkTarget(href)})`;
-    });
+      });
   }).join("");
 }
 
@@ -183,7 +202,7 @@ function separateMarkdownImagesOutsideExamples(source) {
 function replaceMathOutsideExamples(source) {
   const displayMath = [];
   const inlineMath = [];
-  const normalizeLatex = (latex) => latex.trim().replace(/\\{2,}/g, String.fromCharCode(92));
+  const normalizeLatex = (latex) => latex.trim();
   const displayMarker = (latex) => {
     const index = displayMath.push(normalizeLatex(latex)) - 1;
     return `@@MINITYPEDISPLAY${index}@@`;
@@ -254,7 +273,8 @@ function replaceDisplayMathBlocks(blocks, displayMath) {
       ? block.lines[0][0].match(/^@@MINITYPEDISPLAY(\d+)@@$/)
       : null;
     if (!marker) return [block];
-    return [math(displayMath[Number(marker[1])].split(/\r?\n/), { size: Q(10) })];
+    const latex = displayMath[Number(marker[1])];
+    return [math(latex.split(/\r?\n/), { size: Q(10) })];
   });
 }
 
@@ -275,6 +295,21 @@ function replaceInlineMathBlocks(value, inlineFormulae) {
     }));
   }
   Object.values(value).forEach((child) => replaceInlineMathBlocks(child, inlineFormulae));
+}
+
+function replaceInlineHtmlBlocks(value) {
+  if (Array.isArray(value)) {
+    value.forEach(replaceInlineHtmlBlocks);
+    return;
+  }
+  if (!value || typeof value !== "object" || value.type === "code") return;
+  if ((value.type === "text" || value.type === "list") && Array.isArray(value.lines)) {
+    value.lines = value.lines.map((line) => line.flatMap((item) => {
+      if (typeof item !== "string") return [item];
+      return replaceInlineHtmlString(item);
+    }));
+  }
+  Object.values(value).forEach(replaceInlineHtmlBlocks);
 }
 
 function sourceWithoutExamples(body) {
@@ -345,7 +380,7 @@ async function generate(file) {
   const sourceUrl = `${siteUrl}${identity.urlPath}`;
   const pdfFile = outputFile(identity, metadata);
   const mathEnabled = metadata.get("layout") === "katex" || metadata.get("layout") === "math";
-  const sourceWithExpandedCodeTabs = expandCodeTabs(source);
+  const sourceWithExpandedCodeTabs = expandCodeTabs(stripUnsupportedControlCharacters(source));
   const preparedMath = mathEnabled
     ? replaceMathOutsideExamples(sourceWithExpandedCodeTabs)
     : { source: sourceWithExpandedCodeTabs, displayMath: [], inlineMath: [] };
@@ -358,6 +393,7 @@ async function generate(file) {
   const article = await mdFile(markdownFile, { image: (src) => pdfImage(src), link: (href, text) => link(href, text) });
   article.blocks = replaceDisplayMathBlocks(article.blocks, preparedMath.displayMath);
   replaceInlineMathBlocks(article.blocks, preparedMath.inlineMath);
+  replaceInlineHtmlBlocks(article.blocks);
   const publication = english
     ? ["Katsutoshi Seki | Published: ", dateLabel(identity, true), " | Source: ", link(sourceUrl, sourceUrl)]
     : ["著者：関 勝寿　公開日：", dateLabel(identity, false), "　ソース：", link(sourceUrl, sourceUrl)];
