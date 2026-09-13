@@ -5,7 +5,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { PDFArray, PDFDict, PDFDocument, PDFName } from "pdf-lib";
 import { Resvg } from "@resvg/resvg-js";
-import { H, Q, box, color, h1, image, mdFile, minitype, p, page, physical, ratio, rgb, url } from "@minitype/minitype";
+import { H, Q, box, color, h1, image, inlineMath, math, mdFile, minitype, p, page, physical, ratio, rgb, url } from "@minitype/minitype";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(here, "../..");
@@ -123,6 +123,103 @@ function replaceSupportedHtmlOutsideExamples(source) {
   }).join("");
 }
 
+function replaceMathOutsideExamples(source) {
+  const displayMath = [];
+  const inlineMath = [];
+  const normalizeLatex = (latex) => latex.trim().replace(/\\{2,}/g, String.fromCharCode(92));
+  const displayMarker = (latex) => {
+    const index = displayMath.push(normalizeLatex(latex)) - 1;
+    return `@@MINITYPEDISPLAY${index}@@`;
+  };
+  const inlineMarker = (latex) => {
+    const index = inlineMath.push(normalizeLatex(latex)) - 1;
+    return `@@MINITYPEINLINE${index}@@`;
+  };
+  const replaceInline = (line) => line.split(/(`[^`]*`)/).map((part, index) => {
+    if (index % 2) return part;
+    return part
+      .replace(/(?<!\\)\$\$([^$\n]+?)(?<!\\)\$\$/g, (_match, latex) => inlineMarker(latex))
+      .replace(/(?<![\\$])\$(?!\$)([^$\n]+?)(?<!\\)\$(?!\$)/g, (_match, latex) => inlineMarker(latex));
+  }).join("");
+
+  let fence;
+  let inHighlight = false;
+  let display;
+  const result = [];
+  for (const line of source.split(/\r?\n/)) {
+    if (display) {
+      const end = display.type === "dollars" ? line.trim() === "$$" : line.indexOf("]]" );
+      if (end !== false && end !== -1) {
+        if (display.type === "brackets") display.lines.push(line.slice(0, end));
+        result.push("", displayMarker(display.lines.join("\n")), "");
+        display = undefined;
+      } else {
+        display.lines.push(line);
+      }
+      continue;
+    }
+    if (/^{%\s*highlight\b/i.test(line)) inHighlight = true;
+    if (/^{%\s*endhighlight\s*%}/i.test(line)) inHighlight = false;
+    const fenceMatch = line.match(/^\s*(`{3,}|~{3,})/);
+    if (fenceMatch) {
+      if (fence && fenceMatch[1][0] === fence) fence = undefined;
+      else if (!fence) fence = fenceMatch[1][0];
+      result.push(line);
+      continue;
+    }
+    if (fence || inHighlight || /^(?: {4}|\t)/.test(line)) {
+      result.push(line);
+      continue;
+    }
+    if (line.trim() === "$$") {
+      display = { type: "dollars", lines: [] };
+      continue;
+    }
+    const bracket = line.match(/^\s*\[\[\s*(.*)$/);
+    if (bracket) {
+      const end = bracket[1].indexOf("]]" );
+      if (end !== -1 && /^\s*$/.test(bracket[1].slice(end + 2))) {
+        result.push("", displayMarker(bracket[1].slice(0, end)), "");
+      } else {
+        display = { type: "brackets", lines: [bracket[1]] };
+      }
+      continue;
+    }
+    result.push(replaceInline(line));
+  }
+  if (display) result.push(...display.lines);
+  return { source: result.join("\n"), displayMath, inlineMath };
+}
+
+function replaceDisplayMathBlocks(blocks, displayMath) {
+  return blocks.flatMap((block) => {
+    const marker = block.type === "text" && block.textType === "paragraph" && block.lines.length === 1 && block.lines[0].length === 1
+      ? block.lines[0][0].match(/^@@MINITYPEDISPLAY(\d+)@@$/)
+      : null;
+    if (!marker) return [block];
+    return [math(displayMath[Number(marker[1])].split(/\r?\n/), { size: Q(10) })];
+  });
+}
+
+function replaceInlineMathBlocks(value, inlineFormulae) {
+  if (Array.isArray(value)) {
+    value.forEach((item) => replaceInlineMathBlocks(item, inlineFormulae));
+    return;
+  }
+  if (!value || typeof value !== "object") return;
+  if (value.type === "code") return;
+  if (value.type === "text" && Array.isArray(value.lines)) {
+    value.lines = value.lines.map((line) => line.flatMap((item) => {
+      if (typeof item !== "string") return [item];
+      return item.split(/@@MINITYPEINLINE(\d+)@@/).flatMap((part, index) => {
+        if (index % 2) return [inlineFormulae[Number(part)] ? inlineMath(inlineFormulae[Number(part)]) : part];
+        return part ? [part] : [];
+      });
+    }));
+  }
+  Object.values(value).forEach((child) => replaceInlineMathBlocks(child, inlineFormulae));
+}
+
 function sourceWithoutExamples(body) {
   return body
     .replace(/{%\s*highlight\b[\s\S]*?{%\s*endhighlight\s*%}/gi, "")
@@ -190,13 +287,19 @@ async function generate(file) {
   const title = metadata.get("title") || identity.slug;
   const sourceUrl = `${siteUrl}${identity.urlPath}`;
   const pdfFile = outputFile(identity, metadata);
-  const normalized = normalizedMarkdown(replaceSupportedHtmlOutsideExamples(source));
+  const mathEnabled = metadata.get("layout") === "katex" || metadata.get("layout") === "math";
+  const preparedMath = mathEnabled
+    ? replaceMathOutsideExamples(source)
+    : { source, displayMath: [], inlineMath: [] };
+  const normalized = normalizedMarkdown(replaceSupportedHtmlOutsideExamples(preparedMath.source));
   const markdownFile = normalized === source ? file : path.join(root, "tmp", "pdfs", "normalized", path.basename(file));
   if (markdownFile !== file) {
     await mkdir(path.dirname(markdownFile), { recursive: true });
     await writeFile(markdownFile, normalized);
   }
   const article = await mdFile(markdownFile, { image: (src) => pdfImage(src), link: (href, text) => link(href, text) });
+  article.blocks = replaceDisplayMathBlocks(article.blocks, preparedMath.displayMath);
+  replaceInlineMathBlocks(article.blocks, preparedMath.inlineMath);
   const publication = english
     ? ["Katsutoshi Seki | Published: ", dateLabel(identity, true), " | Source: ", link(sourceUrl, sourceUrl)]
     : ["著者：関 勝寿　公開日：", dateLabel(identity, false), "　ソース：", link(sourceUrl, sourceUrl)];
