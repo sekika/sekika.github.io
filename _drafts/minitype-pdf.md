@@ -9,7 +9,7 @@ tags:
 ---
 Blog posts on this site can now also be read as PDFs. Selecting “View PDF” in an article header opens an A4, two-column version of the post in a new tab.
 
-PDFs are useful for printing, saving an article for later, and reading it in a stable layout that does not depend on screen width or browser zoom. Links in the PDF are preserved as blue hyperlinks, so readers can still open the source article and its references.
+PDFs are useful for printing, saving an article for later, and reading it in a stable layout that does not depend on screen width or browser zoom. Text is emitted with embedded fonts, so it can be selected, searched, and copied in a PDF viewer. Links in the PDF are preserved as blue hyperlinks, so readers can still open the source article and its references.
 
 Not every post is converted. Pages whose main purpose is browser interaction, such as the 15 puzzle, Pyodide, and Canvas-based pages, would lose their essential behavior in a PDF and therefore do not show a PDF link. Ordinary explanatory posts are converted in both Japanese and English.
 
@@ -17,7 +17,9 @@ Not every post is converted. Pages whose main purpose is browser interaction, su
 
 PDFs are produced with [minitype](https://typeset.jp/), a headless typesetting engine available as a TypeScript library. It provides layout features including Japanese line-breaking rules, vertical writing, ruby text, and multi-column layouts.
 
-Since the posts in this blog are written in Markdown, the [minitype Markdown plugin](https://typeset.jp/plugin/markdown/) reads each post file and converts headings, paragraphs, lists, code blocks, tables, images, and links into minitype layout elements. This blog also treats local `img` tags as Markdown images. Node.js runs the PDF-generation step.
+Since the posts in this blog are written in Markdown, the [minitype Markdown plugin](https://typeset.jp/plugin/markdown/) reads each post file and converts headings, paragraphs, lists, code blocks, tables, images, and links into minitype layout elements. Node.js runs the PDF-generation step.
+
+Some posts also contain raw HTML. This blog converts an `img` tag that refers to a file in the repository into a Markdown image. PNG, JPEG, and similar images are placed directly, while SVG images are first rasterized to PNG so that they can be embedded in the PDF. It also converts `<a href="...">link text</a>` into a Markdown link, which is displayed in blue and remains clickable in the PDF. HTML in code blocks and Jekyll `highlight` blocks is left unchanged because it is source code shown for explanation.
 
 This is not a screenshot-like conversion of the published HTML page. Instead, the Markdown source is typeset again for a PDF page. Browser buttons and JavaScript results are therefore not copied to the PDF; the aim is a readable version of the article itself.
 
@@ -25,7 +27,7 @@ This is not a screenshot-like conversion of the published HTML page. Instead, th
 
 The generation program is [generate-pdfs.mjs](https://github.com/sekika/sekika.github.io/blob/master/tools/minitype-pdf/generate-pdfs.mjs). It uses A4 portrait pages in horizontal writing, sets page margins, and places the article body in two columns. Titles are centered; the author, publication date, and source URL are right-aligned; and page numbers sit near the foot of each page without reducing the body’s bottom margin.
 
-Markdown links become PDF link annotations and are colored blue. Some PDF viewers display minitype’s square annotations as red boxes or selected objects, so the generation program removes those square annotations after output while preserving normal hyperlink annotations.
+Markdown links become PDF link annotations and are colored blue. Some PDF viewers display minitype’s square annotations as red boxes or selected objects, so the generation program removes those square annotations after output while preserving normal hyperlink annotations. Text is not converted to outlines: the PDF embeds a subset of the required fonts, allowing text to be selected, searched, and copied.
 
 Article PDFs are normally written to a path corresponding to the article URL:
 
