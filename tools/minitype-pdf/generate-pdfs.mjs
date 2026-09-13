@@ -1,7 +1,10 @@
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { mkdir, readdir, readFile, stat, writeFile } from "node:fs/promises";
+import { createHash } from "node:crypto";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { PDFArray, PDFDict, PDFDocument, PDFName } from "pdf-lib";
+import { Resvg } from "@resvg/resvg-js";
 import { H, Q, box, color, h1, image, mdFile, minitype, p, page, physical, ratio, rgb, url } from "@minitype/minitype";
 
 const here = path.dirname(fileURLToPath(import.meta.url));
@@ -26,7 +29,24 @@ const documentStyle = {
 const interactiveTags = new Set(["applet", "button", "canvas", "embed", "form", "iframe", "input", "object", "script", "select", "textarea"]);
 const executableLayouts = new Set(["javascript", "javascript-en", "post-js", "post-js-en", "pyodide"]);
 const link = (href, body) => color(url(href, body), rgb(0, 82, 155));
-const imagePath = (src) => path.join(root, src.replace(/^\//, ""));
+const imagePath = (src) => {
+  const resolved = path.resolve(root, src.replace(/^\//, ""));
+  if (!resolved.startsWith(`${root}${path.sep}`)) throw new Error(`Image is outside the repository: ${src}`);
+  return resolved;
+};
+
+function pdfImage(src) {
+  const source = imagePath(src);
+  if (path.extname(source).toLowerCase() !== ".svg") return image(source);
+  const name = createHash("sha256").update(source).digest("hex").slice(0, 16);
+  const rasterized = path.join(root, "tmp", "pdfs", "rasterized-svg", `${name}.png`);
+  if (!existsSync(rasterized)) {
+    mkdirSync(path.dirname(rasterized), { recursive: true });
+    const png = new Resvg(readFileSync(source), { fitTo: { mode: "width", value: 1600 } }).render().asPng();
+    writeFileSync(rasterized, png);
+  }
+  return image(rasterized);
+}
 
 function frontMatter(source) {
   const matched = source.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?/);
@@ -55,6 +75,52 @@ function normalizedMarkdown(source) {
     .replace(/^(`{3,}|~{3,})([^\s]*)\s*$/gm, (line, fence, language) =>
     language && !supported.has(language.toLowerCase()) ? `${fence}text` : line,
     );
+}
+
+function htmlAttribute(attributes, name) {
+  const match = attributes.match(new RegExp(`\\b${name}\\s*=\\s*(?:"([^"]*)"|'([^']*)'|([^\\s"'=<>\\x60]+))`, "i"));
+  return match?.[1] ?? match?.[2] ?? match?.[3] ?? "";
+}
+
+function isRepositoryImage(src) {
+  if (!src || /^(?:[a-z][a-z0-9+.-]*:|\/\/)/i.test(src)) return false;
+  const resolved = path.resolve(root, src.replace(/^\//, ""));
+  return resolved.startsWith(`${root}${path.sep}`);
+}
+
+function markdownLinkLabel(text) {
+  return text.trim().replace(/[\\[\\]\\\\]/g, "\\\\$&");
+}
+
+function markdownLinkTarget(href) {
+  return href.trim().replace(/[()\\]/g, "\\\\$&");
+}
+
+function replaceSupportedHtmlOutsideExamples(source) {
+  let fence;
+  let inHighlight = false;
+  return source.split(/(\r?\n)/).map((part) => {
+    if (/^{%\s*highlight\b/i.test(part)) inHighlight = true;
+    if (/^{%\s*endhighlight\s*%}/i.test(part)) inHighlight = false;
+    const fenceMatch = part.match(/^\s*(`{3,}|~{3,})/);
+    if (fenceMatch) {
+      if (fence && fenceMatch[1][0] === fence) fence = undefined;
+      else if (!fence) fence = fenceMatch[1][0];
+      return part;
+    }
+    if (fence || inHighlight) return part;
+    const images = part.replace(/<img\b([^>]*)\/?\s*>/gi, (tag, attributes) => {
+      const src = htmlAttribute(attributes, "src");
+      if (!isRepositoryImage(src)) return tag;
+      const alt = htmlAttribute(attributes, "alt").replace(/[\[\]\\]/g, "\\$&");
+      return `![${alt}](${src})`;
+    });
+    return images.replace(/<a\b([^>]*)>([\s\S]*?)<\/a\s*>/gi, (tag, attributes, text) => {
+      const href = htmlAttribute(attributes, "href");
+      if (!href || /\s*javascript:/i.test(href)) return tag;
+      return `[${markdownLinkLabel(text)}](${markdownLinkTarget(href)})`;
+    });
+  }).join("");
 }
 
 function sourceWithoutExamples(body) {
@@ -124,13 +190,13 @@ async function generate(file) {
   const title = metadata.get("title") || identity.slug;
   const sourceUrl = `${siteUrl}${identity.urlPath}`;
   const pdfFile = outputFile(identity, metadata);
-  const normalized = normalizedMarkdown(source);
+  const normalized = normalizedMarkdown(replaceSupportedHtmlOutsideExamples(source));
   const markdownFile = normalized === source ? file : path.join(root, "tmp", "pdfs", "normalized", path.basename(file));
   if (markdownFile !== file) {
     await mkdir(path.dirname(markdownFile), { recursive: true });
     await writeFile(markdownFile, normalized);
   }
-  const article = await mdFile(markdownFile, { image: (src) => image(imagePath(src)), link: (href, text) => link(href, text) });
+  const article = await mdFile(markdownFile, { image: (src) => pdfImage(src), link: (href, text) => link(href, text) });
   const publication = english
     ? ["Katsutoshi Seki | Published: ", dateLabel(identity, true), " | Source: ", link(sourceUrl, sourceUrl)]
     : ["著者：関 勝寿　公開日：", dateLabel(identity, false), "　ソース：", link(sourceUrl, sourceUrl)];
@@ -139,7 +205,7 @@ async function generate(file) {
     p([publication], { align: "right", font: "SourceHanSansJP-Regular", size: Q(9), firstIndent: 0 }),
     box(article.blocks, { columns: 2, columnGap: 7, splitable: true }),
     { type: "flow", position: "page", blockOffset: 283, inlineSize: 210, blocks: [p([[page]], { align: "center", firstIndent: 0, font: "SourceHanSansJP-Regular", size: Q(9) })] },
-  ] }], structuredClone(documentStyle), { fontDir, outline: true, metadata: { title, author: "Katsutoshi Seki" } });
+  ] }], structuredClone(documentStyle), { fontDir, outline: false, metadata: { title, author: "Katsutoshi Seki" } });
   const errors = (await document.getDiagnostics()).filter((diagnostic) => diagnostic.severity === "error");
   if (errors.length) throw new Error(JSON.stringify(errors, null, 2));
   await mkdir(path.dirname(pdfFile), { recursive: true });
@@ -157,10 +223,11 @@ async function postFiles() {
 
 const arguments_ = process.argv.slice(2);
 const includeMissing = arguments_.includes("--missing");
+const rebuildAll = arguments_.includes("--all");
 const reportExclusions = arguments_.includes("--list-excluded");
-const requested = new Set(arguments_.filter((argument) => argument !== "--missing" && argument !== "--list-excluded").map((file) => path.resolve(root, file)));
-if (!includeMissing && !reportExclusions && requested.size === 0) {
-  console.error("Usage: node generate-pdfs.mjs --missing [post-file ...]");
+const requested = new Set(arguments_.filter((argument) => !["--all", "--missing", "--list-excluded"].includes(argument)).map((file) => path.resolve(root, file)));
+if (!includeMissing && !rebuildAll && !reportExclusions && requested.size === 0) {
+  console.error("Usage: node generate-pdfs.mjs --all | --missing [post-file ...]");
   process.exit(2);
 }
 
@@ -179,7 +246,7 @@ for (const file of await postFiles()) {
   if (reportExclusions) continue;
   const pdfFile = outputFile(postIdentity(file), metadata);
   const missing = !(await stat(pdfFile).then(() => true).catch(() => false));
-  if (!(requested.has(file) || (includeMissing && missing))) continue;
+  if (!(rebuildAll || requested.has(file) || (includeMissing && missing))) continue;
   try {
     console.log(`Generating ${path.relative(root, file)}`);
     console.log(`  -> ${await generate(file)}`);

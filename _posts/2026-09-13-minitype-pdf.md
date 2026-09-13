@@ -16,7 +16,7 @@ PDFは印刷したいときや、あとで手元に保存して読みたいと�
 
 PDFの作成には [minitype](https://typeset.jp/) を使った。minitypeは、TypeScriptライブラリとして利用するヘッドレス組版エンジンである。日本語の段組、禁則処理、縦組、ルビなどの組版機能を持つ。
 
-このブログの記事はMarkdownで書いているので、minitypeの[Markdownプラグイン](https://typeset.jp/plugin/markdown/)で記事ファイルを読み込む。見出し、段落、リスト、コードブロック、表、画像、リンクなどをminitypeの組版要素に変換できる。PDFを書き出す処理はNode.jsで実行する。
+このブログの記事はMarkdownで書いているので、minitypeの[Markdownプラグイン](https://typeset.jp/plugin/markdown/)で記事ファイルを読み込む。見出し、段落、リスト、コードブロック、表、画像、リンクなどをminitypeの組版要素に変換できる。このブログでは、リポジトリ内の画像を参照する `img` タグもMarkdown画像として扱う。PDFを書き出す処理はNode.jsで実行する。
 
 この方式は、公開済みのHTMLを画面キャプチャのようにPDF化するものではない。Markdownを読み、PDF用の版面として改めて組版する。そのため、WebページのボタンやJavaScriptの実行結果をPDFに写すのではなく、記事本文を読みやすい文書にすることを目的としている。
 

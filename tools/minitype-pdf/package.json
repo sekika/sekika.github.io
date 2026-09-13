@@ -3,10 +3,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "node generate-pdfs.mjs --missing"
+    "build": "node generate-pdfs.mjs --missing",
+    "rebuild": "node generate-pdfs.mjs --all"
   },
   "dependencies": {
-    "@minitype/minitype": "latest"
+    "@minitype/minitype": "latest",
+    "@resvg/resvg-js": "^2.6.2"
   },
   "overrides": {
     "@xmldom/xmldom": "^0.9.12"
