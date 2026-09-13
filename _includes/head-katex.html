@@ -22,15 +22,21 @@
   
   {% include base-js.html %}
 
-  <!-- Use Jquery for KaTeX -->
-  <script src="https://code.jquery.com/jquery-{{ site.jquery-version }}.min.js"></script>
   <!-- KaTeX JS http://sekika.github.io/2017/05/01/katex-equation/ -->
-  <script src="  https://cdn.jsdelivr.net/npm/katex@{{ site.katex-version }}/dist/katex.min.js" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/katex@{{ site.katex-version }}/dist/contrib/auto-render.min.js" crossorigin="anonymous" onload="renderMathInElement(document.body);></script>
-  <script>$(document).ready(function(){renderMathInElement(document.body,{delimiters: [{left: "[[", right: "]]", display: true},{left: "$", right: "$", display: false}]})});</script></script>
-  
-  <!-- from http://kivantium.hateblo.jp/entry/2016/11/18/142840 -->
-  <script>$(document).ready(function(){renderMathInElement(document.body,{delimiters: [{left: "[[", right: "]]", display: true},{left: "$", right: "$", display: false}]})});</script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@{{ site.katex-version }}/dist/katex.min.js" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@{{ site.katex-version }}/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+  <script defer>
+    document.addEventListener("DOMContentLoaded", () => {
+      renderMathInElement(document.body, {
+        delimiters: [
+          { left: "[[", right: "]]", display: true },
+          { left: "$$", right: "$$", display: true },
+          { left: "$", right: "$", display: false },
+        ],
+        throwOnError: false,
+      });
+    });
+  </script>
 
   <!-- Facebook share button -->
   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/ja_JP/sdk.js#xfbml=1&version=v15.0" nonce="JopwEjRf"></script>
