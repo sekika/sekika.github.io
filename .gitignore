@@ -6,6 +6,8 @@ Gemfile.lock
 .DS_Store
 /vendor
 .bundle/
+.npm/
+.gem/
 js/node_modules/
 tools/minitype-pdf/node_modules/
 tools/minitype-pdf/font-caches.db
