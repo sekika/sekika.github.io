@@ -2,6 +2,7 @@
 layout: post
 title: 記事を PDF でも読めるようにした
 date: 2026-09-13 08:49:00 +0000
+en: /2026/09/14/minitype-pdf/
 tags:
 - jekyll
 - javascript
