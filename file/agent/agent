@@ -1,0 +1,338 @@
+#!/usr/bin/env python3
+"""A portable Docker runner for Codex, Claude Code, and Gemini CLI."""
+
+import argparse
+import configparser
+import os
+import shlex
+import shutil
+import subprocess
+import sys
+from pathlib import Path
+
+CONFIG_PATH = Path.home() / ".config" / "agent" / "agent.ini"
+DEFAULTS = {
+    "agent": "codex", "dockerfile": "./Dockerfile",
+    "image": "agent:1.0", "container": "agent", "user": "agent",
+    "workspace": "/workspace", "model": "", "effort": "",
+}
+AGENTS = {"cx": "codex", "codex": "codex", "cl": "claude", "claude": "claude",
+          "gm": "gemini", "gemini": "gemini"}
+
+
+def load_config() -> configparser.ConfigParser:
+    cfg = configparser.ConfigParser()
+    cfg["agent"] = DEFAULTS.copy()
+    try:
+        if CONFIG_PATH.exists():
+            cfg.read(CONFIG_PATH, encoding="utf-8")
+            if "workdir" in cfg["agent"]:
+                del cfg["agent"]["workdir"]
+                try:
+                    lines = CONFIG_PATH.read_text(encoding="utf-8").splitlines(keepends=True)
+                    new_lines = [line for line in lines if not line.strip().startswith("workdir")]
+                    CONFIG_PATH.write_text("".join(new_lines), encoding="utf-8")
+                except OSError:
+                    pass
+        else:
+            # Keep creation separate from loading so a missing file is always
+            # materialized with the same defaults used by the parser.
+            CONFIG_PATH.parent.mkdir(parents=True, exist_ok=True)
+            save_config(cfg)
+    except OSError as e:
+        print(f"warning: could not create/read {CONFIG_PATH}: {e}", file=sys.stderr)
+    return cfg
+
+
+def save_config(cfg: configparser.ConfigParser) -> None:
+    """Persist a config, including the built-in defaults."""
+    with CONFIG_PATH.open("w", encoding="utf-8") as f:
+        cfg.write(f)
+
+
+def configured_model(cfg: configparser.SectionProxy, agent: str) -> str:
+    """Return the model configured for an agent, with the common value as fallback."""
+    models = cfg.parser["models"] if cfg.parser.has_section("models") else {}
+    aliases = [k for k, v in AGENTS.items() if v == agent]
+    for key in [agent, *aliases]:
+        if key in models:
+            return models[key]
+    return cfg.get("model", "")
+
+
+def configured_effort(cfg: configparser.SectionProxy, agent: str) -> str:
+    """Return the effort configured for an agent, with the common value as fallback."""
+    efforts = cfg.parser["efforts"] if cfg.parser.has_section("efforts") else {}
+    aliases = [k for k, v in AGENTS.items() if v == agent]
+    for key in [agent, *aliases]:
+        if key in efforts:
+            return efforts[key]
+    return cfg.get("effort", "")
+
+
+def docker(*args: str, check: bool = True, input: str | None = None) -> subprocess.CompletedProcess:
+    kwargs = {"check": check}
+    if input is not None:
+        kwargs["input"] = input
+        kwargs["text"] = True
+    return subprocess.run(["docker", *args], **kwargs)
+
+
+def ensure_docker() -> None:
+    if shutil.which("docker") is None:
+        raise SystemExit("error: docker command was not found")
+    result = subprocess.run(["docker", "info"], stdout=subprocess.DEVNULL,
+                            stderr=subprocess.PIPE, text=True)
+    if result.returncode:
+        raise SystemExit("error: Docker is not running or is not reachable")
+
+
+def image_exists(name: str) -> bool:
+    return subprocess.run(["docker", "image", "inspect", name], stdout=subprocess.DEVNULL,
+                          stderr=subprocess.DEVNULL).returncode == 0
+
+
+def build_image(args, no_cache: bool = False, pull: bool = False) -> None:
+    dockerfile = Path(args.dockerfile).expanduser()
+    if not dockerfile.is_file():
+        raise SystemExit(f"error: dockerfile not found: {dockerfile}")
+    cmd = ["build"]
+    if no_cache:
+        cmd.append("--no-cache")
+    if pull:
+        cmd.append("--pull")
+    cmd += ["-f", str(dockerfile), "-t", args.image,
+            str(Path(args.workdir).expanduser().resolve())]
+    docker(*cmd)
+
+
+UPDATE_DOCKERFILE_TEMPLATE = """\
+FROM {base_image}
+
+USER root
+ENV HOME=/root
+
+RUN apt-get update && apt-get upgrade -y && \
+    apt-get autoremove -y && apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
+    npm install -g --include=optional --ignore-scripts=false \
+        @anthropic-ai/claude-code@latest \
+        @openai/codex@latest \
+        @google/gemini-cli@latest && \
+    claude_package_dir="$(npm root -g)/@anthropic-ai/claude-code" && \
+    node "$claude_package_dir/install.cjs" && \
+    npm cache clean --force
+
+USER {user}
+ENV HOME=/home/{user}
+
+RUN curl -fsSL https://antigravity.google/cli/install.sh | bash -s -- --dir "$HOME/.local/bin"
+"""
+
+
+def update_image(args) -> None:
+    if not image_exists(args.image):
+        build_image(args)
+        return
+    dockerfile_content = UPDATE_DOCKERFILE_TEMPLATE.format(base_image=args.image, user=args.user)
+    docker("build", "--no-cache", "-t", args.image, "-", input=dockerfile_content)
+
+
+def mount(src: Path, dst: str) -> list[str]:
+    return ["--mount", f"type=bind,source={src},destination={dst}"]
+
+
+def image_name(args) -> str:
+    return args.image
+
+
+def container_exists(name: str) -> bool:
+    return subprocess.run(["docker", "inspect", name], stdout=subprocess.DEVNULL,
+                          stderr=subprocess.DEVNULL).returncode == 0
+
+
+def create_container(args) -> None:
+    workdir = Path(args.workdir).expanduser().resolve()
+    if not workdir.is_dir():
+        raise SystemExit(f"error: workdir is not a directory: {workdir}")
+    cmd = ["run", "--name", args.container, "-d"]
+    cmd += mount(workdir, args.workspace)
+    guest_home = Path(f"/home/{args.user}")
+    if args.agent == "codex":
+        state = Path.home() / ".codex"
+        state.mkdir(parents=True, exist_ok=True)
+        cmd += mount(state, str(guest_home / ".codex"))
+    elif args.agent == "claude":
+        state = Path.home() / ".claude"
+        if not state.is_dir():
+            raise SystemExit(f"error: state directory does not exist: {state}")
+        cmd += mount(state, str(guest_home / ".claude"))
+    else:
+        state = Path.home() / ".gemini"
+        keyring = Path.home() / ".local" / "share" / "keyrings"
+        state.mkdir(parents=True, exist_ok=True)
+        keyring.mkdir(parents=True, exist_ok=True)
+        cmd += mount(state, str(guest_home / ".gemini"))
+        cmd += mount(keyring, str(guest_home / ".local/share/keyrings"))
+        cmd += ["--network=host"]
+    cmd += ["-e", "TERM=xterm-256color", "-e", "LANG=ja_JP.UTF-8", image_name(args),
+            "tail", "-f", "/dev/null"]
+    docker(*cmd)
+
+
+def ensure_container(args) -> None:
+    # Bind mounts are fixed at creation time; recreate every launch so -d and
+    # the authentication mounts always match the dedicated cx/cl/gm runners.
+    if container_exists(args.container):
+        docker("rm", "-f", args.container, check=False)
+    create_container(args)
+
+
+def cli_command(args, extra: list[str]) -> list[str]:
+    # Keep the Antigravity entry point identical to the dedicated gm runner.
+    # `agy` is installed in ~/.local/bin by the image and is the command used
+    # by gm; invoking Gemini CLI directly uses a different trust/config path.
+    command = {
+        "codex": "codex",
+        "claude": "claude",
+        "gemini": f"/home/{args.user}/.local/bin/agy",
+    }[args.agent]
+    result = [command]
+    if args.model:
+        result += ["--model", args.model]
+    if args.effort:
+        if args.agent == "codex":
+            result += ["-c", f"model_reasoning_effort={args.effort}"]
+        elif args.agent == "claude":
+            result += ["--effort", args.effort]
+        elif args.agent == "gemini":
+            if args.effort not in ("low", "medium", "high"):
+                raise SystemExit(f"error: gemini effort must be one of low, medium, high (got: {args.effort})")
+            result += ["--effort", args.effort]
+    return result + extra
+
+
+def terminal_size() -> tuple[int, int]:
+    try:
+        columns, rows = os.get_terminal_size()
+    except OSError:
+        columns, rows = 80, 24
+    # Antigravity prints a copyable OAuth URL on one line.
+    return max(columns, 1000), rows
+
+
+CODEX_OVERRIDES = ["sandbox_mode=danger-full-access", "notify=[]", "mcp_servers.node_repl.enabled=false"]
+CODEX_OVERRIDES += [f"plugins.{chr(34)}{name}{chr(34)}.enabled=false" for name in ("visualize@openai-bundled", "documents@openai-primary-runtime", "pdf@openai-primary-runtime", "spreadsheets@openai-primary-runtime", "presentations@openai-primary-runtime", "template-creator@openai-primary-runtime", "browser@openai-bundled", "codex-app-tools@openai-bundled", "unified-computer-use@openai-bundled", "computer-use@openai-bundled", "sites@openai-bundled")]
+def run_codex(args):
+    columns, rows = terminal_size()
+    codex_args = cli_command(args, args.args)
+    options = []
+    for override in CODEX_OVERRIDES:
+        options += ["-c", override]
+    codex_args[1:1] = options
+    command = f"cd {shlex.quote(args.workspace)} && exec {shlex.join(codex_args)}"
+    docker(
+        "exec", "-it", "-u", args.user,
+        "-e", f"HOME=/home/{args.user}",
+        "-e", "LANG=ja_JP.UTF-8", "-e", "TERM=xterm-256color",
+        "-e", f"COLUMNS={columns}", "-e", f"LINES={rows}",
+        args.container, "/bin/bash", "-lc", command,
+    )
+def main() -> None:
+    cfg = load_config()["agent"]
+    p = argparse.ArgumentParser(description="Run coding agents in Docker.")
+    p.add_argument("--agent", "-a", choices=sorted(AGENTS), default=cfg.get("agent"))
+    p.add_argument("-d", "--dir", dest="workdir")
+    p.add_argument("--dockerfile", default=cfg.get("dockerfile"))
+    p.add_argument("--image")
+    p.add_argument("--container")
+    p.add_argument("--user", default=cfg.get("user"))
+    p.add_argument("--workspace")
+    # Keep None here so an explicit CLI value can be distinguished from config.
+    p.add_argument("-m", "--model")
+    p.add_argument("--effort", choices=["low", "medium", "high", "xhigh"])
+    p.add_argument("--dry-run", action="store_true")
+    p.add_argument("-u", "--update", action="store_true", help="update packages and CLIs in container image before starting the agent")
+    p.add_argument("command", nargs="?", choices=["run", "build", "rebuild", "update", "start", "stop", "rm", "shell", "exec", "images"], default="run")
+    p.add_argument("args", nargs=argparse.REMAINDER)
+    args = p.parse_args()
+    args.agent = AGENTS[args.agent]
+    if args.model is None:
+        args.model = configured_model(cfg, args.agent)
+    if args.effort is None:
+        args.effort = configured_effort(cfg, args.agent)
+    if args.effort and args.effort not in ("low", "medium", "high", "xhigh"):
+        raise SystemExit(f"error: invalid effort '{args.effort}': must be one of low, medium, high, xhigh")
+    args.workdir = args.workdir or os.getcwd()
+    args.image = args.image or cfg.get("image")
+    args.container = args.container or cfg.get("container")
+    args.workspace = args.workspace or cfg.get("workspace")
+    dash_dash_idx = args.args.index("--") if "--" in args.args else len(args.args)
+    pre_args = args.args[:dash_dash_idx]
+    post_args = args.args[dash_dash_idx:]
+    if "--dry-run" in pre_args:
+        args.dry_run = True
+        pre_args.remove("--dry-run")
+    if "-u" in pre_args:
+        args.update = True
+        pre_args.remove("-u")
+    if "--update" in pre_args:
+        args.update = True
+        pre_args.remove("--update")
+    args.args = pre_args + post_args
+    if args.args[:1] == ["--"]:
+        args.args.pop(0)
+    if args.dry_run:
+        print("dry-run: ", " ".join(shlex.quote(x) for x in sys.argv))
+        return
+    ensure_docker()
+    if args.command == "images":
+        docker("images"); return
+    if args.command == "build":
+        build_image(args, no_cache=False, pull=False)
+        return
+    if args.command == "rebuild":
+        build_image(args, no_cache=True, pull=True)
+        return
+    if args.command == "update":
+        update_image(args)
+        return
+    if args.update:
+        update_image(args)
+    if args.command == "stop":
+        docker("stop", args.container, check=False); return
+    if args.command == "rm":
+        docker("rm", "-f", args.container, check=False); return
+    if not image_exists(args.image):
+        build_image(args)
+    ensure_container(args)
+    if args.command == "start": return
+    if args.command == "shell":
+        docker("exec", "-it", "-u", args.user, "-w", args.workspace, args.container, "/bin/bash"); return
+    if args.command == "exec":
+        if not args.args: raise SystemExit("error: exec requires a command")
+        docker("exec", "-it", "-u", args.user, "-w", args.workspace, args.container, *args.args); return
+    environment = ["-e", "LANG=ja_JP.UTF-8", "-e", "TERM=xterm-256color"]
+    if args.agent == "claude":
+        environment += ["-e", f"CLAUDE_CONFIG_DIR=/home/{args.user}/.claude"]
+    if args.agent == "gemini":
+        columns, rows = terminal_size()
+        gemini_args = cli_command(args, args.args)[1:]
+        shell_command = (
+            'eval "$(gnome-keyring-daemon --start --components=secrets)"; '
+            f"cd {shlex.quote(args.workspace)} && exec {shlex.quote(cli_command(args, [])[0])} \"$@\""
+        )
+        docker("exec", "-it", "-u", args.user, *environment,
+               "-e", f"COLUMNS={columns}", "-e", f"LINES={rows}",
+               args.container, "dbus-run-session", "--", "/bin/bash", "-lc",
+               shell_command, "agy", *gemini_args)
+        return
+    if args.agent == "codex":
+        run_codex(args)
+        return
+    docker("exec", "-it", "-u", args.user, *environment, "-w", args.workspace,
+           args.container, *cli_command(args, args.args))
+
+
+if __name__ == "__main__":
+    main()
