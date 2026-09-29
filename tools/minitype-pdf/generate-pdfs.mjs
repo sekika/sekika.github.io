@@ -525,8 +525,8 @@ async function generate(file) {
     await writeFile(markdownFile, normalized);
   }
   const article = await mdFile(markdownFile, { image: (src) => pdfImage(src), link: (href, text) => link(href, text) });
-  // This header identifies the table in _posts/2018-10-24-climate-change-timeline.md.
-  // Keep the wide timeline table legible in one column with a narrow event column.
+  // These headers identify the chronology tables in the climate-change and energy-policy posts.
+  // Keep both legible in one column with a narrow event column.
   const timelineTable = article.blocks.find((block) => block.type === "table" &&
     block.rows?.[0]?.map((cell) => cell.block?.lines?.flat().filter((item) => typeof item === "string").join("")).join("|") === "年次|できごと|説明");
   if (timelineTable) {
