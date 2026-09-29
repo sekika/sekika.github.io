@@ -11,7 +11,8 @@
     "@resvg/resvg-js": "^2.6.2"
   },
   "overrides": {
-    "@xmldom/xmldom": "^0.9.12"
+    "@xmldom/xmldom": "^0.9.12",
+    "image-size": "2.0.3"
   },
   "allowScripts": {
     "better-sqlite3@12.11.1": true
