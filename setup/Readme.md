@@ -16,9 +16,10 @@ make -C setup install-hook
 
 `_posts/` 内の記事を追加、編集、削除、または名前変更してコミットすると、`pre-commit` フックが次を自動的に行います。
 
-1. `setup/index` を実行して、全記事の検索データを `js/index.js` に生成します。
-2. `tools/minitype-pdf/generate-pdfs.mjs` を実行し、未生成のPDFを一括生成します。コミットに含まれる記事のPDFは、既存であっても再生成します。
-3. 生成された `js/index.js` と `pdf/` 配下のPDFをコミット対象に追加します。
+1. 記事のフロントマターに `update:` があれば、現在時刻（UTC）に更新してステージします。
+2. `setup/index` を実行して、全記事の検索データを `js/index.js` に生成します。
+3. `tools/minitype-pdf/generate-pdfs.mjs` を実行し、未生成のPDFを一括生成します。コミットに含まれる記事のPDFは、既存であっても再生成します。
+4. 生成された `js/index.js` と `pdf/` 配下のPDFをコミット対象に追加します。
 
 したがって、通常は記事と一緒に `js/index.js` やPDFを手作業で `git add` する必要はありません。ただし、生成された変更内容を確認したい場合は、コミット前に手動生成しておくこともできます。
 

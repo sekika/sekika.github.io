@@ -16,6 +16,23 @@ if git diff --cached --name-only --diff-filter=ACDMR -- _posts/ | grep -q .; the
     exit 1
   fi
 
+  # Refresh an existing update field in the front matter of committed posts.
+  # Added posts and renames are included; deleted paths have no working file.
+  updated_at=$(date -u "+%Y-%m-%d %H:%M:%S +0000")
+  git diff --cached --name-only --diff-filter=ACMR -- _posts/ |
+    while IFS= read -r post; do
+      [ -f "$post" ] || continue
+      if sed -n '1,/^---[[:space:]]*$/p' "$post" | grep -q '^update:'; then
+        post_tmp="$post.pre-commit.$$"
+        sed "/^---[[:space:]]*$/,/^---[[:space:]]*$/ { /^update:/c\\
+update: $updated_at
+}" "$post" > "$post_tmp"
+        cat "$post_tmp" > "$post"
+        rm -f "$post_tmp"
+        git add -- "$post"
+      fi
+    done
+
   python3 "$repo_root/setup/index"
   git add js/index.js
 
