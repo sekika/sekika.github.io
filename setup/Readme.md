@@ -43,6 +43,7 @@ git add _posts/
 
 - `index` はPython 3の標準ライブラリだけで動作し、追加の `pip` パッケージは不要です。
 - PDF生成はNode.jsを使用します。初回だけ `cd tools/minitype-pdf && npm install` を実行してください。
+- PDF生成が使うSQLiteのネイティブモジュールはOSごとに異なります。Linux/macOS間で `node_modules` を共有して不一致が起きた場合、pre-commitが現在の環境向けに自動で再ビルドします。
 - 実行するディレクトリにかかわらず、リポジトリ内の `_posts/` を読み込み、`js/index.js` に出力します。
 - 記事のタイトル、作成日、更新日、本文のテキストを検索データに含めます。
 - 検索メニューは日本語サイトのナビゲーションにのみ表示されます。

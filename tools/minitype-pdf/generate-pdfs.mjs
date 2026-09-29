@@ -525,16 +525,29 @@ async function generate(file) {
     await writeFile(markdownFile, normalized);
   }
   const article = await mdFile(markdownFile, { image: (src) => pdfImage(src), link: (href, text) => link(href, text) });
+  // This header identifies the table in _posts/2018-10-24-climate-change-timeline.md.
+  // Keep the wide timeline table legible in one column with a narrow event column.
+  const timelineTable = article.blocks.find((block) => block.type === "table" &&
+    block.rows?.[0]?.map((cell) => cell.block?.lines?.flat().filter((item) => typeof item === "string").join("")).join("|") === "年次|できごと|説明");
+  if (timelineTable) {
+    timelineTable.style = {
+      ...timelineTable.style,
+      columnWidths: [0.3, 0.9, 1.8].map((value) => ({ type: "fr", value })),
+      cellPadding: physical(1.3, 3, 1.3, 3),
+      textStyle: { ...timelineTable.style?.textStyle, size: Q(9) },
+    };
+  }
   article.blocks = replaceDisplayMathBlocks(article.blocks, preparedMath.displayMath);
   replaceInlineMathBlocks(article.blocks, preparedMath.inlineMath);
   replaceInlineHtmlBlocks(article.blocks);
   const publication = english
     ? ["Katsutoshi Seki | Published: ", dateLabel(identity, true), " | Source: ", link(sourceUrl, sourceUrl)]
     : ["著者：関 勝寿　公開日：", dateLabel(identity, false), "　ソース：", link(sourceUrl, sourceUrl)];
+  const articleBoxes = [box(article.blocks, { columns: timelineTable ? 1 : 2, columnGap: 7, splitable: true })];
   const document = minitype([{ body: [
     h1(title, { align: "center", unnumbered: true }),
     p([publication], { align: "right", font: sansFont, size: Q(9), firstIndent: 0 }),
-    box(article.blocks, { columns: 2, columnGap: 7, splitable: true }),
+    ...articleBoxes,
     { type: "flow", position: "page", blockOffset: 283, inlineSize: 210, blocks: [p([[page]], { align: "center", firstIndent: 0, font: sansFont, size: Q(9) })] },
   ] }], structuredClone(documentStyle), { fontDir, outline: false, metadata: { title, author: "Katsutoshi Seki" } });
   const errors = (await document.getDiagnostics()).filter((diagnostic) => diagnostic.severity === "error");

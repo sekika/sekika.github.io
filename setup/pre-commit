@@ -41,6 +41,12 @@ update: $updated_at
   # with pdf: false and interactive browser content.
   set -- $(git diff --cached --name-only --diff-filter=ACMR -- _posts/)
   if [ "$#" -gt 0 ]; then
+    # node_modules may be shared across Linux and macOS workspaces. Rebuild the
+    # native SQLite addon when opening an in-memory database cannot load it.
+    if ! node -e 'const Database = require("./tools/minitype-pdf/node_modules/better-sqlite3"); const database = new Database(":memory:"); database.close();' >/dev/null 2>&1; then
+      echo "pre-commit: better-sqlite3 をこの環境向けに再ビルドします。" >&2
+      (cd "$repo_root/tools/minitype-pdf" && npm rebuild better-sqlite3)
+    fi
     node "$repo_root/tools/minitype-pdf/generate-pdfs.mjs" --missing "$@"
     git add pdf/
   fi
