@@ -2,6 +2,7 @@
 """A portable Docker runner for Codex, Claude Code, and Gemini CLI."""
 
 import argparse
+import base64
 import configparser
 import os
 import shlex
@@ -11,6 +12,17 @@ import sys
 from pathlib import Path
 
 CONFIG_PATH = Path.home() / ".config" / "agent" / "agent.ini"
+EGRESS_CONFIG_DIR = Path.home() / ".config" / "agent"
+EGRESS_ALLOWLIST_COMMON = EGRESS_CONFIG_DIR / "allowed_domains_common.txt"
+EGRESS_ALLOWLISTS = {
+    "codex": EGRESS_CONFIG_DIR / "allowed_domains_codex.txt",
+    "claude": EGRESS_CONFIG_DIR / "allowed_domains_claude.txt",
+}
+EGRESS_ALLOWLIST_EFFECTIVE = EGRESS_CONFIG_DIR / ".allowed_domains_effective.txt"
+EGRESS_DEFAULTS = {
+    "codex": ["api.openai.com", "auth.openai.com", "chatgpt.com"],
+    "claude": ["api.anthropic.com", "statsig.anthropic.com", "sentry.io"],
+}
 DEFAULTS = {
     "agent": "codex", "dockerfile": "./Dockerfile",
     "image": "agent:1.0", "container": "agent", "user": "agent",
@@ -130,6 +142,66 @@ RUN curl -fsSL https://antigravity.google/cli/install.sh | bash -s -- --dir "$HO
 """
 
 
+SQUID_CONFIG = """\
+http_port 3128
+
+acl CONNECT method CONNECT
+acl SSL_ports port 443
+acl Safe_ports port 443
+acl allowed_domains dstdomain "/etc/squid/allowed_domains.txt"
+
+http_access deny !Safe_ports
+http_access deny CONNECT !SSL_ports
+http_access allow CONNECT allowed_domains
+http_access deny all
+
+cache deny all
+access_log stdio:/dev/stdout
+cache_log /dev/stderr
+pid_filename /run/squid.pid
+coredump_dir /tmp
+"""
+
+
+def dockerfile_base_image(dockerfile: Path) -> str:
+    """Return the image named by the first FROM instruction in dockerfile."""
+    try:
+        lines = dockerfile.read_text(encoding="utf-8").splitlines()
+    except OSError as e:
+        raise SystemExit(f"error: could not read dockerfile {dockerfile}: {e}")
+
+    for line in lines:
+        line = line.strip()
+        if not line or line.startswith("#"):
+            continue
+        parts = line.split()
+        if not parts or parts[0].upper() != "FROM":
+            continue
+        for part in parts[1:]:
+            if not part.startswith("--"):
+                if part.startswith("$"):
+                    raise SystemExit(
+                        f"error: variable-based FROM is not supported for egress proxy: {line}"
+                    )
+                return part
+    raise SystemExit(f"error: no FROM instruction found in dockerfile: {dockerfile}")
+
+
+def proxy_dockerfile(base_image: str) -> str:
+    """Return the self-contained Dockerfile for the egress proxy."""
+    squid_config = base64.b64encode(SQUID_CONFIG.encode("utf-8")).decode("ascii")
+    return f"""\
+FROM {base_image}
+
+RUN apt-get update && apt-get install -y --no-install-recommends squid && \\
+    rm -rf /var/lib/apt/lists/*
+
+RUN echo {squid_config} | base64 -d > /etc/squid/squid.conf
+USER proxy
+EXPOSE 3128
+"""
+
+
 def update_image(args) -> None:
     if not image_exists(args.image):
         build_image(args)
@@ -151,11 +223,161 @@ def container_exists(name: str) -> bool:
                           stderr=subprocess.DEVNULL).returncode == 0
 
 
+def network_exists(name: str) -> bool:
+    return subprocess.run(["docker", "network", "inspect", name], stdout=subprocess.DEVNULL,
+                          stderr=subprocess.DEVNULL).returncode == 0
+
+
+def egress_names(args) -> tuple[str, str, str, str]:
+    return (f"{args.container}-egress", f"{args.container}-isolated",
+            f"{args.container}-uplink", "agent-egress:1.0")
+
+
+def container_running(name: str) -> bool:
+    """Return whether an existing container is currently running."""
+    result = subprocess.run(["docker", "inspect", "-f", "{{.State.Running}}", name],
+                            capture_output=True, text=True)
+    return result.returncode == 0 and result.stdout.strip() == "true"
+
+
+def normalized_domain(value: str) -> str:
+    domain = value.strip().rstrip(".").lower()
+    if not domain or len(domain) > 253 or "/" in domain or ":" in domain:
+        raise SystemExit(f"error: invalid domain: {value}")
+    labels = domain.split(".")
+    if any(not label or len(label) > 63 or label.startswith("-") or label.endswith("-")
+           or not all(c.isascii() and (c.isalnum() or c == "-") for c in label)
+           for label in labels):
+        raise SystemExit(f"error: invalid domain: {value}")
+    return domain
+
+
+def allowlist_path(agent: str) -> Path:
+    try:
+        return EGRESS_ALLOWLISTS[agent]
+    except KeyError:
+        raise SystemExit(f"error: egress allowlist is not supported for agent: {agent}")
+
+
+def read_allowlist(path: Path) -> list[str]:
+    domains = []
+    for line in path.read_text(encoding="utf-8").splitlines():
+        line = line.partition("#")[0].strip()
+        if line:
+            domains.append(normalized_domain(line))
+    return sorted(set(domains))
+
+
+def ensure_allowlists(agent: str) -> None:
+    EGRESS_CONFIG_DIR.mkdir(parents=True, exist_ok=True)
+    if not EGRESS_ALLOWLIST_COMMON.exists():
+        EGRESS_ALLOWLIST_COMMON.write_text("", encoding="utf-8")
+    path = allowlist_path(agent)
+    if not path.exists():
+        path.write_text(
+            "".join(f"{domain}\n" for domain in EGRESS_DEFAULTS[agent]),
+            encoding="utf-8",
+        )
+
+
+def load_allowlist(agent: str) -> list[str]:
+    ensure_allowlists(agent)
+    return sorted(set(read_allowlist(EGRESS_ALLOWLIST_COMMON) + read_allowlist(allowlist_path(agent))))
+
+
+def write_effective_allowlist(agent: str) -> None:
+    domains = load_allowlist(agent)
+    if not domains:
+        raise SystemExit(f"error: effective egress allowlist is empty for {agent}")
+    EGRESS_ALLOWLIST_EFFECTIVE.write_text(
+        "".join(f"{d}\n" for d in domains), encoding="utf-8"
+    )
+
+
+def write_allowlist(agent: str, domains: list[str]) -> None:
+    allowlist_path(agent).write_text(
+        "".join(f"{d}\n" for d in sorted(set(domains))), encoding="utf-8"
+    )
+
+
+def update_allowlist(args) -> None:
+    ensure_allowlists(args.agent)
+    domain = normalized_domain(args.domain)
+    path = allowlist_path(args.agent)
+    domains = set(read_allowlist(path))
+    if args.command == "allow":
+        domains.add(domain)
+    else:
+        domains.discard(domain)
+    write_allowlist(args.agent, list(domains))
+    proxy, _, _, _ = egress_names(args)
+    if container_exists(proxy):
+        docker("rm", "-f", proxy, check=False)
+    print(f"{'allowed' if args.command == 'allow' else 'denied'} for {args.agent}: {domain}")
+
+
+def proxy_image_base(image: str) -> str:
+    result = subprocess.run(
+        ["docker", "image", "inspect", "-f",
+         '{{ index .Config.Labels "agent.egress.base-image" }}', image],
+        capture_output=True, text=True,
+    )
+    return result.stdout.strip() if result.returncode == 0 else ""
+
+
+def ensure_egress(args) -> None:
+    proxy, network, uplink, image = egress_names(args)
+    ensure_allowlists(args.agent)
+    write_effective_allowlist(args.agent)
+    dockerfile = Path(args.dockerfile).expanduser()
+    if not dockerfile.is_file():
+        raise SystemExit(f"error: dockerfile not found: {dockerfile}")
+    base_image = dockerfile_base_image(dockerfile)
+
+    if not network_exists(network):
+        docker("network", "create", "--internal", network)
+    if not network_exists(uplink):
+        docker("network", "create", uplink)
+    if not image_exists(image) or proxy_image_base(image) != base_image:
+        docker("build", "--label", f"agent.egress.base-image={base_image}",
+               "-t", image, "-", input=proxy_dockerfile(base_image))
+
+    # Recreate the proxy on each launch so the generated effective allowlist
+    # and all hardening options always match the current runner.
+    if container_exists(proxy):
+        docker("rm", "-f", proxy)
+    docker("run", "-d", "--name", proxy, "--network", uplink, "--user", "proxy",
+           "--cap-drop", "ALL", "--security-opt", "no-new-privileges",
+           # Squid runs as Debian's unprivileged `proxy` user (UID/GID
+           # 13).  Docker creates tmpfs mounts as root-owned by default,
+           # which otherwise prevents Squid from creating /run/squid.pid.
+           "--read-only", "--tmpfs", "/run:rw,noexec,nosuid,size=16m,uid=13,gid=13,mode=0755",
+           "--tmpfs", "/tmp:rw,noexec,nosuid,size=16m",
+           "--tmpfs", "/var/log/squid:rw,noexec,nosuid,size=16m",
+           *mount(EGRESS_ALLOWLIST_EFFECTIVE, "/etc/squid/allowed_domains.txt"),
+           "--entrypoint", "/usr/sbin/squid", image, "-N", "-f", "/etc/squid/squid.conf")
+    if not container_running(proxy):
+        raise SystemExit(
+            f"error: egress proxy {proxy} exited during startup; inspect it with "
+            f"`docker logs {proxy}`"
+        )
+    # The proxy gets a second interface on the private network. The agent gets
+    # only this network, so clearing proxy variables cannot provide direct egress.
+    docker("network", "connect", "--alias", "agent-egress", network, proxy)
+
+
 def create_container(args) -> None:
     workdir = Path(args.workdir).expanduser().resolve()
     if not workdir.is_dir():
         raise SystemExit(f"error: workdir is not a directory: {workdir}")
     cmd = ["run", "--name", args.container, "-d"]
+    if args.agent in ("codex", "claude") and not args.direct_egress:
+        _, network, _, _ = egress_names(args)
+        cmd += ["--network", network, f"--network-alias=agent-{args.agent}",
+                "-e", "HTTP_PROXY=http://agent-egress:3128",
+                "-e", "HTTPS_PROXY=http://agent-egress:3128",
+                "-e", "ALL_PROXY=http://agent-egress:3128",
+                "-e", "NO_PROXY=localhost,127.0.0.1"]
     cmd += mount(workdir, args.workspace)
     guest_home = Path(f"/home/{args.user}")
     if args.agent == "codex":
@@ -252,8 +474,10 @@ def main() -> None:
     p.add_argument("-m", "--model")
     p.add_argument("--effort", choices=["low", "medium", "high", "xhigh"])
     p.add_argument("--dry-run", action="store_true")
+    p.add_argument("--direct-egress", action="store_true",
+                   help="allow Codex/Claude to use Docker's direct network instead of the Squid egress proxy")
     p.add_argument("-u", "--update", action="store_true", help="update packages and CLIs in container image before starting the agent")
-    p.add_argument("command", nargs="?", choices=["run", "build", "rebuild", "update", "start", "stop", "rm", "shell", "exec", "images"], default="run")
+    p.add_argument("command", nargs="?", choices=["run", "build", "rebuild", "update", "start", "stop", "rm", "shell", "exec", "images", "allow", "deny", "domains"], default="run")
     p.add_argument("args", nargs=argparse.REMAINDER)
     args = p.parse_args()
     args.agent = AGENTS[args.agent]
@@ -279,11 +503,23 @@ def main() -> None:
     if "--update" in pre_args:
         args.update = True
         pre_args.remove("--update")
+    if "--direct-egress" in pre_args:
+        args.direct_egress = True
+        pre_args.remove("--direct-egress")
     args.args = pre_args + post_args
     if args.args[:1] == ["--"]:
         args.args.pop(0)
     if args.dry_run:
         print("dry-run: ", " ".join(shlex.quote(x) for x in sys.argv))
+        return
+    if args.command in ("allow", "deny"):
+        if len(args.args) != 1:
+            raise SystemExit(f"error: {args.command} requires exactly one domain")
+        args.domain = args.args[0]
+        update_allowlist(args)
+        return
+    if args.command == "domains":
+        print("\n".join(load_allowlist(args.agent)))
         return
     ensure_docker()
     if args.command == "images":
@@ -300,11 +536,21 @@ def main() -> None:
     if args.update:
         update_image(args)
     if args.command == "stop":
-        docker("stop", args.container, check=False); return
+        proxy, _, _, _ = egress_names(args)
+        docker("stop", args.container, check=False)
+        docker("stop", proxy, check=False)
+        return
     if args.command == "rm":
-        docker("rm", "-f", args.container, check=False); return
+        proxy, network, uplink, _ = egress_names(args)
+        docker("rm", "-f", args.container, check=False)
+        docker("rm", "-f", proxy, check=False)
+        docker("network", "rm", network, check=False)
+        docker("network", "rm", uplink, check=False)
+        return
     if not image_exists(args.image):
         build_image(args)
+    if args.agent in ("codex", "claude") and not args.direct_egress:
+        ensure_egress(args)
     ensure_container(args)
     if args.command == "start": return
     if args.command == "shell":
