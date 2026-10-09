@@ -57,6 +57,8 @@ ENV HOME=/home/agent
 
 # Antigravity CLI is distributed as a native binary. Keep its user-local
 # installation path explicit in gm rather than modifying the user's shell rc.
-RUN curl -fsSL https://antigravity.google/cli/install.sh | bash -s -- --dir "$HOME/.local/bin"
+# The endpoint may return a content-encoded script.  Ask curl to decode it
+# before piping it to bash.
+RUN curl --compressed -fsSL https://antigravity.google/cli/install.sh | bash -s -- --dir "$HOME/.local/bin"
 
 ENTRYPOINT ["dbus-run-session", "--", "tail", "-F", "/dev/null"]
