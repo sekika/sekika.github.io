@@ -138,7 +138,9 @@ RUN apt-get update && apt-get upgrade -y && \
 USER {user}
 ENV HOME=/home/{user}
 
-RUN curl -fsSL https://antigravity.google/cli/install.sh | bash -s -- --dir "$HOME/.local/bin"
+# The endpoint may return a content-encoded script.  Ask curl to decode it
+# before piping it to bash.
+RUN curl --compressed -fsSL https://antigravity.google/cli/install.sh | bash -s -- --dir "$HOME/.local/bin"
 """
 
 
